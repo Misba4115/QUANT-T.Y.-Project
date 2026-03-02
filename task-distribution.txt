@@ -1,0 +1,61 @@
+# QUANT — Task List
+
+## Dev 1 (Frontend)
+- [ ] Scaffold React + Tailwind project
+- [ ] Login & Register pages
+- [ ] Onboarding flow (3 screens)
+- [ ] Input Data page layout + 5 category cards
+- [ ] Banking form
+- [ ] Equity form + CSV upload button
+- [ ] Mutual Fund form + CAS upload button
+- [ ] ETF form
+- [ ] Crypto form
+- [ ] Goals form
+- [ ] Quick Stats sidebar
+- [ ] Floating chatbot button (persistent on all pages)
+- [ ] Dashboard tab — config form + Generate button
+- [ ] Net Worth card
+- [ ] Risk Level meter
+- [ ] Monthly Cashflow card
+- [ ] Tax Saving (80C) progress bar
+- [ ] Portfolio line chart (12 months)
+- [ ] Asset Allocation donut chart
+- [ ] Top Holdings table
+- [ ] Alerts & Insights panel
+- [ ] Chat drawer UI (message list + input box)
+- [ ] Settings page
+- [ ] Error handling + loading states on all pages
+
+***
+
+## Dev 2 (Backend + AI)
+- [ ] PostgreSQL setup + run schema SQL
+- [ ] Qdrant setup via Docker
+- [ ] Auth endpoints (register, login, JWT)
+- [ ] CRUD endpoints for all holdings (equity, MF, ETF, crypto, banking)
+- [ ] CRUD endpoints for goals
+- [ ] CSV parser for equity holdings upload
+- [ ] Bank statement CSV parser + auto-categorizer
+- [ ] CAS PDF parser for mutual funds
+- [ ] Yahoo Finance price sync (equities + ETFs)
+- [ ] AMFI NAV sync (mutual funds)
+- [ ] CoinGecko price sync (crypto)
+- [ ] Guardian Agent (Isolation Forest on transactions)
+- [ ] Portfolio Agent (Markowitz + Ledoit-Wolf + CVaR)
+- [ ] Tax Engine (80C, LTCG, STCG rules)
+- [ ] Cashflow Engine (income vs expense aggregation)
+- [ ] LangGraph StateGraph (wire all 4 agents)
+- [ ] `POST /generate-dashboard` endpoint
+- [ ] Seed `financial_docs` vector collection
+- [ ] RAG pipeline (embed → search → GPT-4o)
+- [ ] `POST /chat` endpoint
+- [ ] Portfolio snapshots daily job
+- [ ] `PUT /users/profile` endpoint
+
+***
+
+## Both
+- [ ] GitHub repo + branch structure
+- [ ] Agree on API contract (`api_contract.md`)
+- [ ] Final end-to-end integration test
+- [ ] README + environment variables setup
