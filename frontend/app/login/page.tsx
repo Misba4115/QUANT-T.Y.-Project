@@ -41,12 +41,17 @@ export default function LoginPage() {
             // const res = await authApi.login(data);
             // login(res.data.data.user, res.data.data.token);
 
-            // Mock login for now
+            // Mock login for now (uses email prefix as display name)
             await new Promise((resolve) => setTimeout(resolve, 1200));
+            const nameFromEmail = data.email.split('@')[0].replace(/[._-]/g, ' ');
+            const displayName = nameFromEmail
+                .split(' ')
+                .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+                .join(' ');
             login(
                 {
                     id: '1',
-                    fullName: 'Rahul Kapoor',
+                    fullName: displayName,
                     email: data.email,
                     profileCompletion: 80,
                     createdAt: new Date().toISOString(),

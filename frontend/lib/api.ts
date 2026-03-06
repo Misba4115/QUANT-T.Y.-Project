@@ -11,6 +11,7 @@ import type {
 
 // ==========================================
 // Auth API
+// Backend: POST /auth/register, POST /auth/login
 // ==========================================
 export const authApi = {
     register: (data: RegisterCredentials) =>
@@ -22,6 +23,8 @@ export const authApi = {
 
 // ==========================================
 // User API
+// Backend: No dedicated route yet — your backend dev
+// will need to add GET/PUT /auth/me or similar
 // ==========================================
 export const userApi = {
     getProfile: () =>
@@ -32,20 +35,31 @@ export const userApi = {
 };
 
 // ==========================================
-// Financial Data API
+// Banking API
+// Backend: GET /banking-accounts/, POST /banking-accounts/
 // ==========================================
 export const financialApi = {
     addBankAccount: (data: BankAccount) =>
-        apiClient.post<ApiResponse<BankAccount>>('/financial-data', data),
+        apiClient.post<ApiResponse<BankAccount>>('/banking-accounts/', data),
 
     getBankAccounts: () =>
-        apiClient.get<ApiResponse<BankAccount[]>>('/financial-data/accounts'),
+        apiClient.get<ApiResponse<BankAccount[]>>('/banking-accounts/'),
 };
 
 // ==========================================
 // Dashboard API
+// Backend: POST /dashboard/generate, GET /dashboard/result/{run_id}
 // ==========================================
 export const dashboardApi = {
-    getDashboardData: () =>
-        apiClient.get<ApiResponse<DashboardData>>('/dashboard'),
+    generateDashboard: (
+        widgets: string[] = ['net_worth', 'asset_allocation', 'portfolio_performance', 'cashflow', 'tax_tracker', 'top_holdings', 'alerts'],
+        timePeriod: string = '1y'
+    ) =>
+        apiClient.post<ApiResponse<{ run_id: string }>>('/dashboard/generate', {
+            widgets,
+            time_period: timePeriod,
+        }),
+
+    getDashboardResult: (runId: string) =>
+        apiClient.get<ApiResponse<DashboardData>>(`/dashboard/result/${runId}`),
 };

@@ -34,8 +34,8 @@ import Navbar from '@/components/layout/navbar';
 import PageTransition from '@/components/layout/page-transition';
 import { SkeletonCard } from '@/components/ui/skeletons';
 import { useUser } from '@/contexts/user-context';
-import type { QuickStats, FinancialCategory } from '@/types';
-import { dashboardApi } from '@/lib/api';
+import type { QuickStats, FinancialCategory, BankAccount } from '@/types';
+import { financialApi } from '@/lib/api';
 
 // ==========================================
 // Financial Categories (UI constants)
@@ -143,12 +143,12 @@ export default function InputDataPage() {
     useEffect(() => {
         async function fetchQuickStats() {
             try {
-                const res = await dashboardApi.getDashboardData();
-                const d = res.data.data;
+                const res = await financialApi.getBankAccounts();
+                const accounts = res.data.data;
                 setQuickStats({
                     dataCompleteness: user?.profileCompletion ?? 0,
-                    accountsAdded: d.topHoldings?.length ?? 0,
-                    holdings: d.topHoldings?.length ?? 0,
+                    accountsAdded: accounts?.length ?? 0,
+                    holdings: accounts?.length ?? 0,
                     lastUpdated: 'Just now',
                 });
             } catch {
@@ -161,13 +161,18 @@ export default function InputDataPage() {
     }, [user?.profileCompletion]);
 
     const onSubmit = async (data: BankAccountForm) => {
-        // TODO: Connect to backend
-        // await financialApi.addBankAccount({
-        //   ...data,
-        //   currentBalance: parseFloat(data.currentBalance),
-        // });
-        console.log('Bank account data:', data);
-        alert('Account saved successfully! (Demo mode)');
+        try {
+            await financialApi.addBankAccount({
+                accountType: data.accountType as BankAccount['accountType'],
+                bankName: data.bankName,
+                accountNickname: data.accountNickname,
+                currentBalance: parseFloat(data.currentBalance),
+                isPrimary: data.isPrimary,
+            });
+            alert('Account saved successfully!');
+        } catch {
+            alert('Could not save — backend may not be connected yet.');
+        }
     };
 
     const displayName = user?.fullName || 'Rahul';

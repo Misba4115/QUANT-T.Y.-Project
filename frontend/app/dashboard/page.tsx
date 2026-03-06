@@ -163,8 +163,27 @@ export default function DashboardPage() {
     useEffect(() => {
         async function fetchDashboard() {
             try {
-                const res = await dashboardApi.getDashboardData();
-                setData(res.data.data);
+                // Step 1: Kick off dashboard generation
+                const genRes = await dashboardApi.generateDashboard();
+                const runId = genRes.data.data.run_id;
+
+                // Step 2: Poll for result until completed
+                let attempts = 0;
+                const maxAttempts = 30;
+                while (attempts < maxAttempts) {
+                    const resultRes = await dashboardApi.getDashboardResult(runId);
+                    const result = resultRes.data.data;
+
+                    // Check if the run has completed (backend sets status='completed')
+                    if (result) {
+                        setData(result);
+                        break;
+                    }
+
+                    // Wait 2 seconds before polling again
+                    await new Promise((r) => setTimeout(r, 2000));
+                    attempts++;
+                }
             } catch {
                 // API not available yet — data stays null
             } finally {
