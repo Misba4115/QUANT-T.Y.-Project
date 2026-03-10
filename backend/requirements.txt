@@ -4,10 +4,8 @@ uvicorn[standard]==0.29.0
 python-multipart==0.0.9      # for file uploads
 
 # ── Database ──────────────────────────────────────────────────────────────────
-sqlalchemy==2.0.30
-asyncpg==0.29.0              # async PostgreSQL driver
-alembic==1.13.1              # DB migrations (optional but recommended)
-psycopg2-binary==2.9.9       # sync fallback driver
+supabase==2.3.4              # ADD THIS LINE - Supabase Python client
+sqlalchemy==2.0.30           # Keep for other parts if needed
 
 # ── Auth ──────────────────────────────────────────────────────────────────────
 python-jose[cryptography]==3.3.0
@@ -47,4 +45,4 @@ pdfplumber==0.11.0
 
 # ── Utilities ─────────────────────────────────────────────────────────────────
 python-dotenv==1.0.1
-httpx==0.27.0
+httpx==0.24.0,<0.26.0
