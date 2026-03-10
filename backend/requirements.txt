@@ -1,48 +1,50 @@
 # ── Web Framework ─────────────────────────────────────────────────────────────
-fastapi==0.111.0
-uvicorn[standard]==0.29.0
-python-multipart==0.0.9      # for file uploads
+fastapi
+uvicorn[standard]
+python-multipart             # for file uploads
 
 # ── Database ──────────────────────────────────────────────────────────────────
-supabase==2.3.4              # ADD THIS LINE - Supabase Python client
-sqlalchemy==2.0.30           # Keep for other parts if needed
+supabase                     # ADD THIS LINE - Supabase Python client
+sqlalchemy                   # Keep for other parts if needed
 
 # ── Auth ──────────────────────────────────────────────────────────────────────
-python-jose[cryptography]==3.3.0
-passlib[bcrypt]==1.7.4
+python-jose[cryptography]
+passlib[bcrypt]
 
 # ── Validation ────────────────────────────────────────────────────────────────
-pydantic==2.7.1
-pydantic-settings==2.2.1
+pydantic
+pydantic-settings
 
 # ── AI / LLM ──────────────────────────────────────────────────────────────────
-openai==1.30.1
-langgraph==0.1.9
-langchain==0.2.1
-langchain-openai==0.1.8
+openai
+langgraph
+langchain
+langchain-openai
 
 # ── Embeddings ────────────────────────────────────────────────────────────────
-sentence-transformers==2.7.0
+sentence-transformers
 
 # ── Vector DB ─────────────────────────────────────────────────────────────────
-qdrant-client==1.9.1
+qdrant-client
 
 # ── Portfolio Math ────────────────────────────────────────────────────────────
-PyPortfolioOpt==1.5.5
-numpy==1.26.4
-pandas==2.2.2
-scipy==1.13.0
+PyPortfolioOpt
+numpy
+pandas
+scipy
 
 # ── Anomaly Detection ─────────────────────────────────────────────────────────
-scikit-learn==1.5.0
+scikit-learn
 
 # ── External Price APIs ───────────────────────────────────────────────────────
-yfinance==0.2.38
-pycoingecko==3.1.0
+yfinance
+pycoingecko
 
 # ── File Parsing ──────────────────────────────────────────────────────────────
-pdfplumber==0.11.0
+pdfplumber
 
 # ── Utilities ─────────────────────────────────────────────────────────────────
-python-dotenv==1.0.1
-httpx==0.24.0,<0.26.0
+python-dotenv
+httpx
+
+email-validator

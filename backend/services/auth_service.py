@@ -5,7 +5,7 @@ import os
 from datetime import datetime, timedelta, timezone
 from typing import Optional, Dict, Any
 
-from passlib.context import CryptContext
+import bcrypt as _bcrypt_lib
 from jose import JWTError, jwt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
@@ -14,22 +14,22 @@ from db.supabase_client import supabase
 from schemas.schemas import RegisterRequest, LoginRequest, TokenResponse
 
 # ── Config ──────────────────────────────────────────────────────────────────
+from dotenv import load_dotenv
+from pathlib import Path
+load_dotenv(dotenv_path=Path(__file__).parent.parent / ".env")
 JWT_SECRET = os.getenv("JWT_SECRET_KEY", "change-me-in-production")
 JWT_ALG    = os.getenv("JWT_ALGORITHM", "HS256")
 JWT_EXPIRE = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "1440"))  # 24 h
 
-pwd_context   = CryptContext(schemes=["bcrypt"], deprecated="auto")
 bearer_scheme = HTTPBearer()
 
-
-# ── Helpers ─────────────────────────────────────────────────────────────────
-
+# ── Password helpers (using bcrypt directly — passlib is not compatible with bcrypt v4+)
 def _hash_password(plain: str) -> str:
-    return pwd_context.hash(plain)
+    return _bcrypt_lib.hashpw(plain.encode("utf-8"), _bcrypt_lib.gensalt()).decode("utf-8")
 
 
 def _verify_password(plain: str, hashed: str) -> bool:
-    return pwd_context.verify(plain, hashed)
+    return _bcrypt_lib.checkpw(plain.encode("utf-8"), hashed.encode("utf-8"))
 
 
 def _create_token(user_id: str) -> str:
@@ -52,15 +52,17 @@ def register_user(body: RegisterRequest) -> TokenResponse:
             detail="Email already registered",
         )
 
-    # Insert new user
+    # Insert new user - match ALL fields from your schema
     new_user = supabase.table('users').insert({
         "email": body.email,
         "password_hash": _hash_password(body.password),
         "name": body.name,
+        "phone": body.phone,  # Added
         "age": body.age,
         "monthly_income": body.monthly_income,
         "monthly_expenses": body.monthly_expenses,
         "primary_goal": body.primary_goal,
+        "risk_profile": body.risk_profile,  # Added
     }).execute()
     
     if not new_user.data:
@@ -69,8 +71,8 @@ def register_user(body: RegisterRequest) -> TokenResponse:
             detail="Failed to create user"
         )
 
-    user_id = new_user.data[0]['id']
-    return TokenResponse(access_token=_create_token(str(user_id)))
+    user_id = str(new_user.data[0]['user_id'])
+    return TokenResponse(access_token=_create_token(user_id))
 
 
 def login_user(body: LoginRequest) -> TokenResponse:
@@ -92,7 +94,7 @@ def login_user(body: LoginRequest) -> TokenResponse:
             detail="Invalid email or password",
         )
 
-    return TokenResponse(access_token=_create_token(str(user['id'])))
+    return TokenResponse(access_token=_create_token(str(user['user_id'])))
 
 
 # ── FastAPI dependency ────────────────────────────────────────────────────────
@@ -118,7 +120,7 @@ def get_current_user(
             headers={"WWW-Authenticate": "Bearer"},
         )
 
-    result = supabase.table('users').select("*").eq('id', user_id).execute()
+    result = supabase.table('users').select("*").eq('user_id', user_id).execute()
     
     if not result.data:
         raise HTTPException(status_code=404, detail="User not found")
