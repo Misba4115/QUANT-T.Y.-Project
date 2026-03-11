@@ -9,35 +9,45 @@ export interface LoginCredentials {
 }
 
 export interface RegisterCredentials {
-    fullName: string;
+    name: string;
     email: string;
     password: string;
-    confirmPassword: string;
+    phone?: string;
+    age: number;
+    monthly_income: number;
+    monthly_expenses: number;
+    primary_goal: string;
+    risk_profile?: string;
 }
 
 export interface AuthResponse {
-    token: string;
-    user: User;
+    access_token: string;
+    token_type: string;
 }
 
 // User Types
 export interface User {
-    id: string;
-    fullName: string;
+    user_id: string;
     email: string;
-    avatarUrl?: string;
-    profileCompletion: number;
-    createdAt: string;
+    name?: string;
+    phone?: string;
+    age?: number;
+    monthly_income?: number;
+    monthly_expenses?: number;
+    primary_goal?: string;
+    risk_profile?: string;
+    created_at: string;
 }
 
 // Financial Data Types
 export interface BankAccount {
-    id?: string;
-    accountType: 'savings' | 'current' | 'salary' | 'fd' | 'rd';
-    bankName: string;
-    accountNickname: string;
-    currentBalance: number;
-    isPrimary: boolean;
+    account_type: 'savings' | 'current' | 'salary' | 'fd' | 'rd';
+    account_name: string;
+    institution: string;
+    account_number?: string;
+    current_balance: number;
+    currency?: string;
+    is_primary: boolean;
 }
 
 export interface Investment {
@@ -124,9 +134,142 @@ export interface FinancialCategory {
     isActive: boolean;
 }
 
-// API Response wrapper
-export interface ApiResponse<T> {
-    success: boolean;
-    data: T;
-    message?: string;
+// ==========================================
+// Holdings Types (Equity, Mutual Fund, ETF, Crypto)
+// ==========================================
+
+export interface EquityCreate {
+    symbol: string;
+    equity_name: string;
+    exchange?: string;
+    quantity: number;
+    avg_price: number;
+    broker?: string;
+    demat_account?: string;
 }
+
+export interface EquityOut extends EquityCreate {
+    equity_holding_id: string;
+    user_id: string;
+    current_price?: number;
+    current_value?: number;
+    last_synced_at?: string;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface MutualFundCreate {
+    mf_name: string;
+    scheme_code?: string;
+    isin?: string;
+    fund_house?: string;
+    category?: string;
+    units: number;
+    avg_nav: number;
+    platform?: string;
+    folio_number?: string;
+}
+
+export interface MutualFundOut extends MutualFundCreate {
+    mf_holding_id: string;
+    user_id: string;
+    current_nav?: number;
+    current_value?: number;
+    last_synced_at?: string;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface ETFCreate {
+    symbol: string;
+    etf_name: string;
+    isin?: string;
+    exchange?: string;
+    category?: string;
+    quantity: number;
+    avg_price: number;
+    broker?: string;
+    demat_account?: string;
+}
+
+export interface ETFOut extends ETFCreate {
+    etf_holding_id: string;
+    user_id: string;
+    current_price?: number;
+    current_value?: number;
+    last_synced_at?: string;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface CryptoCreate {
+    symbol: string;
+    crypto_name: string;
+    network?: string;
+    quantity: number;
+    avg_price: number;
+    exchange?: string;
+    wallet_address?: string;
+}
+
+export interface CryptoOut extends CryptoCreate {
+    crypto_holding_id: string;
+    user_id: string;
+    current_price?: number;
+    current_value?: number;
+    last_synced_at?: string;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface CSVUploadResponse {
+    preview: Record<string, any>[];
+    row_count: number;
+    inserted: boolean;
+}
+
+export interface CASUploadResponse {
+    filename: string;
+    size_bytes: number;
+    content_type?: string;
+    preview: string;
+    inserted: boolean;
+}
+
+// ==========================================
+// Transaction Types
+// ==========================================
+
+export interface BankTransactionCreate {
+    account_id?: string;
+    tx_date: string;
+    description: string;
+    amount: number;
+    tx_type: 'debit' | 'credit';
+    category?: string;
+}
+
+export interface BankTransactionOut extends BankTransactionCreate {
+    bank_tx_id: string;
+    user_id: string;
+    created_at: string;
+}
+
+// ==========================================
+// Goal Types
+// ==========================================
+
+export interface GoalCreate {
+    goal_name: string;
+    goal_type?: string;
+    target_amount?: number;
+    current_saved: number;
+    target_date?: string;
+}
+
+export interface GoalOut extends GoalCreate {
+    goal_id: string;
+    user_id: string;
+    created_at: string;
+}
+

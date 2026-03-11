@@ -40,6 +40,11 @@ export default function Chatbot() {
     const [inputValue, setInputValue] = useState('');
     const [showOptions, setShowOptions] = useState(true);
     const messagesEndRef = useRef<HTMLDivElement>(null);
+    const [isHydrated, setIsHydrated] = useState(false);
+
+    useEffect(() => {
+        setIsHydrated(true);
+    }, []);
 
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -49,7 +54,7 @@ export default function Chatbot() {
         setMessages((prev) => [
             ...prev,
             {
-                id: String(Date.now()),
+                id: `${Date.now()}-${Math.random()}`,
                 sender,
                 content,
                 timestamp: new Date(),

@@ -11,9 +11,31 @@ import { Separator } from '@/components/ui/separator';
 import Navbar from '@/components/layout/navbar';
 import PageTransition from '@/components/layout/page-transition';
 import { useUser } from '@/contexts/user-context';
+import { useState } from 'react';
+import { userApi } from '@/lib/api';
 
 export default function SettingsPage() {
-    const { user } = useUser();
+    const { user, login } = useUser();
+    const [fullName, setFullName] = useState(user?.name || '');
+    const [isSaving, setIsSaving] = useState(false);
+
+    const handleSave = async () => {
+        try {
+            setIsSaving(true);
+            const res = await userApi.updateProfile({ name: fullName });
+            // update context and localStorage as well
+            const updatedUser = { ...user, name: fullName } as typeof user;
+            const token = localStorage.getItem('quant_token') || '';
+            login(updatedUser, token);
+
+            alert('Profile updated successfully!');
+        } catch (err) {
+            console.error('Failed to update profile', err);
+            alert('Failed to update profile.');
+        } finally {
+            setIsSaving(false);
+        }
+    };
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -62,7 +84,8 @@ export default function SettingsPage() {
                                     <div className="space-y-2">
                                         <Label className="text-sm text-gray-700">Full Name</Label>
                                         <Input
-                                            defaultValue={user?.fullName || ''}
+                                            value={fullName}
+                                            onChange={(e) => setFullName(e.target.value)}
                                             placeholder="Your full name"
                                             className="h-11"
                                         />
@@ -77,8 +100,12 @@ export default function SettingsPage() {
                                         />
                                     </div>
                                 </div>
-                                <Button className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-200">
-                                    Save Changes
+                                <Button
+                                    onClick={handleSave}
+                                    disabled={isSaving}
+                                    className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-200"
+                                >
+                                    {isSaving ? 'Saving...' : 'Save Changes'}
                                 </Button>
                             </div>
                         </motion.div>

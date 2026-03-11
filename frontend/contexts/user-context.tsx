@@ -79,6 +79,10 @@ export function UserProvider({ children }: { children: ReactNode }) {
         localStorage.removeItem('quant_token');
         localStorage.removeItem('quant_user');
         dispatch({ type: 'LOGOUT' });
+        // Redirect to login page
+        if (typeof window !== 'undefined') {
+            window.location.href = '/login';
+        }
     };
 
     return (

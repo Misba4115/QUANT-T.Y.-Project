@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useUser } from '@/contexts/user-context';
+import { authApi, userApi } from '@/lib/api';
 
 const loginSchema = z.object({
     email: z.string().email('Please enter a valid email address'),
@@ -25,6 +26,8 @@ export default function LoginPage() {
     const { login } = useUser();
     const [showPassword, setShowPassword] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const [message, setMessage] = useState<string | null>(null);
 
     const {
         register,
@@ -36,31 +39,33 @@ export default function LoginPage() {
 
     const onSubmit = async (data: LoginFormData) => {
         setIsSubmitting(true);
+        setError(null);
+        setMessage(null);
         try {
-            // TODO: Replace with actual API call
-            // const res = await authApi.login(data);
-            // login(res.data.data.user, res.data.data.token);
+            // Step 1: perform login request
+            const loginRes = await authApi.login(data);
+            const token = loginRes.data.access_token;
 
-            // Mock login for now (uses email prefix as display name)
-            await new Promise((resolve) => setTimeout(resolve, 1200));
-            const nameFromEmail = data.email.split('@')[0].replace(/[._-]/g, ' ');
-            const displayName = nameFromEmail
-                .split(' ')
-                .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-                .join(' ');
-            login(
-                {
-                    id: '1',
-                    fullName: displayName,
-                    email: data.email,
-                    profileCompletion: 80,
-                    createdAt: new Date().toISOString(),
-                },
-                'mock_jwt_token_123'
-            );
-            router.push('/input-data');
-        } catch {
-            // Error handling will be added when backend is ready
+            // Step 2: Store token FIRST so axios interceptor can use it
+            localStorage.setItem('quant_token', token);
+
+            // Step 3: fetch profile (now token is in localStorage, axios will use it)
+            const profileRes = await userApi.getProfile();
+            const user = profileRes.data;
+
+            // Step 4: Update context
+            login(user, token);
+
+            setMessage('Login successful! Redirecting...');
+            setTimeout(() => {
+                router.push('/input-data');
+            }, 500);
+        } catch (err: any) {
+            // Clear token on error
+            localStorage.removeItem('quant_token');
+            const msg = err.response?.data?.detail || err.message || 'Login failed';
+            setError(msg);
+            console.error('login error', err);
         } finally {
             setIsSubmitting(false);
         }
@@ -142,6 +147,17 @@ export default function LoginPage() {
                             Sign in to access your financial dashboard
                         </p>
                     </div>
+
+                    {error && (
+                        <div className="mb-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+                            {error}
+                        </div>
+                    )}
+                    {message && (
+                        <div className="mb-4 rounded-lg border border-green-200 bg-green-50 p-3 text-sm text-green-700">
+                            {message}
+                        </div>
+                    )}
 
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                         {/* Email */}
