@@ -25,7 +25,9 @@ def run_chat_orchestrator(user_id: str, user_message: str, conversation_id: str,
            - Pull last N messages from chat_messages for conversation history
       4. generate_response:
            - Build system prompt with retrieved docs + user context
-           - Call GPT-4o (openai.ChatCompletion) with conversation history
+           - Call the shared LLM service (Gemini by default; falls back to OpenAI)
+             using environment variables GEMINI_API_KEY, GEMINI_MODEL, and
+             LLM_PROVIDER.
            - Get assistant response text
       5. store_message:
            - INSERT user message into chat_messages

@@ -19,7 +19,8 @@ pydantic-settings
 openai
 langgraph
 langchain
-langchain-openai
+# Gemini / AI Studio client
+google-generativeai
 
 # ── Embeddings ────────────────────────────────────────────────────────────────
 sentence-transformers

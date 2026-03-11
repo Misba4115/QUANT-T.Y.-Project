@@ -161,6 +161,18 @@ export const goalsApi = {
 };
 
 // ==========================================
+// Chat API
+// Backend: POST /chat/
+// ==========================================
+export const chatApi = {
+    sendMessage: (message: string, conversationId?: string) =>
+        apiClient.post<{reply: string; conversation_id: string}>(
+            '/chat/',
+            { message, conversation_id: conversationId }
+        ),
+};
+
+// ==========================================
 // Dashboard API
 // Backend: POST /dashboard/generate, GET /dashboard/result/{run_id}
 // ==========================================

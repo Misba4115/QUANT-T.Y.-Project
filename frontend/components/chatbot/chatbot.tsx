@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Send, Bot, User } from 'lucide-react';
 import type { ChatMessage, ChatOption } from '@/types';
+import { chatApi } from '@/lib/api';
 
 const chatOptions: ChatOption[] = [
     'Stock Market Queries',
@@ -13,18 +14,6 @@ const chatOptions: ChatOption[] = [
     'Tax Saving Queries',
 ];
 
-const placeholderResponses: Record<ChatOption, string> = {
-    'Stock Market Queries':
-        'I can help you with stock market analysis, recommendations, and trends. Our RAG-based analysis system is being set up — stay tuned for real-time insights!',
-    'Mutual Fund Queries':
-        'I can assist with mutual fund selection, SIP calculations, and fund comparisons. The full analysis engine will be available soon!',
-    'Investment Queries':
-        'Looking for investment advice? I can guide you on portfolio diversification, asset allocation, and investment strategies. Detailed analysis coming soon!',
-    'Portfolio Analysis':
-        'I can analyze your portfolio performance, risk metrics, and suggest rebalancing strategies. Advanced portfolio analytics are being integrated!',
-    'Tax Saving Queries':
-        'I can help you understand Section 80C, 80D, and other tax-saving options. Detailed tax optimization recommendations coming soon!',
-};
 
 export default function Chatbot() {
     const [isOpen, setIsOpen] = useState(false);
@@ -39,6 +28,7 @@ export default function Chatbot() {
     ]);
     const [inputValue, setInputValue] = useState('');
     const [showOptions, setShowOptions] = useState(true);
+    const [conversationId, setConversationId] = useState<string | null>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const [isHydrated, setIsHydrated] = useState(false);
 
@@ -62,28 +52,33 @@ export default function Chatbot() {
         ]);
     };
 
+    const sendMessageToServer = async (text: string) => {
+        try {
+            const resp = await chatApi.sendMessage(text, conversationId || undefined);
+            const data = resp.data;
+            addMessage('bot', data.reply);
+            setConversationId(data.conversation_id);
+        } catch (error) {
+            console.error('Chat error:', error);
+            addMessage('bot', 'Sorry, I encountered an error. Please try again.');
+        } finally {
+            setTimeout(() => setShowOptions(true), 500);
+        }
+    };
+
     const handleOptionClick = (option: ChatOption) => {
         setShowOptions(false);
         addMessage('user', option);
-        setTimeout(() => {
-            addMessage('bot', placeholderResponses[option]);
-            setTimeout(() => setShowOptions(true), 500);
-        }, 800);
+        sendMessageToServer(option);
     };
 
-    const handleSend = () => {
+    const handleSend = async () => {
         if (!inputValue.trim()) return;
         const msg = inputValue.trim();
         setInputValue('');
         setShowOptions(false);
         addMessage('user', msg);
-        setTimeout(() => {
-            addMessage(
-                'bot',
-                "Thanks for your question! I'm currently in demo mode. Once the backend RAG system is connected, I'll provide detailed, data-driven answers."
-            );
-            setTimeout(() => setShowOptions(true), 500);
-        }, 1000);
+        await sendMessageToServer(msg);
     };
 
     return (
