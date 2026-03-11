@@ -8,7 +8,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
-from routers import auth, banking, holdings, transactions, goals, dashboard, chat
+from routers import auth, banking, holdings, transactions, goals, dashboard, chat, user
 
 app = FastAPI(
     title="QUANT API",
@@ -36,6 +36,7 @@ app.include_router(transactions.router, prefix="/transactions", tags=["Transacti
 app.include_router(goals.router, prefix="/goals", tags=["Goals"])
 app.include_router(dashboard.router, prefix="/dashboard", tags=["Dashboard"])
 app.include_router(chat.router, prefix="/chat", tags=["Chat"])
+app.include_router(user.router)  # No prefix needed, already in router
 
 
 @app.get("/", tags=["Health"])

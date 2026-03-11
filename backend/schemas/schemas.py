@@ -203,3 +203,22 @@ class DashboardRunOut(BaseModel):
     run_id: str  # Changed from UUID to str
     status: str         # pending|processing|completed|failed
     result: Optional[dict] = None
+
+
+# ── Transactions ───────────────────────────────────────────────────────────────────────────────
+
+class BankTransactionCreate(BaseModel):
+    account_id: Optional[str] = None
+    tx_date: str
+    description: str
+    amount: float
+    tx_type: str                     # "debit" | "credit"
+    category: Optional[str] = None
+
+class BankTransactionOut(BankTransactionCreate):
+    bank_tx_id: str
+    user_id: str
+    created_at: str
+
+    class Config:
+        from_attributes = True
