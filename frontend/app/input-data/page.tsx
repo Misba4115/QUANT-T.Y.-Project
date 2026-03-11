@@ -35,7 +35,7 @@ import PageTransition from '@/components/layout/page-transition';
 import { SkeletonCard } from '@/components/ui/skeletons';
 import { useUser } from '@/contexts/user-context';
 import type { QuickStats, FinancialCategory, BankAccount } from '@/types';
-import { financialApi } from '@/lib/api';
+import { bankingApi } from '@/lib/api';
 
 // ==========================================
 // Financial Categories (UI constants)
@@ -140,42 +140,48 @@ export default function InputDataPage() {
 
     const isPrimary = watch('isPrimary');
 
-    useEffect(() => {
-        async function fetchQuickStats() {
-            try {
-                const res = await financialApi.getBankAccounts();
-                const accounts = res.data.data;
-                setQuickStats({
-                    dataCompleteness: user?.profileCompletion ?? 0,
-                    accountsAdded: accounts?.length ?? 0,
-                    holdings: accounts?.length ?? 0,
-                    lastUpdated: 'Just now',
-                });
-            } catch {
-                // API not available yet — leave defaults
-            } finally {
-                setIsLoading(false);
-            }
+    // helper for pulling bank accounts; reused by effect and submit handler
+    const fetchQuickStats = async () => {
+        try {
+            const res = await bankingApi.getBankAccounts();
+            const accounts = res.data;
+            setQuickStats({
+                dataCompleteness: 0, // placeholder until profile completion is implemented
+                accountsAdded: accounts?.length ?? 0,
+                holdings: accounts?.length ?? 0,
+                lastUpdated: 'Just now',
+            });
+        } catch (error) {
+            console.error('Error fetching bank accounts:', error);
+            // API not available yet — leave defaults
+        } finally {
+            setIsLoading(false);
         }
+    };
+
+    useEffect(() => {
         fetchQuickStats();
-    }, [user?.profileCompletion]);
+    }, []); // dependency removed until profileCompletion exists
 
     const onSubmit = async (data: BankAccountForm) => {
         try {
-            await financialApi.addBankAccount({
-                accountType: data.accountType as BankAccount['accountType'],
-                bankName: data.bankName,
-                accountNickname: data.accountNickname,
-                currentBalance: parseFloat(data.currentBalance),
-                isPrimary: data.isPrimary,
-            });
+            await bankingApi.addBankAccount({
+                account_type: data.accountType as BankAccount['account_type'],
+                institution: data.bankName,
+                account_name: data.accountNickname,
+                current_balance: parseFloat(data.currentBalance),
+                is_primary: data.isPrimary,
+            } as BankAccount);
             alert('Account saved successfully!');
-        } catch {
+            // refresh stats/list
+            fetchQuickStats();
+        } catch (error) {
+            console.error('Error saving account:', error);
             alert('Could not save — backend may not be connected yet.');
         }
     };
 
-    const displayName = user?.fullName || 'Rahul';
+    const displayName = user?.name || 'Rahul';
     const firstName = displayName.split(' ')[0];
 
     const containerVariants = {
@@ -241,14 +247,14 @@ export default function InputDataPage() {
                                     <div className="flex items-center gap-2">
                                         <CheckCircle2 className="h-4 w-4 text-blue-600" />
                                         <span className="text-sm font-medium text-gray-600">
-                                            Profile: {user?.profileCompletion || 80}% complete
+                                            Profile: 0% complete
                                         </span>
                                     </div>
                                     <div className="h-2 w-32 overflow-hidden rounded-full bg-gray-100">
                                         <motion.div
                                             initial={{ width: 0 }}
                                             animate={{
-                                                width: `${user?.profileCompletion || 80}%`,
+                                                width: `0%`,
                                             }}
                                             transition={{ duration: 1, delay: 0.5 }}
                                             className="h-full rounded-full bg-gradient-to-r from-blue-500 to-blue-600"
