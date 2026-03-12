@@ -1,5 +1,6 @@
 // ==========================================
 // QUANT - Type Definitions
+// Aligned with backend Pydantic schemas
 // ==========================================
 
 // Auth Types
@@ -9,68 +10,75 @@ export interface LoginCredentials {
 }
 
 export interface RegisterCredentials {
-    fullName: string;
+    name: string;
     email: string;
     password: string;
-    confirmPassword: string;
+    confirmPassword?: string;  // frontend-only validation
+    phone?: string;
+    age: number;
+    monthly_income: number;
+    monthly_expenses: number;
+    primary_goal: string;
+    risk_profile?: string;
 }
 
 export interface AuthResponse {
-    token: string;
+    access_token: string;
+    token_type: string;
     user: User;
 }
 
-// User Types
+// User Types (matches backend UserOut)
 export interface User {
-    id: string;
-    fullName: string;
+    user_id: string;
     email: string;
-    avatarUrl?: string;
-    profileCompletion: number;
-    createdAt: string;
+    name: string;
+    phone?: string;
+    age?: number;
+    monthly_income?: number;
+    monthly_expenses?: number;
+    primary_goal?: string;
+    risk_profile?: string;
+    created_at: string;
 }
 
-// Financial Data Types
+// Banking Types (matches backend BankingAccountCreate / BankingAccountOut)
 export interface BankAccount {
-    id?: string;
-    accountType: 'savings' | 'current' | 'salary' | 'fd' | 'rd';
-    bankName: string;
-    accountNickname: string;
-    currentBalance: number;
-    isPrimary: boolean;
+    account_id?: string;
+    user_id?: string;
+    account_type: 'savings' | 'current' | 'fixed_deposit' | 'recurring_deposit';
+    account_name: string;
+    institution: string;
+    account_number?: string;
+    current_balance: number;
+    currency?: string;
+    is_primary: boolean;
+    created_at?: string;
+    updated_at?: string;
 }
 
-export interface Investment {
-    id: string;
-    instrument: string;
-    type: 'Equity' | 'Mutual Fund' | 'ETF' | 'Bond' | 'FD';
-    quantity: number;
-    currentValue: number;
-    investedValue: number;
-    profitLossPercent: number;
-}
-
+// Holdings Types
 export interface Holding {
     instrument: string;
     type: string;
     quantity: number;
-    currentValue: number;
-    profitLossPercent: number;
+    current_value: number;
+    profit_loss_percent: number;
 }
 
 // Dashboard Types
 export interface DashboardData {
-    netWorth: number;
-    netWorthGrowth: number;
-    riskLevel: 'Low' | 'Medium' | 'High';
-    monthlyIncome: number;
-    monthlyExpenses: number;
+    net_worth: number;
+    net_worth_growth: number;
+    risk_level: 'Low' | 'Medium' | 'High';
+    monthly_income: number;
+    monthly_expenses: number;
     surplus: number;
-    taxSaved: number;
-    taxLimit: number;
-    portfolioHistory: PortfolioDataPoint[];
-    assetAllocation: AssetAllocationItem[];
-    topHoldings: Holding[];
+    tax_saved: number;
+    tax_limit: number;
+    portfolio_history: PortfolioDataPoint[];
+    asset_allocation: AssetAllocationItem[];
+    top_holdings: Holding[];
     alerts: Alert[];
 }
 
@@ -92,7 +100,7 @@ export interface Alert {
     icon: string;
 }
 
-// Quick Stats Types
+// Quick Stats Types (frontend-only, derived from API data)
 export interface QuickStats {
     dataCompleteness: number;
     accountsAdded: number;
@@ -115,7 +123,7 @@ export type ChatOption =
     | 'Portfolio Analysis'
     | 'Tax Saving Queries';
 
-// Financial Category Card
+// Financial Category Card (frontend-only UI config)
 export interface FinancialCategory {
     id: string;
     title: string;

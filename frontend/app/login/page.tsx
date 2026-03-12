@@ -39,7 +39,7 @@ export default function LoginPage() {
         try {
             // TODO: Replace with actual API call
             // const res = await authApi.login(data);
-            // login(res.data.data.user, res.data.data.token);
+            // login(res.data.data.user, res.data.data.access_token);
 
             // Mock login for now (uses email prefix as display name)
             await new Promise((resolve) => setTimeout(resolve, 1200));
@@ -50,11 +50,10 @@ export default function LoginPage() {
                 .join(' ');
             login(
                 {
-                    id: '1',
-                    fullName: displayName,
+                    user_id: '1',
+                    name: displayName,
                     email: data.email,
-                    profileCompletion: 80,
-                    createdAt: new Date().toISOString(),
+                    created_at: new Date().toISOString(),
                 },
                 'mock_jwt_token_123'
             );

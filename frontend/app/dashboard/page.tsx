@@ -275,12 +275,12 @@ export default function DashboardPage() {
                                     </div>
                                 </div>
                                 <p className="mt-2 text-2xl font-bold text-gray-900">
-                                    {formatCurrency(data.netWorth)}
+                                    {formatCurrency(data.net_worth)}
                                 </p>
                                 <div className="mt-1 flex items-center gap-1 text-sm">
                                     <ArrowUpRight className="h-4 w-4 text-emerald-500" />
                                     <span className="font-medium text-emerald-600">
-                                        +{data.netWorthGrowth}%
+                                        +{data.net_worth_growth}%
                                     </span>
                                     <span className="text-gray-400">vs last month</span>
                                 </div>
@@ -296,7 +296,7 @@ export default function DashboardPage() {
                                         <ShieldCheck className="h-4 w-4 text-amber-600" />
                                     </div>
                                 </div>
-                                <RiskGauge level={data.riskLevel} />
+                                <RiskGauge level={data.risk_level} />
                             </div>
 
                             {/* Monthly Cashflow */}
@@ -310,8 +310,8 @@ export default function DashboardPage() {
                                     </div>
                                 </div>
                                 <CashflowBar
-                                    income={data.monthlyIncome}
-                                    expenses={data.monthlyExpenses}
+                                    income={data.monthly_income}
+                                    expenses={data.monthly_expenses}
                                 />
                                 <p className="mt-2 text-sm">
                                     <span className="text-gray-500">Surplus: </span>
@@ -333,16 +333,16 @@ export default function DashboardPage() {
                                         <motion.div
                                             initial={{ width: 0 }}
                                             animate={{
-                                                width: `${(data.taxSaved / data.taxLimit) * 100}%`,
+                                                width: `${(data.tax_saved / data.tax_limit) * 100}%`,
                                             }}
                                             transition={{ duration: 1, delay: 0.3 }}
                                             className="h-full rounded-full bg-gradient-to-r from-emerald-400 to-emerald-600"
                                         />
                                     </div>
                                     <p className="mt-2 text-lg font-bold text-gray-900">
-                                        {formatCurrency(data.taxSaved)}{' '}
-                                        <span className="text-sm font-normal text-gray-400">
-                                            / {formatCurrency(data.taxLimit)}
+                                        {formatCurrency(data.tax_saved)}{' '}
+                                        <span className="text-gray-400">
+                                            / {formatCurrency(data.tax_limit)}
                                         </span>
                                     </p>
                                 </div>
@@ -363,7 +363,7 @@ export default function DashboardPage() {
                                     </span>
                                 </h3>
                                 <ResponsiveContainer width="100%" height={280}>
-                                    <LineChart data={data.portfolioHistory}>
+                                    <LineChart data={data.portfolio_history}>
                                         <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
                                         <XAxis
                                             dataKey="month"
@@ -417,7 +417,7 @@ export default function DashboardPage() {
                                 <ResponsiveContainer width="100%" height={220}>
                                     <PieChart>
                                         <Pie
-                                            data={data.assetAllocation}
+                                            data={data.asset_allocation}
                                             cx="50%"
                                             cy="50%"
                                             innerRadius={55}
@@ -426,7 +426,7 @@ export default function DashboardPage() {
                                             dataKey="value"
                                             stroke="none"
                                         >
-                                            {data.assetAllocation.map((entry, index) => (
+                                            {data.asset_allocation.map((entry, index) => (
                                                 <Cell key={`cell-${index}`} fill={entry.color} />
                                             ))}
                                         </Pie>
@@ -440,7 +440,7 @@ export default function DashboardPage() {
                                     </PieChart>
                                 </ResponsiveContainer>
                                 <div className="mt-2 space-y-1.5">
-                                    {data.assetAllocation.map((item) => (
+                                    {data.asset_allocation.map((item) => (
                                         <div
                                             key={item.name}
                                             className="flex items-center justify-between text-sm"
@@ -493,7 +493,7 @@ export default function DashboardPage() {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {data.topHoldings.map((holding, i) => (
+                                            {data.top_holdings.map((holding, i) => (
                                                 <motion.tr
                                                     key={holding.instrument}
                                                     initial={{ opacity: 0, x: -10 }}
@@ -511,16 +511,16 @@ export default function DashboardPage() {
                                                         {holding.quantity}
                                                     </td>
                                                     <td className="py-3 text-right font-medium text-gray-900">
-                                                        {formatCurrency(holding.currentValue)}
+                                                        {formatCurrency(holding.current_value)}
                                                     </td>
                                                     <td
-                                                        className={`py-3 text-right font-semibold ${holding.profitLossPercent >= 0
+                                                        className={`py-3 text-right font-semibold ${holding.profit_loss_percent >= 0
                                                             ? 'text-emerald-600'
                                                             : 'text-red-500'
                                                             }`}
                                                     >
-                                                        {holding.profitLossPercent > 0 ? '+' : ''}
-                                                        {holding.profitLossPercent}%
+                                                        {holding.profit_loss_percent > 0 ? '+' : ''}
+                                                        {holding.profit_loss_percent}%
                                                     </td>
                                                 </motion.tr>
                                             ))}

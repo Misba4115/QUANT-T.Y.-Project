@@ -144,7 +144,7 @@ export default function InputDataPage() {
     const fetchQuickStats = async () => {
         try {
             const res = await bankingApi.getBankAccounts();
-            const accounts = res.data;
+            const accounts = res.data.data;
             setQuickStats({
                 dataCompleteness: 0, // placeholder until profile completion is implemented
                 accountsAdded: accounts?.length ?? 0,
@@ -171,7 +171,7 @@ export default function InputDataPage() {
                 account_name: data.accountNickname,
                 current_balance: parseFloat(data.currentBalance),
                 is_primary: data.isPrimary,
-            } as BankAccount);
+            });
             alert('Account saved successfully!');
             // refresh stats/list
             fetchQuickStats();
@@ -181,7 +181,7 @@ export default function InputDataPage() {
         }
     };
 
-    const displayName = user?.name || 'Rahul';
+    const displayName = user?.name || 'User';
     const firstName = displayName.split(' ')[0];
 
     const containerVariants = {

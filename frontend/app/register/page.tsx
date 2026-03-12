@@ -15,7 +15,7 @@ import { useUser } from '@/contexts/user-context';
 
 const registerSchema = z
     .object({
-        fullName: z.string().min(2, 'Full name is required'),
+        name: z.string().min(2, 'Full name is required'),
         email: z.string().email('Please enter a valid email address'),
         password: z
             .string()
@@ -51,16 +51,15 @@ export default function RegisterPage() {
         try {
             // TODO: Replace with actual API call
             // const res = await authApi.register(data);
-            // login(res.data.data.user, res.data.data.token);
+            // login(res.data.data.user, res.data.data.access_token);
 
             await new Promise((resolve) => setTimeout(resolve, 1200));
             login(
                 {
-                    id: '1',
-                    fullName: data.fullName,
+                    user_id: '1',
+                    name: data.name,
                     email: data.email,
-                    profileCompletion: 20,
-                    createdAt: new Date().toISOString(),
+                    created_at: new Date().toISOString(),
                 },
                 'mock_jwt_token_456'
             );
@@ -158,22 +157,22 @@ export default function RegisterPage() {
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                         {/* Full Name */}
                         <div className="space-y-2">
-                            <Label htmlFor="fullName" className="text-sm font-medium text-gray-700">
+                            <Label htmlFor="name" className="text-sm font-medium text-gray-700">
                                 Full Name
                             </Label>
                             <div className="relative">
                                 <User className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
                                 <Input
-                                    id="fullName"
+                                    id="name"
                                     type="text"
                                     placeholder="Rahul Kapoor"
                                     className="h-12 pl-11 text-sm"
-                                    {...register('fullName')}
+                                    {...register('name')}
                                 />
                             </div>
-                            {errors.fullName && (
+                            {errors.name && (
                                 <p className="text-xs text-red-500">
-                                    {errors.fullName.message}
+                                    {errors.name.message}
                                 </p>
                             )}
                         </div>

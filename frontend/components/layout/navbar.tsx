@@ -34,7 +34,7 @@ export default function Navbar() {
     const { user, logout } = useUser();
     const [hasNotifications] = useState(true);
 
-    const displayName = user?.fullName || 'Guest User';
+    const displayName = user?.name || 'Guest User';
     const initials = getInitials(displayName);
 
     return (

@@ -23,8 +23,7 @@ export const authApi = {
 
 // ==========================================
 // User API
-// Backend: No dedicated route yet — your backend dev
-// will need to add GET/PUT /auth/me or similar
+// Backend: router included without prefix
 // ==========================================
 export const userApi = {
     getProfile: () =>
@@ -38,12 +37,18 @@ export const userApi = {
 // Banking API
 // Backend: GET /banking-accounts/, POST /banking-accounts/
 // ==========================================
-export const financialApi = {
-    addBankAccount: (data: BankAccount) =>
+export const bankingApi = {
+    addBankAccount: (data: Partial<BankAccount>) =>
         apiClient.post<ApiResponse<BankAccount>>('/banking-accounts/', data),
 
     getBankAccounts: () =>
         apiClient.get<ApiResponse<BankAccount[]>>('/banking-accounts/'),
+
+    updateBankAccount: (accountId: string, data: Partial<BankAccount>) =>
+        apiClient.put<ApiResponse<BankAccount>>(`/banking-accounts/${accountId}`, data),
+
+    deleteBankAccount: (accountId: string) =>
+        apiClient.delete(`/banking-accounts/${accountId}`),
 };
 
 // ==========================================

@@ -62,7 +62,7 @@ export default function SettingsPage() {
                                     <div className="space-y-2">
                                         <Label className="text-sm text-gray-700">Full Name</Label>
                                         <Input
-                                            defaultValue={user?.fullName || ''}
+                                            defaultValue={user?.name || ''}
                                             placeholder="Your full name"
                                             className="h-11"
                                         />
