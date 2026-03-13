@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 export function SkeletonCard({ className = '' }: { className?: string }) {
@@ -18,6 +18,14 @@ export function SkeletonCard({ className = '' }: { className?: string }) {
 }
 
 export function SkeletonChart({ className = '' }: { className?: string }) {
+    const [heights, setHeights] = useState<number[]>();
+
+    useEffect(() => {
+        setHeights(Array.from({ length: 12 }).map(() => 30 + Math.random() * 70));
+    }, []);
+
+    const barHeights = heights || Array.from({ length: 12 }).map(() => 50);
+
     return (
         <motion.div
             initial={{ opacity: 0 }}
@@ -26,11 +34,11 @@ export function SkeletonChart({ className = '' }: { className?: string }) {
         >
             <div className="mb-4 h-4 w-1/3 rounded bg-gray-200" />
             <div className="flex h-48 items-end gap-2">
-                {Array.from({ length: 12 }).map((_, i) => (
+                {barHeights.map((h, i) => (
                     <div
                         key={i}
                         className="flex-1 rounded-t bg-gray-100"
-                        style={{ height: `${30 + Math.random() * 70}%` }}
+                        style={{ height: `${h}%` }}
                     />
                 ))}
             </div>

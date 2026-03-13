@@ -81,7 +81,7 @@ QUANT solves this by providing a single platform that:
 | Frontend           | React.js, Tailwind CSS                            |
 | Backend            | Python, FastAPI                                   |
 | AI Orchestration   | LangGraph (StateGraph multi-agent framework)      |
-| LLM                | GPT-4o (OpenAI API)                               |
+| LLM                | Gemini (via Google AI Studio free API) – default provider, OpenAI fallback |
 | Embeddings         | Sentence-BERT / MiniLM (sentence-transformers)    |
 | Vector Database    | Qdrant                                            |
 | Relational DB      | PostgreSQL                                        |
@@ -588,7 +588,7 @@ Semantic search over past user conversations — chatbot memory.
 | Equity / ETF prices | Yahoo Finance | Every 15 min (market hours 9:15–15:30 IST) | `yfinance` |
 | Mutual Fund NAV | AMFI India | Once daily after 8 PM IST | `mfapi.in` or direct AMFI CSV |
 | Crypto prices | CoinGecko | Every 5 minutes (24/7) | `pycoingecko` |
-| LLM responses | OpenAI GPT-4o | On demand | `openai` |
+| LLM responses | Gemini / GPT-4o | On demand | `llm_service` abstraction |
 
 ---
 
