@@ -29,14 +29,14 @@ app.add_middleware(
 )
 
 # ── Routers ───────────────────────────────────────────────────────────────────
-app.include_router(auth.router, prefix="/auth", tags=["Auth"])
-app.include_router(banking.router, prefix="/banking-accounts", tags=["Banking"])
-app.include_router(holdings.router, prefix="/holdings", tags=["Holdings"])
-app.include_router(transactions.router, prefix="/transactions", tags=["Transactions"])
-app.include_router(goals.router, prefix="/goals", tags=["Goals"])
-app.include_router(dashboard.router, prefix="/dashboard", tags=["Dashboard"])
-app.include_router(chat.router, prefix="/chat", tags=["Chat"])
-app.include_router(user.router)  # No prefix needed, already in router
+app.include_router(auth.router, prefix="/api/auth", tags=["Auth"])
+app.include_router(banking.router, prefix="/api/banking-accounts", tags=["Banking"])
+app.include_router(holdings.router, prefix="/api/holdings", tags=["Holdings"])
+app.include_router(transactions.router, prefix="/api/transactions", tags=["Transactions"])
+app.include_router(goals.router, prefix="/api/goals", tags=["Goals"])
+app.include_router(dashboard.router, prefix="/api/dashboard", tags=["Dashboard"])
+app.include_router(chat.router, prefix="/api/chat", tags=["Chat"])
+app.include_router(user.router, prefix="/api")  # Prefix user router with /api
 
 
 @app.get("/", tags=["Health"])

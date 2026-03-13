@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useUser } from '@/contexts/user-context';
+import { authApi, userApi } from '@/lib/api';
 
 const registerSchema = z
     .object({
@@ -37,6 +38,8 @@ export default function RegisterPage() {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const [message, setMessage] = useState<string | null>(null);
 
     const {
         register,
@@ -48,24 +51,38 @@ export default function RegisterPage() {
 
     const onSubmit = async (data: RegisterFormData) => {
         setIsSubmitting(true);
+        setError(null);
+        setMessage(null);
         try {
-            // TODO: Replace with actual API call
-            // const res = await authApi.register(data);
-            // login(res.data.data.user, res.data.data.access_token);
+            const registerRes = await authApi.register({
+                name: data.name,
+                email: data.email,
+                password: data.password,
+                phone: '',
+                age: 0,
+                monthly_income: 0,
+                monthly_expenses: 0,
+                primary_goal: '',
+            });
 
-            await new Promise((resolve) => setTimeout(resolve, 1200));
-            login(
-                {
-                    user_id: '1',
-                    name: data.name,
-                    email: data.email,
-                    created_at: new Date().toISOString(),
-                },
-                'mock_jwt_token_456'
-            );
-            router.push('/input-data');
-        } catch {
-            // Error handling will be added when backend is ready
+            const token = registerRes.data.access_token;
+            
+            // Store token FIRST so axios interceptor can use it
+            localStorage.setItem('quant_token', token);
+            
+            const profileRes = await userApi.getProfile();
+            const user = profileRes.data;
+            login(user, token);
+            setMessage('Registration successful! Redirecting...');
+            setTimeout(() => {
+                router.push('/input-data');
+            }, 500);
+        } catch (err: any) {
+            // Clear token on error
+            localStorage.removeItem('quant_token');
+            const msg = err.response?.data?.detail || err.message || 'Registration failed';
+            setError(msg);
+            console.error('registration error', err);
         } finally {
             setIsSubmitting(false);
         }
@@ -153,6 +170,17 @@ export default function RegisterPage() {
                             Get started with your smart financial journey
                         </p>
                     </div>
+
+                    {error && (
+                        <div className="mb-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+                            {error}
+                        </div>
+                    )}
+                    {message && (
+                        <div className="mb-4 rounded-lg border border-green-200 bg-green-50 p-3 text-sm text-green-700">
+                            {message}
+                        </div>
+                    )}
 
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                         {/* Full Name */}
