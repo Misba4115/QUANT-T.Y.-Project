@@ -33,7 +33,11 @@ import {
 } from '@/components/ui/skeletons';
 import { dashboardApi } from '@/lib/api';
 import { formatCurrency, formatChartValue } from '@/lib/helpers';
-import type { DashboardData } from '@/types';
+import type { DashboardData, DashboardRunOut } from '@/types';
+
+// ── Mock Data Import (remove when backend is ready) ─────────────────────────
+import { MOCK_DASHBOARD_DATA } from '@/mock_data/dashboardMockData';
+// ─────────────────────────────────────────────────────────────────────────────
 
 // ==========================================
 // Sub-components
@@ -161,36 +165,46 @@ export default function DashboardPage() {
     const [data, setData] = useState<DashboardData | null>(null);
 
     useEffect(() => {
-        async function fetchDashboard() {
-            try {
-                // Step 1: Kick off dashboard generation
-                const genRes = await dashboardApi.generateDashboard();
-                const runId = genRes.data.data.run_id;
-
-                // Step 2: Poll for result until completed
-                let attempts = 0;
-                const maxAttempts = 30;
-                while (attempts < maxAttempts) {
-                    const resultRes = await dashboardApi.getDashboardResult(runId);
-                    const result = resultRes.data.data;
-
-                    // Check if the run has completed (backend sets status='completed')
-                    if (result) {
-                        setData(result);
-                        break;
-                    }
-
-                    // Wait 2 seconds before polling again
-                    await new Promise((r) => setTimeout(r, 2000));
-                    attempts++;
-                }
-            } catch {
-                // API not available yet — data stays null
-            } finally {
+        // ── MOCK DATA (remove this block when backend is ready) ─────
+        function loadMockData() {
+            // Simulate realistic loading delay
+            setTimeout(() => {
+                setData(MOCK_DASHBOARD_DATA);
                 setIsLoading(false);
-            }
+            }, 600);
         }
-        fetchDashboard();
+        loadMockData();
+        // ─────────────────────────────────────────────────────────────
+
+        // ── REAL API (uncomment when backend dashboard is implemented)
+        // async function fetchDashboard() {
+        //     try {
+        //         const genRes = await dashboardApi.generateDashboard();
+        //         const runId = genRes.data.run_id;
+        //
+        //         let attempts = 0;
+        //         const maxAttempts = 30;
+        //         while (attempts < maxAttempts) {
+        //             const resultRes = await dashboardApi.getDashboardResult(runId);
+        //             const runOut = resultRes.data;
+        //
+        //             if (runOut.status === 'completed' && runOut.result) {
+        //                 setData(runOut.result);
+        //                 break;
+        //             }
+        //             if (runOut.status === 'failed') break;
+        //
+        //             await new Promise((r) => setTimeout(r, 2000));
+        //             attempts++;
+        //         }
+        //     } catch {
+        //         // API not available yet — data stays null
+        //     } finally {
+        //         setIsLoading(false);
+        //     }
+        // }
+        // fetchDashboard();
+        // ─────────────────────────────────────────────────────────────
     }, []);
 
     const containerVariants = {

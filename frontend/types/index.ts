@@ -25,7 +25,6 @@ export interface RegisterCredentials {
 export interface AuthResponse {
     access_token: string;
     token_type: string;
-    user: User;
 }
 
 // User Types (matches backend UserOut)
@@ -46,7 +45,7 @@ export interface User {
 export interface BankAccount {
     account_id?: string;
     user_id?: string;
-    account_type: 'savings' | 'current' | 'fixed_deposit' | 'recurring_deposit';
+    account_type: string;  // savings, current, salary, fd, rd, fixed_deposit, recurring_deposit
     account_name: string;
     institution: string;
     account_number?: string;
@@ -80,6 +79,13 @@ export interface DashboardData {
     asset_allocation: AssetAllocationItem[];
     top_holdings: Holding[];
     alerts: Alert[];
+}
+
+// Dashboard Run (matches backend DashboardRunOut)
+export interface DashboardRunOut {
+    run_id: string;
+    status: string;   // pending | processing | completed | failed
+    result: DashboardData | null;
 }
 
 export interface PortfolioDataPoint {

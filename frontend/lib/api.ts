@@ -5,7 +5,7 @@ import type {
     AuthResponse,
     User,
     BankAccount,
-    DashboardData,
+    DashboardRunOut,
     EquityCreate,
     EquityOut,
     MutualFundCreate,
@@ -53,13 +53,13 @@ export const userApi = {
 // ==========================================
 export const bankingApi = {
     addBankAccount: (data: Partial<BankAccount>) =>
-        apiClient.post<ApiResponse<BankAccount>>('/banking-accounts/', data),
+        apiClient.post<BankAccount>('/banking-accounts/', data),
 
     getBankAccounts: () =>
-        apiClient.get<ApiResponse<BankAccount[]>>('/banking-accounts/'),
+        apiClient.get<BankAccount[]>('/banking-accounts/'),
 
     updateBankAccount: (accountId: string, data: Partial<BankAccount>) =>
-        apiClient.put<ApiResponse<BankAccount>>(`/banking-accounts/${accountId}`, data),
+        apiClient.put<BankAccount>(`/banking-accounts/${accountId}`, data),
 
     deleteBankAccount: (accountId: string) =>
         apiClient.delete(`/banking-accounts/${accountId}`),
@@ -188,11 +188,11 @@ export const dashboardApi = {
         widgets: string[] = ['net_worth', 'asset_allocation', 'portfolio_performance', 'cashflow', 'tax_tracker', 'top_holdings', 'alerts'],
         timePeriod: string = '1y'
     ) =>
-        apiClient.post<{ run_id: string }>('/dashboard/generate', {
+        apiClient.post<DashboardRunOut>('/dashboard/generate', {
             widgets,
             time_period: timePeriod,
         }),
 
     getDashboardResult: (runId: string) =>
-        apiClient.get<DashboardData>(`/dashboard/result/${runId}`),
+        apiClient.get<DashboardRunOut>(`/dashboard/result/${runId}`),
 };

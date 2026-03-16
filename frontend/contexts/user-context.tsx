@@ -42,6 +42,9 @@ function userReducer(state: UserState, action: UserAction): UserState {
 interface UserContextType extends UserState {
     login: (user: User, token: string) => void;
     logout: () => void;
+    isNewUser: boolean;
+    setNewUser: (val: boolean) => void;
+    completeOnboarding: () => void;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -51,6 +54,7 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 // ==========================================
 export function UserProvider({ children }: { children: ReactNode }) {
     const [state, dispatch] = useReducer(userReducer, initialState);
+    const [isNewUser, setIsNewUser] = React.useState(false);
 
     useEffect(() => {
         // Check for existing session on mount
@@ -69,6 +73,18 @@ export function UserProvider({ children }: { children: ReactNode }) {
         }
     }, []);
 
+    const setNewUser = (val: boolean) => {
+        setIsNewUser(val);
+        if (val) {
+            localStorage.removeItem('quant_onboarding_complete');
+        }
+    };
+
+    const completeOnboarding = () => {
+        setIsNewUser(false);
+        localStorage.setItem('quant_onboarding_complete', 'true');
+    };
+
     const login = (user: User, token: string) => {
         localStorage.setItem('quant_token', token);
         localStorage.setItem('quant_user', JSON.stringify(user));
@@ -78,15 +94,16 @@ export function UserProvider({ children }: { children: ReactNode }) {
     const logout = () => {
         localStorage.removeItem('quant_token');
         localStorage.removeItem('quant_user');
+        localStorage.removeItem('quant_onboarding_complete');
+        setIsNewUser(false);
         dispatch({ type: 'LOGOUT' });
-        // Redirect to login page
         if (typeof window !== 'undefined') {
             window.location.href = '/login';
         }
     };
 
     return (
-        <UserContext.Provider value={{ ...state, login, logout }}>
+        <UserContext.Provider value={{ ...state, login, logout, isNewUser, setNewUser, completeOnboarding }}>
             {children}
         </UserContext.Provider>
     );

@@ -34,7 +34,7 @@ type RegisterFormData = z.infer<typeof registerSchema>;
 
 export default function RegisterPage() {
     const router = useRouter();
-    const { login } = useUser();
+    const { login, setNewUser } = useUser();
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -73,6 +73,7 @@ export default function RegisterPage() {
             const profileRes = await userApi.getProfile();
             const user = profileRes.data;
             login(user, token);
+            setNewUser(true);
             setMessage('Registration successful! Redirecting...');
             setTimeout(() => {
                 router.push('/input-data');

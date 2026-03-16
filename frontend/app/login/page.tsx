@@ -58,7 +58,7 @@ export default function LoginPage() {
 
             setMessage('Login successful! Redirecting...');
             setTimeout(() => {
-                router.push('/input-data');
+                router.push('/dashboard');
             }, 500);
         } catch (err: any) {
             // Clear token on error
@@ -214,15 +214,8 @@ export default function LoginPage() {
                             )}
                         </div>
 
-                        {/* Remember / Forgot */}
-                        <div className="flex items-center justify-between">
-                            <label className="flex items-center gap-2 text-sm text-gray-600">
-                                <input
-                                    type="checkbox"
-                                    className="h-4 w-4 rounded border-gray-300 text-blue-600"
-                                />
-                                Remember me
-                            </label>
+                        {/* Forgot Password */}
+                        <div className="flex items-center justify-end">
                             <Link
                                 href="#"
                                 className="text-sm font-medium text-blue-600 hover:text-blue-700"

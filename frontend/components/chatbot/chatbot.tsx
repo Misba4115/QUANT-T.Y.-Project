@@ -1,11 +1,17 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Send, Bot, User } from 'lucide-react';
 import type { ChatMessage, ChatOption } from '@/types';
 import { chatApi } from '@/lib/api';
 import ReactMarkdown from 'react-markdown';
+
+// ==========================================
+// Constants
+// ==========================================
+const TYPING_SPEED_MS = 18; // ms per character (fast & smooth)
+const TYPING_CHUNK_SIZE = 3; // characters per tick for perceived speed
 
 const chatOptions: ChatOption[] = [
     'Stock Market Queries',
@@ -15,7 +21,182 @@ const chatOptions: ChatOption[] = [
     'Tax Saving Queries',
 ];
 
+// ==========================================
+// Thinking Indicator Component
+// ==========================================
+function ThinkingIndicator() {
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4 }}
+            className="flex items-start gap-2"
+        >
+            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600">
+                <Bot className="h-4 w-4" />
+            </div>
+            <div className="rounded-2xl rounded-tl-md bg-gray-100 px-4 py-3">
+                <div className="flex items-center gap-1.5">
+                    {[0, 1, 2].map((i) => (
+                        <motion.span
+                            key={i}
+                            className="block h-2 w-2 rounded-full bg-gray-400"
+                            animate={{
+                                y: [0, -6, 0],
+                                opacity: [0.4, 1, 0.4],
+                            }}
+                            transition={{
+                                duration: 0.8,
+                                repeat: Infinity,
+                                delay: i * 0.15,
+                                ease: 'easeInOut',
+                            }}
+                        />
+                    ))}
+                    <span className="ml-1 text-xs text-gray-400">Thinking</span>
+                </div>
+            </div>
+        </motion.div>
+    );
+}
 
+// ==========================================
+// Typing Effect Hook
+// ==========================================
+function useTypingEffect(
+    fullText: string,
+    isActive: boolean,
+    onComplete: () => void
+) {
+    const [displayedText, setDisplayedText] = useState('');
+    const indexRef = useRef(0);
+    const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    useEffect(() => {
+        // Guard against undefined/null content during React state batching
+        const text = fullText ?? '';
+
+        // Reset when fullText changes
+        if (!isActive) {
+            setDisplayedText(text);
+            indexRef.current = text.length;
+            return;
+        }
+
+        indexRef.current = 0;
+        setDisplayedText('');
+
+        function tick() {
+            indexRef.current = Math.min(
+                indexRef.current + TYPING_CHUNK_SIZE,
+                text.length
+            );
+            setDisplayedText(text.slice(0, indexRef.current));
+
+            if (indexRef.current < text.length) {
+                timerRef.current = setTimeout(tick, TYPING_SPEED_MS);
+            } else {
+                onComplete();
+            }
+        }
+
+        // Small initial delay before typing starts
+        timerRef.current = setTimeout(tick, 80);
+
+        return () => {
+            if (timerRef.current) clearTimeout(timerRef.current);
+        };
+    }, [fullText, isActive]); // eslint-disable-line react-hooks/exhaustive-deps
+
+    return displayedText;
+}
+
+// ==========================================
+// Bot Message with Typing Effect
+// ==========================================
+function BotMessageBubble({
+    message,
+    isTyping,
+    onTypingComplete,
+}: {
+    message: ChatMessage;
+    isTyping: boolean;
+    onTypingComplete: () => void;
+}) {
+    const displayedText = useTypingEffect(
+        message.content,
+        isTyping,
+        onTypingComplete
+    );
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex items-start gap-2"
+        >
+            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600">
+                <Bot className="h-4 w-4" />
+            </div>
+            <div className="max-w-[75%] rounded-2xl rounded-tl-md bg-gray-100 px-3.5 py-2.5 text-sm leading-relaxed text-gray-800">
+                <div className="prose prose-sm max-w-none">
+                    <ReactMarkdown
+                        components={{
+                            strong: ({ node, ...props }) => (
+                                <strong
+                                    className="font-bold text-blue-700"
+                                    {...props}
+                                />
+                            ),
+                            ul: ({ node, ...props }) => (
+                                <ul
+                                    className="list-disc ml-4 my-2 space-y-1"
+                                    {...props}
+                                />
+                            ),
+                            li: ({ node, ...props }) => (
+                                <li className="my-1" {...props} />
+                            ),
+                            p: ({ node, ...props }) => (
+                                <p className="mb-2 last:mb-0" {...props} />
+                            ),
+                        }}
+                    >
+                        {displayedText}
+                    </ReactMarkdown>
+                </div>
+                {/* Blinking cursor while typing */}
+                {isTyping && (
+                    <span className="inline-block w-0.5 h-4 bg-gray-400 animate-pulse ml-0.5 align-text-bottom" />
+                )}
+            </div>
+        </motion.div>
+    );
+}
+
+// ==========================================
+// User Message Bubble
+// ==========================================
+function UserMessageBubble({ message }: { message: ChatMessage }) {
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex items-start gap-2 flex-row-reverse"
+        >
+            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-600">
+                <User className="h-4 w-4" />
+            </div>
+            <div className="max-w-[75%] rounded-2xl rounded-tr-md bg-blue-600 px-3.5 py-2.5 text-sm leading-relaxed text-white">
+                {message.content}
+            </div>
+        </motion.div>
+    );
+}
+
+// ==========================================
+// Main Chatbot Component
+// ==========================================
 export default function Chatbot() {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<ChatMessage[]>([
@@ -30,6 +211,9 @@ export default function Chatbot() {
     const [inputValue, setInputValue] = useState('');
     const [showOptions, setShowOptions] = useState(true);
     const [conversationId, setConversationId] = useState<string | null>(null);
+    const [isThinking, setIsThinking] = useState(false);
+    const [typingMessageId, setTypingMessageId] = useState<string | null>(null);
+    const [isSending, setIsSending] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const [isHydrated, setIsHydrated] = useState(false);
 
@@ -37,44 +221,66 @@ export default function Chatbot() {
         setIsHydrated(true);
     }, []);
 
+    // Auto-scroll to bottom when messages change OR during typing
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, [messages]);
+    }, [messages, isThinking, typingMessageId]);
 
-    const addMessage = (sender: 'user' | 'bot', content: string) => {
+    const handleTypingComplete = useCallback(() => {
+        setTypingMessageId(null);
+    }, []);
+
+    const addMessage = (
+        sender: 'user' | 'bot',
+        content: string
+    ): string => {
+        const id = `${Date.now()}-${Math.random()}`;
         setMessages((prev) => [
             ...prev,
-            {
-                id: `${Date.now()}-${Math.random()}`,
-                sender,
-                content,
-                timestamp: new Date(),
-            },
+            { id, sender, content, timestamp: new Date() },
         ]);
+        return id;
     };
 
     const sendMessageToServer = async (text: string) => {
+        setIsSending(true);
+        setIsThinking(true);
+
         try {
-            const resp = await chatApi.sendMessage(text, conversationId || undefined);
+            const resp = await chatApi.sendMessage(
+                text,
+                conversationId || undefined
+            );
             const data = resp.data;
-            addMessage('bot', data.reply);
+
+            // Hide thinking, add bot message, start typing effect
+            setIsThinking(false);
+            const botMsgId = addMessage('bot', data.reply);
+            setTypingMessageId(botMsgId);
             setConversationId(data.conversation_id);
         } catch (error) {
             console.error('Chat error:', error);
-            addMessage('bot', 'Sorry, I encountered an error. Please try again.');
+            setIsThinking(false);
+            const errorId = addMessage(
+                'bot',
+                'Sorry, I encountered an error. Please try again.'
+            );
+            setTypingMessageId(errorId);
         } finally {
+            setIsSending(false);
             setTimeout(() => setShowOptions(true), 500);
         }
     };
 
     const handleOptionClick = (option: ChatOption) => {
+        if (isSending) return;
         setShowOptions(false);
         addMessage('user', option);
         sendMessageToServer(option);
     };
 
     const handleSend = async () => {
-        if (!inputValue.trim()) return;
+        if (!inputValue.trim() || isSending) return;
         const msg = inputValue.trim();
         setInputValue('');
         setShowOptions(false);
@@ -138,7 +344,11 @@ export default function Chatbot() {
                                         Quant Assistant
                                     </h3>
                                     <p className="text-[11px] text-blue-100">
-                                        Always here to help
+                                        {isThinking
+                                            ? 'Thinking...'
+                                            : typingMessageId
+                                              ? 'Typing...'
+                                              : 'Always here to help'}
                                     </p>
                                 </div>
                             </div>
@@ -153,78 +363,49 @@ export default function Chatbot() {
 
                         {/* Messages */}
                         <div className="flex-1 overflow-y-auto p-4 space-y-3">
-                            {messages.map((msg) => (
-                                <motion.div
-                                    key={msg.id}
-                                    initial={{ opacity: 0, y: 8 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    className={`flex items-start gap-2 ${msg.sender === 'user' ? 'flex-row-reverse' : ''
-                                        }`}
-                                >
-                                    <div
-                                        className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full ${msg.sender === 'bot'
-                                                ? 'bg-blue-100 text-blue-600'
-                                                : 'bg-gray-100 text-gray-600'
-                                            }`}
-                                    >
-                                        {msg.sender === 'bot' ? (
-                                            <Bot className="h-4 w-4" />
-                                        ) : (
-                                            <User className="h-4 w-4" />
-                                        )}
-                                    </div>
-                                    <div
-                                        className={`max-w-[75%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${msg.sender === 'bot'
-                                                ? 'rounded-tl-md bg-gray-100 text-gray-800'
-                                                : 'rounded-tr-md bg-blue-600 text-white'
-                                            }`}
-                                    >
-                                        {msg.sender === 'bot' ? (
-                                    <div className="prose prose-sm max-w-none">
-                                        <ReactMarkdown
-                                            components={{
-                                                // Bold text styling
-                                                strong: ({ node, ...props }) => (
-                                                    <strong className="font-bold text-blue-700" {...props} />
-                                                ),
-                                                // Bullet list styling
-                                                ul: ({ node, ...props }) => (
-                                                    <ul className="list-disc ml-4 my-2 space-y-1" {...props} />
-                                                ),
-                                                // List item styling
-                                                li: ({ node, ...props }) => (
-                                                    <li className="my-1" {...props} />
-                                                ),
-                                                // Paragraph styling with proper spacing
-                                                p: ({ node, ...props }) => (
-                                                    <p className="mb-2 last:mb-0" {...props} />
-                                                ),
-                                            }}
-                                        >
-                                            {msg.content}
-                                        </ReactMarkdown>
-                                    </div>
+                            {messages.map((msg) =>
+                                msg.sender === 'bot' ? (
+                                    <BotMessageBubble
+                                        key={msg.id}
+                                        message={msg}
+                                        isTyping={typingMessageId === msg.id}
+                                        onTypingComplete={
+                                            handleTypingComplete
+                                        }
+                                    />
                                 ) : (
-                                    msg.content
-                                )}
-                                    </div>
-                                </motion.div>
-                            ))}
+                                    <UserMessageBubble
+                                        key={msg.id}
+                                        message={msg}
+                                    />
+                                )
+                            )}
+
+                            {/* Thinking Animation */}
+                            <AnimatePresence>
+                                {isThinking && <ThinkingIndicator />}
+                            </AnimatePresence>
 
                             {/* Quick Options */}
                             <AnimatePresence>
-                                {showOptions && (
+                                {showOptions && !isThinking && !typingMessageId && (
                                     <motion.div
                                         initial={{ opacity: 0, height: 0 }}
-                                        animate={{ opacity: 1, height: 'auto' }}
+                                        animate={{
+                                            opacity: 1,
+                                            height: 'auto',
+                                        }}
                                         exit={{ opacity: 0, height: 0 }}
                                         className="flex flex-wrap gap-1.5 pt-1"
                                     >
                                         {chatOptions.map((option) => (
                                             <button
                                                 key={option}
-                                                onClick={() => handleOptionClick(option)}
-                                                className="rounded-full border border-blue-200 bg-blue-50 px-3 py-1.5 text-xs font-medium text-blue-700 transition-all hover:bg-blue-100 hover:border-blue-300"
+                                                onClick={() =>
+                                                    handleOptionClick(option)
+                                                }
+                                                disabled={isSending}
+                                                className="rounded-full border border-blue-200 bg-blue-50 px-3 py-1.5 text-xs font-medium text-blue-700 transition-all hover:bg-blue-100 hover:border-blue-300 disabled:opacity-50 disabled:cursor-not-allowed"
                                             >
                                                 {option}
                                             </button>
@@ -247,13 +428,20 @@ export default function Chatbot() {
                                 <input
                                     type="text"
                                     value={inputValue}
-                                    onChange={(e) => setInputValue(e.target.value)}
-                                    placeholder="Type your message..."
-                                    className="flex-1 rounded-full border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm outline-none transition-colors focus:border-blue-300 focus:bg-white focus:ring-2 focus:ring-blue-100"
+                                    onChange={(e) =>
+                                        setInputValue(e.target.value)
+                                    }
+                                    placeholder={
+                                        isSending
+                                            ? 'Waiting for response...'
+                                            : 'Type your message...'
+                                    }
+                                    disabled={isSending}
+                                    className="flex-1 rounded-full border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm outline-none transition-colors focus:border-blue-300 focus:bg-white focus:ring-2 focus:ring-blue-100 disabled:opacity-50 disabled:cursor-not-allowed"
                                 />
                                 <button
                                     type="submit"
-                                    disabled={!inputValue.trim()}
+                                    disabled={!inputValue.trim() || isSending}
                                     className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-white transition-all hover:bg-blue-700 disabled:opacity-40 disabled:hover:bg-blue-600"
                                     aria-label="Send message"
                                 >

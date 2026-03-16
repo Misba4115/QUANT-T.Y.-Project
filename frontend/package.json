@@ -10,12 +10,14 @@
   },
   "dependencies": {
     "@hookform/resolvers": "*",
+    "@types/papaparse": "^5.5.2",
     "axios": "*",
     "class-variance-authority": "*",
     "clsx": "*",
     "framer-motion": "*",
     "lucide-react": "*",
     "next": "*",
+    "papaparse": "^5.5.3",
     "radix-ui": "*",
     "react": "*",
     "react-dom": "*",
@@ -24,7 +26,6 @@
     "recharts": "*",
     "tailwind-merge": "*",
     "zod": "*"
-
   },
   "devDependencies": {
     "@tailwindcss/postcss": "*",

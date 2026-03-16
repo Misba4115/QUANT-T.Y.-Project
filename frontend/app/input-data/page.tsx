@@ -1,10 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
+import { useRouter } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
     Building2,
     TrendingUp,
@@ -16,80 +14,62 @@ import {
     MessageCircle,
     Clock,
     CheckCircle2,
+    Star,
+    Trash2,
     IndianRupee,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Switch } from '@/components/ui/switch';
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from '@/components/ui/select';
-import { Progress } from '@/components/ui/progress';
 import Navbar from '@/components/layout/navbar';
 import PageTransition from '@/components/layout/page-transition';
 import { SkeletonCard } from '@/components/ui/skeletons';
 import { useUser } from '@/contexts/user-context';
-import type { QuickStats, FinancialCategory, BankAccount } from '@/types';
-import { bankingApi } from '@/lib/api';
+import BankingModal, { type LocalBankAccount } from '@/components/input-data/banking-modal';
+import InvestmentsPanel, { type CSVFile } from '@/components/input-data/investments-panel';
+import TradingPanel, { type TradingAccount } from '@/components/input-data/trading-panel';
+import GoalsPanel, { type GoalsData } from '@/components/input-data/goals-panel';
 
 // ==========================================
 // Financial Categories (UI constants)
 // ==========================================
+interface FinancialCategory {
+    id: string;
+    title: string;
+    description: string;
+    icon: string;
+}
+
 const financialCategories: FinancialCategory[] = [
     {
         id: 'banking',
         title: 'Banking & Accounts',
         description: 'Link your bank accounts and track balances',
         icon: 'building',
-        isActive: true,
     },
     {
         id: 'investments',
         title: 'Investments',
         description: 'Stocks, Mutual Funds, ETFs',
         icon: 'trending-up',
-        isActive: false,
     },
     {
         id: 'trading',
         title: 'Trading',
         description: 'Active trades and positions',
         icon: 'candlestick-chart',
-        isActive: false,
     },
     {
         id: 'crypto',
         title: 'Crypto',
         description: 'Cryptocurrency holdings',
         icon: 'bitcoin',
-        isActive: false,
     },
     {
         id: 'goals',
         title: 'Goals & Planning',
         description: 'Financial goals and milestones',
         icon: 'target',
-        isActive: false,
     },
 ];
-
-// ==========================================
-// Form Schema
-// ==========================================
-const bankAccountSchema = z.object({
-    accountType: z.string().min(1, 'Account type is required'),
-    bankName: z.string().min(1, 'Bank name is required'),
-    accountNickname: z.string().min(1, 'Account nickname is required'),
-    currentBalance: z.string().min(1, 'Current balance is required'),
-    isPrimary: z.boolean(),
-});
-
-type BankAccountForm = z.infer<typeof bankAccountSchema>;
 
 // ==========================================
 // Sub-components
@@ -110,77 +90,152 @@ const iconColors: Record<string, string> = {
     target: 'text-indigo-600 bg-indigo-50 border-indigo-200',
 };
 
+const accountTypeLabels: Record<string, string> = {
+    savings: 'Savings',
+    current: 'Current',
+    salary: 'Salary',
+    fd: 'Fixed Deposit',
+    rd: 'Recurring Deposit',
+};
+
 // ==========================================
 // Main Page
 // ==========================================
 export default function InputDataPage() {
-    const { user } = useUser();
-    const [isLoading, setIsLoading] = useState(true);
+    const router = useRouter();
+    const { user, isAuthenticated, isLoading: authLoading, isNewUser, completeOnboarding } = useUser();
+    const [pageLoading, setPageLoading] = useState(true);
     const [activeCategory, setActiveCategory] = useState('banking');
-    const [quickStats, setQuickStats] = useState<QuickStats>({
-        dataCompleteness: 0,
-        accountsAdded: 0,
-        holdings: 0,
-        lastUpdated: '--',
-    });
 
-    const {
-        register,
-        handleSubmit,
-        setValue,
-        watch,
-        formState: { errors },
-    } = useForm<BankAccountForm>({
-        resolver: zodResolver(bankAccountSchema),
-        defaultValues: {
-            isPrimary: true,
-            accountType: '',
-        },
-    });
+    // ---- Modal states ----
+    const [bankingModalOpen, setBankingModalOpen] = useState(false);
+    const [investmentsModalOpen, setInvestmentsModalOpen] = useState(false);
+    const [tradingModalOpen, setTradingModalOpen] = useState(false);
+    const [goalsModalOpen, setGoalsModalOpen] = useState(false);
 
-    const isPrimary = watch('isPrimary');
+    // ---- Local data stores ----
+    const [bankAccounts, setBankAccounts] = useState<LocalBankAccount[]>([]);
+    const [csvFiles, setCsvFiles] = useState<CSVFile[]>([]);
+    const [tradingAccounts, setTradingAccounts] = useState<TradingAccount[]>([]);
+    const [goalsData, setGoalsData] = useState<GoalsData | null>(null);
 
-    // helper for pulling bank accounts; reused by effect and submit handler
-    const fetchQuickStats = async () => {
-        try {
-            const res = await bankingApi.getBankAccounts();
-            const accounts = res.data.data;
-            setQuickStats({
-                dataCompleteness: 0, // placeholder until profile completion is implemented
-                accountsAdded: accounts?.length ?? 0,
-                holdings: accounts?.length ?? 0,
-                lastUpdated: 'Just now',
-            });
-        } catch (error) {
-            console.error('Error fetching bank accounts:', error);
-            // API not available yet — leave defaults
-        } finally {
-            setIsLoading(false);
+    // ==========================================
+    // Route Guard: Only NEW USERS should see this page
+    // ==========================================
+    useEffect(() => {
+        if (authLoading) return;
+
+        // Not authenticated → redirect to login
+        if (!isAuthenticated) {
+            router.replace('/login');
+            return;
         }
-    };
+
+        // Existing user (not new) → check onboarding
+        const onboardingComplete = localStorage.getItem('quant_onboarding_complete');
+        if (!isNewUser && onboardingComplete === 'true') {
+            router.replace('/dashboard');
+            return;
+        }
+
+        setPageLoading(false);
+    }, [authLoading, isAuthenticated, isNewUser, router]);
+
+    // ---- Load from localStorage on mount ----
+    useEffect(() => {
+        try {
+            const stored = localStorage.getItem('quant_bank_accounts');
+            if (stored) setBankAccounts(JSON.parse(stored));
+            const storedCsv = localStorage.getItem('quant_csv_files');
+            if (storedCsv) setCsvFiles(JSON.parse(storedCsv));
+            const storedTrading = localStorage.getItem('quant_trading_accounts');
+            if (storedTrading) setTradingAccounts(JSON.parse(storedTrading));
+            const storedGoals = localStorage.getItem('quant_goals_data');
+            if (storedGoals) setGoalsData(JSON.parse(storedGoals));
+        } catch {
+            // ignore corrupt data
+        }
+    }, []);
+
+    // ---- Persist to localStorage on change ----
+    useEffect(() => {
+        localStorage.setItem('quant_bank_accounts', JSON.stringify(bankAccounts));
+    }, [bankAccounts]);
 
     useEffect(() => {
-        fetchQuickStats();
-    }, []); // dependency removed until profileCompletion exists
+        localStorage.setItem('quant_csv_files', JSON.stringify(csvFiles));
+    }, [csvFiles]);
 
-    const onSubmit = async (data: BankAccountForm) => {
-        try {
-            await bankingApi.addBankAccount({
-                account_type: data.accountType as BankAccount['account_type'],
-                institution: data.bankName,
-                account_name: data.accountNickname,
-                current_balance: parseFloat(data.currentBalance),
-                is_primary: data.isPrimary,
-            });
-            alert('Account saved successfully!');
-            // refresh stats/list
-            fetchQuickStats();
-        } catch (error) {
-            console.error('Error saving account:', error);
-            alert('Could not save — backend may not be connected yet.');
+    useEffect(() => {
+        localStorage.setItem('quant_trading_accounts', JSON.stringify(tradingAccounts));
+    }, [tradingAccounts]);
+
+    useEffect(() => {
+        if (goalsData) localStorage.setItem('quant_goals_data', JSON.stringify(goalsData));
+    }, [goalsData]);
+
+    // ==========================================
+    // Handlers
+    // ==========================================
+    const handleAddAccount = (account: LocalBankAccount) => {
+        let updated: LocalBankAccount[];
+        if (account.isPrimary) {
+            // Un-set other primaries
+            updated = bankAccounts.map((a) => ({ ...a, isPrimary: false }));
+            updated.push(account);
+        } else {
+            updated = [...bankAccounts, account];
+        }
+        setBankAccounts(updated);
+    };
+
+    const handleDeleteAccount = (id: string) => {
+        setBankAccounts((prev) => prev.filter((a) => a.id !== id));
+    };
+
+    const handleSetPrimary = (id: string) => {
+        setBankAccounts((prev) =>
+            prev.map((a) => ({
+                ...a,
+                isPrimary: a.id === id,
+            }))
+        );
+    };
+
+    const handleCategoryClick = (categoryId: string) => {
+        setActiveCategory(categoryId);
+
+        // Open the corresponding modal
+        switch (categoryId) {
+            case 'banking':
+                setBankingModalOpen(true);
+                break;
+            case 'investments':
+                setInvestmentsModalOpen(true);
+                break;
+            case 'trading':
+                setTradingModalOpen(true);
+                break;
+            case 'goals':
+                setGoalsModalOpen(true);
+                break;
+            // crypto — not yet implemented, just switches active
         }
     };
 
+    const handleSkipForNow = () => {
+        completeOnboarding();
+        router.push('/dashboard');
+    };
+
+    const handleSaveAndContinue = () => {
+        completeOnboarding();
+        router.push('/dashboard');
+    };
+
+    // ==========================================
+    // Derived
+    // ==========================================
     const displayName = user?.name || 'User';
     const firstName = displayName.split(' ')[0];
 
@@ -197,7 +252,10 @@ export default function InputDataPage() {
         visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
     };
 
-    if (isLoading) {
+    // ==========================================
+    // Loading State
+    // ==========================================
+    if (authLoading || pageLoading) {
         return (
             <>
                 <Navbar />
@@ -222,6 +280,9 @@ export default function InputDataPage() {
         );
     }
 
+    // ==========================================
+    // Render
+    // ==========================================
     return (
         <>
             <Navbar />
@@ -235,32 +296,17 @@ export default function InputDataPage() {
                     >
                         {/* ===== Left Column ===== */}
                         <div className="space-y-8">
-                            {/* Welcome Section */}
+                            {/* Welcome Section (no progress bar) */}
                             <motion.div variants={itemVariants}>
                                 <h1 className="text-2xl font-bold text-gray-900">
-                                    Welcome back, {firstName}!{' '}
+                                    Welcome, {firstName}!{' '}
                                     <span className="font-normal text-gray-500">
-                                        Let&apos;s keep your financial data up to date.
+                                        Let&apos;s set up your financial profile.
                                     </span>
                                 </h1>
-                                <div className="mt-3 flex items-center gap-3">
-                                    <div className="flex items-center gap-2">
-                                        <CheckCircle2 className="h-4 w-4 text-blue-600" />
-                                        <span className="text-sm font-medium text-gray-600">
-                                            Profile: 0% complete
-                                        </span>
-                                    </div>
-                                    <div className="h-2 w-32 overflow-hidden rounded-full bg-gray-100">
-                                        <motion.div
-                                            initial={{ width: 0 }}
-                                            animate={{
-                                                width: `0%`,
-                                            }}
-                                            transition={{ duration: 1, delay: 0.5 }}
-                                            className="h-full rounded-full bg-gradient-to-r from-blue-500 to-blue-600"
-                                        />
-                                    </div>
-                                </div>
+                                <p className="mt-2 text-sm text-gray-400">
+                                    Click on a category below to add your financial data. You can always update this later.
+                                </p>
                             </motion.div>
 
                             {/* Financial Category Cards */}
@@ -275,7 +321,7 @@ export default function InputDataPage() {
                                             key={cat.id}
                                             whileHover={{ y: -4 }}
                                             whileTap={{ scale: 0.97 }}
-                                            onClick={() => setActiveCategory(cat.id)}
+                                            onClick={() => handleCategoryClick(cat.id)}
                                             className={`group flex flex-col items-center rounded-xl border-2 p-4 text-center transition-all ${isActive
                                                 ? `${iconColors[cat.icon]} shadow-md`
                                                 : 'border-gray-100 bg-white hover:border-gray-200 hover:shadow-sm'
@@ -312,131 +358,121 @@ export default function InputDataPage() {
                                 })}
                             </motion.div>
 
-                            {/* Banking & Accounts Form */}
-                            <motion.div
-                                variants={itemVariants}
-                                className="rounded-xl border border-gray-100 bg-white p-6 shadow-sm"
-                            >
-                                <h2 className="mb-6 text-lg font-bold text-gray-900">
-                                    Banking & Accounts Details
-                                </h2>
-                                <form
-                                    onSubmit={handleSubmit(onSubmit)}
-                                    className="space-y-5"
-                                >
-                                    {/* Account Type */}
-                                    <div className="grid gap-4 sm:grid-cols-2">
-                                        <div className="space-y-2">
-                                            <Label className="text-sm font-medium text-gray-700">
-                                                Account Type:
-                                            </Label>
-                                            <Select
-                                                onValueChange={(val) => setValue('accountType', val)}
+                            {/* Banking Accounts List */}
+                            <AnimatePresence>
+                                {bankAccounts.length > 0 && (
+                                    <motion.div
+                                        variants={itemVariants}
+                                        initial="hidden"
+                                        animate="visible"
+                                        className="rounded-xl border border-gray-100 bg-white p-6 shadow-sm"
+                                    >
+                                        <div className="flex items-center justify-between mb-4">
+                                            <h2 className="text-lg font-bold text-gray-900">
+                                                Your Bank Accounts ({bankAccounts.length})
+                                            </h2>
+                                            <Button
+                                                size="sm"
+                                                onClick={() => setBankingModalOpen(true)}
+                                                className="gap-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white"
                                             >
-                                                <SelectTrigger className="h-11">
-                                                    <SelectValue placeholder="Select type" />
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    <SelectItem value="savings">Savings</SelectItem>
-                                                    <SelectItem value="current">Current</SelectItem>
-                                                    <SelectItem value="salary">Salary</SelectItem>
-                                                    <SelectItem value="fd">Fixed Deposit</SelectItem>
-                                                    <SelectItem value="rd">
-                                                        Recurring Deposit
-                                                    </SelectItem>
-                                                </SelectContent>
-                                            </Select>
-                                            {errors.accountType && (
-                                                <p className="text-xs text-red-500">
-                                                    {errors.accountType.message}
-                                                </p>
-                                            )}
+                                                <Plus className="h-3.5 w-3.5" />
+                                                Add More
+                                            </Button>
                                         </div>
 
-                                        {/* Bank Name */}
-                                        <div className="space-y-2">
-                                            <Label className="text-sm font-medium text-gray-700">
-                                                Bank Name:
-                                            </Label>
-                                            <Input
-                                                placeholder="HDFC, ICICI, SBI, etc..."
-                                                className="h-11"
-                                                {...register('bankName')}
-                                            />
-                                            {errors.bankName && (
-                                                <p className="text-xs text-red-500">
-                                                    {errors.bankName.message}
-                                                </p>
-                                            )}
+                                        <div className="space-y-3">
+                                            {bankAccounts.map((account) => (
+                                                <motion.div
+                                                    key={account.id}
+                                                    initial={{ opacity: 0, x: -10 }}
+                                                    animate={{ opacity: 1, x: 0 }}
+                                                    className={`flex items-center justify-between rounded-lg border p-4 transition-all ${
+                                                        account.isPrimary
+                                                            ? 'border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50 shadow-sm'
+                                                            : 'border-gray-100 bg-white hover:border-gray-200'
+                                                    }`}
+                                                >
+                                                    <div className="flex items-center gap-3">
+                                                        <div
+                                                            className={`flex h-10 w-10 items-center justify-center rounded-lg ${
+                                                                account.isPrimary
+                                                                    ? 'bg-blue-100 text-blue-600'
+                                                                    : 'bg-gray-100 text-gray-500'
+                                                            }`}
+                                                        >
+                                                            <Building2 className="h-5 w-5" />
+                                                        </div>
+                                                        <div>
+                                                            <div className="flex items-center gap-2">
+                                                                <p className="text-sm font-semibold text-gray-800">
+                                                                    {account.accountNickname}
+                                                                </p>
+                                                                {account.isPrimary && (
+                                                                    <span className="flex items-center gap-1 rounded-full bg-blue-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-blue-700">
+                                                                        <Star className="h-2.5 w-2.5" />
+                                                                        Primary
+                                                                    </span>
+                                                                )}
+                                                            </div>
+                                                            <p className="text-xs text-gray-400">
+                                                                {account.bankName} • {accountTypeLabels[account.accountType] || account.accountType}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="flex items-center gap-3">
+                                                        <div className="text-right">
+                                                            <p className="flex items-center gap-0.5 text-sm font-bold text-gray-900">
+                                                                <IndianRupee className="h-3.5 w-3.5" />
+                                                                {account.currentBalance.toLocaleString('en-IN')}
+                                                            </p>
+                                                        </div>
+                                                        <div className="flex gap-1">
+                                                            {!account.isPrimary && (
+                                                                <Button
+                                                                    size="sm"
+                                                                    variant="outline"
+                                                                    onClick={() => handleSetPrimary(account.id)}
+                                                                    className="gap-1 text-xs"
+                                                                    title="Set as primary"
+                                                                >
+                                                                    <Star className="h-3 w-3" />
+                                                                </Button>
+                                                            )}
+                                                            <Button
+                                                                size="sm"
+                                                                variant="outline"
+                                                                onClick={() => handleDeleteAccount(account.id)}
+                                                                className="gap-1 text-red-500 hover:text-red-600"
+                                                                title="Delete account"
+                                                            >
+                                                                <Trash2 className="h-3 w-3" />
+                                                            </Button>
+                                                        </div>
+                                                    </div>
+                                                </motion.div>
+                                            ))}
                                         </div>
-                                    </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
 
-                                    <div className="grid gap-4 sm:grid-cols-2">
-                                        {/* Account Nickname */}
-                                        <div className="space-y-2">
-                                            <Label className="text-sm font-medium text-gray-700">
-                                                Account Nickname:
-                                            </Label>
-                                            <Input
-                                                placeholder="e.g. HDFC Main Savings"
-                                                className="h-11"
-                                                {...register('accountNickname')}
-                                            />
-                                            {errors.accountNickname && (
-                                                <p className="text-xs text-red-500">
-                                                    {errors.accountNickname.message}
-                                                </p>
-                                            )}
-                                        </div>
-
-                                        {/* Current Balance */}
-                                        <div className="space-y-2">
-                                            <Label className="text-sm font-medium text-gray-700">
-                                                Current Balance:
-                                            </Label>
-                                            <div className="relative">
-                                                <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400">
-                                                    <IndianRupee className="h-4 w-4" />
-                                                </div>
-                                                <Input
-                                                    type="number"
-                                                    placeholder="0"
-                                                    className="h-11 pl-10"
-                                                    {...register('currentBalance')}
-                                                />
-                                            </div>
-                                            {errors.currentBalance && (
-                                                <p className="text-xs text-red-500">
-                                                    {errors.currentBalance.message}
-                                                </p>
-                                            )}
-                                        </div>
-                                    </div>
-
-                                    {/* Primary Toggle */}
-                                    <div className="flex items-center gap-3">
-                                        <Switch
-                                            checked={isPrimary}
-                                            onCheckedChange={(val) => setValue('isPrimary', val)}
-                                        />
-                                        <Label className="text-sm text-gray-600">
-                                            Set as primary account
-                                        </Label>
-                                    </div>
-
-                                    {/* Buttons */}
-                                    <div className="flex items-center gap-3 pt-2">
-                                        <Button
-                                            type="submit"
-                                            className="bg-gradient-to-r from-blue-600 to-indigo-600 px-8 text-white shadow-md shadow-blue-200 hover:shadow-lg hover:shadow-blue-300"
-                                        >
-                                            Save & Continue
-                                        </Button>
-                                        <Button type="button" variant="outline" className="px-8">
-                                            Skip for now
-                                        </Button>
-                                    </div>
-                                </form>
+                            {/* Action Buttons */}
+                            <motion.div variants={itemVariants} className="flex items-center gap-3">
+                                <Button
+                                    onClick={handleSaveAndContinue}
+                                    className="bg-gradient-to-r from-blue-600 to-indigo-600 px-8 text-white shadow-md shadow-blue-200 hover:shadow-lg hover:shadow-blue-300"
+                                >
+                                    Save & Continue to Dashboard
+                                </Button>
+                                <Button
+                                    variant="outline"
+                                    className="px-8"
+                                    onClick={handleSkipForNow}
+                                >
+                                    Skip for now
+                                </Button>
                             </motion.div>
                         </div>
 
@@ -453,30 +489,31 @@ export default function InputDataPage() {
                                 <div className="space-y-4">
                                     <div className="flex items-center justify-between">
                                         <span className="text-sm text-gray-500">
-                                            Data Completeness:
-                                        </span>
-                                        <span className="text-sm font-bold text-blue-600">
-                                            {quickStats.dataCompleteness}%
-                                        </span>
-                                    </div>
-                                    <Progress
-                                        value={quickStats.dataCompleteness}
-                                        className="h-2"
-                                    />
-
-                                    <div className="flex items-center justify-between pt-2">
-                                        <span className="text-sm text-gray-500">
                                             Accounts Added:
                                         </span>
                                         <span className="text-sm font-bold text-gray-900">
-                                            {quickStats.accountsAdded}
+                                            {bankAccounts.length}
                                         </span>
                                     </div>
 
                                     <div className="flex items-center justify-between">
-                                        <span className="text-sm text-gray-500">Holdings:</span>
+                                        <span className="text-sm text-gray-500">CSV Files:</span>
                                         <span className="text-sm font-bold text-gray-900">
-                                            {quickStats.holdings}
+                                            {csvFiles.length}
+                                        </span>
+                                    </div>
+
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-sm text-gray-500">Trading Connected:</span>
+                                        <span className="text-sm font-bold text-gray-900">
+                                            {tradingAccounts.length}
+                                        </span>
+                                    </div>
+
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-sm text-gray-500">Goals Set:</span>
+                                        <span className="text-sm font-bold text-gray-900">
+                                            {goalsData ? 'Yes' : 'No'}
                                         </span>
                                     </div>
 
@@ -486,9 +523,47 @@ export default function InputDataPage() {
                                         </span>
                                         <span className="flex items-center gap-1 text-sm text-gray-400">
                                             <Clock className="h-3.5 w-3.5" />
-                                            {quickStats.lastUpdated}
+                                            Just now
                                         </span>
                                     </div>
+                                </div>
+                            </motion.div>
+
+                            {/* Onboarding Checklist */}
+                            <motion.div
+                                variants={itemVariants}
+                                className="rounded-xl border border-gray-100 bg-white p-6 shadow-sm"
+                            >
+                                <h3 className="mb-4 text-base font-bold text-gray-900">
+                                    Setup Checklist
+                                </h3>
+                                <div className="space-y-3">
+                                    {[
+                                        { label: 'Add a bank account', done: bankAccounts.length > 0 },
+                                        { label: 'Upload investment data', done: csvFiles.length > 0 },
+                                        { label: 'Connect trading account', done: tradingAccounts.length > 0 },
+                                        { label: 'Set financial goals', done: goalsData !== null },
+                                    ].map((item) => (
+                                        <div
+                                            key={item.label}
+                                            className="flex items-center gap-2"
+                                        >
+                                            <CheckCircle2
+                                                className={`h-4 w-4 ${
+                                                    item.done ? 'text-green-500' : 'text-gray-300'
+                                                }`}
+                                            />
+                                            <span
+                                                className={`text-sm ${
+                                                    item.done
+                                                        ? 'font-medium text-gray-700'
+                                                        : 'text-gray-400'
+                                                }`}
+                                            >
+                                                {item.label}
+                                            </span>
+                                        </div>
+                                    ))}
                                 </div>
                             </motion.div>
 
@@ -512,6 +587,34 @@ export default function InputDataPage() {
                     </motion.div>
                 </main>
             </PageTransition>
+
+            {/* ===== Modals ===== */}
+            <BankingModal
+                open={bankingModalOpen}
+                onClose={() => setBankingModalOpen(false)}
+                onSave={handleAddAccount}
+            />
+
+            <InvestmentsPanel
+                open={investmentsModalOpen}
+                onClose={() => setInvestmentsModalOpen(false)}
+                csvFiles={csvFiles}
+                onFilesChange={setCsvFiles}
+            />
+
+            <TradingPanel
+                open={tradingModalOpen}
+                onClose={() => setTradingModalOpen(false)}
+                connectedAccounts={tradingAccounts}
+                onAccountsChange={setTradingAccounts}
+            />
+
+            <GoalsPanel
+                open={goalsModalOpen}
+                onClose={() => setGoalsModalOpen(false)}
+                goalsData={goalsData}
+                onSave={setGoalsData}
+            />
         </>
     );
 }
