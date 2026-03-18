@@ -35,8 +35,28 @@ import { dashboardApi } from '@/lib/api';
 import { formatCurrency, formatChartValue } from '@/lib/helpers';
 import type { DashboardData, DashboardRunOut } from '@/types';
 
-// ── Mock Data Import (remove when backend is ready) ─────────────────────────
-import { MOCK_DASHBOARD_DATA } from '@/mock_data/dashboardMockData';
+// ── Empty Data Placeholder (remove when backend is ready) ──────────────
+const EMPTY_DASHBOARD_DATA: DashboardData = {
+    net_worth: 0,
+    net_worth_growth: 0,
+    risk_level: 'Low',
+    monthly_income: 0,
+    monthly_expenses: 0,
+    surplus: 0,
+    tax_saved: 0,
+    tax_limit: 150000,
+    portfolio_history: [],
+    asset_allocation: [],
+    top_holdings: [],
+    alerts: [
+        {
+            id: '1',
+            type: 'info',
+            message: 'Connect your accounts or insert data to see your insights and alerts.',
+            icon: 'lightbulb'
+        }
+    ]
+};
 // ─────────────────────────────────────────────────────────────────────────────
 
 // ==========================================
@@ -88,13 +108,13 @@ function CashflowBar({
     income: number;
     expenses: number;
 }) {
-    const total = income;
+    const total = income || 1; // avoid division by zero
     const expPct = (expenses / total) * 100;
-    const incPct = 100;
+    const incPct = income === 0 && expenses === 0 ? 0 : 100;
 
     return (
         <div className="space-y-2 pt-2">
-            <div className="flex h-5 w-full overflow-hidden rounded-full">
+            <div className="flex h-5 w-full overflow-hidden rounded-full bg-gray-100">
                 <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${incPct}%` }}
@@ -102,7 +122,7 @@ function CashflowBar({
                     className="bg-emerald-500 rounded-full"
                 />
             </div>
-            <div className="flex h-5 w-full overflow-hidden rounded-full">
+            <div className="flex h-5 w-full overflow-hidden rounded-full bg-gray-100">
                 <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${expPct}%` }}
@@ -165,15 +185,15 @@ export default function DashboardPage() {
     const [data, setData] = useState<DashboardData | null>(null);
 
     useEffect(() => {
-        // ── MOCK DATA (remove this block when backend is ready) ─────
-        function loadMockData() {
+        // ── EMPTY DATA LOADING (remove this block when backend is ready) ─────
+        function loadEmptyData() {
             // Simulate realistic loading delay
             setTimeout(() => {
-                setData(MOCK_DASHBOARD_DATA);
+                setData(EMPTY_DASHBOARD_DATA);
                 setIsLoading(false);
             }, 600);
         }
-        loadMockData();
+        loadEmptyData();
         // ─────────────────────────────────────────────────────────────
 
         // ── REAL API (uncomment when backend dashboard is implemented)

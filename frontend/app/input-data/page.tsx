@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -27,6 +27,8 @@ import BankingModal, { type LocalBankAccount } from '@/components/input-data/ban
 import InvestmentsPanel, { type CSVFile } from '@/components/input-data/investments-panel';
 import TradingPanel, { type TradingAccount } from '@/components/input-data/trading-panel';
 import GoalsPanel, { type GoalsData } from '@/components/input-data/goals-panel';
+import { bankingApi, goalsApi } from '@/lib/api';
+import type { GoalOut } from '@/types';
 
 // ==========================================
 // Financial Categories (UI constants)
@@ -118,9 +120,10 @@ export default function InputDataPage() {
     const [csvFiles, setCsvFiles] = useState<CSVFile[]>([]);
     const [tradingAccounts, setTradingAccounts] = useState<TradingAccount[]>([]);
     const [goalsData, setGoalsData] = useState<GoalsData | null>(null);
+    const [apiGoals, setApiGoals] = useState<GoalOut[]>([]);
 
     // ==========================================
-    // Route Guard: Only NEW USERS should see this page
+    // Route Guard
     // ==========================================
     useEffect(() => {
         if (authLoading) return;
@@ -131,37 +134,85 @@ export default function InputDataPage() {
             return;
         }
 
-        // Existing user (not new) → check onboarding
-        const onboardingComplete = localStorage.getItem('quant_onboarding_complete');
-        if (!isNewUser && onboardingComplete === 'true') {
-            router.replace('/dashboard');
-            return;
-        }
-
         setPageLoading(false);
-    }, [authLoading, isAuthenticated, isNewUser, router]);
+    }, [authLoading, isAuthenticated, router]);
 
-    // ---- Load from localStorage on mount ----
-    useEffect(() => {
+    // ---- Fetch from Supabase API on mount (source of truth) ----
+    const fetchBankAccountsFromAPI = useCallback(async () => {
         try {
-            const stored = localStorage.getItem('quant_bank_accounts');
-            if (stored) setBankAccounts(JSON.parse(stored));
+            const res = await bankingApi.getBankAccounts();
+            const accounts: LocalBankAccount[] = (res.data || []).map((acc: any) => ({
+                id: acc.account_id || acc.id,
+                accountType: acc.account_type,
+                bankName: acc.institution,
+                accountNickname: acc.account_name,
+                currentBalance: acc.current_balance || 0,
+                isPrimary: acc.is_primary || false,
+            }));
+            setBankAccounts(accounts);
+            localStorage.setItem('quant_bank_accounts', JSON.stringify(accounts));
+        } catch (err) {
+            console.warn('Could not fetch bank accounts from API, falling back to localStorage', err);
+            try {
+                const stored = localStorage.getItem('quant_bank_accounts');
+                if (stored) setBankAccounts(JSON.parse(stored));
+            } catch { /* ignore */ }
+        }
+    }, []);
+
+    const fetchGoalsFromAPI = useCallback(async () => {
+        try {
+            const res = await goalsApi.getGoals();
+            const goals = res.data || [];
+            setApiGoals(goals);
+
+            let local: GoalsData | null = null;
+            try {
+                const storedGoals = localStorage.getItem('quant_goals_data');
+                if (storedGoals) local = JSON.parse(storedGoals);
+            } catch { /* ignore */ }
+
+            // If user has goals in Supabase, also set the goalsData for the panel
+            if (goals.length > 0) {
+                const firstGoal = goals[0];
+                setGoalsData((prev) => ({
+                    riskTolerance: prev?.riskTolerance || local?.riskTolerance || user?.risk_profile?.toLowerCase() || '',
+                    investmentHorizon: prev?.investmentHorizon || local?.investmentHorizon || '',
+                    monthlyCapacity: prev?.monthlyCapacity || local?.monthlyCapacity || '',
+                    goalType: prev?.goalType || local?.goalType || firstGoal.goal_type || 'custom',
+                    // Use API for target amount/date as source of truth if available
+                    targetAmount: firstGoal.target_amount ? firstGoal.target_amount.toString() : (prev?.targetAmount || local?.targetAmount || ''),
+                    targetDate: firstGoal.target_date || prev?.targetDate || local?.targetDate || '',
+                }));
+            } else if (local) {
+                setGoalsData(local);
+            }
+            localStorage.setItem('quant_api_goals', JSON.stringify(goals));
+        } catch (err) {
+            console.warn('Could not fetch goals from API, falling back to localStorage', err);
+            try {
+                const storedGoals = localStorage.getItem('quant_goals_data');
+                if (storedGoals) setGoalsData(JSON.parse(storedGoals));
+                const storedApiGoals = localStorage.getItem('quant_api_goals');
+                if (storedApiGoals) setApiGoals(JSON.parse(storedApiGoals));
+            } catch { /* ignore */ }
+        }
+    }, [user?.risk_profile]);
+
+    useEffect(() => {
+        if (!isAuthenticated || authLoading) return;
+        fetchBankAccountsFromAPI();
+        fetchGoalsFromAPI();
+        // Also load non-API data from localStorage
+        try {
             const storedCsv = localStorage.getItem('quant_csv_files');
             if (storedCsv) setCsvFiles(JSON.parse(storedCsv));
             const storedTrading = localStorage.getItem('quant_trading_accounts');
             if (storedTrading) setTradingAccounts(JSON.parse(storedTrading));
-            const storedGoals = localStorage.getItem('quant_goals_data');
-            if (storedGoals) setGoalsData(JSON.parse(storedGoals));
-        } catch {
-            // ignore corrupt data
-        }
-    }, []);
+        } catch { /* ignore */ }
+    }, [isAuthenticated, authLoading, fetchBankAccountsFromAPI, fetchGoalsFromAPI]);
 
-    // ---- Persist to localStorage on change ----
-    useEffect(() => {
-        localStorage.setItem('quant_bank_accounts', JSON.stringify(bankAccounts));
-    }, [bankAccounts]);
-
+    // ---- Persist CSV & trading to localStorage on change (no API for these yet) ----
     useEffect(() => {
         localStorage.setItem('quant_csv_files', JSON.stringify(csvFiles));
     }, [csvFiles]);
@@ -177,29 +228,70 @@ export default function InputDataPage() {
     // ==========================================
     // Handlers
     // ==========================================
-    const handleAddAccount = (account: LocalBankAccount) => {
-        let updated: LocalBankAccount[];
-        if (account.isPrimary) {
-            // Un-set other primaries
-            updated = bankAccounts.map((a) => ({ ...a, isPrimary: false }));
-            updated.push(account);
-        } else {
-            updated = [...bankAccounts, account];
+    const handleAddAccount = async (account: LocalBankAccount) => {
+        // Sync to Supabase first
+        try {
+            const res = await bankingApi.addBankAccount({
+                account_type: account.accountType,
+                account_name: account.accountNickname,
+                institution: account.bankName,
+                current_balance: account.currentBalance,
+                is_primary: account.isPrimary,
+                currency: 'INR',
+            });
+            // Use the API-returned ID
+            const savedAccount: LocalBankAccount = {
+                ...account,
+                id: res.data.account_id || account.id,
+            };
+            let updated: LocalBankAccount[];
+            if (savedAccount.isPrimary) {
+                updated = bankAccounts.map((a) => ({ ...a, isPrimary: false }));
+                updated.push(savedAccount);
+            } else {
+                updated = [...bankAccounts, savedAccount];
+            }
+            setBankAccounts(updated);
+            localStorage.setItem('quant_bank_accounts', JSON.stringify(updated));
+        } catch (err) {
+            console.error('Failed to save bank account to API:', err);
+            // Fallback: still add locally
+            let updated: LocalBankAccount[];
+            if (account.isPrimary) {
+                updated = bankAccounts.map((a) => ({ ...a, isPrimary: false }));
+                updated.push(account);
+            } else {
+                updated = [...bankAccounts, account];
+            }
+            setBankAccounts(updated);
         }
+    };
+
+    const handleDeleteAccount = async (id: string) => {
+        // Delete from Supabase
+        try {
+            await bankingApi.deleteBankAccount(id);
+        } catch (err) {
+            console.error('Failed to delete bank account from API:', err);
+        }
+        const updated = bankAccounts.filter((a) => a.id !== id);
         setBankAccounts(updated);
+        localStorage.setItem('quant_bank_accounts', JSON.stringify(updated));
     };
 
-    const handleDeleteAccount = (id: string) => {
-        setBankAccounts((prev) => prev.filter((a) => a.id !== id));
-    };
-
-    const handleSetPrimary = (id: string) => {
-        setBankAccounts((prev) =>
-            prev.map((a) => ({
-                ...a,
-                isPrimary: a.id === id,
-            }))
-        );
+    const handleSetPrimary = async (id: string) => {
+        // Update in Supabase
+        try {
+            await bankingApi.updateBankAccount(id, { is_primary: true });
+        } catch (err) {
+            console.error('Failed to update primary account in API:', err);
+        }
+        const updated = bankAccounts.map((a) => ({
+            ...a,
+            isPrimary: a.id === id,
+        }));
+        setBankAccounts(updated);
+        localStorage.setItem('quant_bank_accounts', JSON.stringify(updated));
     };
 
     const handleCategoryClick = (categoryId: string) => {
@@ -578,7 +670,10 @@ export default function InputDataPage() {
                                         Need Help?
                                     </h3>
                                 </div>
-                                <button className="flex items-center gap-2 text-sm font-medium text-blue-600 transition-colors hover:text-blue-700">
+                                <button 
+                                    className="flex items-center gap-2 text-sm font-medium text-blue-600 transition-colors hover:text-blue-700"
+                                    onClick={() => window.dispatchEvent(new Event('open-chatbot'))}
+                                >
                                     <MessageCircle className="h-4 w-4" />
                                     Chat with our bot
                                 </button>

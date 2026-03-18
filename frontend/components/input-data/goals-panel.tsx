@@ -2,10 +2,11 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Target, ChevronRight, CheckCircle2 } from 'lucide-react';
+import { Target, ChevronRight, CheckCircle2, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { goalsApi } from '@/lib/api';
 import {
     Select,
     SelectContent,
@@ -82,16 +83,55 @@ export default function GoalsPanel({ open, onClose, goalsData, onSave }: GoalsPa
         }
     );
     const [saved, setSaved] = useState(false);
+    const [isSaving, setIsSaving] = useState(false);
+    const [saveError, setSaveError] = useState<string | null>(null);
+
+    React.useEffect(() => {
+        if (goalsData) {
+            setFormData(goalsData);
+        } else {
+            setFormData({
+                riskTolerance: '',
+                investmentHorizon: '',
+                monthlyCapacity: '',
+                goalType: '',
+            });
+        }
+    }, [goalsData, open]);
 
     const updateField = (field: keyof GoalsData, value: string) => {
         setFormData((prev) => ({ ...prev, [field]: value }));
         setSaved(false);
+        setSaveError(null);
     };
 
-    const handleSave = () => {
-        onSave(formData);
-        setSaved(true);
-        setTimeout(() => setSaved(false), 2000);
+    const handleSave = async () => {
+        setIsSaving(true);
+        setSaveError(null);
+        try {
+            // Build goal name from the goal type
+            const goalTypeLabel = GOAL_TYPES.find(g => g.value === formData.goalType)?.label || formData.goalType || 'My Goal';
+
+            // Sync to Supabase via API
+            await goalsApi.createGoal({
+                goal_name: goalTypeLabel,
+                goal_type: formData.goalType || 'custom',
+                target_amount: formData.targetAmount ? parseFloat(formData.targetAmount) : undefined,
+                current_saved: 0,
+                target_date: formData.targetDate || undefined,
+            });
+
+            onSave(formData);
+            setSaved(true);
+            setTimeout(() => setSaved(false), 2000);
+        } catch (err: any) {
+            console.error('Failed to save goal to API:', err);
+            setSaveError(err.response?.data?.detail || 'Failed to save goal. Please try again.');
+            // Still save locally as fallback
+            onSave(formData);
+        } finally {
+            setIsSaving(false);
+        }
     };
 
     const showGoalDetails = formData.goalType !== '';
@@ -136,7 +176,7 @@ export default function GoalsPanel({ open, onClose, goalsData, onSave }: GoalsPa
 
                     {/* Investment Horizon */}
                     <AnimatePresence>
-                        {formData.riskTolerance && (
+                        {(formData.riskTolerance || formData.goalType) && (
                             <motion.div
                                 initial={{ opacity: 0, height: 0 }}
                                 animate={{ opacity: 1, height: 'auto' }}
@@ -169,7 +209,7 @@ export default function GoalsPanel({ open, onClose, goalsData, onSave }: GoalsPa
 
                     {/* Monthly Investment Capacity */}
                     <AnimatePresence>
-                        {formData.investmentHorizon && (
+                        {(formData.investmentHorizon || formData.goalType) && (
                             <motion.div
                                 initial={{ opacity: 0, height: 0 }}
                                 animate={{ opacity: 1, height: 'auto' }}
@@ -192,7 +232,7 @@ export default function GoalsPanel({ open, onClose, goalsData, onSave }: GoalsPa
 
                     {/* Goal Type */}
                     <AnimatePresence>
-                        {formData.monthlyCapacity && (
+                        {(formData.monthlyCapacity || formData.goalType) && (
                             <motion.div
                                 initial={{ opacity: 0, height: 0 }}
                                 animate={{ opacity: 1, height: 'auto' }}
@@ -351,13 +391,26 @@ export default function GoalsPanel({ open, onClose, goalsData, onSave }: GoalsPa
                         )}
                     </AnimatePresence>
 
+                    {/* Save Error */}
+                    {saveError && (
+                        <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+                            {saveError}
+                        </div>
+                    )}
+
                     {/* Save Button */}
                     <div className="flex items-center gap-3 pt-2">
                         <Button
                             onClick={handleSave}
-                            className="gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 px-8 text-white shadow-md shadow-blue-200 hover:shadow-lg hover:shadow-blue-300"
+                            disabled={isSaving}
+                            className="gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 px-8 text-white shadow-md shadow-blue-200 hover:shadow-lg hover:shadow-blue-300 disabled:opacity-60"
                         >
-                            {saved ? (
+                            {isSaving ? (
+                                <>
+                                    <Loader2 className="h-4 w-4 animate-spin" />
+                                    Saving...
+                                </>
+                            ) : saved ? (
                                 <>
                                     <CheckCircle2 className="h-4 w-4" />
                                     Saved!

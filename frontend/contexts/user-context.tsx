@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useReducer, useEffect, type ReactNode } from 'react';
 import type { User } from '@/types';
+import { userApi } from '@/lib/api';
 
 // ==========================================
 // State & Actions
@@ -63,8 +64,28 @@ export function UserProvider({ children }: { children: ReactNode }) {
 
         if (token && storedUser) {
             try {
-                const user = JSON.parse(storedUser) as User;
-                dispatch({ type: 'SET_USER', payload: user });
+                // Immediately set user from localStorage for fast UI render
+                const cachedUser = JSON.parse(storedUser) as User;
+                dispatch({ type: 'SET_USER', payload: cachedUser });
+
+                // Then refresh from API to get latest data from Supabase
+                userApi.getProfile()
+                    .then((res) => {
+                        const freshUser = res.data;
+                        dispatch({ type: 'SET_USER', payload: freshUser });
+                        // Update localStorage with fresh data
+                        localStorage.setItem('quant_user', JSON.stringify(freshUser));
+                    })
+                    .catch((err) => {
+                        console.warn('Could not refresh user profile from API:', err);
+                        // If 401, token is expired — logout
+                        if (err.response?.status === 401) {
+                            localStorage.removeItem('quant_token');
+                            localStorage.removeItem('quant_user');
+                            dispatch({ type: 'LOGOUT' });
+                        }
+                        // Otherwise keep using cached data
+                    });
             } catch {
                 dispatch({ type: 'LOGOUT' });
             }

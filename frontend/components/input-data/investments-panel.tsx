@@ -12,6 +12,8 @@ import {
     DialogDescription,
 } from '@/components/ui/dialog';
 import Papa from 'papaparse';
+import { classifyCSVData, type ClassificationResult } from '@/services/csv-classifier';
+import { syncHoldingsToBackend } from '@/services/holdings-sync';
 
 // =====================
 // Types
@@ -23,6 +25,12 @@ export interface CSVFile {
     headers: string[];
     rows: string[][];
     rowCount: number;
+    syncStats?: {
+        equity: number;
+        etf: number;
+        mf: number;
+        failed: number;
+    };
 }
 
 interface InvestmentsPanelProps {
@@ -40,6 +48,7 @@ export default function InvestmentsPanel({
 }: InvestmentsPanelProps) {
     const [viewingFile, setViewingFile] = useState<CSVFile | null>(null);
     const [isUploading, setIsUploading] = useState(false);
+    const [uploadStatus, setUploadStatus] = useState<string>('Parsing CSV...');
     const [error, setError] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -53,10 +62,11 @@ export default function InvestmentsPanel({
         }
 
         setIsUploading(true);
+        setUploadStatus('Parsing CSV...');
         setError(null);
 
         Papa.parse(file, {
-            complete: (results) => {
+            complete: async (results) => {
                 const rawData = results.data as string[][];
                 // filter empty rows
                 const data = rawData.filter(
@@ -69,17 +79,42 @@ export default function InvestmentsPanel({
                     return;
                 }
 
-                const csvFile: CSVFile = {
-                    id: crypto.randomUUID(),
-                    name: file.name,
-                    uploadedAt: new Date().toLocaleString(),
-                    headers: data[0],
-                    rows: data.slice(1),
-                    rowCount: data.length - 1,
-                };
+                const headers = data[0];
+                const rows = data.slice(1);
 
-                onFilesChange([...csvFiles, csvFile]);
-                setIsUploading(false);
+                try {
+                    // 1. Classify frontend rows
+                    setUploadStatus('Classifying mapped schema...');
+                    const classified: ClassificationResult = classifyCSVData(headers, rows);
+
+                    // 2. Sync to Backend individually via API calls
+                    const syncResult = await syncHoldingsToBackend(classified, (msg) => {
+                        setUploadStatus(msg);
+                    });
+
+                    // 3. Keep local UI representation
+                    const csvFile: CSVFile = {
+                        id: crypto.randomUUID(),
+                        name: file.name,
+                        uploadedAt: new Date().toLocaleString(),
+                        headers: data[0],
+                        rows: data.slice(1),
+                        rowCount: data.length - 1,
+                        syncStats: {
+                            equity: classified.equity.length,
+                            etf: classified.etf.length,
+                            mf: classified.mf.length,
+                            failed: syncResult.failCount,
+                        }
+                    };
+
+                    onFilesChange([...csvFiles, csvFile]);
+                    setIsUploading(false);
+                } catch (err: any) {
+                    console.error("Sync error: ", err);
+                    setError(`Sync failed: ${err.message || "Unknown error"}`);
+                    setIsUploading(false);
+                }
             },
             error: (err) => {
                 setError(`Failed to parse CSV: ${err.message}`);
@@ -129,7 +164,7 @@ export default function InvestmentsPanel({
                         </div>
                         <div className="text-center">
                             <p className="text-sm font-semibold text-gray-700">
-                                {isUploading ? 'Parsing CSV...' : 'Click to upload CSV file'}
+                                {isUploading ? uploadStatus : 'Click to upload CSV file'}
                             </p>
                             <p className="mt-1 text-xs text-gray-400">
                                 Supports .csv files with headers
@@ -166,6 +201,30 @@ export default function InvestmentsPanel({
                                         <p className="text-xs text-gray-400">
                                             {file.rowCount} rows • Uploaded {file.uploadedAt}
                                         </p>
+                                        {file.syncStats && (
+                                            <div className="mt-1.5 flex flex-wrap gap-1.5">
+                                                {file.syncStats.equity > 0 && (
+                                                    <span className="inline-flex items-center rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-semibold text-blue-700 ring-1 ring-inset ring-blue-200">
+                                                        {file.syncStats.equity} Equity
+                                                    </span>
+                                                )}
+                                                {file.syncStats.etf > 0 && (
+                                                    <span className="inline-flex items-center rounded-full bg-amber-50 px-2 py-0.5 text-[10px] font-semibold text-amber-700 ring-1 ring-inset ring-amber-200">
+                                                        {file.syncStats.etf} ETF
+                                                    </span>
+                                                )}
+                                                {file.syncStats.mf > 0 && (
+                                                    <span className="inline-flex items-center rounded-full bg-purple-50 px-2 py-0.5 text-[10px] font-semibold text-purple-700 ring-1 ring-inset ring-purple-200">
+                                                        {file.syncStats.mf} Mutual Fund
+                                                    </span>
+                                                )}
+                                                {file.syncStats.failed > 0 && (
+                                                    <span className="inline-flex items-center rounded-full bg-red-50 px-2 py-0.5 text-[10px] font-semibold text-red-700 ring-1 ring-inset ring-red-200">
+                                                        {file.syncStats.failed} Failed
+                                                    </span>
+                                                )}
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-2">

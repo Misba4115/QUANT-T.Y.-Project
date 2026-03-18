@@ -219,6 +219,9 @@ export default function Chatbot() {
 
     useEffect(() => {
         setIsHydrated(true);
+        const handleOpenChat = () => setIsOpen(true);
+        window.addEventListener('open-chatbot', handleOpenChat);
+        return () => window.removeEventListener('open-chatbot', handleOpenChat);
     }, []);
 
     // Auto-scroll to bottom when messages change OR during typing
