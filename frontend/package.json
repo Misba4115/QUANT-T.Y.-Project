@@ -17,6 +17,7 @@
     "framer-motion": "*",
     "lucide-react": "*",
     "next": "*",
+    "package.json": "^2.0.1",
     "papaparse": "^5.5.3",
     "radix-ui": "*",
     "react": "*",

@@ -1,0 +1,9 @@
+goal_name,goal_type,target_amount,current_saved,target_date
+Home Purchase,house,5000000,1250000,2028-12-31
+Retirement Fund,retirement,10000000,3500000,2035-06-30
+Child Education,education,1500000,450000,2030-03-15
+Emergency Fund,emergency,500000,350000,2026-12-31
+Vacation to Europe,custom,400000,125000,2026-09-30
+Vehicle Purchase,custom,800000,200000,2027-06-30
+Wedding Expenses,custom,1200000,350000,2027-12-31
+Wealth Creation,wealth,20000000,5200000,2040-12-31

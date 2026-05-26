@@ -1,0 +1,43 @@
+account_id,tx_date,description,amount,tx_type,category
+savings,2026-05-20,Monthly Salary Credit,450000,credit,income
+savings,2026-05-18,Flipkart Online Purchase,-4500,debit,shopping
+savings,2026-05-16,Amazon Online Purchase,-3200,debit,shopping
+savings,2026-05-15,Electricity Bill Payment,-2850,debit,utilities
+savings,2026-05-15,Insurance Premium,-8500,debit,insurance
+savings,2026-05-14,Restaurant Spending,-1200,debit,dining
+savings,2026-05-12,Investment Transfer to MF,-50000,debit,investment
+savings,2026-05-10,Gym Membership,-1500,debit,health
+savings,2026-05-08,Loan Repayment,-15000,debit,loan
+savings,2026-05-05,Freelance Project Income,25000,credit,income
+savings,2026-04-25,Monthly Salary Credit,450000,credit,income
+savings,2026-04-22,Vehicle Fuel,-4000,debit,transport
+savings,2026-04-20,Medical Expenses,-5500,debit,health
+savings,2026-04-18,Grocery Shopping,-8500,debit,groceries
+savings,2026-04-15,Internet Bill,-1500,debit,utilities
+savings,2026-04-14,Investment Transfer to Equity,-75000,debit,investment
+savings,2026-04-10,Bonus Credit,100000,credit,income
+savings,2026-04-08,Restaurant Spending,-2800,debit,dining
+savings,2026-04-05,Rent Payment,-30000,debit,rent
+savings,2026-03-28,Monthly Salary Credit,450000,credit,income
+savings,2026-03-25,Online Shopping,-6500,debit,shopping
+savings,2026-03-22,Entertainment Expenses,-3500,debit,entertainment
+savings,2026-03-20,Insurance Premium,-8500,debit,insurance
+savings,2026-03-18,Gym Membership,-1500,debit,health
+savings,2026-03-15,Investment Transfer to ETF,-40000,debit,investment
+savings,2026-03-12,Utilities Payment,-2500,debit,utilities
+savings,2026-03-10,Grocery Shopping,-9500,debit,groceries
+savings,2026-03-08,Investment Transfer to Crypto,-30000,debit,investment
+savings,2026-03-05,Freelance Income,35000,credit,income
+current,2026-05-20,Business Income,150000,credit,business_income
+current,2026-05-18,Vendor Payment,-45000,debit,business_expense
+current,2026-05-15,Office Rent,-20000,debit,business_expense
+current,2026-05-12,Supplier Payment,-35000,debit,business_expense
+current,2026-05-08,Business Utilities,-3500,debit,business_expense
+current,2026-04-25,Business Income,145000,credit,business_income
+current,2026-04-20,Equipment Purchase,-50000,debit,business_expense
+current,2026-04-15,Office Rent,-20000,debit,business_expense
+current,2026-04-10,Vendor Payment,-40000,debit,business_expense
+current,2026-03-28,Business Income,155000,credit,business_income
+current,2026-03-22,Supplier Payment,-38000,debit,business_expense
+current,2026-03-18,Office Rent,-20000,debit,business_expense
+current,2026-03-12,Business Utilities,-4000,debit,business_expense

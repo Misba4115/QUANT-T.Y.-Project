@@ -1,0 +1,11 @@
+symbol,crypto_name,network,quantity,avg_price,current_price,exchange,wallet_address
+BTC,Bitcoin,Bitcoin,0.25,3250000,3850000,Coinbase,1A1z7a...xxxxxxxx
+ETH,Ethereum,Ethereum,2.50,180000,225000,Kraken,0xd8dA6...xxxxxxxx
+USDT,Tether,Ethereum,5000.00,83.50,84.00,Binance,0xa2E2...xxxxxxxx
+BNB,Binance Coin,BSC,1.50,28500,32500,Binance,0xb7c2...xxxxxxxx
+SOL,Solana,Solana,50.00,13500,18000,FTX,SolEic...xxxxxxxx
+ADA,Cardano,Cardano,500.00,48.50,52.75,Kraken,addr1q...xxxxxxxx
+XRP,Ripple,Ripple,1000.00,32.50,38.75,Coinbase,rN7n7...xxxxxxxx
+MATIC,Polygon,Ethereum,2500.00,8.50,12.50,Binance,0x1234...xxxxxxxx
+DOT,Polkadot,Substrate,100.00,925.00,1200.50,Kraken,1Fxxx...xxxxxxxx
+LINK,Chainlink,Ethereum,10.00,2850.00,3250.75,Binance,0x5678...xxxxxxxx

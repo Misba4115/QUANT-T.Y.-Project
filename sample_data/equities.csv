@@ -1,0 +1,11 @@
+symbol,equity_name,exchange,quantity,avg_price,current_price,broker,demat_account
+RELIANCE,Reliance Industries Ltd,NSE,15,2450.50,2680.00,Zerodha,DP-****4521
+HDFCBANK,HDFC Bank Limited,NSE,8,1520.75,1680.50,Zerodha,DP-****4521
+INFY,Infosys Limited,NSE,25,1850.20,1950.00,Angel Broking,DP-****7834
+AXISBANK,Axis Bank Limited,NSE,12,850.30,920.50,Zerodha,DP-****4521
+TCS,Tata Consultancy Services,NSE,5,3720.00,3850.75,Upstox,DP-****2156
+WIPRO,Wipro Limited,NSE,40,420.50,485.25,Angel Broking,DP-****7834
+BAJAJFINSV,Bajaj Finserv Limited,NSE,10,1580.00,1620.30,Zerodha,DP-****4521
+KOTAKBANK,Kotak Mahindra Bank,NSE,6,1950.25,2050.75,Upstox,DP-****2156
+MARUTI,Maruti Suzuki India Limited,BSE,20,8520.00,8850.50,Angel Broking,DP-****7834
+SUNPHARMA,Sun Pharmaceutical Industries,BSE,35,950.75,920.50,Zerodha,DP-****4521

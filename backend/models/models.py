@@ -40,6 +40,7 @@ class User(Base):
     crypto_holdings      = relationship("CryptoHolding",     back_populates="user", cascade="all, delete")
     goals                = relationship("Goal",              back_populates="user", cascade="all, delete")
     chat_conversations   = relationship("ChatConversation",  back_populates="user", cascade="all, delete")
+    dashboard_runs       = relationship("DashboardRun",      back_populates="user", cascade="all, delete")
 
 
 class BankingAccount(Base):
@@ -205,3 +206,18 @@ class ChatMessage(Base):
     created_at      = Column(TIMESTAMP, default=datetime.utcnow)
 
     conversation = relationship("ChatConversation", back_populates="messages")
+
+
+class DashboardRun(Base):
+    __tablename__ = "dashboard_runs"
+
+    id               = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id          = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    requested_at     = Column(TIMESTAMP, default=datetime.utcnow)
+    status           = Column(String(20), default="pending")  # pending|processing|completed|failed
+    params           = Column(JSONB, nullable=True)
+    result           = Column(JSONB, nullable=True)
+    processing_time_ms = Column(Integer, nullable=True)
+    error_message    = Column(Text, nullable=True)
+
+    user = relationship("User", back_populates="dashboard_runs")

@@ -1,0 +1,5 @@
+account_type,account_name,institution,account_number,current_balance,currency,is_primary
+savings,Primary Savings,HDFC Bank,****2847,425000,INR,true
+current,Business Current,ICICI Bank,****5129,180000,INR,false
+fixed_deposit,Fixed Deposit 1yr,Axis Bank,FD-****1203,300000,INR,false
+recurring_deposit,Monthly RD,SBI Bank,RD-****8934,45000,INR,false

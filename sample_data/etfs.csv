@@ -1,0 +1,11 @@
+symbol,etf_name,isin,exchange,category,quantity,avg_price,current_price,broker,demat_account
+NIFTYBEES,Nifty BeES,INF204K01HS4,NSE,equity_index,120.50,220.75,235.50,Zerodha,DP-****4521
+SHARIABEES,Nifty Shariah BeES,INF204K01DH3,NSE,equity_index,85.25,180.30,195.75,Angel Broking,DP-****7834
+GOLDBEES,Gold BeES,INF204K01HR2,NSE,gold,250.00,4520.50,4850.75,Zerodha,DP-****4521
+BANKNIFTY,Nifty Bank BeES,INF204K01JL5,NSE,equity_index,60.75,350.50,385.25,Upstox,DP-****2156
+SENSIBEES,Sensex BeES,INF204K01HU7,BSE,equity_index,95.50,280.75,305.50,Angel Broking,DP-****7834
+LIQUIDBEES,Liquid BeES,INF204K01BL4,NSE,debt,500.00,2100.00,2115.50,Zerodha,DP-****4521
+ICICIGOLD,ICICI Gold ETF,INF105L01BS5,NSE,gold,180.25,4650.75,4950.50,Fundly,MF-****5847
+IVPBANKEX,iVeShares Bank ETF,INF200K01JN1,BSE,equity_index,70.50,520.30,580.75,Upstox,DP-****2156
+ETFMGOLD,ETF MGold,INF204K01HP6,NSE,gold,320.00,4800.50,5150.25,Angel Broking,DP-****7834
+ETFINFRA,Infra ETF,INF204K01HR0,NSE,equity_index,110.75,420.50,460.25,Zerodha,DP-****4521
