@@ -32,6 +32,9 @@ export const authApi = {
 
     login: (data: LoginCredentials) =>
         apiClient.post<AuthResponse>('/auth/login', data),
+
+    googleAuth: (idToken: string) =>
+        apiClient.post<AuthResponse>('/auth/google', { id_token: idToken }),
 };
 
 // ==========================================

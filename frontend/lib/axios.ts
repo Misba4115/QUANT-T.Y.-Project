@@ -29,7 +29,10 @@ apiClient.interceptors.response.use(
         if (error.response?.status === 401) {
             if (typeof window !== 'undefined') {
                 localStorage.removeItem('quant_token');
-                window.location.href = '/login';
+                // Only redirect if not already on login or register pages
+                if (window.location.pathname !== '/login' && window.location.pathname !== '/register') {
+                    window.location.href = '/login';
+                }
             }
         }
         return Promise.reject(error);

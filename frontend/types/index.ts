@@ -25,6 +25,7 @@ export interface RegisterCredentials {
 export interface AuthResponse {
     access_token: string;
     token_type: string;
+    is_new_user?: boolean;
 }
 
 // User Types (matches backend UserOut)

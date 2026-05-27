@@ -83,7 +83,7 @@ def login_user(body: LoginRequest) -> TokenResponse:
     if not result.data:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid email or password",
+            detail="No account found with this email address",
         )
     
     user = result.data[0]
@@ -91,10 +91,70 @@ def login_user(body: LoginRequest) -> TokenResponse:
     if not _verify_password(body.password, user['password_hash']):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid email or password",
+            detail="Incorrect password. Please try again.",
         )
 
     return TokenResponse(access_token=_create_token(str(user['user_id'])))
+
+
+def google_auth_user(id_token_str: str) -> TokenResponse:
+    """Verify Google ID token and login or register the user."""
+    from google.oauth2 import id_token as google_id_token
+    from google.auth.transport import requests as google_requests
+
+    try:
+        # Verify the Google ID token
+        google_client_id = os.getenv("GOOGLE_CLIENT_ID", "")
+        id_info = google_id_token.verify_oauth2_token(
+            id_token_str,
+            google_requests.Request(),
+            google_client_id,
+        )
+        email = id_info.get("email")
+        name = id_info.get("name", "")
+        if not email:
+            raise ValueError("No email in Google token")
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=f"Invalid Google token: {str(e)}",
+        )
+
+    # Check if user exists
+    result = supabase.table('users').select("*").eq('email', email).execute()
+
+    if result.data:
+        # Existing user — login
+        user = result.data[0]
+        return TokenResponse(
+            access_token=_create_token(str(user['user_id'])),
+            is_new_user=False,
+        )
+    else:
+        # New user — register with Google
+        new_user = supabase.table('users').insert({
+            "email": email,
+            "password_hash": "_google_oauth_",  # placeholder — not used for Google users
+            "name": name,
+            "phone": None,
+            "age": 0,
+            "monthly_income": 0,
+            "monthly_expenses": 0,
+            "primary_goal": "",
+            "risk_profile": None,
+        }).execute()
+
+        if not new_user.data:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Failed to create user via Google auth",
+            )
+
+        user_id = str(new_user.data[0]['user_id'])
+        return TokenResponse(
+            access_token=_create_token(user_id),
+            is_new_user=True,
+        )
 
 
 # ── FastAPI dependency ────────────────────────────────────────────────────────

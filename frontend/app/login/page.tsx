@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
@@ -36,6 +36,56 @@ export default function LoginPage() {
     } = useForm<LoginFormData>({
         resolver: zodResolver(loginSchema),
     });
+
+    // ── Google Sign-In ──────────────────────────────────────
+    const handleGoogleResponse = useCallback(async (response: any) => {
+        setIsSubmitting(true);
+        setError(null);
+        try {
+            const res = await authApi.googleAuth(response.credential);
+            const token = res.data.access_token;
+            localStorage.setItem('quant_token', token);
+            const profileRes = await userApi.getProfile();
+            const user = profileRes.data;
+            login(user, token);
+            setMessage('Login successful! Redirecting...');
+            setTimeout(() => {
+                router.push(res.data.is_new_user ? '/input-data' : '/dashboard');
+            }, 500);
+        } catch (err: any) {
+            localStorage.removeItem('quant_token');
+            const msg = err.response?.data?.detail || 'Google sign-in failed';
+            setError(msg);
+        } finally {
+            setIsSubmitting(false);
+        }
+    }, [login, router]);
+
+    useEffect(() => {
+        const script = document.createElement('script');
+        script.src = 'https://accounts.google.com/gsi/client';
+        script.async = true;
+        script.defer = true;
+        script.onload = () => {
+            const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+            if (clientId && clientId !== 'YOUR_GOOGLE_CLIENT_ID_HERE' && (window as any).google) {
+                (window as any).google.accounts.id.initialize({
+                    client_id: clientId,
+                    callback: handleGoogleResponse,
+                });
+
+                const btnContainer = document.getElementById('googleSignInDiv');
+                if (btnContainer) {
+                    (window as any).google.accounts.id.renderButton(
+                        btnContainer,
+                        { theme: 'outline', size: 'large', text: 'signin_with', width: '400' }
+                    );
+                }
+            }
+        };
+        document.head.appendChild(script);
+        return () => { document.head.removeChild(script); };
+    }, [handleGoogleResponse]);
 
     const onSubmit = async (data: LoginFormData) => {
         setIsSubmitting(true);
@@ -149,8 +199,36 @@ export default function LoginPage() {
                     </div>
 
                     {error && (
-                        <div className="mb-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
-                            {error}
+                        <div className={`mb-4 rounded-lg border p-4 ${error.includes('No account found')
+                                ? 'border-amber-200 bg-amber-50'
+                                : 'border-red-200 bg-red-50'
+                            }`}>
+                            <div className="flex items-start gap-3">
+                                <div className={`mt-0.5 rounded-full p-1 ${error.includes('No account found')
+                                        ? 'bg-amber-100 text-amber-600'
+                                        : 'bg-red-100 text-red-600'
+                                    }`}>
+                                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                                    </svg>
+                                </div>
+                                <div className="flex-1">
+                                    <p className={`text-sm font-medium ${error.includes('No account found')
+                                            ? 'text-amber-800'
+                                            : 'text-red-700'
+                                        }`}>
+                                        {error}
+                                    </p>
+                                    {error.includes('No account found') && (
+                                        <Link
+                                            href="/register"
+                                            className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-amber-700 underline decoration-amber-300 underline-offset-2 hover:text-amber-900"
+                                        >
+                                            Create an account →
+                                        </Link>
+                                    )}
+                                </div>
+                            </div>
                         </div>
                     )}
                     {message && (
@@ -262,8 +340,20 @@ export default function LoginPage() {
                         </Button>
                     </form>
 
+                    {/* Google Divider */}
+                    <div className="my-6 flex items-center gap-4">
+                        <div className="h-px flex-1 bg-gray-200" />
+                        <span className="text-xs font-medium text-gray-400">
+                            OR CONTINUE WITH
+                        </span>
+                        <div className="h-px flex-1 bg-gray-200" />
+                    </div>
+
+                    {/* Google Sign-In Button */}
+                    <div id="googleSignInDiv" className="w-full flex justify-center mb-4"></div>
+
                     {/* Divider */}
-                    <div className="my-8 flex items-center gap-4">
+                    <div className="my-6 flex items-center gap-4">
                         <div className="h-px flex-1 bg-gray-200" />
                         <span className="text-xs font-medium text-gray-400">
                             DON&apos;T HAVE AN ACCOUNT?

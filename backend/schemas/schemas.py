@@ -25,9 +25,13 @@ class LoginRequest(BaseModel):
     email: EmailStr
     password: str
 
+class GoogleAuthRequest(BaseModel):
+    id_token: str  # Google OAuth2 ID token from frontend
+
 class TokenResponse(BaseModel):
     access_token: str
     token_type: str = "bearer"
+    is_new_user: Optional[bool] = None  # True when a new account was created via Google OAuth
 
 class UserOut(BaseModel):
     user_id: str  # Matches your schema
@@ -221,4 +225,4 @@ class BankTransactionOut(BankTransactionCreate):
     created_at: str
 
     class Config:
-        from_attributes = True
+        from_attributes = True

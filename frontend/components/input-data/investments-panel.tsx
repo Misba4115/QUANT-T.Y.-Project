@@ -48,84 +48,124 @@ export default function InvestmentsPanel({
 }: InvestmentsPanelProps) {
     const [viewingFile, setViewingFile] = useState<CSVFile | null>(null);
     const [isUploading, setIsUploading] = useState(false);
-    const [uploadStatus, setUploadStatus] = useState<string>('Parsing CSV...');
+    const [uploadStatus, setUploadStatus] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
+    const [pendingFiles, setPendingFiles] = useState<{ id: string; name: string; headers: string[]; rows: string[][] }[]>([]);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (!file) return;
-
-        if (!file.name.endsWith('.csv')) {
-            setError('Please upload a CSV file.');
-            return;
-        }
+    const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const files = Array.from(e.target.files || []);
+        if (files.length === 0) return;
 
         setIsUploading(true);
-        setUploadStatus('Parsing CSV...');
         setError(null);
+        
+        const errors: string[] = [];
+        const newPending: { id: string; name: string; headers: string[]; rows: string[][] }[] = [];
 
-        Papa.parse(file, {
-            complete: async (results) => {
-                const rawData = results.data as string[][];
-                // filter empty rows
-                const data = rawData.filter(
-                    (row) => row.some((cell) => cell.trim() !== '')
-                );
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            if (!file.name.endsWith('.csv')) {
+                errors.push(`${file.name}: Not a CSV file.`);
+                continue;
+            }
 
-                if (data.length < 2) {
-                    setError('CSV file must have at least a header row and one data row.');
-                    setIsUploading(false);
-                    return;
-                }
+            setUploadStatus(`Parsing ${file.name} (${i + 1}/${files.length})...`);
+            
+            await new Promise<void>((resolve) => {
+                Papa.parse(file, {
+                    complete: async (results) => {
+                        try {
+                            const rawData = results.data as string[][];
+                            const data = rawData.filter(row => row.some(cell => cell.trim() !== ''));
+                            if (data.length < 2) {
+                                errors.push(`${file.name}: Needs at least a header and one row.`);
+                                return resolve();
+                            }
 
-                const headers = data[0];
-                const rows = data.slice(1);
-
-                try {
-                    // 1. Classify frontend rows
-                    setUploadStatus('Classifying mapped schema...');
-                    const classified: ClassificationResult = classifyCSVData(headers, rows);
-
-                    // 2. Sync to Backend individually via API calls
-                    const syncResult = await syncHoldingsToBackend(classified, (msg) => {
-                        setUploadStatus(msg);
-                    });
-
-                    // 3. Keep local UI representation
-                    const csvFile: CSVFile = {
-                        id: crypto.randomUUID(),
-                        name: file.name,
-                        uploadedAt: new Date().toLocaleString(),
-                        headers: data[0],
-                        rows: data.slice(1),
-                        rowCount: data.length - 1,
-                        syncStats: {
-                            equity: classified.equity.length,
-                            etf: classified.etf.length,
-                            mf: classified.mf.length,
-                            failed: syncResult.failCount,
+                            newPending.push({
+                                id: crypto.randomUUID(),
+                                name: file.name,
+                                headers: data[0],
+                                rows: data.slice(1)
+                            });
+                        } catch (err: any) {
+                            errors.push(`${file.name}: Parsing failed (${err.message})`);
                         }
-                    };
+                        resolve();
+                    },
+                    error: (err) => {
+                        errors.push(`${file.name}: Parse failed (${err.message})`);
+                        resolve();
+                    }
+                });
+            });
+        }
 
-                    onFilesChange([...csvFiles, csvFile]);
-                    setIsUploading(false);
-                } catch (err: any) {
-                    console.error("Sync error: ", err);
-                    setError(`Sync failed: ${err.message || "Unknown error"}`);
-                    setIsUploading(false);
-                }
-            },
-            error: (err) => {
-                setError(`Failed to parse CSV: ${err.message}`);
-                setIsUploading(false);
-            },
-        });
+        if (newPending.length > 0) {
+            setPendingFiles(prev => [...prev, ...newPending]);
+        }
+        
+        if (errors.length > 0) {
+            setError(errors.join('\n'));
+        }
+        
+        setIsUploading(false);
+        setUploadStatus('');
 
-        // reset input so same file can be uploaded again
         if (fileInputRef.current) {
             fileInputRef.current.value = '';
         }
+    };
+
+    const handleSavePendingFiles = async () => {
+        if (pendingFiles.length === 0) return;
+        setIsUploading(true);
+        setError(null);
+        
+        const newCsvFiles: CSVFile[] = [];
+        const errors: string[] = [];
+
+        for (const file of pendingFiles) {
+            setUploadStatus(`Classifying ${file.name}...`);
+            try {
+                const classified = classifyCSVData(file.headers, file.rows);
+
+                const syncResult = await syncHoldingsToBackend(classified, (msg) => {
+                    setUploadStatus(`${file.name}: ${msg}`);
+                });
+
+                newCsvFiles.push({
+                    id: file.id,
+                    name: file.name,
+                    uploadedAt: new Date().toLocaleString(),
+                    headers: file.headers,
+                    rows: file.rows,
+                    rowCount: file.rows.length,
+                    syncStats: {
+                        equity: classified.equity.length,
+                        etf: classified.etf.length,
+                        mf: classified.mf.length,
+                        failed: syncResult.failCount,
+                    }
+                });
+            } catch (err: any) {
+                console.error("Sync error:", err);
+                errors.push(`${file.name}: Sync failed (${err.message || 'Unknown'})`);
+            }
+        }
+
+        if (newCsvFiles.length > 0) {
+            onFilesChange([...csvFiles, ...newCsvFiles]);
+        }
+        
+        if (errors.length > 0) {
+            setError(errors.join('\n'));
+        }
+        
+        setPendingFiles([]);
+        setIsUploading(false);
+        setUploadStatus('');
     };
 
     const handleDelete = (id: string) => {
@@ -137,11 +177,11 @@ export default function InvestmentsPanel({
 
     return (
         <Dialog open={open} onOpenChange={(val) => { if (!val) { onClose(); setViewingFile(null); } }}>
-            <DialogContent className="sm:max-w-3xl max-h-[85vh] overflow-y-auto">
+            <DialogContent className="sm:max-w-5xl max-h-[85vh] overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle>Investments — CSV Upload</DialogTitle>
                     <DialogDescription>
-                        Upload CSV files containing your investment data. You can view previously uploaded files below.
+                        Upload CSV files containing your investment data.
                     </DialogDescription>
                 </DialogHeader>
 
@@ -154,6 +194,7 @@ export default function InvestmentsPanel({
                         onChange={handleFileUpload}
                         className="hidden"
                         id="csv-upload"
+                        multiple
                     />
                     <label
                         htmlFor="csv-upload"
@@ -164,7 +205,7 @@ export default function InvestmentsPanel({
                         </div>
                         <div className="text-center">
                             <p className="text-sm font-semibold text-gray-700">
-                                {isUploading ? uploadStatus : 'Click to upload CSV file'}
+                                {isUploading && pendingFiles.length === 0 ? uploadStatus : 'Click to upload CSV file(s)'}
                             </p>
                             <p className="mt-1 text-xs text-gray-400">
                                 Supports .csv files with headers
@@ -172,6 +213,32 @@ export default function InvestmentsPanel({
                         </div>
                     </label>
                 </div>
+
+                {pendingFiles.length > 0 && (
+                    <div className="mt-4 space-y-3">
+                        <h3 className="text-sm font-semibold text-gray-700">Pending Files to Save</h3>
+                        {pendingFiles.map(pf => (
+                            <div key={pf.id} className="flex items-center justify-between bg-blue-50 border border-blue-100 p-3 rounded-lg">
+                                <div className="flex items-center gap-2">
+                                    <FileSpreadsheet className="h-4 w-4 text-blue-500" />
+                                    <span className="text-sm font-medium text-gray-800">{pf.name}</span>
+                                </div>
+                                <span className="text-xs text-gray-500">{pf.rows.length} rows</span>
+                            </div>
+                        ))}
+                        <Button
+                            onClick={handleSavePendingFiles}
+                            disabled={isUploading}
+                            className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white"
+                        >
+                            {isUploading ? (
+                                <>{uploadStatus || 'Saving...'}</>
+                            ) : (
+                                "Save Data to Portfolio"
+                            )}
+                        </Button>
+                    </div>
+                )}
 
                 {error && (
                     <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">

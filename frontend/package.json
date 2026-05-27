@@ -26,6 +26,7 @@
     "react-markdown": "*",
     "recharts": "*",
     "tailwind-merge": "*",
+    "yahoo-finance2": "^3.14.1",
     "zod": "*"
   },
   "devDependencies": {

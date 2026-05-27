@@ -27,6 +27,7 @@ import BankingModal, { type LocalBankAccount } from '@/components/input-data/ban
 import InvestmentsPanel, { type CSVFile } from '@/components/input-data/investments-panel';
 import TradingPanel, { type TradingAccount } from '@/components/input-data/trading-panel';
 import GoalsPanel, { type GoalsData } from '@/components/input-data/goals-panel';
+import CryptoPanel from '@/components/input-data/crypto-panel';
 import { bankingApi, goalsApi } from '@/lib/api';
 import type { GoalOut } from '@/types';
 
@@ -113,6 +114,7 @@ export default function InputDataPage() {
     const [bankingModalOpen, setBankingModalOpen] = useState(false);
     const [investmentsModalOpen, setInvestmentsModalOpen] = useState(false);
     const [tradingModalOpen, setTradingModalOpen] = useState(false);
+    const [cryptoModalOpen, setCryptoModalOpen] = useState(false);
     const [goalsModalOpen, setGoalsModalOpen] = useState(false);
 
     // ---- Local data stores ----
@@ -297,7 +299,7 @@ export default function InputDataPage() {
     const handleCategoryClick = (categoryId: string) => {
         setActiveCategory(categoryId);
 
-        // Open the corresponding modal
+        // Open the corresponding modal or navigate to dedicated page
         switch (categoryId) {
             case 'banking':
                 setBankingModalOpen(true);
@@ -308,10 +310,12 @@ export default function InputDataPage() {
             case 'trading':
                 setTradingModalOpen(true);
                 break;
+            case 'crypto':
+                setCryptoModalOpen(true);
+                break;
             case 'goals':
                 setGoalsModalOpen(true);
                 break;
-            // crypto — not yet implemented, just switches active
         }
     };
 
@@ -695,6 +699,11 @@ export default function InputDataPage() {
                 onClose={() => setInvestmentsModalOpen(false)}
                 csvFiles={csvFiles}
                 onFilesChange={setCsvFiles}
+            />
+
+            <CryptoPanel
+                open={cryptoModalOpen}
+                onClose={() => setCryptoModalOpen(false)}
             />
 
             <TradingPanel
