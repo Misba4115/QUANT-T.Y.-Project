@@ -10,6 +10,8 @@ sqlalchemy                   # Keep for other parts if needed
 # ── Auth ──────────────────────────────────────────────────────────────────────
 python-jose[cryptography]
 passlib[bcrypt]
+google-auth
+google-auth-oauthlib
 
 # ── Validation ────────────────────────────────────────────────────────────────
 pydantic
