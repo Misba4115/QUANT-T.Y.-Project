@@ -1,43 +1,39 @@
-"""
-Portfolio Analytics Agent — Markowitz + Ledoit-Wolf + CVaR
-"""
-# import numpy as np
-# import pandas as pd
-# from pypfopt import EfficientFrontier, risk_models, expected_returns
-# from pypfopt.efficient_frontier import EfficientCVaR
-# import yfinance as yf
+"""Portfolio agent over shared dashboard and optimization analytics."""
+from __future__ import annotations
+
+from typing import Any
+
+from services.dashboard_aggregator import DashboardAggregator
+from services.portfolio_analytics import PortfolioAnalyticsService
 
 
-def run_portfolio_agent(user_id: str, db) -> dict:
-    """
-    Compute portfolio analytics for the dashboard.
-
-    Steps:
-      1. Fetch all equity + ETF + MF + crypto holdings from DB
-      2. Pull live prices:
-           - Equity/ETF: yfinance (NSE suffix e.g. "HDFCBANK.NS")
-           - MF: AMFI NAV from mfapi.in
-           - Crypto: CoinGecko in INR
-      3. Compute net worth = sum(qty * current_price) across all assets
-      4. Compute asset allocation % (Equity / Debt / Gold / Cash / Crypto)
-      5. Build price history matrix for equity/ETF (last 1 year daily)
-      6. Estimate covariance with Ledoit-Wolf shrinkage
-      7. Run Markowitz Mean-Variance Optimization → efficient weights
-      8. Compute CVaR at 95% confidence level
-      9. Compute portfolio beta vs NIFTY 50
-      10. Generate rebalancing suggestions if weights deviate > 5%
-
-    Returns:
-        {
-            "net_worth": float,
-            "asset_allocation": {"equity": %, "mf": %, "etf": %, "crypto": %, "cash": %},
-            "top_holdings": [{"symbol": ..., "value": ..., "pnl_pct": ...}],
-            "sharpe_ratio": float,
-            "portfolio_beta": float,
-            "cvar_95": float,
-            "rebalancing_suggestions": [...]
-        }
-
-    TODO: implement
-    """
-    raise NotImplementedError("Portfolio agent not implemented yet")
+def run_portfolio_agent(user_id: str, db: Any) -> dict:
+    dashboard = DashboardAggregator(db).aggregate(user_id, "1y")
+    optimization = PortfolioAnalyticsService(db).analyze(user_id)
+    measured = dashboard["measured_portfolio_risk"]
+    analytics = {
+        "status": measured["status"],
+        "sample_count": measured["sample_count"],
+        "annualized_volatility": measured["volatility"],
+        "sharpe_ratio": measured.get("sharpe_ratio"),
+        "cvar_95": measured.get("cvar_95"),
+        "portfolio_beta": optimization.get("portfolio_beta"),
+        "beta_status": optimization.get("beta_status"),
+    }
+    return {
+        "agent": "portfolio",
+        "status": "available" if dashboard["top_holdings"] else "no_holdings",
+        "net_worth": dashboard["net_worth"],
+        "net_worth_growth": dashboard["net_worth_growth"],
+        "asset_allocation": dashboard["asset_allocation"],
+        "top_holdings": dashboard["top_holdings"],
+        "valuation_status": dashboard["valuation_status"],
+        "valuation_coverage": dashboard["valuation_coverage"],
+        "analytics": analytics,
+        "optimization": optimization,
+        "rebalancing_suggestions": optimization.get("rebalancing_suggestions", []),
+        "assumptions": [
+            "Portfolio risk uses account-level dated snapshots.",
+            "Beta and optimization require aligned per-instrument and NIFTY 50 benchmark history.",
+        ],
+    }

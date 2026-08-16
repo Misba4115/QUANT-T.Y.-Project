@@ -1,56 +1,83 @@
-"""
-Bank Statement Parser + Auto-Categorizer
-"""
-# import pandas as pd
-# import re
+"""Deterministic bank-statement normalization and categorization."""
+from __future__ import annotations
 
-CATEGORIES = ["Food", "Rent", "Salary", "EMI", "Shopping", "Entertainment", "Investment", "Other"]
+from datetime import datetime
+from typing import Any
 
-# Simple keyword rules for auto-categorisation
+from services.csv_parser import parse_csv_rows
+
 CATEGORY_KEYWORDS = {
     "Salary": ["salary", "payroll", "neft cr"],
-    "Food":   ["zomato", "swiggy", "restaurant", "cafe", "domino"],
-    "Rent":   ["rent", "landlord"],
-    "EMI":    ["emi", "loan", "installment"],
+    "Food": ["zomato", "swiggy", "restaurant", "cafe", "domino"],
+    "Rent": ["rent", "landlord"],
+    "EMI": ["emi", "loan", "installment"],
     "Shopping": ["amazon", "flipkart", "myntra", "nykaa"],
     "Entertainment": ["netflix", "spotify", "pvr", "hotstar"],
     "Investment": ["mutual fund", "zerodha", "groww", "sip"],
 }
 
-
-def parse_bank_statement(file_bytes: bytes) -> list[dict]:
-    """
-    Parse a bank statement CSV and auto-categorise each transaction.
-
-    Supported formats: HDFC Bank, SBI, ICICI (detect by column names).
-
-    Steps:
-      1. Read CSV with pandas
-      2. Detect bank format from column names
-      3. Normalise columns → [date, description, debit, credit]
-      4. For each row:
-           - tx_type = 'credit' if credit > 0 else 'debit'
-           - category = categorise(description) using CATEGORY_KEYWORDS
-      5. Return list of dicts matching bank_transactions schema
-
-    Expected output per row:
-        {
-            "tx_date": "2025-03-01",
-            "description": "ZOMATO ORDER",
-            "amount": 250.00,
-            "tx_type": "debit",
-            "category": "Food"
-        }
-
-    TODO: implement
-    """
-    raise NotImplementedError
+DATE_FORMATS = ("%Y-%m-%d", "%d/%m/%Y", "%d-%m-%Y", "%d %b %Y", "%d-%b-%Y", "%m/%d/%Y")
 
 
 def categorise(description: str) -> str:
-    """Match description to a category using keyword rules. TODO: implement"""
-    desc_lower = description.lower()
+    lowered = description.lower()
     for category, keywords in CATEGORY_KEYWORDS.items():
-        if any(kw in desc_lower for kw in keywords):
+        if any(keyword in lowered for keyword in keywords):
             return category
     return "Other"
+
+
+def parse_date(value: Any) -> str:
+    text = str(value or "").strip()
+    for pattern in DATE_FORMATS:
+        try:
+            return datetime.strptime(text, pattern).date().isoformat()
+        except ValueError:
+            continue
+    raise ValueError(f"Unrecognized transaction date: {text or '<blank>'}")
+
+
+def _amount(value: Any) -> float:
+    text = str(value or "").replace(",", "").replace("₹", "").strip()
+    if not text:
+        return 0.0
+    if text.startswith("(") and text.endswith(")"):
+        text = f"-{text[1:-1]}"
+    return float(text)
+
+
+def normalize_transaction_row(row: dict[str, Any]) -> dict[str, Any]:
+    description = str(row.get("description") or "").strip()
+    if not description:
+        raise ValueError("Transaction description is required")
+    debit, credit = _amount(row.get("debit")), _amount(row.get("credit"))
+    signed = _amount(row.get("amount"))
+    explicit_type = str(row.get("tx_type") or row.get("type") or "").lower().strip()
+
+    if debit and credit:
+        raise ValueError("A transaction row cannot have both debit and credit values")
+    if credit:
+        tx_type, amount = "credit", abs(credit)
+    elif debit:
+        tx_type, amount = "debit", abs(debit)
+    elif explicit_type in {"debit", "credit"}:
+        tx_type, amount = explicit_type, abs(signed)
+    elif signed < 0:
+        tx_type, amount = "debit", abs(signed)
+    elif signed > 0:
+        raise ValueError("Positive amount requires tx_type or a credit column")
+    else:
+        raise ValueError("Transaction amount must be non-zero")
+
+    return {
+        "account_id": row.get("account_id") or row.get("account") or None,
+        "tx_date": parse_date(row.get("tx_date")),
+        "description": description,
+        "amount": amount,
+        "tx_type": tx_type,
+        "category": row.get("category") or categorise(description),
+    }
+
+
+def parse_bank_statement(file_bytes: bytes) -> list[dict[str, Any]]:
+    return [normalize_transaction_row(row) for row in parse_csv_rows(file_bytes)]

@@ -1,228 +1,324 @@
-"""
-Pydantic Schemas — Request/Response validation for all QUANT endpoints
-"""
-from pydantic import BaseModel, EmailStr
-from typing import Optional, List
-from datetime import date, datetime
-from uuid import UUID
+"""Validated public request and response contracts for QUANT."""
+from __future__ import annotations
+
+from datetime import date
+from typing import Annotated, Any, Literal
+
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator
+
+Money = Annotated[float, Field(ge=0, allow_inf_nan=False)]
+PositiveNumber = Annotated[float, Field(gt=0, allow_inf_nan=False)]
+Currency = Literal["INR", "USD"]
 
 
-# ── Auth ──────────────────────────────────────────────────────────────────────
-# ── Auth ──────────────────────────────────────────────────────────────────────
+class APIModel(BaseModel):
+    model_config = ConfigDict(from_attributes=True, extra="forbid", str_strip_whitespace=True)
 
-class RegisterRequest(BaseModel):
-    name: str
+
+class RegisterRequest(APIModel):
+    name: str = Field(min_length=1, max_length=120)
     email: EmailStr
-    password: str
-    phone: Optional[str] = None  # Added from schema
-    age: int
-    monthly_income: float
-    monthly_expenses: float
-    primary_goal: str
-    risk_profile: Optional[str] = None  # Added from schema
+    password: str = Field(min_length=10, max_length=128)
+    phone: str | None = Field(default=None, max_length=24)
+    age: int | None = Field(default=None, ge=18, le=120)
+    monthly_income: Money = 0
+    monthly_expenses: Money = 0
+    primary_goal: str | None = Field(default=None, min_length=1, max_length=120)
+    risk_profile: Literal["conservative", "moderate", "aggressive"] | None = None
 
-class LoginRequest(BaseModel):
+
+class LoginRequest(APIModel):
     email: EmailStr
-    password: str
+    password: str = Field(min_length=1, max_length=128)
 
-class GoogleAuthRequest(BaseModel):
-    id_token: str  # Google OAuth2 ID token from frontend
 
-class TokenResponse(BaseModel):
+class GoogleAuthRequest(APIModel):
+    id_token: str = Field(min_length=20, max_length=10_000)
+
+
+class TokenResponse(APIModel):
     access_token: str
     token_type: str = "bearer"
-    is_new_user: Optional[bool] = None  # True when a new account was created via Google OAuth
+    is_new_user: bool | None = None
 
-class UserOut(BaseModel):
-    user_id: str  # Matches your schema
+
+class UserOut(APIModel):
+    user_id: str
     email: str
-    name: Optional[str] = None
-    phone: Optional[str] = None  # Added from schema
-    age: Optional[int] = None
-    monthly_income: Optional[float] = None
-    monthly_expenses: Optional[float] = None
-    primary_goal: Optional[str] = None
-    risk_profile: Optional[str] = None
+    name: str | None = None
+    phone: str | None = None
+    age: int | None = None
+    monthly_income: float | None = None
+    monthly_expenses: float | None = None
+    primary_goal: str | None = None
+    risk_profile: str | None = None
     created_at: str
+    updated_at: str | None = None
 
-    class Config:
-        from_attributes = True
-# ── Banking ───────────────────────────────────────────────────────────────────
 
-class BankingAccountCreate(BaseModel):
-    account_type: str    # savings|current|fixed_deposit|recurring_deposit
-    account_name: str    # Changed from 'name' to 'account_name'
-    institution: str
-    account_number: Optional[str] = None
-    current_balance: float = 0
-    currency: str = "INR"  # Added
+class UserProfileUpdate(APIModel):
+    name: str | None = Field(default=None, min_length=1, max_length=120)
+    phone: str | None = Field(default=None, max_length=24)
+    age: int | None = Field(default=None, ge=18, le=120)
+    monthly_income: Money | None = None
+    monthly_expenses: Money | None = None
+    primary_goal: str | None = Field(default=None, min_length=1, max_length=120)
+    risk_profile: Literal["conservative", "moderate", "aggressive"] | None = None
+
+
+class BankingAccountCreate(APIModel):
+    account_type: Literal["savings", "current", "fixed_deposit", "recurring_deposit"]
+    account_name: str = Field(min_length=1, max_length=120)
+    institution: str = Field(min_length=1, max_length=120)
+    account_number: str | None = Field(default=None, max_length=40)
+    current_balance: Money = 0
+    currency: Currency = "INR"
     is_primary: bool = False
 
+
+class BankingAccountUpdate(APIModel):
+    account_type: Literal["savings", "current", "fixed_deposit", "recurring_deposit"] | None = None
+    account_name: str | None = Field(default=None, min_length=1, max_length=120)
+    institution: str | None = Field(default=None, min_length=1, max_length=120)
+    account_number: str | None = Field(default=None, max_length=40)
+    current_balance: Money | None = None
+    currency: Currency | None = None
+    is_primary: bool | None = None
+
+
 class BankingAccountOut(BankingAccountCreate):
-    account_id: str  # Changed from 'id' to 'account_id'
-    user_id: str  # Changed from UUID to str
-    created_at: str  # Changed from datetime to str
-    updated_at: str  # Added
-
-    class Config:
-        from_attributes = True
+    account_id: str
+    user_id: str
+    created_at: str
+    updated_at: str
 
 
-# ── Equity ────────────────────────────────────────────────────────────────────
+class EquityCreate(APIModel):
+    symbol: str = Field(min_length=1, max_length=32)
+    equity_name: str = Field(min_length=1, max_length=200)
+    exchange: Literal["NSE", "BSE"] = "NSE"
+    quantity: PositiveNumber
+    avg_price: Money
+    broker: str | None = Field(default=None, max_length=120)
+    demat_account: str | None = Field(default=None, max_length=80)
 
-class EquityCreate(BaseModel):
-    symbol: str
-    equity_name: str  # Changed from 'name' to 'equity_name'
-    exchange: Optional[str] = "NSE"
-    quantity: float
-    avg_price: float
-    broker: Optional[str] = None
-    demat_account: Optional[str] = None  # Added
+    @field_validator("symbol")
+    @classmethod
+    def normalize_symbol(cls, value: str) -> str:
+        return value.upper()
+
 
 class EquityOut(EquityCreate):
-    equity_holding_id: str  # Changed from 'id' to 'equity_holding_id'
-    user_id: str  # Added
-    current_price: Optional[float] = None
-    current_value: Optional[float] = None
-    last_synced_at: Optional[str] = None  # Added
-    created_at: str  # Added
-    updated_at: str  # Added
+    equity_holding_id: str
+    user_id: str
+    current_price: float | None = None
+    current_value: float | None = None
+    price_source: str | None = None
+    source_timestamp: str | None = None
+    last_synced_at: str | None = None
+    created_at: str
+    updated_at: str
 
-    class Config:
-        from_attributes = True
 
+class MutualFundCreate(APIModel):
+    mf_name: str = Field(min_length=1, max_length=240)
+    scheme_code: str | None = Field(default=None, max_length=40)
+    isin: str | None = Field(default=None, max_length=32)
+    fund_house: str | None = Field(default=None, max_length=160)
+    category: str | None = Field(default=None, max_length=80)
+    units: PositiveNumber
+    avg_nav: Money
+    platform: str | None = Field(default=None, max_length=120)
+    folio_number: str | None = Field(default=None, max_length=80)
 
-# ── Mutual Fund ───────────────────────────────────────────────────────────────
-
-class MutualFundCreate(BaseModel):
-    mf_name: str  # Changed from 'name' to 'mf_name'
-    scheme_code: Optional[str] = None
-    isin: Optional[str] = None
-    fund_house: Optional[str] = None
-    category: Optional[str] = None          # equity|debt|hybrid|liquid
-    units: float
-    avg_nav: float
-    platform: Optional[str] = None
-    folio_number: Optional[str] = None
 
 class MutualFundOut(MutualFundCreate):
-    mf_holding_id: str  # Changed from 'id' to 'mf_holding_id'
-    user_id: str  # Added
-    current_nav: Optional[float] = None
-    current_value: Optional[float] = None
-    last_synced_at: Optional[str] = None  # Added
-    created_at: str  # Added
-    updated_at: str  # Added
+    mf_holding_id: str
+    user_id: str
+    current_nav: float | None = None
+    current_value: float | None = None
+    price_source: str | None = None
+    source_timestamp: str | None = None
+    last_synced_at: str | None = None
+    created_at: str
+    updated_at: str
 
-    class Config:
-        from_attributes = True
 
+class ETFCreate(APIModel):
+    symbol: str = Field(min_length=1, max_length=32)
+    etf_name: str = Field(min_length=1, max_length=200)
+    isin: str | None = Field(default=None, max_length=32)
+    exchange: Literal["NSE", "BSE"] = "NSE"
+    category: str | None = Field(default=None, max_length=80)
+    quantity: PositiveNumber
+    avg_price: Money
+    broker: str | None = Field(default=None, max_length=120)
+    demat_account: str | None = Field(default=None, max_length=80)
 
-# ── ETF ───────────────────────────────────────────────────────────────────────
+    @field_validator("symbol")
+    @classmethod
+    def normalize_symbol(cls, value: str) -> str:
+        return value.upper()
 
-class ETFCreate(BaseModel):
-    symbol: str
-    etf_name: str  # Changed from 'name' to 'etf_name'
-    isin: Optional[str] = None
-    exchange: Optional[str] = "NSE"
-    category: Optional[str] = None
-    quantity: float
-    avg_price: float
-    broker: Optional[str] = None
-    demat_account: Optional[str] = None  # Added
 
 class ETFOut(ETFCreate):
-    etf_holding_id: str  # Changed from 'id' to 'etf_holding_id'
-    user_id: str  # Added
-    current_price: Optional[float] = None
-    current_value: Optional[float] = None
-    last_synced_at: Optional[str] = None  # Added
-    created_at: str  # Added
-    updated_at: str  # Added
+    etf_holding_id: str
+    user_id: str
+    current_price: float | None = None
+    current_value: float | None = None
+    price_source: str | None = None
+    source_timestamp: str | None = None
+    last_synced_at: str | None = None
+    created_at: str
+    updated_at: str
 
-    class Config:
-        from_attributes = True
 
+class CryptoCreate(APIModel):
+    symbol: str = Field(min_length=1, max_length=32)
+    crypto_name: str = Field(min_length=1, max_length=120)
+    network: str | None = Field(default=None, max_length=80)
+    quantity: PositiveNumber
+    avg_price: Money
+    exchange: str | None = Field(default=None, max_length=120)
+    wallet_address: str | None = Field(default=None, max_length=200)
 
-# ── Crypto ────────────────────────────────────────────────────────────────────
+    @field_validator("symbol")
+    @classmethod
+    def normalize_symbol(cls, value: str) -> str:
+        return value.upper()
 
-class CryptoCreate(BaseModel):
-    symbol: str           # BTC, ETH
-    crypto_name: str  # Changed from 'name' to 'crypto_name'
-    network: Optional[str] = None
-    quantity: float
-    avg_price: float      # in INR
-    exchange: Optional[str] = None
-    wallet_address: Optional[str] = None  # Added
 
 class CryptoOut(CryptoCreate):
-    crypto_holding_id: str  # Changed from 'id' to 'crypto_holding_id'
-    user_id: str  # Added
-    current_price: Optional[float] = None
-    current_value: Optional[float] = None
-    last_synced_at: Optional[str] = None  # Added
-    created_at: str  # Added
-    updated_at: str  # Added
+    crypto_holding_id: str
+    user_id: str
+    current_price: float | None = None
+    current_value: float | None = None
+    price_source: str | None = None
+    source_timestamp: str | None = None
+    last_synced_at: str | None = None
+    created_at: str
+    updated_at: str
 
-    class Config:
-        from_attributes = True
+
+class GoalCreate(APIModel):
+    goal_name: str = Field(min_length=1, max_length=160)
+    goal_type: Literal["house", "retirement", "education", "emergency", "wealth", "custom"] = "custom"
+    target_amount: PositiveNumber | None = None
+    current_saved: Money = 0
+    target_date: date | None = None
 
 
-# ── Goals ─────────────────────────────────────────────────────────────────────
+class GoalUpdate(APIModel):
+    goal_name: str | None = Field(default=None, min_length=1, max_length=160)
+    goal_type: Literal["house", "retirement", "education", "emergency", "wealth", "custom"] | None = None
+    target_amount: PositiveNumber | None = None
+    current_saved: Money | None = None
+    target_date: date | None = None
 
-class GoalCreate(BaseModel):
-    goal_name: str  # Changed from 'name' to 'goal_name'
-    goal_type: Optional[str] = "custom"   # house|retirement|education|emergency|wealth|custom
-    target_amount: Optional[float] = None
-    current_saved: float = 0
-    target_date: Optional[date] = None
 
 class GoalOut(GoalCreate):
-    goal_id: str  # Changed from 'id' to 'goal_id'
-    user_id: str  # Changed from UUID to str
-    created_at: str  # Changed from datetime to str
-
-    class Config:
-        from_attributes = True
+    goal_id: str
+    user_id: str
+    created_at: str
+    updated_at: str | None = None
 
 
-# ── Chat ──────────────────────────────────────────────────────────────────────
+class BankTransactionCreate(APIModel):
+    account_id: str | None = None
+    tx_date: date
+    description: str = Field(min_length=1, max_length=500)
+    amount: PositiveNumber
+    tx_type: Literal["debit", "credit"]
+    category: str | None = Field(default=None, max_length=80)
 
-class ChatRequest(BaseModel):
-    message: str
-    conversation_id: Optional[str] = None   # Changed from UUID to str
-
-class ChatResponse(BaseModel):
-    reply: str
-    conversation_id: str  # Changed from UUID to str
-
-
-# ── Dashboard ─────────────────────────────────────────────────────────────────
-
-class DashboardGenerateRequest(BaseModel):
-    widgets: List[str]  # ['net_worth','asset_allocation','portfolio_performance','cashflow','tax_tracker','top_holdings','alerts']
-    time_period: str    # '1m'|'3m'|'6m'|'1y'|'all'
-
-class DashboardRunOut(BaseModel):
-    run_id: str  # Changed from UUID to str
-    status: str         # pending|processing|completed|failed
-    result: Optional[dict] = None
-
-
-# ── Transactions ───────────────────────────────────────────────────────────────────────────────
-
-class BankTransactionCreate(BaseModel):
-    account_id: Optional[str] = None
-    tx_date: str
-    description: str
-    amount: float
-    tx_type: str                     # "debit" | "credit"
-    category: Optional[str] = None
 
 class BankTransactionOut(BankTransactionCreate):
     bank_tx_id: str
     user_id: str
+    is_anomaly: bool = False
+    anomaly_score: float | None = None
+    anomaly_model_version: str | None = None
+    anomaly_detected_at: str | None = None
     created_at: str
 
-    class Config:
-        from_attributes = True
+
+class AssetTransactionCreate(APIModel):
+    tx_date: date
+    tx_type: Literal["buy", "sell"]
+    symbol: str | None = Field(default=None, max_length=32)
+    mf_name: str | None = Field(default=None, max_length=240)
+    scheme_code: str | None = Field(default=None, max_length=40)
+    quantity: PositiveNumber | None = None
+    units: PositiveNumber | None = None
+    price: Money | None = None
+    nav: Money | None = None
+    fees: Money = 0
+
+
+class ChatRequest(APIModel):
+    message: str = Field(min_length=1, max_length=4_000)
+    conversation_id: str | None = None
+
+
+class Citation(APIModel):
+    citation_id: str
+    title: str
+    source_type: Literal["private_import", "public_knowledge"]
+    source_url: str | None = None
+    authority: str | None = None
+    effective_date: str | None = None
+    retrieved_date: str | None = None
+    excerpt: str | None = None
+    locator: str | None = None
+    similarity: float | None = None
+    metadata: dict[str, Any] = {}
+
+
+class ChatResponse(APIModel):
+    reply: str
+    conversation_id: str
+    intent: str = "general"
+    agent: str = "general"
+    citations: list[Citation] = []
+    data_as_of: str | None = None
+    warnings: list[str] = []
+
+
+class DashboardGenerateRequest(APIModel):
+    widgets: list[str] = []
+    time_period: Literal["1m", "3m", "6m", "1y", "all", "custom"] = "1y"
+    date_from: date | None = None
+    date_to: date | None = None
+
+    @field_validator("date_to")
+    @classmethod
+    def validate_date_to(cls, value: date | None, info):
+        start = info.data.get("date_from")
+        if value and start and value < start:
+            raise ValueError("date_to must be on or after date_from")
+        return value
+
+
+class DashboardRunOut(APIModel):
+    run_id: str
+    status: Literal["pending", "processing", "completed", "partial", "failed"]
+    result: dict[str, Any] | None = None
+    error: str | None = None
+
+
+class DashboardConfigUpdate(APIModel):
+    widgets: list[str]
+    time_period: Literal["1m", "3m", "6m", "1y", "all", "custom"] = "1y"
+    chart_preferences: dict[str, Literal["line", "area", "bar", "donut"]] = {}
+    custom_date_from: date | None = None
+    custom_date_to: date | None = None
+    currency: Literal["INR", "USD"] = "INR"
+
+
+class DashboardConfigOut(DashboardConfigUpdate):
+    user_id: str
+    updated_at: str | None = None
+
+
+class ImportCommitRequest(APIModel):
+    column_mapping: dict[str, str] | None = None

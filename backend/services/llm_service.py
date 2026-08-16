@@ -1,39 +1,74 @@
-"""
-Light abstraction over LLM providers (Gemini only).
-"""
-import os
-from typing import List, Dict
+"""Configured chat-model adapter. Failures are explicit to the orchestrator."""
+from __future__ import annotations
+
+import json
+from typing import Any
+
+from core.config import get_settings
 
 
-def generate_chat_response(messages: List[Dict[str, str]]) -> str:
-    """Return assistant text for a list of messages.
+def generate_chat_response(messages: list[dict[str, str]]) -> str:
+    settings = get_settings()
+    if settings.llm_provider == "gemini":
+        if not settings.gemini_api_key:
+            raise RuntimeError("Gemini chat is not configured")
+        from google import genai
 
-    Messages should be a list of dicts with `role` and `content` keys.
-    Uses Google Gemini via the **AI Studio** API (free key).
-    """
+        client = genai.Client(api_key=settings.gemini_api_key)
+        prompt = "\n\n".join(f"{message['role'].upper()}: {message['content']}" for message in messages)
+        response = client.models.generate_content(model=settings.gemini_model, contents=prompt)
+        text = str(response.text or "").strip()
+    else:
+        if not settings.openai_api_key:
+            raise RuntimeError("OpenAI chat is not configured")
+        from openai import OpenAI
 
-    api_key = os.getenv("GEMINI_API_KEY")
-    model_name = os.getenv("GEMINI_MODEL", "gemini-2.0-flash-exp")
-
-    if not api_key:
-        print("GEMINI_API_KEY is missing")
-        return "Sorry, the AI service is not configured."
-
-    try:
-        from google import genai  # NEW library
-
-        client = genai.Client(api_key=api_key)
-        
-        # Assemble conversation as a simple prompt
-        prompt = "\n".join(f"{m['role']}: {m['content']}" for m in messages)
-        
-        response = client.models.generate_content(
-            model=model_name,
-            contents=prompt
+        response = OpenAI(api_key=settings.openai_api_key).chat.completions.create(
+            model="gpt-4.1-mini", messages=messages, temperature=0.2
         )
-        
-        return response.text
-        
-    except Exception as e:
-        print(f"Gemini Error: {e}")
-        return "Sorry, I'm unable to reach the AI service right now."
+        text = str(response.choices[0].message.content or "").strip()
+    if not text:
+        raise RuntimeError("The chat provider returned an empty response")
+    return text
+
+
+def generate_structured_response(messages: list[dict[str, str]], json_schema: dict[str, Any]) -> dict[str, Any]:
+    """Use provider-native JSON constraints instead of parsing free-form prose."""
+    settings = get_settings()
+    if settings.llm_provider == "gemini":
+        if not settings.gemini_api_key:
+            raise RuntimeError("Gemini chat is not configured")
+        from google import genai
+        from google.genai import types
+
+        client = genai.Client(api_key=settings.gemini_api_key)
+        prompt = "\n\n".join(f"{message['role'].upper()}: {message['content']}" for message in messages)
+        response = client.models.generate_content(
+            model=settings.gemini_model,
+            contents=prompt,
+            config=types.GenerateContentConfig(
+                temperature=0.1,
+                response_mime_type="application/json",
+                response_json_schema=json_schema,
+            ),
+        )
+        text = str(response.text or "").strip()
+    else:
+        if not settings.openai_api_key:
+            raise RuntimeError("OpenAI chat is not configured")
+        from openai import OpenAI
+
+        response = OpenAI(api_key=settings.openai_api_key).chat.completions.create(
+            model="gpt-4.1-mini",
+            messages=messages,
+            temperature=0.1,
+            response_format={
+                "type": "json_schema",
+                "json_schema": {"name": "quant_import_mapping", "strict": True, "schema": json_schema},
+            },
+        )
+        text = str(response.choices[0].message.content or "").strip()
+    value = json.loads(text)
+    if not isinstance(value, dict):
+        raise RuntimeError("The structured model response was not an object")
+    return value

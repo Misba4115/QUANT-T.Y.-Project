@@ -1,53 +1,43 @@
-# ── Web Framework ─────────────────────────────────────────────────────────────
-fastapi
-uvicorn[standard]
-python-multipart             # for file uploads
+# QUANT backend runtime and test dependencies.
+# Supported Python version: 3.11+
 
-# ── Database ──────────────────────────────────────────────────────────────────
-supabase                     # ADD THIS LINE - Supabase Python client
-sqlalchemy                   # Keep for other parts if needed
+# API and configuration
+fastapi==0.116.1
+uvicorn[standard]==0.35.0
+python-multipart==0.0.20
+pydantic==2.11.7
+pydantic-settings==2.10.1
+email-validator==2.2.0
+python-dotenv==1.1.1
 
-# ── Auth ──────────────────────────────────────────────────────────────────────
-python-jose[cryptography]
-passlib[bcrypt]
-google-auth
-google-auth-oauthlib
+# Persistence, authentication, and encryption
+supabase==2.18.1
+python-jose[cryptography]==3.5.0
+cryptography==50.0.0
+bcrypt==4.3.0
+google-auth==2.40.3
 
-# ── Validation ────────────────────────────────────────────────────────────────
-pydantic
-pydantic-settings
+# Language models, orchestration, and public-knowledge retrieval
+google-genai==1.29.0
+openai==1.99.6
+langgraph==0.6.4
+qdrant-client==1.15.1
 
-# ── AI / LLM ──────────────────────────────────────────────────────────────────
-openai
-langgraph
-langchain
-# Gemini / AI Studio client
-google-genai
+# Financial analytics and provider adapters
+numpy==2.3.2
+pandas==2.3.1
+scipy==1.16.1
+scikit-learn==1.7.1
+yfinance==0.2.65
+pycoingecko==3.2.0
+httpx==0.28.1
 
-# ── Embeddings ────────────────────────────────────────────────────────────────
-sentence-transformers
+# Financial file parsing and report generation
+pdfplumber==0.11.7
+openpyxl==3.1.5
+Pillow==12.3.0
 
-# ── Vector DB ─────────────────────────────────────────────────────────────────
-qdrant-client
-
-# ── Portfolio Math ────────────────────────────────────────────────────────────
-PyPortfolioOpt
-numpy
-pandas
-scipy
-
-# ── Anomaly Detection ─────────────────────────────────────────────────────────
-scikit-learn
-
-# ── External Price APIs ───────────────────────────────────────────────────────
-yfinance
-pycoingecko
-
-# ── File Parsing ──────────────────────────────────────────────────────────────
-pdfplumber
-
-# ── Utilities ─────────────────────────────────────────────────────────────────
-python-dotenv
-httpx
-
-email-validator
+# Automated verification
+pytest==8.4.1
+pytest-asyncio==1.1.0
+respx==0.22.0

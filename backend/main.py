@@ -1,47 +1,107 @@
-"""
-QUANT — FastAPI Application Entry Point
-"""
-from dotenv import load_dotenv
-load_dotenv()  # ADD THIS - Load .env at the very top
+"""QUANT FastAPI application entry point."""
+from __future__ import annotations
 
+import logging
+from datetime import datetime, timezone
+
+import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import uvicorn
 
-from routers import auth, banking, holdings, transactions, goals, dashboard, chat, user
+from core.config import get_settings
+from core.request_context import RequestIdMiddleware, install_error_handlers
+from db.supabase_client import get_supabase_client
+from routers import analytics, auth, banking, chat, connectors, dashboard, goals, guardian_stream, holdings, imports, ingestion_inbox, jobs, market_data, notifications, personalization, rag, transactions, user
+
+settings = get_settings()
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(name)s %(message)s",
+)
 
 app = FastAPI(
-    title="QUANT API",
-    description="Multi-Agent AI Financial Advisor for Indian Retail Investors",
-    version="1.0.0",
+    title=settings.app_name,
+    description="Multi-agent financial intelligence for Indian retail investors",
+    version="1.1.0",
 )
-
-# ── CORS ──────────────────────────────────────────────────────────────────────
+app.add_middleware(RequestIdMiddleware)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",  # Next.js dev server
-        "http://localhost:5173",  # Vite/React dev server
-    ],
+    allow_origins=settings.allowed_origins,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type", "X-Request-ID"],
 )
+install_error_handlers(app)
 
-# ── Routers ───────────────────────────────────────────────────────────────────
 app.include_router(auth.router, prefix="/api/auth", tags=["Auth"])
 app.include_router(banking.router, prefix="/api/banking-accounts", tags=["Banking"])
 app.include_router(holdings.router, prefix="/api/holdings", tags=["Holdings"])
+app.include_router(imports.router, prefix="/api/imports", tags=["Imports"])
+app.include_router(market_data.router, prefix="/api/market-data", tags=["Market Data"])
+app.include_router(rag.router, prefix="/api/rag", tags=["RAG"])
+app.include_router(connectors.router, prefix="/api/connectors", tags=["Connectors"])
+app.include_router(notifications.router, prefix="/api/notifications", tags=["Notifications"])
+app.include_router(jobs.router, prefix="/api/jobs", tags=["Jobs"])
+app.include_router(ingestion_inbox.router, prefix="/api/ingestion-inbox", tags=["Ingestion Inbox"])
+app.include_router(guardian_stream.router, prefix="/api/guardian", tags=["Guardian"])
+app.include_router(personalization.router, prefix="/api/personalization", tags=["Personalization"])
+app.include_router(analytics.router, prefix="/api/analytics", tags=["Analytics"])
 app.include_router(transactions.router, prefix="/api/transactions", tags=["Transactions"])
 app.include_router(goals.router, prefix="/api/goals", tags=["Goals"])
 app.include_router(dashboard.router, prefix="/api/dashboard", tags=["Dashboard"])
 app.include_router(chat.router, prefix="/api/chat", tags=["Chat"])
-app.include_router(user.router, prefix="/api")  # Prefix user router with /api
+app.include_router(user.router, prefix="/api", tags=["User"])
 
 
 @app.get("/", tags=["Health"])
-def health_check():
-    return {"status": "ok", "message": "QUANT API is running"}
+def health_check() -> dict[str, str]:
+    return {
+        "status": "ok",
+        "service": "quant-api",
+        "time": datetime.now(timezone.utc).isoformat(),
+    }
+
+
+def _dependency_status(configured: bool, detail: str) -> dict[str, str | bool]:
+    return {"configured": configured, "status": "configured" if configured else "unavailable", "detail": detail}
+
+
+@app.get("/api/readiness", tags=["Health"])
+def readiness() -> dict:
+    dependencies: dict[str, dict[str, str | bool]] = {
+        "database": _dependency_status(settings.database_configured, "Supabase runtime database"),
+        "llm": _dependency_status(
+            bool(settings.gemini_api_key if settings.llm_provider == "gemini" else settings.openai_api_key),
+            f"{settings.llm_provider} chat provider",
+        ),
+        "qdrant": _dependency_status(bool(settings.qdrant_url), "Public knowledge vector store"),
+        "market_data": _dependency_status(True, "Public adapters are lazy and independently degradable"),
+        "upstox": _dependency_status(bool(settings.upstox_client_id and settings.upstox_client_secret), "Optional read-only broker connector"),
+        "statement_inbox": _dependency_status(bool(settings.inbox_webhook_secret), "Optional forwarding inbox webhook"),
+    }
+
+    if settings.database_configured:
+        try:
+            database = get_supabase_client()
+            database.table("users").select("user_id").limit(1).execute()
+            database.table("import_batches").select("import_batch_id").limit(1).execute()
+            database.table("connector_accounts").select("connector_account_id").limit(1).execute()
+            database.table("notifications").select("notification_id").limit(1).execute()
+            database.table("job_schedules").select("job_schedule_id").limit(1).execute()
+            dependencies["database"]["status"] = "ready"
+        except Exception:
+            dependencies["database"]["status"] = "error"
+            dependencies["database"]["detail"] = "Configured but unreachable or required migrations are missing"
+
+    required_ready = dependencies["database"]["status"] == "ready"
+    return {
+        "status": "ready" if required_ready else "degraded",
+        "required_ready": required_ready,
+        "dependencies": dependencies,
+    }
+
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)  # Changed to 8000
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)

@@ -1,0 +1,21 @@
+{
+  "parser_version": "2026.08.1",
+  "documents": [
+    {
+      "file": "income_tax_equity_gains.md",
+      "title": "Equity capital-gains checkpoints for AY 2025-26",
+      "authority": "Income Tax Department, Government of India",
+      "source_url": "https://www.incometax.gov.in/iec/foportal/help/individual/return-applicable-3",
+      "effective_date": "2024-07-23",
+      "retrieved_date": "2026-08-12"
+    },
+    {
+      "file": "sebi_retail_algo_framework.md",
+      "title": "Retail participation in algorithmic trading - implementation safeguards",
+      "authority": "Securities and Exchange Board of India",
+      "source_url": "https://www.sebi.gov.in/sebi_data/attachdocs/jun-2025/1750158789381.pdf",
+      "effective_date": "2025-08-01",
+      "retrieved_date": "2026-08-12"
+    }
+  ]
+}

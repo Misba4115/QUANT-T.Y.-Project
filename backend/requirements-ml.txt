@@ -1,0 +1,4 @@
+# Optional local embedding stack.
+# The runtime API and credential-free test suite do not require these large wheels.
+-r requirements.txt
+sentence-transformers==5.1.0
