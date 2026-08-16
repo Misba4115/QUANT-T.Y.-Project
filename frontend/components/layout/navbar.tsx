@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
@@ -22,17 +22,26 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { useUser } from '@/contexts/user-context';
 import { getInitials } from '@/lib/helpers';
+import { notificationsApi } from '@/lib/api';
 
 const navLinks = [
     { label: 'Input Data', href: '/input-data' },
     { label: 'Dashboard', href: '/dashboard' },
+    { label: 'Guardian', href: '/guardian' },
     { label: 'Settings', href: '/settings' },
 ];
 
 export default function Navbar() {
     const pathname = usePathname();
     const { user, logout } = useUser();
-    const [hasNotifications] = useState(true);
+    const [unreadNotifications, setUnreadNotifications] = useState(0);
+
+    useEffect(() => {
+        if (!user) return;
+        void notificationsApi.list().then((response) => {
+            setUnreadNotifications(response.data.filter((item) => !item.read_at).length);
+        }).catch(() => undefined);
+    }, [user]);
 
     const displayName = user?.name || 'Guest User';
     const initials = getInitials(displayName);
@@ -94,15 +103,16 @@ export default function Navbar() {
                 {/* Right Section */}
                 <div className="flex items-center gap-3">
                     {/* Notifications */}
-                    <button
+                    <Link
+                        href="/notifications"
                         className="relative rounded-full p-2 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700"
                         aria-label="Notifications"
                     >
                         <Bell className="h-5 w-5" />
-                        {hasNotifications && (
+                        {unreadNotifications > 0 && (
                             <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-red-500 ring-2 ring-white" />
                         )}
-                    </button>
+                    </Link>
 
                     {/* User Dropdown */}
                     <DropdownMenu>
@@ -148,9 +158,12 @@ export default function Navbar() {
 
                     {/* Mobile Nav */}
                     <div className="flex items-center md:hidden">
-                        <Badge variant="outline" className="text-xs">
-                            Menu
-                        </Badge>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild><button aria-label="Open navigation"><Badge variant="outline" className="text-xs">Menu</Badge></button></DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                                {navLinks.map((link) => <DropdownMenuItem key={link.href} asChild><Link href={link.href}>{link.label}</Link></DropdownMenuItem>)}
+                            </DropdownMenuContent>
+                        </DropdownMenu>
                     </div>
                 </div>
             </div>

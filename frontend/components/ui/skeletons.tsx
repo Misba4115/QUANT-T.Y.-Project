@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 
 export function SkeletonCard({ className = '' }: { className?: string }) {
@@ -18,13 +18,7 @@ export function SkeletonCard({ className = '' }: { className?: string }) {
 }
 
 export function SkeletonChart({ className = '' }: { className?: string }) {
-    const [heights, setHeights] = useState<number[]>();
-
-    useEffect(() => {
-        setHeights(Array.from({ length: 12 }).map(() => 30 + Math.random() * 70));
-    }, []);
-
-    const barHeights = heights || Array.from({ length: 12 }).map(() => 50);
+    const barHeights = [42, 58, 48, 72, 64, 81, 69, 88, 76, 92, 84, 96];
 
     return (
         <motion.div

@@ -1,8 +1,9 @@
 'use client';
 
 import React, { createContext, useContext, useReducer, useEffect, type ReactNode } from 'react';
+import { useRouter } from 'next/navigation';
 import type { User } from '@/types';
-import { userApi } from '@/lib/api';
+import { authApi, userApi } from '@/lib/api';
 
 // ==========================================
 // State & Actions
@@ -41,8 +42,8 @@ function userReducer(state: UserState, action: UserAction): UserState {
 // Context
 // ==========================================
 interface UserContextType extends UserState {
-    login: (user: User, token: string) => void;
-    logout: () => void;
+    login: (user: User) => void;
+    logout: () => Promise<void>;
     isNewUser: boolean;
     setNewUser: (val: boolean) => void;
     completeOnboarding: () => void;
@@ -54,44 +55,14 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 // Provider
 // ==========================================
 export function UserProvider({ children }: { children: ReactNode }) {
+    const router = useRouter();
     const [state, dispatch] = useReducer(userReducer, initialState);
     const [isNewUser, setIsNewUser] = React.useState(false);
 
     useEffect(() => {
-        // Check for existing session on mount
-        const token = localStorage.getItem('quant_token');
-        const storedUser = localStorage.getItem('quant_user');
-
-        if (token && storedUser) {
-            try {
-                // Immediately set user from localStorage for fast UI render
-                const cachedUser = JSON.parse(storedUser) as User;
-                dispatch({ type: 'SET_USER', payload: cachedUser });
-
-                // Then refresh from API to get latest data from Supabase
-                userApi.getProfile()
-                    .then((res) => {
-                        const freshUser = res.data;
-                        dispatch({ type: 'SET_USER', payload: freshUser });
-                        // Update localStorage with fresh data
-                        localStorage.setItem('quant_user', JSON.stringify(freshUser));
-                    })
-                    .catch((err) => {
-                        console.warn('Could not refresh user profile from API:', err);
-                        // If 401, token is expired — logout
-                        if (err.response?.status === 401) {
-                            localStorage.removeItem('quant_token');
-                            localStorage.removeItem('quant_user');
-                            dispatch({ type: 'LOGOUT' });
-                        }
-                        // Otherwise keep using cached data
-                    });
-            } catch {
-                dispatch({ type: 'LOGOUT' });
-            }
-        } else {
-            dispatch({ type: 'SET_LOADING', payload: false });
-        }
+        userApi.getProfile()
+            .then((res) => dispatch({ type: 'SET_USER', payload: res.data }))
+            .catch(() => dispatch({ type: 'LOGOUT' }));
     }, []);
 
     const setNewUser = (val: boolean) => {
@@ -106,20 +77,18 @@ export function UserProvider({ children }: { children: ReactNode }) {
         localStorage.setItem('quant_onboarding_complete', 'true');
     };
 
-    const login = (user: User, token: string) => {
-        localStorage.setItem('quant_token', token);
-        localStorage.setItem('quant_user', JSON.stringify(user));
+    const login = (user: User) => {
         dispatch({ type: 'SET_USER', payload: user });
     };
 
-    const logout = () => {
-        localStorage.removeItem('quant_token');
-        localStorage.removeItem('quant_user');
+    const logout = async () => {
         localStorage.removeItem('quant_onboarding_complete');
         setIsNewUser(false);
         dispatch({ type: 'LOGOUT' });
-        if (typeof window !== 'undefined') {
-            window.location.href = '/login';
+        try {
+            await authApi.logout();
+        } finally {
+            router.push('/login');
         }
     };
 

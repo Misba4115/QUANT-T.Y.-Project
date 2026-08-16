@@ -15,10 +15,10 @@ export interface RegisterCredentials {
     password: string;
     confirmPassword?: string;  // frontend-only validation
     phone?: string;
-    age: number;
-    monthly_income: number;
-    monthly_expenses: number;
-    primary_goal: string;
+    age?: number;
+    monthly_income?: number;
+    monthly_expenses?: number;
+    primary_goal?: string;
     risk_profile?: string;
 }
 
@@ -63,23 +63,46 @@ export interface Holding {
     type: string;
     quantity: number;
     current_value: number;
-    profit_loss_percent: number;
+    profit_loss_percent: number | null;
+    valuation_status?: 'stored' | 'estimated_cost_basis';
+    price_source?: string | null;
+    source_timestamp?: string | null;
+    last_synced_at?: string | null;
 }
 
 // Dashboard Types
 export interface DashboardData {
     net_worth: number;
-    net_worth_growth: number;
-    risk_level: 'Low' | 'Medium' | 'High';
+    net_worth_growth: number | null;
+    net_worth_growth_status: 'available' | 'insufficient_history';
+    risk_level: 'Low' | 'Medium' | 'High' | 'Unavailable';
+    stated_risk_profile?: string | null;
+    measured_portfolio_risk?: {
+        status: string;
+        level: 'Low' | 'Medium' | 'High' | null;
+        sample_count: number;
+        volatility: number | null;
+        sharpe_ratio?: number | null;
+        cvar_95?: number | null;
+        sample_period?: { from: string; to: string } | null;
+    };
     monthly_income: number;
     monthly_expenses: number;
     surplus: number;
-    tax_saved: number;
+    tax_saved: number | null;
     tax_limit: number;
+    tax_status: string;
+    estimated_capital_gains_tax?: number | null;
+    tax_rule_version?: string;
     portfolio_history: PortfolioDataPoint[];
     asset_allocation: AssetAllocationItem[];
     top_holdings: Holding[];
     alerts: Alert[];
+    history_status: 'available' | 'insufficient_history';
+    valuation_coverage: number;
+    valuation_status: 'market_valued' | 'partial_estimate' | 'cost_basis_estimate';
+    data_as_of: string;
+    source_status: Record<string, number>;
 }
 
 // Dashboard Run (matches backend DashboardRunOut)
@@ -87,6 +110,7 @@ export interface DashboardRunOut {
     run_id: string;
     status: string;   // pending | processing | completed | failed
     result: DashboardData | null;
+    error?: string | null;
 }
 
 export interface PortfolioDataPoint {
@@ -98,6 +122,52 @@ export interface AssetAllocationItem {
     name: string;
     value: number;
     color: string;
+    amount?: number;
+}
+
+export interface ImportRowError {
+    row_number: number;
+    code: string;
+    message: string;
+    raw_row?: Record<string, unknown>;
+}
+
+export interface ImportMappingDiagnostic {
+    code: 'mapping_required';
+    message: string;
+    reason?: string;
+    source_columns: string[];
+    automatic_mapping: Record<string, string>;
+    suggested_target?: string | null;
+    clarification_options?: Array<'holdings_snapshot' | 'investment_history' | 'bank_transactions'>;
+    targets: Record<string, {
+        required_columns: string[];
+        available_columns: string[];
+    }>;
+}
+
+export interface ImportBatch {
+    import_batch_id: string;
+    filename: string;
+    target_type: string;
+    status: 'pending' | 'processing' | 'completed' | 'partial' | 'failed';
+    preview_rows: Array<Record<string, unknown>>;
+    valid_count: number;
+    error_count: number;
+    committed_count: number;
+    parser_version: string;
+    duplicate: boolean;
+    column_mapping: {
+        source_to_canonical?: Record<string, string>;
+        recognized_columns?: string[];
+        ignored_columns?: string[];
+        user_overrides?: Record<string, string>;
+        method?: 'deterministic' | 'llm_headers' | 'user_override' | 'cas_parser';
+    };
+    row_errors?: ImportRowError[];
+    error_message?: string | null;
+    created_at?: string | null;
+    updated_at?: string | null;
 }
 
 export interface Alert {
@@ -121,6 +191,78 @@ export interface ChatMessage {
     sender: 'user' | 'bot';
     content: string;
     timestamp: Date;
+    citations?: ChatCitation[];
+    warnings?: string[];
+}
+
+export interface ConnectorAccount {
+    connector_account_id: string;
+    provider: 'upstox' | 'sandbox';
+    display_name: string;
+    status: 'pending' | 'connected' | 'reauthorization_required' | 'revoked' | 'error';
+    capability_mode: string;
+    capabilities: Record<string, boolean>;
+    last_successful_sync_at?: string | null;
+    last_error?: string | null;
+}
+
+export interface ConnectorSyncPreview {
+    connector_sync_run_id: string;
+    status: string;
+    additions: number;
+    updates: number;
+    duplicates: number;
+    conflicts: number;
+    preview: Array<Record<string, unknown>>;
+}
+
+export interface NotificationPreference {
+    in_app_enabled: boolean;
+    email_enabled: boolean;
+    minimum_severity: 'info' | 'warning' | 'critical';
+    quiet_hours_start?: string | null;
+    quiet_hours_end?: string | null;
+    timezone: string;
+    weekly_summary: boolean;
+}
+
+export interface QuantNotification {
+    notification_id: string;
+    event_key: string;
+    category: string;
+    severity: 'info' | 'warning' | 'critical';
+    title: string;
+    body: string;
+    deep_link?: string | null;
+    read_at?: string | null;
+    acknowledged_at?: string | null;
+    archived_at?: string | null;
+    created_at: string;
+}
+
+export interface UserPreference {
+    persona: 'guided' | 'analytical' | 'minimal';
+    explanation_depth: 'concise' | 'balanced' | 'detailed';
+    dashboard_emphasis: string[];
+    explicit_feedback: Record<string, 'more' | 'less' | 'neutral'>;
+}
+
+export interface JobSchedule {
+    job_schedule_id: string;
+    job_type: string;
+    enabled: boolean;
+    interval_seconds: number;
+    next_run_at: string;
+    last_run_at?: string | null;
+}
+
+export interface ChatCitation {
+    citation_id: string;
+    title: string;
+    source_type: 'private_import' | 'public_knowledge';
+    source_url?: string | null;
+    authority?: string | null;
+    locator?: string | null;
 }
 
 export type ChatOption =
@@ -222,13 +364,14 @@ export interface CryptoOut extends CryptoCreate {
     user_id: string;
     current_price?: number;
     current_value?: number;
+    price_source?: string | null;
     last_synced_at?: string;
     created_at: string;
     updated_at: string;
 }
 
 export interface CSVUploadResponse {
-    preview: Record<string, any>[];
+    preview: Record<string, unknown>[];
     row_count: number;
     inserted: boolean;
 }

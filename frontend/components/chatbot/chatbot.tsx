@@ -6,13 +6,11 @@ import { MessageCircle, X, Send, Bot, User } from 'lucide-react';
 import type { ChatMessage, ChatOption } from '@/types';
 import { chatApi } from '@/lib/api';
 import ReactMarkdown from 'react-markdown';
+import { usePathname } from 'next/navigation';
 
 // ==========================================
 // Constants
 // ==========================================
-const TYPING_SPEED_MS = 18; // ms per character (fast & smooth)
-const TYPING_CHUNK_SIZE = 3; // characters per tick for perceived speed
-
 const chatOptions: ChatOption[] = [
     'Stock Market Queries',
     'Mutual Fund Queries',
@@ -68,47 +66,13 @@ function useTypingEffect(
     isActive: boolean,
     onComplete: () => void
 ) {
-    const [displayedText, setDisplayedText] = useState('');
-    const indexRef = useRef(0);
-    const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
     useEffect(() => {
-        // Guard against undefined/null content during React state batching
-        const text = fullText ?? '';
+        if (!isActive) return;
+        const timer = setTimeout(onComplete, 180);
+        return () => clearTimeout(timer);
+    }, [isActive, onComplete]);
 
-        // Reset when fullText changes
-        if (!isActive) {
-            setDisplayedText(text);
-            indexRef.current = text.length;
-            return;
-        }
-
-        indexRef.current = 0;
-        setDisplayedText('');
-
-        function tick() {
-            indexRef.current = Math.min(
-                indexRef.current + TYPING_CHUNK_SIZE,
-                text.length
-            );
-            setDisplayedText(text.slice(0, indexRef.current));
-
-            if (indexRef.current < text.length) {
-                timerRef.current = setTimeout(tick, TYPING_SPEED_MS);
-            } else {
-                onComplete();
-            }
-        }
-
-        // Small initial delay before typing starts
-        timerRef.current = setTimeout(tick, 80);
-
-        return () => {
-            if (timerRef.current) clearTimeout(timerRef.current);
-        };
-    }, [fullText, isActive]); // eslint-disable-line react-hooks/exhaustive-deps
-
-    return displayedText;
+    return fullText ?? '';
 }
 
 // ==========================================
@@ -142,24 +106,22 @@ function BotMessageBubble({
                 <div className="prose prose-sm max-w-none">
                     <ReactMarkdown
                         components={{
-                            strong: ({ node, ...props }) => (
-                                <strong
-                                    className="font-bold text-blue-700"
-                                    {...props}
-                                />
-                            ),
-                            ul: ({ node, ...props }) => (
-                                <ul
-                                    className="list-disc ml-4 my-2 space-y-1"
-                                    {...props}
-                                />
-                            ),
-                            li: ({ node, ...props }) => (
-                                <li className="my-1" {...props} />
-                            ),
-                            p: ({ node, ...props }) => (
-                                <p className="mb-2 last:mb-0" {...props} />
-                            ),
+                            strong: ({ node: _node, ...props }) => {
+                                void _node;
+                                return <strong className="font-bold text-blue-700" {...props} />;
+                            },
+                            ul: ({ node: _node, ...props }) => {
+                                void _node;
+                                return <ul className="list-disc ml-4 my-2 space-y-1" {...props} />;
+                            },
+                            li: ({ node: _node, ...props }) => {
+                                void _node;
+                                return <li className="my-1" {...props} />;
+                            },
+                            p: ({ node: _node, ...props }) => {
+                                void _node;
+                                return <p className="mb-2 last:mb-0" {...props} />;
+                            },
                         }}
                     >
                         {displayedText}
@@ -168,6 +130,20 @@ function BotMessageBubble({
                 {/* Blinking cursor while typing */}
                 {isTyping && (
                     <span className="inline-block w-0.5 h-4 bg-gray-400 animate-pulse ml-0.5 align-text-bottom" />
+                )}
+                {!isTyping && message.citations && message.citations.length > 0 && (
+                    <div className="mt-3 border-t border-gray-200 pt-2 text-xs text-gray-600">
+                        <p className="mb-1 font-semibold text-gray-700">Evidence</p>
+                        {message.citations.map((citation) => (
+                            <p key={citation.citation_id}>
+                                {citation.source_url ? <a className="text-blue-700 underline" href={citation.source_url} target="_blank" rel="noreferrer">{citation.title}</a> : citation.title}
+                                {citation.authority ? ` · ${citation.authority}` : ''}
+                            </p>
+                        ))}
+                    </div>
+                )}
+                {!isTyping && message.warnings && message.warnings.length > 0 && (
+                    <div className="mt-2 rounded-lg bg-amber-50 p-2 text-xs text-amber-800">{message.warnings.join(' ')}</div>
                 )}
             </div>
         </motion.div>
@@ -198,6 +174,7 @@ function UserMessageBubble({ message }: { message: ChatMessage }) {
 // Main Chatbot Component
 // ==========================================
 export default function Chatbot() {
+    const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<ChatMessage[]>([
         {
@@ -215,11 +192,12 @@ export default function Chatbot() {
     const [typingMessageId, setTypingMessageId] = useState<string | null>(null);
     const [isSending, setIsSending] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
-    const [isHydrated, setIsHydrated] = useState(false);
-
     useEffect(() => {
-        setIsHydrated(true);
-        const handleOpenChat = () => setIsOpen(true);
+        const handleOpenChat = (event: Event) => {
+            setIsOpen(true);
+            const prompt = (event as CustomEvent<{ prompt?: string }>).detail?.prompt;
+            if (prompt) setInputValue(prompt);
+        };
         window.addEventListener('open-chatbot', handleOpenChat);
         return () => window.removeEventListener('open-chatbot', handleOpenChat);
     }, []);
@@ -235,12 +213,13 @@ export default function Chatbot() {
 
     const addMessage = (
         sender: 'user' | 'bot',
-        content: string
+        content: string,
+        metadata?: Pick<ChatMessage, 'citations' | 'warnings'>
     ): string => {
-        const id = `${Date.now()}-${Math.random()}`;
+        const id = crypto.randomUUID();
         setMessages((prev) => [
             ...prev,
-            { id, sender, content, timestamp: new Date() },
+            { id, sender, content, timestamp: new Date(), ...metadata },
         ]);
         return id;
     };
@@ -258,7 +237,10 @@ export default function Chatbot() {
 
             // Hide thinking, add bot message, start typing effect
             setIsThinking(false);
-            const botMsgId = addMessage('bot', data.reply);
+            const botMsgId = addMessage('bot', data.reply, {
+                citations: data.citations,
+                warnings: data.warnings,
+            });
             setTypingMessageId(botMsgId);
             setConversationId(data.conversation_id);
         } catch (error) {
@@ -290,6 +272,8 @@ export default function Chatbot() {
         addMessage('user', msg);
         await sendMessageToServer(msg);
     };
+
+    if (pathname === '/' || pathname === '/login' || pathname === '/register') return null;
 
     return (
         <>

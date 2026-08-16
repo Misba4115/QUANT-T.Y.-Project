@@ -13,6 +13,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useUser } from '@/contexts/user-context';
 import { authApi, userApi } from '@/lib/api';
+import axios from 'axios';
 
 const loginSchema = z.object({
     email: z.string().email('Please enter a valid email address'),
@@ -38,23 +39,20 @@ export default function LoginPage() {
     });
 
     // ── Google Sign-In ──────────────────────────────────────
-    const handleGoogleResponse = useCallback(async (response: any) => {
+    const handleGoogleResponse = useCallback(async (response: GoogleCredentialResponse) => {
         setIsSubmitting(true);
         setError(null);
         try {
             const res = await authApi.googleAuth(response.credential);
-            const token = res.data.access_token;
-            localStorage.setItem('quant_token', token);
             const profileRes = await userApi.getProfile();
             const user = profileRes.data;
-            login(user, token);
+            login(user);
             setMessage('Login successful! Redirecting...');
             setTimeout(() => {
                 router.push(res.data.is_new_user ? '/input-data' : '/dashboard');
             }, 500);
-        } catch (err: any) {
-            localStorage.removeItem('quant_token');
-            const msg = err.response?.data?.detail || 'Google sign-in failed';
+        } catch (err: unknown) {
+            const msg = axios.isAxiosError(err) ? err.response?.data?.detail || err.message : 'Google sign-in failed';
             setError(msg);
         } finally {
             setIsSubmitting(false);
@@ -68,15 +66,15 @@ export default function LoginPage() {
         script.defer = true;
         script.onload = () => {
             const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-            if (clientId && clientId !== 'YOUR_GOOGLE_CLIENT_ID_HERE' && (window as any).google) {
-                (window as any).google.accounts.id.initialize({
+            if (clientId && clientId !== 'YOUR_GOOGLE_CLIENT_ID_HERE' && window.google) {
+                window.google.accounts.id.initialize({
                     client_id: clientId,
                     callback: handleGoogleResponse,
                 });
 
                 const btnContainer = document.getElementById('googleSignInDiv');
                 if (btnContainer) {
-                    (window as any).google.accounts.id.renderButton(
+                    window.google.accounts.id.renderButton(
                         btnContainer,
                         { theme: 'outline', size: 'large', text: 'signin_with', width: '400' }
                     );
@@ -92,30 +90,20 @@ export default function LoginPage() {
         setError(null);
         setMessage(null);
         try {
-            // Step 1: perform login request
-            const loginRes = await authApi.login(data);
-            const token = loginRes.data.access_token;
-
-            // Step 2: Store token FIRST so axios interceptor can use it
-            localStorage.setItem('quant_token', token);
-
-            // Step 3: fetch profile (now token is in localStorage, axios will use it)
+            await authApi.login(data);
+            // The backend has set an HttpOnly session cookie.
             const profileRes = await userApi.getProfile();
             const user = profileRes.data;
 
-            // Step 4: Update context
-            login(user, token);
+            login(user);
 
             setMessage('Login successful! Redirecting...');
             setTimeout(() => {
                 router.push('/dashboard');
             }, 500);
-        } catch (err: any) {
-            // Clear token on error
-            localStorage.removeItem('quant_token');
-            const msg = err.response?.data?.detail || err.message || 'Login failed';
+        } catch (err: unknown) {
+            const msg = axios.isAxiosError(err) ? err.response?.data?.detail || err.message : 'Login failed';
             setError(msg);
-            console.error('login error', err);
         } finally {
             setIsSubmitting(false);
         }

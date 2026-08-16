@@ -13,6 +13,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useUser } from '@/contexts/user-context';
 import { authApi, userApi } from '@/lib/api';
+import axios from 'axios';
 
 const registerSchema = z
     .object({
@@ -50,24 +51,21 @@ export default function RegisterPage() {
     });
 
     // ── Google Sign-Up ──────────────────────────────────────
-    const handleGoogleResponse = useCallback(async (response: any) => {
+    const handleGoogleResponse = useCallback(async (response: GoogleCredentialResponse) => {
         setIsSubmitting(true);
         setError(null);
         try {
             const res = await authApi.googleAuth(response.credential);
-            const token = res.data.access_token;
-            localStorage.setItem('quant_token', token);
             const profileRes = await userApi.getProfile();
             const user = profileRes.data;
-            login(user, token);
+            login(user);
             if (res.data.is_new_user) setNewUser(true);
             setMessage('Account ready! Redirecting...');
             setTimeout(() => {
                 router.push(res.data.is_new_user ? '/input-data' : '/dashboard');
             }, 500);
-        } catch (err: any) {
-            localStorage.removeItem('quant_token');
-            const msg = err.response?.data?.detail || 'Google sign-up failed';
+        } catch (err: unknown) {
+            const msg = axios.isAxiosError(err) ? err.response?.data?.detail || err.message : 'Google sign-up failed';
             setError(msg);
         } finally {
             setIsSubmitting(false);
@@ -81,8 +79,8 @@ export default function RegisterPage() {
         script.defer = true;
         script.onload = () => {
             const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-            if (clientId && clientId !== 'YOUR_GOOGLE_CLIENT_ID_HERE' && (window as any).google) {
-                (window as any).google.accounts.id.initialize({
+            if (clientId && clientId !== 'YOUR_GOOGLE_CLIENT_ID_HERE' && window.google) {
+                window.google.accounts.id.initialize({
                     client_id: clientId,
                     callback: handleGoogleResponse,
                 });
@@ -97,36 +95,24 @@ export default function RegisterPage() {
         setError(null);
         setMessage(null);
         try {
-            const registerRes = await authApi.register({
+            await authApi.register({
                 name: data.name,
                 email: data.email,
                 password: data.password,
-                phone: '',
-                age: 0,
-                monthly_income: 0,
-                monthly_expenses: 0,
-                primary_goal: '',
             });
 
-            const token = registerRes.data.access_token;
-            
-            // Store token FIRST so axios interceptor can use it
-            localStorage.setItem('quant_token', token);
-            
+            // The backend has set an HttpOnly session cookie.
             const profileRes = await userApi.getProfile();
             const user = profileRes.data;
-            login(user, token);
+            login(user);
             setNewUser(true);
             setMessage('Registration successful! Redirecting...');
             setTimeout(() => {
                 router.push('/input-data');
             }, 500);
-        } catch (err: any) {
-            // Clear token on error
-            localStorage.removeItem('quant_token');
-            const msg = err.response?.data?.detail || err.message || 'Registration failed';
+        } catch (err: unknown) {
+            const msg = axios.isAxiosError(err) ? err.response?.data?.detail || err.message : 'Registration failed';
             setError(msg);
-            console.error('registration error', err);
         } finally {
             setIsSubmitting(false);
         }
@@ -414,8 +400,8 @@ export default function RegisterPage() {
                         variant="outline"
                         disabled={isSubmitting}
                         onClick={() => {
-                            if ((window as any).google?.accounts?.id) {
-                                (window as any).google.accounts.id.prompt();
+                            if (window.google?.accounts?.id) {
+                                window.google.accounts.id.prompt();
                             } else {
                                 setError('Google Sign-In is not configured. Please set up your Google Client ID.');
                             }
