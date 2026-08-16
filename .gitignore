@@ -1,0 +1,28 @@
+# Shared Python artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+
+# Shared JavaScript artifacts
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+
+# Environment files and local credentials
+.env
+.env.*
+!.env.example
+
+# Local data and tool artifacts
+*.log
+.DS_Store
+Thumbs.db
+.qdrant/
+backend/.qdrant/
+backend/uploads/
