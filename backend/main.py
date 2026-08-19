@@ -12,7 +12,7 @@ from core.capabilities import build_capability_registry, legacy_readiness_status
 from core.config import get_settings
 from core.request_context import RequestIdMiddleware, install_error_handlers
 from db.supabase_client import get_supabase_client
-from routers import analytics, auth, banking, chat, connectors, dashboard, goals, guardian_stream, holdings, imports, ingestion_inbox, insights, jobs, market_data, notifications, personalization, rag, transactions, user
+from routers import analytics, auth, banking, capabilities, chat, connectors, dashboard, goals, guardian_stream, holdings, imports, ingestion_inbox, insights, jobs, market_data, notifications, personalization, rag, transactions, user
 
 settings = get_settings()
 
