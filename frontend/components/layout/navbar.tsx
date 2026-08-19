@@ -27,6 +27,7 @@ import { notificationsApi } from '@/lib/api';
 const navLinks = [
     { label: 'Input Data', href: '/input-data' },
     { label: 'Dashboard', href: '/dashboard' },
+    { label: 'Insights & Trading', href: '/insights' },
     { label: 'Guardian', href: '/guardian' },
     { label: 'Settings', href: '/settings' },
 ];

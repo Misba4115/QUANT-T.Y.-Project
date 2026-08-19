@@ -27,6 +27,7 @@ import type {
     QuantNotification,
     UserPreference,
     JobSchedule,
+    InsightsResult,
 } from '@/types';
 
 // ==========================================
@@ -298,4 +299,16 @@ export const analyticsApi = {
     indicators: (data: { instrument: string; dates: string[]; adjusted_closes: number[]; source: string }) => apiClient.post('/analytics/indicators', data),
     forecast: (data: { instrument: string; dates: string[]; adjusted_closes: number[]; source: string; window?: number }) => apiClient.post('/analytics/forecast', data),
     syntheticSandbox: (seed = 42, days = 252) => apiClient.post('/analytics/synthetic-sandbox', { seed, days }),
+};
+
+// ==========================================
+// Insights & Trading API
+// Backend: POST /insights/generate, GET /insights/latest
+// ==========================================
+export const insightsApi = {
+    generate: () =>
+        apiClient.post<InsightsResult>('/insights/generate', {}, { timeout: 45000 }),
+
+    latest: () =>
+        apiClient.get<InsightsResult>('/insights/latest', { timeout: 15000 }),
 };
