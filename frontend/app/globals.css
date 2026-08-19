@@ -48,37 +48,44 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  /* Warm Alabaster canvas */
+  --background: #F9F9F6;
+  --foreground: #18181B;
+  /* Crisp white cards */
+  --card: #FFFFFF;
+  --card-foreground: #18181B;
+  --popover: #FFFFFF;
+  --popover-foreground: #18181B;
+  /* Deep Botanical Forest primary */
+  --primary: #064E3B;
+  --primary-foreground: #ECFDF5;
+  /* Warm stone secondary */
+  --secondary: #F5F5F0;
+  --secondary-foreground: #18181B;
+  --muted: #F5F5F0;
+  --muted-foreground: #71717A;
+  --accent: #F5F5F0;
+  --accent-foreground: #18181B;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  /* Stone borders */
+  --border: #E7E5E4;
+  --input: #E7E5E4;
+  --ring: #047857;
+  /* Emerald-tinted charts */
+  --chart-1: #064E3B;
+  --chart-2: #047857;
+  --chart-3: #059669;
+  --chart-4: #10B981;
+  --chart-5: #34D399;
+  /* Sidebar */
+  --sidebar: #F9F9F6;
+  --sidebar-foreground: #18181B;
+  --sidebar-primary: #064E3B;
+  --sidebar-primary-foreground: #ECFDF5;
+  --sidebar-accent: #F5F5F0;
+  --sidebar-accent-foreground: #18181B;
+  --sidebar-border: #E7E5E4;
+  --sidebar-ring: #047857;
 }
 
 .dark {
@@ -135,12 +142,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #d6d3d1;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #a8a29e;
 }
 
 /* ===== Smooth scrolling ===== */
@@ -150,6 +157,16 @@ html {
 
 /* ===== Selection Color ===== */
 ::selection {
-  background-color: #3b82f6;
+  background-color: #064E3B;
   color: white;
+}
+
+/* ===== Number Input Scroll Lock ===== */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

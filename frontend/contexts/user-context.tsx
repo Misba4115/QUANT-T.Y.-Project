@@ -6,6 +6,11 @@ import type { User } from '@/types';
 import { authApi, userApi } from '@/lib/api';
 
 // ==========================================
+// In-memory session flag (resets on hard refresh)
+// ==========================================
+let sessionAlive = false;
+
+// ==========================================
 // State & Actions
 // ==========================================
 interface UserState {
@@ -60,6 +65,14 @@ export function UserProvider({ children }: { children: ReactNode }) {
     const [isNewUser, setIsNewUser] = React.useState(false);
 
     useEffect(() => {
+        // If the in-memory flag is false, the page was freshly loaded (hard refresh).
+        // Even if a cookie exists, we force logout to enforce session-refresh behavior.
+        if (!sessionAlive) {
+            authApi.logout().catch(() => undefined).finally(() => {
+                dispatch({ type: 'LOGOUT' });
+            });
+            return;
+        }
         userApi.getProfile()
             .then((res) => dispatch({ type: 'SET_USER', payload: res.data }))
             .catch(() => dispatch({ type: 'LOGOUT' }));
@@ -78,10 +91,12 @@ export function UserProvider({ children }: { children: ReactNode }) {
     };
 
     const login = (user: User) => {
+        sessionAlive = true;
         dispatch({ type: 'SET_USER', payload: user });
     };
 
     const logout = async () => {
+        sessionAlive = false;
         localStorage.removeItem('quant_onboarding_complete');
         setIsNewUser(false);
         dispatch({ type: 'LOGOUT' });

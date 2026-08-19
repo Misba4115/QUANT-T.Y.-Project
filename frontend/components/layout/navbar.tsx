@@ -52,19 +52,19 @@ export default function Navbar() {
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.4, ease: 'easeOut' }}
-            className="sticky top-0 z-50 w-full border-b border-gray-100 bg-white/80 backdrop-blur-xl"
+            className="sticky top-0 z-50 w-full border-b border-stone-200 bg-white/80 backdrop-blur-xl"
         >
             <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
                 {/* Logo */}
                 <Link href="/dashboard" className="flex items-center gap-2.5">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600 shadow-md shadow-blue-200">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-800 to-emerald-950 shadow-md shadow-emerald-200">
                         <span className="text-lg font-bold text-white">Q</span>
                     </div>
                     <div className="flex flex-col">
-                        <span className="text-xl font-bold tracking-tight text-gray-900">
+                        <span className="text-xl font-bold tracking-tight text-stone-900">
                             QUANT
                         </span>
-                        <span className="hidden text-[10px] leading-none text-gray-400 sm:block">
+                        <span className="hidden text-[10px] leading-none text-stone-400 sm:block">
                             Smart Financial Intelligence
                         </span>
                     </div>
@@ -83,8 +83,8 @@ export default function Navbar() {
                                 <span
                                     className={
                                         isActive
-                                            ? 'text-blue-600'
-                                            : 'text-gray-600 hover:text-gray-900'
+                                            ? 'text-emerald-700'
+                                            : 'text-stone-600 hover:text-stone-900'
                                     }
                                 >
                                     {link.label}
@@ -92,7 +92,7 @@ export default function Navbar() {
                                 {isActive && (
                                     <motion.div
                                         layoutId="navbar-indicator"
-                                        className="absolute inset-x-2 -bottom-[13px] h-0.5 rounded-full bg-blue-600"
+                                        className="absolute inset-x-2 -bottom-[13px] h-0.5 rounded-full bg-emerald-700"
                                         transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                                     />
                                 )}
@@ -106,7 +106,7 @@ export default function Navbar() {
                     {/* Notifications */}
                     <Link
                         href="/notifications"
-                        className="relative rounded-full p-2 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700"
+                        className="relative rounded-full p-2 text-stone-500 transition-colors hover:bg-stone-100 hover:text-stone-700"
                         aria-label="Notifications"
                     >
                         <Bell className="h-5 w-5" />
@@ -118,19 +118,19 @@ export default function Navbar() {
                     {/* User Dropdown */}
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <button className="flex items-center gap-2 rounded-full py-1 pl-1 pr-3 transition-colors hover:bg-gray-50">
-                                <Avatar className="h-8 w-8 border-2 border-blue-100">
-                                    <AvatarFallback className="bg-gradient-to-br from-blue-500 to-indigo-500 text-xs font-semibold text-white">
+                            <button className="flex items-center gap-2 rounded-full py-1 pl-1 pr-3 transition-colors hover:bg-stone-50">
+                                <Avatar className="h-8 w-8 border-2 border-emerald-100">
+                                    <AvatarFallback className="bg-gradient-to-br from-emerald-600 to-emerald-800 text-xs font-semibold text-white">
                                         {initials}
                                     </AvatarFallback>
                                 </Avatar>
-                                <span className="hidden text-sm font-medium text-gray-700 sm:block">
+                                <span className="hidden text-sm font-medium text-stone-700 sm:block">
                                     {displayName.split(' ')[0]}{' '}
                                     {displayName.split(' ')[1]?.[0]
                                         ? displayName.split(' ')[1][0] + '.'
                                         : ''}
                                 </span>
-                                <ChevronDown className="h-3.5 w-3.5 text-gray-400" />
+                                <ChevronDown className="h-3.5 w-3.5 text-stone-400" />
                             </button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="w-48">

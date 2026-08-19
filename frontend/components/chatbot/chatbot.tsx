@@ -56,7 +56,7 @@ function ThinkingIndicator() {
             exit={{ opacity: 0, y: -4 }}
             className="flex items-start gap-2"
         >
-            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600">
+            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
                 <Bot className="h-4 w-4" />
             </div>
             <div className="rounded-2xl rounded-tl-md bg-gray-100 px-4 py-3">
@@ -125,7 +125,7 @@ function BotMessageBubble({
             animate={{ opacity: 1, y: 0 }}
             className="flex items-start gap-2"
         >
-            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600">
+            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
                 <Bot className="h-4 w-4" />
             </div>
             <div className="max-w-[75%] rounded-2xl rounded-tl-md bg-gray-100 px-3.5 py-2.5 text-sm leading-relaxed text-gray-800">
@@ -189,7 +189,7 @@ function UserMessageBubble({ message }: { message: ChatMessage }) {
             <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-600">
                 <User className="h-4 w-4" />
             </div>
-            <div className="max-w-[75%] rounded-2xl rounded-tr-md bg-blue-600 px-3.5 py-2.5 text-sm leading-relaxed text-white">
+            <div className="max-w-[75%] rounded-2xl rounded-tr-md bg-emerald-600 px-3.5 py-2.5 text-sm leading-relaxed text-white">
                 {message.content}
             </div>
         </motion.div>
@@ -313,7 +313,7 @@ export default function Chatbot() {
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                         onClick={() => setIsOpen(true)}
-                        className="fixed bottom-6 right-6 z-[9999] flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-300/50 transition-shadow hover:shadow-xl hover:shadow-blue-300/60"
+                        className="fixed bottom-6 right-6 z-[9999] flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-emerald-600 to-teal-600 text-white shadow-lg shadow-emerald-900/50 transition-shadow hover:shadow-xl hover:shadow-emerald-900/60"
                         aria-label="Open chat"
                     >
                         <MessageCircle className="h-6 w-6" />
@@ -347,7 +347,7 @@ export default function Chatbot() {
                         className="fixed bottom-6 right-6 z-[9999] flex h-[520px] w-[380px] flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl"
                     >
                         {/* Header */}
-                        <div className="flex items-center justify-between bg-gradient-to-r from-blue-600 to-indigo-600 px-5 py-4">
+                        <div className="flex items-center justify-between bg-gradient-to-r from-emerald-600 to-teal-600 px-5 py-4">
                             <div className="flex items-center gap-3">
                                 <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm">
                                     <Bot className="h-5 w-5 text-white" />
@@ -418,7 +418,7 @@ export default function Chatbot() {
                                                     handleOptionClick(option)
                                                 }
                                                 disabled={isSending}
-                                                className="rounded-full border border-blue-200 bg-blue-50 px-3 py-1.5 text-xs font-medium text-blue-700 transition-all hover:bg-blue-100 hover:border-blue-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                                                className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-medium text-emerald-700 transition-all hover:bg-emerald-100 hover:border-emerald-300 disabled:opacity-50 disabled:cursor-not-allowed"
                                             >
                                                 {option}
                                             </button>
@@ -455,7 +455,7 @@ export default function Chatbot() {
                                 <button
                                     type="submit"
                                     disabled={!inputValue.trim() || isSending}
-                                    className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-white transition-all hover:bg-blue-700 disabled:opacity-40 disabled:hover:bg-blue-600"
+                                    className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-600 text-white transition-all hover:bg-emerald-700 disabled:opacity-40 disabled:hover:bg-emerald-600"
                                     aria-label="Send message"
                                 >
                                     <Send className="h-4 w-4" />

@@ -249,8 +249,8 @@ function GoalCard({ gap, index }: { gap: GoalGap; index: number }) {
         >
             <div className="flex items-start justify-between">
                 <div className="flex items-center gap-2.5">
-                    <div className={`rounded-xl p-2 ${gap.on_track ? 'bg-emerald-50' : 'bg-blue-50'}`}>
-                        <Target className={`h-4 w-4 ${gap.on_track ? 'text-emerald-600' : 'text-blue-600'}`} />
+                    <div className={`rounded-xl p-2 ${gap.on_track ? 'bg-emerald-50' : 'bg-amber-50'}`}>
+                        <Target className={`h-4 w-4 ${gap.on_track ? 'text-emerald-600' : 'text-amber-600'}`} />
                     </div>
                     <div>
                         <p className="font-semibold text-slate-800">{gap.goal_name}</p>
@@ -274,18 +274,18 @@ function GoalCard({ gap, index }: { gap: GoalGap; index: number }) {
                         initial={{ width: 0 }}
                         animate={{ width: `${progress}%` }}
                         transition={{ duration: 0.8, ease: 'easeOut', delay: index * 0.07 + 0.2 }}
-                        className={`h-full rounded-full ${gap.on_track ? 'bg-emerald-500' : 'bg-blue-500'}`}
+                        className={`h-full rounded-full ${gap.on_track ? 'bg-emerald-500' : 'bg-amber-500'}`}
                     />
                 </div>
             </div>
 
             {/* Gap summary */}
             {!gap.on_track && (
-                <div className="mt-4 flex items-center justify-between rounded-lg bg-blue-50 px-4 py-3">
+                <div className="mt-4 flex items-center justify-between rounded-lg bg-amber-50 px-4 py-3">
                     <div>
-                        <p className="text-xs text-blue-600 font-medium">You are</p>
-                        <p className="text-xl font-bold text-blue-700">{gap.shortfall_pct.toFixed(0)}% short</p>
-                        <p className="text-xs text-blue-500">at current pace</p>
+                        <p className="text-xs text-amber-700 font-medium">You are</p>
+                        <p className="text-xl font-bold text-amber-700">{gap.shortfall_pct.toFixed(0)}% short</p>
+                        <p className="text-xs text-amber-600">at current pace</p>
                     </div>
                     <div className="text-right">
                         <p className="text-xs text-slate-500">Gap</p>
@@ -293,7 +293,7 @@ function GoalCard({ gap, index }: { gap: GoalGap; index: number }) {
                         {gap.required_monthly_sip > 0 && (
                             <>
                                 <p className="mt-1 text-xs text-slate-400">Suggested SIP</p>
-                                <p className="text-sm font-semibold text-blue-600">{formatCurrency(gap.required_monthly_sip)}/mo</p>
+                                <p className="text-sm font-semibold text-amber-700">{formatCurrency(gap.required_monthly_sip)}/mo</p>
                             </>
                         )}
                     </div>
@@ -396,10 +396,10 @@ export default function InsightsPage() {
                     {/* ── Page header ──────────────────────────────────────── */}
                     <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                         <div>
-                            <p className="text-sm font-medium text-blue-600">Insights &amp; Trading</p>
+                            <p className="text-sm font-medium text-emerald-700">Insights &amp; Trading</p>
                             <h1 className="mt-1 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
                                 Personalized guidance,{' '}
-                                <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                                <span className="bg-gradient-to-r from-emerald-800 to-emerald-600 bg-clip-text text-transparent">
                                     grounded in evidence
                                 </span>
                             </h1>
@@ -506,7 +506,7 @@ export default function InsightsPage() {
                                                             (for your holdings)
                                                         </span>
                                                     </h2>
-                                                    <span className="rounded-full bg-blue-50 border border-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-600">
+                                                    <span className="rounded-full bg-emerald-50 border border-emerald-100 px-2.5 py-0.5 text-xs font-medium text-emerald-700">
                                                         AI-powered forecast
                                                     </span>
                                                 </div>

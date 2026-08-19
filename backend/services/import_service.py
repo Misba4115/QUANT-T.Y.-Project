@@ -383,8 +383,6 @@ def delete_import_preview(import_batch_id: str, user_id: str, db: Any) -> None:
     batch = repo.get_for_user("import_batches", import_batch_id, user_id)
     if not batch:
         raise HTTPException(status_code=404, detail="Import batch not found")
-    if batch["status"] not in {"pending", "failed"}:
-        raise HTTPException(status_code=409, detail="Committed imports cannot be deleted through the preview endpoint")
     if not repo.delete_for_user("import_batches", import_batch_id, user_id):
         raise HTTPException(status_code=500, detail="Import preview could not be deleted")
 

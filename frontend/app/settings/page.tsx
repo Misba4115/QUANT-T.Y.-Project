@@ -59,7 +59,7 @@ export default function SettingsPage() {
     const commitSync = () => syncPreview && run('commit', async () => { await connectorsApi.commitSync(syncPreview.connector_sync_run_id); setSyncPreview(null); await load(); }, 'Broker records committed; valuation refresh was queued.');
 
     return <><Navbar /><PageTransition><main className="mx-auto max-w-4xl space-y-6 px-4 py-8 sm:px-6">
-        <header><p className="text-sm font-medium text-blue-600">Control center</p><h1 className="mt-1 text-3xl font-semibold tracking-tight text-slate-950">Connections, privacy and preferences</h1><p className="mt-2 text-sm text-slate-500">Every connection is read-only, revocable and independently degradable.</p></header>
+        <header><p className="text-sm font-medium text-emerald-700">Control center</p><h1 className="mt-1 text-3xl font-semibold tracking-tight text-slate-950">Connections, privacy and preferences</h1><p className="mt-2 text-sm text-slate-500">Every connection is read-only, revocable and independently degradable.</p></header>
         {notice && <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">{notice}</div>}
         {error && <div className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800">{error}</div>}
 

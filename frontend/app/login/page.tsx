@@ -116,7 +116,7 @@ export default function LoginPage() {
                 initial={{ x: -40, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.6, ease: 'easeOut' }}
-                className="hidden w-1/2 flex-col justify-between bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 p-12 lg:flex"
+                className="hidden w-1/2 flex-col justify-between bg-gradient-to-br from-stone-900 via-emerald-950 to-stone-950 p-12 lg:flex"
             >
                 <div>
                     <div className="flex items-center gap-3">
@@ -131,11 +131,11 @@ export default function LoginPage() {
                     <h1 className="text-4xl font-bold leading-tight text-white">
                         Smart Financial
                         <br />
-                        <span className="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
+                        <span className="bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">
                             Intelligence
                         </span>
                     </h1>
-                    <p className="max-w-md text-lg leading-relaxed text-blue-200/80">
+                    <p className="max-w-md text-lg leading-relaxed text-emerald-200/80">
                         Track your net worth, analyze investments, manage taxes, and get
                         AI-powered financial insights — all in one place.
                     </p>
@@ -150,7 +150,7 @@ export default function LoginPage() {
                         ].map((feat) => (
                             <span
                                 key={feat}
-                                className="rounded-full border border-blue-400/30 bg-blue-500/10 px-4 py-1.5 text-sm text-blue-200 backdrop-blur-sm"
+                                className="rounded-full border border-emerald-400/30 bg-emerald-500/10 px-4 py-1.5 text-sm text-emerald-200 backdrop-blur-sm"
                             >
                                 {feat}
                             </span>
@@ -158,7 +158,7 @@ export default function LoginPage() {
                     </div>
                 </div>
 
-                <p className="text-sm text-blue-300/50">
+                <p className="text-sm text-emerald-300/50">
                     © 2026 QUANT. All rights reserved.
                 </p>
             </motion.div>
@@ -168,20 +168,20 @@ export default function LoginPage() {
                 initial={{ x: 40, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.6, ease: 'easeOut', delay: 0.15 }}
-                className="flex w-full flex-col items-center justify-center px-6 py-12 lg:w-1/2"
+                className="flex w-full flex-col items-center justify-center bg-[#F9F9F6] px-6 py-12 lg:w-1/2"
             >
                 <div className="w-full max-w-md">
                     {/* Mobile Logo */}
                     <div className="mb-8 flex items-center gap-2 lg:hidden">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-800 to-emerald-950">
                             <span className="text-lg font-bold text-white">Q</span>
                         </div>
-                        <span className="text-xl font-bold text-gray-900">QUANT</span>
+                        <span className="text-xl font-bold text-stone-900">QUANT</span>
                     </div>
 
                     <div className="mb-8">
-                        <h2 className="text-2xl font-bold text-gray-900">Welcome back</h2>
-                        <p className="mt-2 text-gray-500">
+                        <h2 className="text-2xl font-bold text-stone-900">Welcome back</h2>
+                        <p className="mt-2 text-stone-500">
                             Sign in to access your financial dashboard
                         </p>
                     </div>
@@ -220,7 +220,7 @@ export default function LoginPage() {
                         </div>
                     )}
                     {message && (
-                        <div className="mb-4 rounded-lg border border-green-200 bg-green-50 p-3 text-sm text-green-700">
+                        <div className="mb-4 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-700">
                             {message}
                         </div>
                     )}
@@ -228,11 +228,11 @@ export default function LoginPage() {
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                         {/* Email */}
                         <div className="space-y-2">
-                            <Label htmlFor="email" className="text-sm font-medium text-gray-700">
+                            <Label htmlFor="email" className="text-sm font-medium text-stone-700">
                                 Email Address
                             </Label>
                             <div className="relative">
-                                <Mail className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+                                <Mail className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400" />
                                 <Input
                                     id="email"
                                     type="email"
@@ -248,11 +248,11 @@ export default function LoginPage() {
 
                         {/* Password */}
                         <div className="space-y-2">
-                            <Label htmlFor="password" className="text-sm font-medium text-gray-700">
+                            <Label htmlFor="password" className="text-sm font-medium text-stone-700">
                                 Password
                             </Label>
                             <div className="relative">
-                                <Lock className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+                                <Lock className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400" />
                                 <Input
                                     id="password"
                                     type={showPassword ? 'text' : 'password'}
@@ -263,7 +263,7 @@ export default function LoginPage() {
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600"
                                     tabIndex={-1}
                                 >
                                     {showPassword ? (
@@ -284,7 +284,7 @@ export default function LoginPage() {
                         <div className="flex items-center justify-end">
                             <Link
                                 href="#"
-                                className="text-sm font-medium text-blue-600 hover:text-blue-700"
+                                className="text-sm font-medium text-emerald-700 hover:text-emerald-800"
                             >
                                 Forgot password?
                             </Link>
@@ -294,7 +294,7 @@ export default function LoginPage() {
                         <Button
                             type="submit"
                             disabled={isSubmitting}
-                            className="h-12 w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-base font-semibold text-white shadow-lg shadow-blue-200 transition-all hover:shadow-xl hover:shadow-blue-300 disabled:opacity-60"
+                            className="h-12 w-full bg-gradient-to-r from-emerald-800 to-emerald-950 text-base font-semibold text-white shadow-lg shadow-emerald-200 transition-all hover:shadow-xl hover:shadow-emerald-300 disabled:opacity-60"
                         >
                             {isSubmitting ? (
                                 <span className="flex items-center gap-2">
@@ -330,11 +330,11 @@ export default function LoginPage() {
 
                     {/* Google Divider */}
                     <div className="my-6 flex items-center gap-4">
-                        <div className="h-px flex-1 bg-gray-200" />
-                        <span className="text-xs font-medium text-gray-400">
+                        <div className="h-px flex-1 bg-stone-200" />
+                        <span className="text-xs font-medium text-stone-400">
                             OR CONTINUE WITH
                         </span>
-                        <div className="h-px flex-1 bg-gray-200" />
+                        <div className="h-px flex-1 bg-stone-200" />
                     </div>
 
                     {/* Google Sign-In Button */}
@@ -342,11 +342,11 @@ export default function LoginPage() {
 
                     {/* Divider */}
                     <div className="my-6 flex items-center gap-4">
-                        <div className="h-px flex-1 bg-gray-200" />
-                        <span className="text-xs font-medium text-gray-400">
+                        <div className="h-px flex-1 bg-stone-200" />
+                        <span className="text-xs font-medium text-stone-400">
                             DON&apos;T HAVE AN ACCOUNT?
                         </span>
-                        <div className="h-px flex-1 bg-gray-200" />
+                        <div className="h-px flex-1 bg-stone-200" />
                     </div>
 
                     <Link href="/register">

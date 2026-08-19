@@ -125,7 +125,7 @@ export default function RegisterPage() {
                 initial={{ x: -40, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.6, ease: 'easeOut' }}
-                className="hidden w-1/2 flex-col justify-between bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 p-12 lg:flex"
+                className="hidden w-1/2 flex-col justify-between bg-gradient-to-br from-stone-900 via-emerald-950 to-stone-950 p-12 lg:flex"
             >
                 <div>
                     <div className="flex items-center gap-3">
@@ -140,11 +140,11 @@ export default function RegisterPage() {
                     <h1 className="text-4xl font-bold leading-tight text-white">
                         Start Your
                         <br />
-                        <span className="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
+                        <span className="bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">
                             Financial Journey
                         </span>
                     </h1>
-                    <p className="max-w-md text-lg leading-relaxed text-blue-200/80">
+                    <p className="max-w-md text-lg leading-relaxed text-emerald-200/80">
                         Join thousands of smart investors who trust QUANT to manage,
                         analyze, and optimize their finances.
                     </p>
@@ -158,12 +158,12 @@ export default function RegisterPage() {
                         ].map((stat) => (
                             <div
                                 key={stat.label}
-                                className="rounded-xl border border-blue-400/20 bg-blue-500/10 p-4 text-center backdrop-blur-sm"
+                                className="rounded-xl border border-emerald-400/20 bg-emerald-500/10 p-4 text-center backdrop-blur-sm"
                             >
                                 <div className="text-2xl font-bold text-white">
                                     {stat.value}
                                 </div>
-                                <div className="mt-1 text-xs text-blue-300/70">
+                                <div className="mt-1 text-xs text-emerald-300/70">
                                     {stat.label}
                                 </div>
                             </div>
@@ -171,7 +171,7 @@ export default function RegisterPage() {
                     </div>
                 </div>
 
-                <p className="text-sm text-blue-300/50">
+                <p className="text-sm text-emerald-300/50">
                     © 2026 QUANT. All rights reserved.
                 </p>
             </motion.div>
@@ -181,22 +181,22 @@ export default function RegisterPage() {
                 initial={{ x: 40, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.6, ease: 'easeOut', delay: 0.15 }}
-                className="flex w-full flex-col items-center justify-center px-6 py-12 lg:w-1/2"
+                className="flex w-full flex-col items-center justify-center bg-[#F9F9F6] px-6 py-12 lg:w-1/2"
             >
                 <div className="w-full max-w-md">
                     {/* Mobile Logo */}
                     <div className="mb-8 flex items-center gap-2 lg:hidden">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-800 to-emerald-950">
                             <span className="text-lg font-bold text-white">Q</span>
                         </div>
-                        <span className="text-xl font-bold text-gray-900">QUANT</span>
+                        <span className="text-xl font-bold text-stone-900">QUANT</span>
                     </div>
 
                     <div className="mb-8">
-                        <h2 className="text-2xl font-bold text-gray-900">
+                        <h2 className="text-2xl font-bold text-stone-900">
                             Create your account
                         </h2>
-                        <p className="mt-2 text-gray-500">
+                        <p className="mt-2 text-stone-500">
                             Get started with your smart financial journey
                         </p>
                     </div>
@@ -207,7 +207,7 @@ export default function RegisterPage() {
                         </div>
                     )}
                     {message && (
-                        <div className="mb-4 rounded-lg border border-green-200 bg-green-50 p-3 text-sm text-green-700">
+                        <div className="mb-4 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-700">
                             {message}
                         </div>
                     )}
@@ -215,11 +215,11 @@ export default function RegisterPage() {
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                         {/* Full Name */}
                         <div className="space-y-2">
-                            <Label htmlFor="name" className="text-sm font-medium text-gray-700">
+                            <Label htmlFor="name" className="text-sm font-medium text-stone-700">
                                 Full Name
                             </Label>
                             <div className="relative">
-                                <User className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+                                <User className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400" />
                                 <Input
                                     id="name"
                                     type="text"
@@ -237,11 +237,11 @@ export default function RegisterPage() {
 
                         {/* Email */}
                         <div className="space-y-2">
-                            <Label htmlFor="email" className="text-sm font-medium text-gray-700">
+                            <Label htmlFor="email" className="text-sm font-medium text-stone-700">
                                 Email Address
                             </Label>
                             <div className="relative">
-                                <Mail className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+                                <Mail className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400" />
                                 <Input
                                     id="email"
                                     type="email"
@@ -257,11 +257,11 @@ export default function RegisterPage() {
 
                         {/* Password */}
                         <div className="space-y-2">
-                            <Label htmlFor="password" className="text-sm font-medium text-gray-700">
+                            <Label htmlFor="password" className="text-sm font-medium text-stone-700">
                                 Password
                             </Label>
                             <div className="relative">
-                                <Lock className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+                                <Lock className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400" />
                                 <Input
                                     id="password"
                                     type={showPassword ? 'text' : 'password'}
@@ -272,7 +272,7 @@ export default function RegisterPage() {
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600"
                                     tabIndex={-1}
                                 >
                                     {showPassword ? (
@@ -291,11 +291,11 @@ export default function RegisterPage() {
 
                         {/* Confirm Password */}
                         <div className="space-y-2">
-                            <Label htmlFor="confirmPassword" className="text-sm font-medium text-gray-700">
+                            <Label htmlFor="confirmPassword" className="text-sm font-medium text-stone-700">
                                 Confirm Password
                             </Label>
                             <div className="relative">
-                                <Lock className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+                                <Lock className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400" />
                                 <Input
                                     id="confirmPassword"
                                     type={showConfirm ? 'text' : 'password'}
@@ -306,7 +306,7 @@ export default function RegisterPage() {
                                 <button
                                     type="button"
                                     onClick={() => setShowConfirm(!showConfirm)}
-                                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600"
                                     tabIndex={-1}
                                 >
                                     {showConfirm ? (
@@ -324,23 +324,23 @@ export default function RegisterPage() {
                         </div>
 
                         {/* Terms */}
-                        <label className="flex items-start gap-2 pt-1 text-sm text-gray-600">
+                        <label className="flex items-start gap-2 pt-1 text-sm text-stone-600">
                             <input
                                 type="checkbox"
-                                className="mt-1 h-4 w-4 rounded border-gray-300 text-blue-600"
+                                className="mt-1 h-4 w-4 rounded border-stone-300 text-emerald-700"
                             />
                             <span>
                                 I agree to the{' '}
                                 <Link
                                     href="#"
-                                    className="font-medium text-blue-600 hover:text-blue-700"
+                                    className="font-medium text-emerald-700 hover:text-emerald-800"
                                 >
                                     Terms of Service
                                 </Link>{' '}
                                 and{' '}
                                 <Link
                                     href="#"
-                                    className="font-medium text-blue-600 hover:text-blue-700"
+                                    className="font-medium text-emerald-700 hover:text-emerald-800"
                                 >
                                     Privacy Policy
                                 </Link>
@@ -351,7 +351,7 @@ export default function RegisterPage() {
                         <Button
                             type="submit"
                             disabled={isSubmitting}
-                            className="h-12 w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-base font-semibold text-white shadow-lg shadow-blue-200 transition-all hover:shadow-xl hover:shadow-blue-300 disabled:opacity-60"
+                            className="h-12 w-full bg-gradient-to-r from-emerald-800 to-emerald-950 text-base font-semibold text-white shadow-lg shadow-emerald-200 transition-all hover:shadow-xl hover:shadow-emerald-300 disabled:opacity-60"
                         >
                             {isSubmitting ? (
                                 <span className="flex items-center gap-2">
@@ -387,11 +387,11 @@ export default function RegisterPage() {
 
                     {/* Google Divider */}
                     <div className="my-6 flex items-center gap-4">
-                        <div className="h-px flex-1 bg-gray-200" />
-                        <span className="text-xs font-medium text-gray-400">
+                        <div className="h-px flex-1 bg-stone-200" />
+                        <span className="text-xs font-medium text-stone-400">
                             OR CONTINUE WITH
                         </span>
-                        <div className="h-px flex-1 bg-gray-200" />
+                        <div className="h-px flex-1 bg-stone-200" />
                     </div>
 
                     {/* Google Sign-Up Button */}
@@ -406,7 +406,7 @@ export default function RegisterPage() {
                                 setError('Google Sign-In is not configured. Please set up your Google Client ID.');
                             }
                         }}
-                        className="h-12 w-full gap-3 text-sm font-medium border-gray-200 hover:bg-gray-50"
+                        className="h-12 w-full gap-3 text-sm font-medium border-stone-200 hover:bg-stone-50"
                     >
                         <svg className="h-5 w-5" viewBox="0 0 24 24">
                             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4" />
@@ -419,11 +419,11 @@ export default function RegisterPage() {
 
                     {/* Divider */}
                     <div className="my-6 flex items-center gap-4">
-                        <div className="h-px flex-1 bg-gray-200" />
-                        <span className="text-xs font-medium text-gray-400">
+                        <div className="h-px flex-1 bg-stone-200" />
+                        <span className="text-xs font-medium text-stone-400">
                             ALREADY HAVE AN ACCOUNT?
                         </span>
-                        <div className="h-px flex-1 bg-gray-200" />
+                        <div className="h-px flex-1 bg-stone-200" />
                     </div>
 
                     <Link href="/login">
