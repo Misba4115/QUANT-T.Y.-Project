@@ -59,16 +59,17 @@ export const userApi = {
         apiClient.put<User>('/user/profile', data),
 };
 
+
 // ==========================================
 // Banking API
 // Backend: GET /banking-accounts/, POST /banking-accounts/
 // ==========================================
 export const bankingApi = {
     addBankAccount: (data: Partial<BankAccount>) =>
-        apiClient.post<BankAccount>('/banking-accounts/', data),
+        apiClient.post<BankAccount>('/banking-accounts', data),
 
     getBankAccounts: () =>
-        apiClient.get<BankAccount[]>('/banking-accounts/'),
+        apiClient.get<BankAccount[]>('/banking-accounts'),
 
     updateBankAccount: (accountId: string, data: Partial<BankAccount>) =>
         apiClient.put<BankAccount>(`/banking-accounts/${accountId}`, data),
@@ -170,10 +171,10 @@ export const transactionsApi = {
 // ==========================================
 export const goalsApi = {
     getGoals: () =>
-        apiClient.get<GoalOut[]>('/goals/'),
+        apiClient.get<GoalOut[]>('/goals'),
 
     createGoal: (data: GoalCreate) =>
-        apiClient.post<GoalOut>('/goals/', data),
+        apiClient.post<GoalOut>('/goals', data),
 
     updateGoal: (goalId: string, data: Partial<GoalCreate>) =>
         apiClient.put<GoalOut>(`/goals/${goalId}`, data),
@@ -189,7 +190,7 @@ export const goalsApi = {
 export const chatApi = {
     sendMessage: (message: string, conversationId?: string) =>
         apiClient.post<{reply: string; conversation_id: string; intent: string; agent: string; citations: import('@/types').ChatCitation[]; warnings: string[]}>(
-            '/chat/',
+            '/chat',
             { message, conversation_id: conversationId },
             { timeout: 45000 }
         ),

@@ -21,7 +21,7 @@ google-auth==2.40.3
 google-genai==1.29.0
 openai==1.99.6
 langgraph==0.6.4
-qdrant-client==1.15.1
+qdrant-client==1.19.0
 
 # Financial analytics and provider adapters
 numpy==2.3.2

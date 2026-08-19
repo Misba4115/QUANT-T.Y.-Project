@@ -30,19 +30,19 @@ class PersonalizationService:
         liquidity = (1 - float(inputs.get("illiquid_ratio") or 0)) * 100
         knowledge = float(inputs.get("knowledge_level") or 0) / 4 * 100
         dimensions = {
-            "tolerance": round(loss, 2),
-            "loss_capacity": round((emergency * 0.45 + stability * 0.30 + liability * 0.25), 2),
-            "goal_horizon": round(horizon, 2),
-            "portfolio_resilience": round((concentration * 0.55 + liquidity * 0.45), 2),
-            "experience": round(knowledge, 2),
+            "tolerance": round(loss, 4),
+            "loss_capacity": round((emergency * 0.45 + stability * 0.30 + liability * 0.25), 4),
+            "goal_horizon": round(horizon, 4),
+            "portfolio_resilience": round((concentration * 0.55 + liquidity * 0.45), 4),
+            "experience": round(knowledge, 4),
         }
         overall = round(
             dimensions["tolerance"] * 0.25 + dimensions["loss_capacity"] * 0.30
             + dimensions["goal_horizon"] * 0.20 + dimensions["portfolio_resilience"] * 0.20
             + dimensions["experience"] * 0.05,
-            2,
+            4,
         )
-        uncertainty = round(len(missing) / max(len(inputs), 1), 3)
+        uncertainty = round(len(missing) / max(len(inputs), 1), 4)
         row = self.db.table("risk_assessments").insert(
             {
                 "risk_assessment_id": str(uuid4()), "user_id": user_id,

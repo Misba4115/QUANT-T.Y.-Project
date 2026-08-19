@@ -54,6 +54,11 @@ TABLES: dict[str, TableSpec] = {
     "user_preferences": TableSpec("user_preferences", "user_preference_id"),
     "report_exports": TableSpec("report_exports", "report_export_id"),
     "analytics_runs": TableSpec("analytics_runs", "analytics_run_id"),
+    "knowledge_sources": TableSpec("knowledge_sources", "source_id"),
+    "knowledge_document_versions": TableSpec("knowledge_document_versions", "knowledge_version_id"),
+    "knowledge_reviews": TableSpec("knowledge_reviews", "knowledge_review_id"),
+    "conversation_summaries": TableSpec("conversation_summaries", "summary_id"),
+    "outcome_evaluations": TableSpec("outcome_evaluations", "outcome_evaluation_id"),
 }
 
 

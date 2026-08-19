@@ -5,8 +5,14 @@ from fastapi import APIRouter, Depends
 from db.postgres import get_db
 from services.auth_service import get_current_user
 from services.market_data import MarketDataService
+from services.market_data.registry import provider_capability_matrix
 
 router = APIRouter()
+
+
+@router.get("/capabilities")
+def capabilities():
+    return {"providers": provider_capability_matrix(), "redundancy_status": "not_configured"}
 
 
 @router.post("/sync")

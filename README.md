@@ -65,6 +65,8 @@ sample_data/           Safe example import files and instructions
 - Node.js 20 or newer
 - A Supabase project
 - A Qdrant instance for public-knowledge retrieval
+
+For the existing persistent local Qdrant volume, start Docker Desktop and run `docker compose -f docker-compose.qdrant.yml up -d`. Readiness is proven through `/api/rag/readiness`; a configured URL alone is not considered ready.
 - A Gemini or OpenAI API key for conversational features
 
 Provider credentials are optional unless the corresponding integration is used.

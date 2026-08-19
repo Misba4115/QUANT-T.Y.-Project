@@ -61,7 +61,7 @@ class DashboardAggregator:
         pnl = known_asset_value - known_asset_cost
 
         return {
-            "net_worth": round(net_worth, 2),
+            "net_worth": round(net_worth, 4),
             "net_worth_growth": performance["growth_percent"],
             "net_worth_growth_status": "available" if performance["growth_percent"] is not None else "insufficient_history",
             "stated_risk_profile": user.get("risk_profile"),
@@ -69,7 +69,7 @@ class DashboardAggregator:
             "risk_level": performance["risk"]["level"] or "Unavailable",
             "monthly_income": _number(user.get("monthly_income")),
             "monthly_expenses": _number(user.get("monthly_expenses")),
-            "surplus": round(cashflow["current_month"]["surplus"], 2),
+            "surplus": round(cashflow["current_month"]["surplus"], 4),
             "cashflow": cashflow,
             "tax_saved": tax["section_80c_used"] if tax["section_80c_status"] == "available" else None,
             "tax_limit": SECTION_80C_LIMIT,
@@ -80,8 +80,8 @@ class DashboardAggregator:
             "history_status": "available" if snapshots else "insufficient_history",
             "asset_allocation": allocation,
             "top_holdings": valuation["holdings"][:5],
-            "portfolio_cost_basis": round(known_asset_cost, 2),
-            "portfolio_profit_loss": round(pnl, 2),
+            "portfolio_cost_basis": round(known_asset_cost, 4),
+            "portfolio_profit_loss": round(pnl, 4),
             "valuation_coverage": valuation["coverage"],
             "valuation_status": valuation["status"],
             "alerts": alerts,
@@ -128,8 +128,8 @@ class DashboardAggregator:
                         "quantity": quantity,
                         "avg_price": average,
                         "current_price": price,
-                        "current_value": round(value, 2),
-                        "profit_loss_percent": round(pnl_pct, 2) if pnl_pct is not None else None,
+                        "current_value": round(value, 4),
+                        "profit_loss_percent": round(pnl_pct, 4) if pnl_pct is not None else None,
                         "valuation_status": status,
                         "price_source": source,
                         "source_timestamp": row.get("source_timestamp"),
@@ -163,7 +163,7 @@ class DashboardAggregator:
         if net_worth <= 0:
             return []
         return [
-            {"name": name, "value": round(value / net_worth * 100, 2), "amount": round(value, 2), "color": colors[name]}
+            {"name": name, "value": round(value / net_worth * 100, 4), "amount": round(value, 4), "color": colors[name]}
             for name, value in asset_values.items()
             if value > 0
         ]
@@ -199,12 +199,12 @@ class DashboardAggregator:
         for values in series.values():
             values["surplus"] = values["income"] - values["expense"]
             for field in ("income", "expense", "surplus"):
-                values[field] = round(values[field], 2)
+                values[field] = round(values[field], 4)
         current = series[f"{today.year:04d}-{today.month:02d}"]
         return {
             "current_month": current,
             "monthly_series": list(series.values()),
-            "spending_by_category": {key: round(value, 2) for key, value in sorted(categories.items())},
+            "spending_by_category": {key: round(value, 4) for key, value in sorted(categories.items())},
             "uncategorized_count": uncategorized,
         }
 
@@ -230,7 +230,7 @@ class DashboardAggregator:
         return [
             {
                 "month": str(row["snapshot_date"])[:10],
-                "value": round(_number(row.get("net_worth")), 2),
+                "value": round(_number(row.get("net_worth")), 4),
                 "valuation_coverage": _number(row.get("valuation_coverage")),
             }
             for row in rows

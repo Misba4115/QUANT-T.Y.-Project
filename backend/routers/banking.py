@@ -11,12 +11,12 @@ from services.auth_service import get_current_user
 router = APIRouter()
 
 
-@router.get("/", response_model=list[BankingAccountOut])
+@router.get("", response_model=list[BankingAccountOut])
 def list_accounts(current_user: dict[str, Any] = Depends(get_current_user), db: Any = Depends(get_db)):
     return SupabaseRepository(db).list_for_user("banking_accounts", current_user["user_id"])
 
 
-@router.post("/", response_model=BankingAccountOut, status_code=status.HTTP_201_CREATED)
+@router.post("", response_model=BankingAccountOut, status_code=status.HTTP_201_CREATED)
 def create_account(
     body: BankingAccountCreate,
     current_user: dict[str, Any] = Depends(get_current_user),

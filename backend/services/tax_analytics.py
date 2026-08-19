@@ -67,7 +67,7 @@ def calculate_tax_metrics(user_id: str, db: Any) -> dict[str, Any]:
         taxable_ltcg = max(0.0, amounts["ltcg"] - rule["ltcg_exemption"])
         tax = taxable_ltcg * rule["ltcg_rate"] + max(0.0, amounts["stcg"]) * rule["stcg_rate"]
         estimated_tax += tax
-        breakdown.append({"financial_year": financial_year, **amounts, "ltcg_exemption": rule["ltcg_exemption"], "estimated_tax": round(tax, 2)})
+        breakdown.append({"financial_year": financial_year, **amounts, "ltcg_exemption": rule["ltcg_exemption"], "estimated_tax": round(tax, 4)})
     explicit_80c = sum(
         float(row.get("amount") or 0)
         for row in repo.list_for_user("bank_transactions", user_id)
@@ -79,10 +79,10 @@ def calculate_tax_metrics(user_id: str, db: Any) -> dict[str, Any]:
         "status": "available" if gains else "unavailable_without_realized_lots",
         "rule_version": RULE_VERSION,
         "section_80c_status": "available" if explicit_80c > 0 else "unavailable_without_eligible_evidence",
-        "section_80c_used": round(used, 2),
-        "section_80c_headroom": round(SECTION_80C_LIMIT - used, 2),
+        "section_80c_used": round(used, 4),
+        "section_80c_headroom": round(SECTION_80C_LIMIT - used, 4),
         "realized_gain_breakdown": breakdown,
-        "estimated_capital_gains_tax": round(estimated_tax, 2) if gains else None,
+        "estimated_capital_gains_tax": round(estimated_tax, 4) if gains else None,
         "warnings": warnings,
         "disclaimer": "Educational estimate only; verify transaction lots and applicable rules with a qualified tax professional.",
     }

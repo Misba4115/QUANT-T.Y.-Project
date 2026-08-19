@@ -68,20 +68,26 @@ class UpstoxConnector:
         client: httpx.Client | None = None,
     ) -> dict[str, Any]:
         transport = client or httpx.Client(timeout=12.0)
-        response = transport.post(
-            cls.TOKEN_URL,
-            headers={"Accept": "application/json", "Content-Type": "application/x-www-form-urlencoded"},
-            data={
-                "code": code,
-                "client_id": client_id,
-                "client_secret": client_secret,
-                "redirect_uri": redirect_uri,
-                "grant_type": "authorization_code",
-            },
-        )
+        try:
+            response = transport.post(
+                cls.TOKEN_URL,
+                headers={"Accept": "application/json", "Content-Type": "application/x-www-form-urlencoded"},
+                data={
+                    "code": code,
+                    "client_id": client_id,
+                    "client_secret": client_secret,
+                    "redirect_uri": redirect_uri,
+                    "grant_type": "authorization_code",
+                },
+            )
+        except httpx.HTTPError as exc:
+            raise ConnectorError("Upstox authorization service is unavailable") from exc
         if response.status_code >= 400:
             raise ConnectorError(f"Upstox authorization failed ({response.status_code})")
-        payload = response.json()
+        try:
+            payload = response.json()
+        except ValueError as exc:
+            raise ConnectorError("Upstox returned an invalid authorization response") from exc
         if not payload.get("access_token"):
             raise ConnectorError("Upstox did not return an access token")
         return payload
@@ -101,10 +107,13 @@ class UpstoxConnector:
         response = None
         for attempt in range(3):
             _LIMITER.acquire()
-            response = self.client.get(
-                f"{self.API_URL}{path}",
-                headers={"Accept": "application/json", "Authorization": f"Bearer {self.access_token}"},
-            )
+            try:
+                response = self.client.get(
+                    f"{self.API_URL}{path}",
+                    headers={"Accept": "application/json", "Authorization": f"Bearer {self.access_token}"},
+                )
+            except httpx.HTTPError as exc:
+                raise ConnectorError("Upstox API is unavailable") from exc
             if response.status_code != 429:
                 break
             retry_after = response.headers.get("Retry-After")
@@ -118,7 +127,10 @@ class UpstoxConnector:
             raise ConnectorError(f"Upstox rate limit reached; retry after {retry_after} seconds")
         if response.status_code >= 400:
             raise ConnectorError(f"Upstox request failed ({response.status_code})")
-        payload = response.json()
+        try:
+            payload = response.json()
+        except ValueError as exc:
+            raise ConnectorError("Upstox returned an invalid API response") from exc
         return payload.get("data", payload)
 
     def get_profile(self) -> dict[str, Any]:

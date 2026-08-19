@@ -10,6 +10,7 @@ class AgentState(TypedDict, total=False):
     user_message: str
     history: list[dict[str, str]]
     intent: str
+    route_decision: dict[str, Any]
     selected_agents: list[str]
     completed_nodes: list[str]
     agent_outputs: dict[str, Any]
@@ -17,3 +18,5 @@ class AgentState(TypedDict, total=False):
     response: str
     warnings: list[str]
     errors: list[dict[str, str]]
+    run_trace: list[dict[str, Any]]
+    financial_context: dict[str, Any]

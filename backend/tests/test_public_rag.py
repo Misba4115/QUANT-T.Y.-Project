@@ -64,3 +64,8 @@ def test_manifest_ingestion_is_idempotent_and_search_returns_traceable_citations
     assert all(item["source_url"].startswith("https://") for item in results)
     assert all(item["authority"] for item in results)
     assert all(item["excerpt"] for item in results)
+    readiness = service.readiness()
+    assert readiness["status"] == "available"
+    assert readiness["chunk_count"] == len(client.points)
+    assert readiness["document_count"] == 2
+    assert readiness["active_corpus_version"]

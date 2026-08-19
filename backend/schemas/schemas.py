@@ -12,7 +12,7 @@ Currency = Literal["INR", "USD"]
 
 
 class APIModel(BaseModel):
-    model_config = ConfigDict(from_attributes=True, extra="forbid", str_strip_whitespace=True)
+    model_config = ConfigDict(from_attributes=True, extra="ignore", str_strip_whitespace=True)
 
 
 class RegisterRequest(APIModel):
@@ -274,6 +274,13 @@ class Citation(APIModel):
     metadata: dict[str, Any] = {}
 
 
+class AnalysisSection(APIModel):
+    specialist: str
+    status: str
+    summary: str
+    metrics: dict[str, Any] = {}
+
+
 class ChatResponse(APIModel):
     reply: str
     conversation_id: str
@@ -282,6 +289,12 @@ class ChatResponse(APIModel):
     citations: list[Citation] = []
     data_as_of: str | None = None
     warnings: list[str] = []
+    routing_confidence: float | None = None
+    consulted_agents: list[str] = []
+    analysis_sections: list[AnalysisSection] = []
+    evidence_summary: dict[str, Any] = {}
+    limitations: list[str] = []
+    degraded_dependencies: list[str] = []
 
 
 class DashboardGenerateRequest(APIModel):

@@ -69,7 +69,7 @@ class MarketDataService:
                         continue
                 values = {
                     price_field: quote.price,
-                    "current_value": round(float(holding.get(quantity_field) or 0) * quote.price, 2),
+                    "current_value": round(float(holding.get(quantity_field) or 0) * quote.price, 4),
                     "price_source": quote.provider,
                     "source_timestamp": quote.observed_at.isoformat() if quote.observed_at else None,
                     "last_synced_at": quote.fetched_at.isoformat(),

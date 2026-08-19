@@ -19,6 +19,12 @@ from services.import_service import (
 router = APIRouter()
 
 
+@router.get("/capabilities")
+def parser_capabilities():
+    from services.parsers.registry import parser_capability_matrix
+    return parser_capability_matrix()
+
+
 @router.get("")
 def history(
     limit: int = 50,

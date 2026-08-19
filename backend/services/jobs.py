@@ -131,6 +131,23 @@ class JobRunner:
             from services.notification_delivery import NotificationDeliveryService
 
             return NotificationDeliveryService(self.db).process_pending(user_id=user_id)
+        if job_type == "knowledge_discovery":
+            from services.knowledge.registry import seed_registry
+            rows = seed_registry(self.db)
+            return {"status": "completed", "discovered": len(rows)}
+        if job_type in {"knowledge_fetch", "knowledge_extract", "knowledge_stage_index"}:
+            from services.knowledge.lifecycle import KnowledgeLifecycle
+            config = schedule.get("config") or {}
+            row = KnowledgeLifecycle(self.db).stage(config["source_id"], config["document_url"], title=config["title"])
+            return {"status": "completed" if row["status"] == "staged" else "partial", "version_id": row["knowledge_version_id"], "document_status": row["status"]}
+        if job_type == "knowledge_publish":
+            from services.knowledge.lifecycle import KnowledgeLifecycle
+            config = schedule.get("config") or {}
+            return KnowledgeLifecycle(self.db).publish(config["knowledge_version_id"], config["reviewer_id"])
+        if job_type == "knowledge_expiry_audit":
+            active = self.db.table("knowledge_document_versions").select("*").eq("status", "active").execute().data or []
+            return {"status": "completed", "active_versions_checked": len(active)}
         if job_type == "retention_cleanup":
-            return {"status": "completed", "deleted": 0, "note": "Hosted retention cleanup requires storage adapter"}
+            from services.retention import RetentionCleanupService
+            return RetentionCleanupService(self.db).run()
         raise ValueError(f"Unsupported job type: {job_type}")

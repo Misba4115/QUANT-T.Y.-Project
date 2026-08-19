@@ -376,7 +376,7 @@ export default function DataImportsPage() {
 
             <details className="group rounded-2xl border border-slate-200 bg-white shadow-sm">
                 <summary className="cursor-pointer list-none px-6 py-5 text-sm font-medium text-slate-800">
-                    Prefer starting from a template? <span className="font-normal text-slate-500">Browse optional CSV examples</span>
+                    Prefer starting from a template? <span className="font-normal text-slate-500">Browse optional samples and guides</span>
                 </summary>
                 <div className="border-t border-slate-100 px-6 pb-6 pt-5">
                     <p className="text-sm text-slate-500">Templates remain available if you prefer a fixed layout. The same columns work in XLSX. CAS PDF means a CAMS/KFintech text-based statement.</p>
@@ -387,7 +387,7 @@ export default function DataImportsPage() {
                                 <p className="mt-1 flex-1 text-xs leading-5 text-slate-500">{template.description}</p>
                                 <Button className="mt-3 w-full" variant="outline" size="sm" asChild>
                                     <a href={`/import-templates/${template.id}`} download={template.filename}>
-                                        <Download className="mr-2 h-4 w-4" />Download template
+                                        <Download className="mr-2 h-4 w-4" />{template.downloadLabel ?? 'Download template'}
                                     </a>
                                 </Button>
                             </div>

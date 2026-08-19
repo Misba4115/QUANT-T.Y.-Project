@@ -123,7 +123,7 @@ class GuardianStreamService:
                 candidates.append({
                     "rule": "amount-robust-z4", "type": "unusual_activity", "severity": "warning",
                     "title": "Unusual recorded amount", "explanation": "This value is far from the user's prior values for the same event type. It is unusual, not proof of fraud.",
-                    "evidence": {"observed_amount": amount, "baseline_median": median, "robust_z": round(robust_z, 2), "sample_count": sample_count},
+                    "evidence": {"observed_amount": amount, "baseline_median": median, "robust_z": round(robust_z, 4), "sample_count": sample_count},
                 })
         created = [self._store_alert(event, candidate) for candidate in candidates]
         return [row for row in created if row]

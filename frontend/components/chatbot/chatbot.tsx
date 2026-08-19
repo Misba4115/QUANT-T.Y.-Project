@@ -7,6 +7,7 @@ import type { ChatMessage, ChatOption } from '@/types';
 import { chatApi } from '@/lib/api';
 import ReactMarkdown from 'react-markdown';
 import { usePathname } from 'next/navigation';
+import { isAxiosError } from 'axios';
 
 // ==========================================
 // Constants
@@ -18,6 +19,31 @@ const chatOptions: ChatOption[] = [
     'Portfolio Analysis',
     'Tax Saving Queries',
 ];
+
+function chatErrorMessage(error: unknown): string {
+    if (!isAxiosError(error)) {
+        return 'The assistant could not complete this request. Please try again.';
+    }
+    if (!error.response) {
+        return error.code === 'ECONNABORTED'
+            ? 'The assistant took too long to respond. Please try a shorter request.'
+            : 'The QUANT API is not reachable. Confirm the backend is running on port 8000 and try again.';
+    }
+    if (error.response.status === 401) {
+        return 'Your session has expired. Please sign in again before using the assistant.';
+    }
+    const payload = error.response.data as { detail?: unknown; message?: unknown; request_id?: unknown } | undefined;
+    const safeDetail = typeof payload?.detail === 'string'
+        ? payload.detail
+        : typeof payload?.message === 'string'
+            ? payload.message
+            : null;
+    if (error.response.status < 500 && safeDetail) return safeDetail;
+    const requestId = typeof payload?.request_id === 'string'
+        ? payload.request_id
+        : error.response.headers?.['x-request-id'];
+    return `The assistant service encountered a server error.${requestId ? ` Request ID: ${requestId}` : ''}`;
+}
 
 // ==========================================
 // Thinking Indicator Component
@@ -248,12 +274,12 @@ export default function Chatbot() {
             setIsThinking(false);
             const errorId = addMessage(
                 'bot',
-                'Sorry, I encountered an error. Please try again.'
+                chatErrorMessage(error)
             );
             setTypingMessageId(errorId);
         } finally {
             setIsSending(false);
-            setTimeout(() => setShowOptions(true), 500);
+            setTimeout(() => setShowOptions(true), 10000);
         }
     };
 
@@ -334,8 +360,8 @@ export default function Chatbot() {
                                         {isThinking
                                             ? 'Thinking...'
                                             : typingMessageId
-                                              ? 'Typing...'
-                                              : 'Always here to help'}
+                                                ? 'Typing...'
+                                                : 'Always here to help'}
                                     </p>
                                 </div>
                             </div>

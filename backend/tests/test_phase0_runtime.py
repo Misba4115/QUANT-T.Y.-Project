@@ -16,6 +16,8 @@ def test_readiness_distinguishes_dependencies():
     body = response.json()
     assert body["status"] == "degraded"
     assert body["dependencies"]["database"]["status"] == "unavailable"
+    assert body["dependencies"]["database"]["capability_status"] == "not_configured"
+    assert body["contract_version"] == "2.5.0"
     assert "llm" in body["dependencies"]
     assert "qdrant" in body["dependencies"]
 

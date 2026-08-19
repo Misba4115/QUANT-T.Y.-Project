@@ -3,9 +3,14 @@ from typing import Any
 from fastapi import APIRouter, Depends, Query
 
 from services.auth_service import get_current_user
-from services.qdrant_rag_service import PublicKnowledgeService
+from services.qdrant_rag_service import PublicKnowledgeService, probe_public_knowledge
 
 router = APIRouter()
+
+
+@router.get("/readiness")
+def rag_readiness():
+    return probe_public_knowledge()
 
 
 @router.get("/public/search")

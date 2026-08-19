@@ -42,6 +42,10 @@ def install_error_handlers(app: FastAPI) -> None:
     @app.exception_handler(RuntimeError)
     async def runtime_error(request: Request, exc: RuntimeError):
         request_id = getattr(request.state, "request_id", str(uuid4()))
+        import traceback
+        with open("error_debug.txt", "a") as f:
+            f.write(f"RuntimeError: {type(exc).__name__}: {str(exc)}\n")
+            traceback.print_exc(file=f)
         logger.error("runtime_error request_id=%s error=%s", request_id, type(exc).__name__)
         return JSONResponse(
             status_code=503,
@@ -56,6 +60,10 @@ def install_error_handlers(app: FastAPI) -> None:
     @app.exception_handler(Exception)
     async def dependency_error(request: Request, exc: Exception):
         request_id = getattr(request.state, "request_id", str(uuid4()))
+        import traceback
+        with open("error_debug.txt", "a") as f:
+            f.write(f"Exception: {type(exc).__name__}: {str(exc)}\n")
+            traceback.print_exc(file=f)
         logger.exception("unhandled_dependency_error request_id=%s", request_id)
         return JSONResponse(
             status_code=503,

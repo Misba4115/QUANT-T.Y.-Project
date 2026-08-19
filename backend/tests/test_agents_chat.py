@@ -5,6 +5,7 @@ from datetime import date
 from fastapi.testclient import TestClient
 
 from agents.chat_orchestrator import ChatOrchestrator
+from agents.response_grounding import validate_material_numbers
 from agents.guardian import run_guardian
 from agents.tax import run_tax_agent
 from main import app
@@ -51,12 +52,28 @@ def test_langgraph_runs_distinct_nodes_and_validates_citations(fake_db):
     assert result["intent"] == "multi_agent"
     assert result["selected_agents"] == ["portfolio", "tax", "cashflow"]
     assert result["completed_nodes"] == [
-        "manager", "guardian", "portfolio", "tax", "cashflow", "retrieve", "generate"
+        "manager", "portfolio", "tax", "cashflow", "retrieve", "generate"
     ]
+    assert result["routing"]["primary_intent"] == "cross_domain_analysis"
     assert "[public:tax-1]" in result["reply"]
     assert "public:invented" not in result["reply"]
     assert any("unverified citation" in warning for warning in result["warnings"])
     assert {item["citation_id"] for item in result["citations"]} == {"public:tax-1"}
+
+
+def test_material_number_validator_keeps_supported_and_removes_invented_figures():
+    response = "Your grounded surplus is INR 70,000. A guaranteed return of 18% is expected. You should review the assumptions."
+    safe, unsupported = validate_material_numbers(response, {"surplus": 70000, "observed_return": 7.5})
+    assert "70,000" in safe
+    assert "18%" not in safe
+    assert "review the assumptions" in safe
+    assert unsupported == ["18%"]
+
+
+def test_material_number_validator_fails_closed_when_every_figure_is_unverified():
+    safe, unsupported = validate_material_numbers("Your portfolio is worth ₹9,99,999.", {"net_worth": None})
+    assert "9,99,999" not in safe
+    assert unsupported == ["₹9,99,999"]
 
 
 def test_chat_owns_conversation_and_persists_each_message_once(fake_db):

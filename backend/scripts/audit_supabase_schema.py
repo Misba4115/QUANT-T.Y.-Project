@@ -37,6 +37,11 @@ EXPECTED: Final[dict[str, set[str]]] = {
     "market_price_history": {"price_history_id", "user_id", "asset_type", "instrument_key", "price_date", "adjusted_close", "currency", "provider", "fetched_at"},
     "dashboard_runs": {"run_id", "user_id", "status", "params", "result", "error", "processing_time_ms", "created_at", "completed_at"},
     "dashboard_configs": {"dashboard_config_id", "user_id", "widgets", "time_period", "updated_at"},
+    "knowledge_sources": {"source_id", "authority", "official_domain", "listing_url", "document_family", "topic_tags", "jurisdiction", "discovery_schedule", "expected_content_types", "review_required", "status", "created_at", "updated_at"},
+    "knowledge_document_versions": {"knowledge_version_id", "source_id", "document_url", "title", "content_hash", "content_type", "content_bytes", "extracted_text", "diff_text", "parser_version", "status", "quarantine_reason", "retrieved_at", "published_at", "published_by"},
+    "knowledge_reviews": {"knowledge_review_id", "knowledge_version_id", "status", "material_change", "reviewer_id", "rationale", "reviewed_at", "created_at"},
+    "conversation_summaries": {"summary_id", "user_id", "conversation_id", "summary", "summary_version", "message_count", "content_hash", "created_at", "updated_at"},
+    "outcome_evaluations": {"outcome_evaluation_id", "delivered_output_ref", "target_version", "labelled_outcome", "metrics", "sample_count", "calibration_proposal", "status", "automatic_mutation", "created_at"},
 }
 
 

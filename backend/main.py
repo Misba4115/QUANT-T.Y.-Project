@@ -8,10 +8,11 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from core.capabilities import build_capability_registry, legacy_readiness_status
 from core.config import get_settings
 from core.request_context import RequestIdMiddleware, install_error_handlers
 from db.supabase_client import get_supabase_client
-from routers import analytics, auth, banking, chat, connectors, dashboard, goals, guardian_stream, holdings, imports, ingestion_inbox, jobs, market_data, notifications, personalization, rag, transactions, user
+from routers import analytics, auth, banking, capabilities, chat, connectors, dashboard, goals, guardian_stream, holdings, imports, ingestion_inbox, insights, jobs, market_data, notifications, personalization, rag, transactions, user
 
 settings = get_settings()
 
@@ -33,6 +34,8 @@ app.add_middleware(
     allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allow_headers=["Authorization", "Content-Type", "X-Request-ID"],
 )
+
+
 install_error_handlers(app)
 
 app.include_router(auth.router, prefix="/api/auth", tags=["Auth"])
@@ -52,6 +55,8 @@ app.include_router(transactions.router, prefix="/api/transactions", tags=["Trans
 app.include_router(goals.router, prefix="/api/goals", tags=["Goals"])
 app.include_router(dashboard.router, prefix="/api/dashboard", tags=["Dashboard"])
 app.include_router(chat.router, prefix="/api/chat", tags=["Chat"])
+app.include_router(capabilities.router, prefix="/api/capabilities", tags=["Capabilities"])
+app.include_router(insights.router, prefix="/api/insights", tags=["Insights"])
 app.include_router(user.router, prefix="/api", tags=["User"])
 
 
@@ -64,23 +69,24 @@ def health_check() -> dict[str, str]:
     }
 
 
-def _dependency_status(configured: bool, detail: str) -> dict[str, str | bool]:
-    return {"configured": configured, "status": "configured" if configured else "unavailable", "detail": detail}
-
-
 @app.get("/api/readiness", tags=["Health"])
 def readiness() -> dict:
-    dependencies: dict[str, dict[str, str | bool]] = {
-        "database": _dependency_status(settings.database_configured, "Supabase runtime database"),
-        "llm": _dependency_status(
-            bool(settings.gemini_api_key if settings.llm_provider == "gemini" else settings.openai_api_key),
-            f"{settings.llm_provider} chat provider",
-        ),
-        "qdrant": _dependency_status(bool(settings.qdrant_url), "Public knowledge vector store"),
-        "market_data": _dependency_status(True, "Public adapters are lazy and independently degradable"),
-        "upstox": _dependency_status(bool(settings.upstox_client_id and settings.upstox_client_secret), "Optional read-only broker connector"),
-        "statement_inbox": _dependency_status(bool(settings.inbox_webhook_secret), "Optional forwarding inbox webhook"),
-    }
+    registry = build_capability_registry(settings)
+    dependency_names = [
+        "database", "llm", "qdrant", "market_data", "worker", "smtp", "upstox",
+        "ingestion_inbox", "parsers", "insights", "grounding_checker", "consensus_arbiter",
+        "outcome_evaluator",
+    ]
+    dependencies = {}
+    for name in dependency_names:
+        capability = registry.capabilities[name]
+        dependencies[name] = {
+            **capability.model_dump(mode="json"),
+            "capability_status": capability.status,
+            "status": legacy_readiness_status(capability.status),
+        }
+    # Compatibility alias retained until clients move from statement_inbox.
+    dependencies["statement_inbox"] = {**dependencies["ingestion_inbox"]}
 
     if settings.database_configured:
         try:
@@ -90,15 +96,32 @@ def readiness() -> dict:
             database.table("connector_accounts").select("connector_account_id").limit(1).execute()
             database.table("notifications").select("notification_id").limit(1).execute()
             database.table("job_schedules").select("job_schedule_id").limit(1).execute()
+            dependencies["database"]["capability_status"] = "available"
             dependencies["database"]["status"] = "ready"
+            dependencies["database"]["reason_code"] = "live_probe_passed"
+            dependencies["database"]["freshness"] = "fresh"
+            dependencies["database"]["data_as_of"] = datetime.now(timezone.utc).isoformat()
         except Exception:
+            dependencies["database"]["capability_status"] = "failed"
             dependencies["database"]["status"] = "error"
+            dependencies["database"]["reason_code"] = "live_probe_failed"
+            dependencies["database"]["retryable"] = True
             dependencies["database"]["detail"] = "Configured but unreachable or required migrations are missing"
+
+    if settings.qdrant_url:
+        from services.qdrant_rag_service import probe_public_knowledge
+
+        qdrant = probe_public_knowledge()
+        dependencies["qdrant"].update(qdrant)
+        dependencies["qdrant"]["capability_status"] = qdrant["status"]
+        dependencies["qdrant"]["status"] = legacy_readiness_status(qdrant["status"])
 
     required_ready = dependencies["database"]["status"] == "ready"
     return {
         "status": "ready" if required_ready else "degraded",
         "required_ready": required_ready,
+        "contract_version": registry.contract_version,
+        "status_vocabulary": registry.status_vocabulary,
         "dependencies": dependencies,
     }
 

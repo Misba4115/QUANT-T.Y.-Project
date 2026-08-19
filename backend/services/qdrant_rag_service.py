@@ -13,6 +13,30 @@ from core.config import get_settings
 from db.vector_db import get_qdrant_client
 
 
+def probe_public_knowledge(client: Any | None = None) -> dict[str, Any]:
+    """Probe Qdrant without loading the embedding model."""
+    settings = get_settings()
+    client = client or get_qdrant_client()
+    name = settings.qdrant_collection
+    try:
+        if not client.collection_exists(name):
+            return {"status": "insufficient_data", "reason_code": "collection_missing", "reachable": True, "collection": name, "document_count": 0, "chunk_count": 0, "retryable": True}
+        info = client.get_collection(name)
+        vectors = info.config.params.vectors
+        size = int(vectors.size) if hasattr(vectors, "size") else None
+        count = int(getattr(info, "points_count", len(getattr(client, "points", {}))) or 0)
+        if size != settings.qdrant_vector_size:
+            return {"status": "failed", "reason_code": "vector_dimension_mismatch", "reachable": True, "collection": name, "vector_size": size, "chunk_count": count, "retryable": False}
+        records, _offset = client.scroll(collection_name=name, limit=1000, offset=None, with_payload=True, with_vectors=False)
+        payloads = [dict(item.payload or {}) for item in records]
+        documents = {item.get("source_url") or item.get("source_file") for item in payloads if item.get("source_url") or item.get("source_file")}
+        corpus_parts = sorted({str(item.get("content_hash")) for item in payloads if item.get("content_hash")})
+        corpus_version = hashlib.sha256("|".join(corpus_parts).encode()).hexdigest() if corpus_parts else None
+        return {"status": "available" if count else "insufficient_data", "reason_code": "ready" if count else "collection_empty", "reachable": True, "collection": name, "vector_size": size, "chunk_count": count, "document_count": len(documents), "active_corpus_version": corpus_version, "retryable": not bool(count)}
+    except Exception as exc:
+        return {"status": "provider_unavailable", "reason_code": "qdrant_probe_failed", "reachable": False, "collection": name, "error_class": type(exc).__name__, "retryable": True}
+
+
 class PublicEmbedder(Protocol):
     model: str
     dimension: int
@@ -79,6 +103,10 @@ class PublicKnowledgeService:
         size = vectors.size if hasattr(vectors, "size") else None
         if size is not None and int(size) != self.embedder.dimension:
             raise RuntimeError(f"Qdrant collection dimension is {size}; expected {self.embedder.dimension}")
+
+    def readiness(self) -> dict[str, Any]:
+        """Actively verify reachability, collection shape, and population."""
+        return probe_public_knowledge(self.client)
 
     def ingest_manifest(self, manifest_path: Path | None = None) -> dict[str, int]:
         from qdrant_client.models import PointIdsList, PointStruct

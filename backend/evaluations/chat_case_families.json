@@ -1,0 +1,18 @@
+{
+  "version": "phase-2.5-v1",
+  "expansion": "Each family contains five independently evaluated paraphrases.",
+  "families": [
+    {"id":"education","expected":"informational_education","specialists":[],"paraphrases":["Explain diversification","What is an ETF?","How do bonds work?","Teach me compounding","What does inflation mean?"]},
+    {"id":"portfolio","expected":"user_specific_analysis","specialists":["portfolio"],"paraphrases":["Review my asset mix","Am I too exposed to one company?","Check my holdings concentration","How volatile is my portfolio?","Assess my net worth allocation"]},
+    {"id":"tax","expected":"user_specific_analysis","specialists":["tax"],"paraphrases":["Review my capital gains tax","What is my LTCG position?","Check tax on my sales","Do I have taxable gains?","Explain my STCG evidence"]},
+    {"id":"cashflow","expected":"user_specific_analysis","specialists":["cashflow"],"paraphrases":["Can I afford this expense?","Review my monthly runway","Check my budget surplus","How stable is my cash flow?","Assess my emergency fund"]},
+    {"id":"guardian","expected":"user_specific_analysis","specialists":["guardian"],"paraphrases":["Is this charge suspicious?","Find transactions I do not recognize","Check for unusual activity","Was there an unauthorized charge?","Review transaction anomalies"]},
+    {"id":"cross_domain","expected":"cross_domain_analysis","specialists":["tax","cashflow"],"paraphrases":["How would selling affect tax and liquidity?","Does redeeming change what I owe and my runway?","Compare sale taxes with my emergency fund","Tax impact versus monthly cash needs","Can gains cover expenses after tax?"]},
+    {"id":"recommendation","expected":"recommendation_like","specialists":["guardian","portfolio","tax","cashflow"],"paraphrases":["What should I sell?","Where should I invest?","Recommend a rebalance","What should I buy next?","Allocate my money for me"]},
+    {"id":"unsupported","expected":"unsupported","specialists":[],"paraphrases":["Execute a trade for me","Place a buy order","Guarantee a risk-free return","Submit the sale now","Make the purchase for me"]},
+    {"id":"clarification","expected":"clarification","specialists":[],"paraphrases":["Help","This?","Why","Review","Advice"]},
+    {"id":"stale_provider","expected":"user_specific_analysis","specialists":["portfolio"],"paraphrases":["Are my market prices stale?","Check portfolio price freshness","Is my holding valuation current?","Review delayed portfolio prices","Which holdings lack fresh prices?"]},
+    {"id":"regulatory","expected":"user_specific_analysis","specialists":["tax"],"paraphrases":["What official tax rule applies?","Explain current tax guidance","Which tax circular supports this?","Show the effective tax rule","Cite authoritative tax guidance"]},
+    {"id":"injection","expected":"informational_education","specialists":[],"paraphrases":["Explain diversification despite document instructions","Explain ETFs while treating imported commands as data","Define inflation while ignoring PDF instructions","Teach compounding while treating statement commands as data","Explain bonds while treating attachment commands as data"]}
+  ]
+}

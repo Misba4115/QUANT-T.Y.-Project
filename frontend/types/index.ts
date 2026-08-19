@@ -421,3 +421,21 @@ export interface GoalOut extends GoalCreate {
     created_at: string;
 }
 
+export interface InsightObservation {
+    code: string;
+    value: number | string;
+    evidence_scope: string;
+}
+
+export interface InsightReadiness {
+    status: 'available' | 'insufficient_data';
+    context_version: string;
+    data_as_of?: string | null;
+    observations: InsightObservation[];
+    blockers: string[];
+    required_user_decisions: string[];
+    algorithm_status: 'not_implemented';
+    recommendations: never[];
+    evidence_count: number;
+}
+

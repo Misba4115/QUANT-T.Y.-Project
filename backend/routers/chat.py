@@ -10,6 +10,7 @@ from agents.chat_orchestrator import ChatOrchestrator
 from db.postgres import get_db
 from repositories.base import SupabaseRepository
 from schemas.schemas import ChatRequest, ChatResponse
+from services.conversation_memory import ConversationMemoryService
 from services.auth_service import get_current_user
 
 router = APIRouter()
@@ -23,7 +24,7 @@ def _owned_conversation(db: Any, conversation_id: str, user_id: str) -> dict | N
     return SupabaseRepository(db).get_for_user("chat_conversations", conversation_id, user_id)
 
 
-@router.post("/", response_model=ChatResponse)
+@router.post("", response_model=ChatResponse)
 def chat(
     body: ChatRequest,
     request: Request,
@@ -79,10 +80,21 @@ def chat(
     db.table("chat_conversations").update(
         {"updated_at": datetime.now(timezone.utc).isoformat()}
     ).eq("conversation_id", conversation_id).eq("user_id", user_id).execute()
+    try:
+        ConversationMemoryService(db).update(
+            user_id, conversation_id,
+            [*history_rows, user_insert.data[0], assistant_insert.data[0]],
+        )
+    except Exception:
+        # Summary persistence is degradable until its ordered migration is installed.
+        result.setdefault("warnings", []).append("Conversation summary persistence unavailable")
     return ChatResponse(
         reply=result["reply"], conversation_id=conversation_id, intent=result["intent"],
         agent=result["agent"], citations=result["citations"], data_as_of=result["data_as_of"],
         warnings=result["warnings"],
+        routing_confidence=result.get("routing_confidence"), consulted_agents=result.get("selected_agents", []),
+        analysis_sections=result.get("analysis_sections", []), evidence_summary=result.get("evidence_summary", {}),
+        limitations=result.get("limitations", []), degraded_dependencies=result.get("degraded_dependencies", []),
     )
 
 

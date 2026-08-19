@@ -12,7 +12,7 @@ export async function GET(
 
     return new Response(template.csv, {
         headers: {
-            'Content-Type': 'text/csv; charset=utf-8',
+            'Content-Type': template.contentType ?? 'text/csv; charset=utf-8',
             'Content-Disposition': `attachment; filename="${template.filename}"`,
             'Cache-Control': 'public, max-age=3600',
         },

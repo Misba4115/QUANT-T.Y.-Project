@@ -29,7 +29,7 @@ def snapshot_metrics(snapshots: list[dict[str, Any]]) -> dict[str, Any]:
     if len(usable) >= 2:
         first = float(usable[0].get("value") or usable[0].get("net_worth"))
         last = float(usable[-1].get("value") or usable[-1].get("net_worth"))
-        growth = round((last / first - 1) * 100, 2) if first > 0 else None
+        growth = round((last / first - 1) * 100, 4) if first > 0 else None
 
     risk: dict[str, Any] = {
         "status": "insufficient_history",

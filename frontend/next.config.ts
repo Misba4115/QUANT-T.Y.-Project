@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   // Development is intentionally reachable through either loopback spelling.
   // Next 16 otherwise blocks its own chunks when the browser uses 127.0.0.1
   // while the dev server advertises localhost.
-  allowedDevOrigins: ["127.0.0.1", "localhost"],
+  allowedDevOrigins: ["127.0.0.1", "localhost", "192.168.31.147"],
   turbopack: {
     root: process.cwd(),
   },

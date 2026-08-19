@@ -11,12 +11,12 @@ from services.auth_service import get_current_user
 router = APIRouter()
 
 
-@router.get("/", response_model=list[GoalOut])
+@router.get("", response_model=list[GoalOut])
 def list_goals(current_user: dict[str, Any] = Depends(get_current_user), db: Any = Depends(get_db)):
     return SupabaseRepository(db).list_for_user("goals", current_user["user_id"])
 
 
-@router.post("/", response_model=GoalOut, status_code=status.HTTP_201_CREATED)
+@router.post("", response_model=GoalOut, status_code=status.HTTP_201_CREATED)
 def create_goal(
     body: GoalCreate,
     current_user: dict[str, Any] = Depends(get_current_user),
