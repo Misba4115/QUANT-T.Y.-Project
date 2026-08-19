@@ -421,3 +421,95 @@ export interface GoalOut extends GoalCreate {
     created_at: string;
 }
 
+// ==========================================
+// Insights & Trading Types
+// Aligned with backend InsightsService output
+// ==========================================
+
+export interface AssetForecast {
+    asset_class: string;
+    current_value: number;
+    forecast_return_low: number;
+    forecast_return_high: number;
+    forecast_return_midpoint: number;
+    annualised_volatility: number;
+    confidence: 'High' | 'Medium' | 'Low';
+    direction: 'up' | 'down' | 'flat';
+    horizon_days: number;
+    model: string;
+    data_source: string;
+}
+
+export interface RebalanceAction {
+    asset_class: string;
+    signal: 'HOLD' | 'REDUCE' | 'ADD';
+    reason: string;
+    current_weight_pct: number;
+    target_weight_pct: number;
+    tax_flag: string | null;
+}
+
+export interface GoalGap {
+    goal_id: string | null;
+    goal_name: string;
+    target_amount: number;
+    current_amount: number;
+    gap: number;
+    shortfall_pct: number;
+    on_track: boolean;
+    required_monthly_sip: number;
+    horizon: 'short' | 'medium' | 'long';
+    target_date: string | null;
+}
+
+export interface InstrumentSuggestion {
+    name: string;
+    rationale: string;
+    risk_level: 'Low' | 'Medium' | 'High';
+    driven_by_goal: string | null;
+}
+
+export interface PriorityAction {
+    action: string;
+    description: string;
+    impact: 'High' | 'Medium' | 'Low';
+    effort: 'Low' | 'Medium' | 'High';
+    time_horizon: string;
+    driven_by_goal: string;
+}
+
+export interface InsightsResult {
+    generated_at: string;
+    model_version: string;
+    user_context: {
+        risk_profile: string;
+        net_worth: number;
+        cashflow_surplus: number;
+        total_goals: number;
+        asset_classes_held: string[];
+    };
+    layer_a: {
+        status: 'available' | 'unavailable_no_holdings';
+        asset_forecasts: AssetForecast[];
+        rebalance_actions: RebalanceAction[];
+        pa_status: string;
+    };
+    layer_b: {
+        status: 'available' | 'unavailable_no_goals';
+        goal_gaps: GoalGap[];
+        instrument_suggestions: InstrumentSuggestion[];
+        priority_action: PriorityAction | null;
+    };
+    gc_sec: {
+        grounding: {
+            checks_performed: number;
+            corrections_applied: number;
+            note: string;
+        };
+        arbiter: {
+            tax_flags_raised: number;
+            risk_profile_applied: string;
+        };
+        disclaimer: string;
+    };
+}

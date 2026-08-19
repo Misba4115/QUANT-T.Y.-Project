@@ -1,0 +1,19 @@
+tx_date,description,amount,tx_type,category
+2026-07-01,Salary Credit,120000,credit,SALARY
+2026-07-05,HDFC EMI Debit,18500,debit,LOAN_EMI
+2026-07-08,Swiggy Food Order,1850,debit,FOOD
+2026-07-10,Zepto Groceries,3200,debit,GROCERIES
+2026-07-12,Netflix Subscription,649,debit,ENTERTAINMENT
+2026-07-15,ELSS SIP - Axis Bluechip,5000,debit,ELSS
+2026-07-18,LIC Premium,12000,debit,LIC
+2026-07-20,Electricity Bill,2100,debit,UTILITIES
+2026-07-22,Petrol,2800,debit,FUEL
+2026-07-25,Amazon Purchase,4500,debit,SHOPPING
+2026-07-28,PPF Contribution,5000,debit,PPF
+2026-08-01,Salary Credit,120000,credit,SALARY
+2026-08-03,HDFC EMI Debit,18500,debit,LOAN_EMI
+2026-08-06,Zomato Order,2200,debit,FOOD
+2026-08-09,Zepto Groceries,2900,debit,GROCERIES
+2026-08-12,Spotify Premium,199,debit,ENTERTAINMENT
+2026-08-15,ELSS SIP - Axis Bluechip,5000,debit,ELSS
+2026-08-18,Electricity Bill,1950,debit,UTILITIES
