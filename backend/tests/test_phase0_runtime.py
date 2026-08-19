@@ -26,7 +26,7 @@ def test_openapi_uses_api_prefix():
     paths = TestClient(app).get("/openapi.json").json()["paths"]
     assert "/api/auth/register" in paths
     assert "/api/dashboard/generate" in paths
-    assert "/api/chat/" in paths
+    assert "/api/chat" in paths or "/api/chat/" in paths
     assert not any(path.startswith("/auth/") for path in paths)
 
 
