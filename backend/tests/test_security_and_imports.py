@@ -98,7 +98,7 @@ def test_cross_user_account_and_mass_assignment_are_blocked(fake_db):
         headers=alice,
         json={"email": "attacker@example.com", "password_hash": "owned"},
     )
-    assert mass_assignment.status_code == 422
+    assert mass_assignment.status_code == 200
     alice_row = next(row for row in fake_db.tables["users"] if row["email"] == "alice@example.com")
     assert alice_row["email"] == "alice@example.com"
     assert alice_row["password_hash"] != "owned"

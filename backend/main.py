@@ -54,7 +54,6 @@ app.include_router(analytics.router, prefix="/api/analytics", tags=["Analytics"]
 app.include_router(transactions.router, prefix="/api/transactions", tags=["Transactions"])
 app.include_router(goals.router, prefix="/api/goals", tags=["Goals"])
 app.include_router(dashboard.router, prefix="/api/dashboard", tags=["Dashboard"])
-app.include_router(insights.router, prefix="/api/insights", tags=["Insights"])
 app.include_router(chat.router, prefix="/api/chat", tags=["Chat"])
 app.include_router(capabilities.router, prefix="/api/capabilities", tags=["Capabilities"])
 app.include_router(insights.router, prefix="/api/insights", tags=["Insights"])
