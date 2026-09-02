@@ -60,6 +60,11 @@ class DashboardAggregator:
         known_asset_value = valuation["total_value"]
         pnl = known_asset_value - known_asset_cost
 
+        profile_income = _number(user.get("monthly_income"))
+        profile_expenses = _number(user.get("monthly_expenses"))
+        current_cf = cashflow["current_month"]
+        effective_surplus = round(current_cf["surplus"], 4) if (current_cf["income"] > 0 or current_cf["expense"] > 0) else round(profile_income - profile_expenses, 4)
+
         return {
             "net_worth": round(net_worth, 4),
             "net_worth_growth": performance["growth_percent"],
@@ -67,11 +72,11 @@ class DashboardAggregator:
             "stated_risk_profile": user.get("risk_profile"),
             "measured_portfolio_risk": performance["risk"],
             "risk_level": performance["risk"]["level"] or "Unavailable",
-            "monthly_income": _number(user.get("monthly_income")),
-            "monthly_expenses": _number(user.get("monthly_expenses")),
-            "surplus": round(cashflow["current_month"]["surplus"], 4),
+            "monthly_income": profile_income,
+            "monthly_expenses": profile_expenses,
+            "surplus": effective_surplus,
             "cashflow": cashflow,
-            "tax_saved": tax["section_80c_used"] if tax["section_80c_status"] == "available" else None,
+            "tax_saved": tax["section_80c_used"],
             "tax_limit": SECTION_80C_LIMIT,
             "tax_status": tax["section_80c_status"],
             "estimated_capital_gains_tax": tax["estimated_capital_gains_tax"],

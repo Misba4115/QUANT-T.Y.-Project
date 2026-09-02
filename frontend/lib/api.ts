@@ -193,7 +193,7 @@ export const chatApi = {
         apiClient.post<{reply: string; conversation_id: string; intent: string; agent: string; citations: import('@/types').ChatCitation[]; warnings: string[]}>(
             '/chat',
             { message, conversation_id: conversationId },
-            { timeout: 45000 }
+            { timeout: 90000 }
         ),
 };
 

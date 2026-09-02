@@ -89,6 +89,12 @@ export interface DashboardData {
     monthly_income: number;
     monthly_expenses: number;
     surplus: number;
+    cashflow?: {
+        current_month: { month: string; income: number; expense: number; surplus: number };
+        monthly_series: Array<{ month: string; income: number; expense: number; surplus: number }>;
+        spending_by_category: Record<string, number>;
+        uncategorized_count: number;
+    };
     tax_saved: number | null;
     tax_limit: number;
     tax_status: string;

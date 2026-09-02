@@ -29,9 +29,13 @@ def get_supabase_client() -> Any:
 
     with _client_lock:
         if _client is None:
-            from supabase import create_client
+            import httpx
+            from supabase import ClientOptions, create_client
 
-            _client = create_client(settings.supabase_url, settings.supabase_runtime_key)
+            # Disable HTTP/2 multiplexing on Windows to avoid WinError 10035 non-blocking socket aborts in worker threads
+            http_client = httpx.Client(http2=False, timeout=httpx.Timeout(60.0))
+            options = ClientOptions(httpx_client=http_client, postgrest_client_timeout=60.0)
+            _client = create_client(settings.supabase_url, settings.supabase_runtime_key, options=options)
     return _client
 
 

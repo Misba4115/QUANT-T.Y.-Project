@@ -35,19 +35,31 @@ def validate_material_numbers(response: str, evidence: Any) -> tuple[str, list[s
     allowed = {_normal(match.group(0)) for match in ANY_NUMBER_RE.finditer(evidence_text)}
     allowed.discard(None)
     unsupported: list[str] = []
-    safe_parts: list[str] = []
-    for sentence in SENTENCE_RE.findall(response):
-        claims = []
-        for match in MATERIAL_NUMBER_RE.finditer(sentence):
-            raw = match.group(1) or match.group(2)
-            normalized = _normal(raw)
-            if normalized not in allowed:
-                claims.append(match.group(0).strip())
-        if claims:
-            unsupported.extend(claims)
-        else:
-            safe_parts.append(sentence)
-    safe = "".join(safe_parts).strip()
+
+    paragraphs = response.split("\n\n")
+    safe_paragraphs: list[str] = []
+
+    for paragraph in paragraphs:
+        # Split on sentence boundaries: dot/exclamation/question followed by space and capital letter or list marker
+        raw_sentences = re.split(r"(?<=[.!?])\s+(?=[A-Z0-9*#\-])|\n", paragraph)
+        safe_sentences: list[str] = []
+        for sentence in raw_sentences:
+            if not sentence.strip():
+                continue
+            claims = []
+            for match in MATERIAL_NUMBER_RE.finditer(sentence):
+                raw = match.group(1) or match.group(2)
+                normalized = _normal(raw)
+                if normalized not in allowed:
+                    claims.append(match.group(0).strip())
+            if claims:
+                unsupported.extend(claims)
+            else:
+                safe_sentences.append(sentence.strip())
+        if safe_sentences:
+            safe_paragraphs.append("\n".join(safe_sentences) if any(s.startswith(("-", "*", "1.", "2.", "3.", "###")) for s in safe_sentences) else " ".join(safe_sentences))
+
+    safe = "\n\n".join(safe_paragraphs).strip()
     if unsupported and not safe:
         safe = "I could not verify the material financial figures in the generated response against the available evidence."
     return safe, list(dict.fromkeys(unsupported))

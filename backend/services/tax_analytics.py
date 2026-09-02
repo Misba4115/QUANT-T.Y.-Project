@@ -68,17 +68,34 @@ def calculate_tax_metrics(user_id: str, db: Any) -> dict[str, Any]:
         tax = taxable_ltcg * rule["ltcg_rate"] + max(0.0, amounts["stcg"]) * rule["stcg_rate"]
         estimated_tax += tax
         breakdown.append({"financial_year": financial_year, **amounts, "ltcg_exemption": rule["ltcg_exemption"], "estimated_tax": round(tax, 4)})
-    explicit_80c = sum(
-        float(row.get("amount") or 0)
-        for row in repo.list_for_user("bank_transactions", user_id)
-        if row.get("tx_type") == "debit" and str(row.get("category") or "").upper() in {"80C", "ELSS", "PPF", "LIC"}
-    )
+    # 1. Bank transactions: category or description matching 80C, ELSS, PPF, LIC, NPS, Tax Saver
+    bank_80c = 0.0
+    for row in repo.list_for_user("bank_transactions", user_id):
+        if row.get("tx_type") != "debit":
+            continue
+        cat = str(row.get("category") or "").upper()
+        desc = str(row.get("description") or "").upper()
+        is_80c = any(k in cat for k in ("80C", "ELSS", "PPF", "LIC", "NPS", "TAX_SAVER", "TAX_SAVING", "EPF")) or \
+                 any(k in desc for k in ("80C", "ELSS", "PPF", "LIC", "NPS", "TAX SAVER", "TAX SAVING", "PRAN", "EPF"))
+        if is_80c:
+            bank_80c += float(row.get("amount") or 0)
+
+    # 2. Mutual fund holdings: ELSS / Tax Saver funds
+    mf_80c = 0.0
+    for row in repo.list_for_user("mutual_fund_holdings", user_id):
+        name = str(row.get("mf_name") or row.get("scheme_code") or "").upper()
+        if any(k in name for k in ("ELSS", "TAX SAVER", "TAX RELIEF", "TAX PLAN", "LONG TERM EQUITY")):
+            units = float(row.get("units") or 0)
+            nav = float(row.get("avg_nav") or row.get("current_nav") or 0)
+            mf_80c += units * nav
+
+    explicit_80c = bank_80c + mf_80c
     used = min(explicit_80c, SECTION_80C_LIMIT)
     return {
         "agent": "tax",
         "status": "available" if gains else "unavailable_without_realized_lots",
         "rule_version": RULE_VERSION,
-        "section_80c_status": "available" if explicit_80c > 0 else "unavailable_without_eligible_evidence",
+        "section_80c_status": "available",
         "section_80c_used": round(used, 4),
         "section_80c_headroom": round(SECTION_80C_LIMIT - used, 4),
         "realized_gain_breakdown": breakdown,

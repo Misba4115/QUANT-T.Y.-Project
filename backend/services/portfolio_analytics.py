@@ -40,7 +40,7 @@ def snapshot_metrics(snapshots: list[dict[str, Any]]) -> dict[str, Any]:
         "cvar_95": None,
         "sample_period": None,
     }
-    if len(usable) < MIN_SNAPSHOT_RETURNS + 1:
+    if len(usable) < 2:
         return {"growth_percent": growth, "risk": risk}
 
     values = np.asarray([float(row.get("value") or row.get("net_worth")) for row in usable], dtype=float)

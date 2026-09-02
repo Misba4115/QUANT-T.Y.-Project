@@ -1,7 +1,8 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import { AlertTriangle, BarChart3, Clock3, Database, Download, IndianRupee, MessageCircle, RefreshCw, ShieldCheck, TrendingUp } from 'lucide-react';
+import Link from 'next/link';
+import { AlertTriangle, ArrowRight, BarChart3, ChevronRight, Clock3, Database, Download, IndianRupee, MessageCircle, RefreshCw, ShieldCheck, TrendingUp } from 'lucide-react';
 import { Area, AreaChart, Cell, CartesianGrid, Legend, Line, LineChart, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 import Navbar from '@/components/layout/navbar';
@@ -153,62 +154,196 @@ export default function DashboardPage() {
 
     const valuationTone = data.valuation_status === 'market_valued' ? 'good' : 'warn';
     const asOf = new Date(data.data_as_of).toLocaleString();
-    const hasUnavailableInsights = data.net_worth_growth === null || data.risk_level === 'Unavailable' || data.tax_saved === null;
+    const hasUnavailableInsights = data.net_worth_growth === null && (data.portfolio_history?.length || 0) < 2;
+
+    const displayRiskLevel = data.risk_level && data.risk_level !== 'Unavailable'
+        ? data.risk_level
+        : data.stated_risk_profile
+            ? `${data.stated_risk_profile.charAt(0).toUpperCase() + data.stated_risk_profile.slice(1)} (Stated)`
+            : 'Moderate';
+
+    const riskDetail = data.risk_level && data.risk_level !== 'Unavailable'
+        ? (data.measured_portfolio_risk?.volatility !== null && data.measured_portfolio_risk?.volatility !== undefined
+            ? `Historical σ: ${(data.measured_portfolio_risk.volatility * 100).toFixed(1)}% · stated: ${data.stated_risk_profile ? data.stated_risk_profile.charAt(0).toUpperCase() + data.stated_risk_profile.slice(1) : 'Moderate'}`
+            : `Measured from history · stated: ${data.stated_risk_profile || 'not set'}`)
+        : (data.measured_portfolio_risk?.sample_count && data.measured_portfolio_risk.sample_count > 0
+            ? `Preliminary (${data.measured_portfolio_risk.sample_count} snapshot${data.measured_portfolio_risk.sample_count > 1 ? 's' : ''}) · stated: ${data.stated_risk_profile ? data.stated_risk_profile.charAt(0).toUpperCase() + data.stated_risk_profile.slice(1) : 'Moderate'}`
+            : `Profile estimate · stated: ${data.stated_risk_profile ? data.stated_risk_profile.charAt(0).toUpperCase() + data.stated_risk_profile.slice(1) : 'Moderate'}`);
+
+    const taxRecorded = data.tax_saved ?? 0;
+    const taxLimit = data.tax_limit || 150000;
+    const taxHeadroom = Math.max(0, taxLimit - taxRecorded);
 
     return (
         <><Navbar /><PageTransition><main className="mx-auto max-w-7xl space-y-6 px-4 py-8 sm:px-6 lg:px-8">
-            <header className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-                <div>
-                    <p className="text-sm font-medium text-emerald-700">Financial command center</p>
-                    <h1 className="mt-1 text-3xl font-semibold tracking-tight text-stone-950">Your verified financial picture</h1>
-                    <div className="mt-3 flex flex-wrap items-center gap-2">
+            <header>
+                <p className="text-sm font-medium text-emerald-700">Financial command center</p>
+                <div className="mt-1 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                    <h1 className="text-3xl font-semibold tracking-tight text-stone-950">Your verified financial picture</h1>
+                    <div className="flex flex-wrap gap-2">
+                        <Button variant="outline" disabled={syncing} onClick={() => void refreshPrices()}>
+                            <RefreshCw className={`mr-2 h-4 w-4 ${syncing ? 'animate-spin' : ''}`} />
+                            {syncing ? 'Refreshing providers…' : 'Refresh market data'}
+                        </Button>
+                        <Button variant="outline" disabled={exporting} onClick={() => void exportView('pdf')}><Download className="mr-2 h-4 w-4" />PDF</Button>
+                        <Button asChild><Link href="/insights">Continue to Insights <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
+                    </div>
+                </div>
+                
+                <div className="mt-3 flex flex-wrap items-center justify-between gap-4">
+                    <div className="flex flex-wrap items-center gap-2">
                         <StatusPill tone={valuationTone}>{data.valuation_status.replaceAll('_', ' ')}</StatusPill>
                         <StatusPill><Clock3 className="mr-1 inline h-3 w-3" />As of {asOf}</StatusPill>
                         <StatusPill>{Math.round(data.valuation_coverage * 100)}% market-price coverage</StatusPill>
                     </div>
+
+                    {/* Compact Day-One Banner in Right Corner */}
+                    {hasUnavailableInsights && (
+                        <div className="max-w-md rounded-xl border border-emerald-200 bg-emerald-50/60 p-3 shadow-sm text-xs text-stone-600 flex items-center justify-between gap-3">
+                            <p className="leading-snug">
+                                <span className="font-semibold text-stone-900">Useful from day one: </span>
+                                Growth & risk update after repeated snapshots.
+                            </p>
+                            <Button size="sm" variant="outline" className="shrink-0 h-7 text-xs bg-white" onClick={askAssistantAboutCurrentData}>
+                                <MessageCircle className="mr-1 h-3 w-3" /> Ask
+                            </Button>
+                        </div>
+                    )}
                 </div>
-                <div className="flex flex-wrap gap-2"><Button variant="outline" disabled={syncing} onClick={() => void refreshPrices()}><RefreshCw className={`mr-2 h-4 w-4 ${syncing ? 'animate-spin' : ''}`} />{syncing ? 'Refreshing providers…' : 'Refresh market data'}</Button><Button variant="outline" disabled={exporting} onClick={() => void exportView('pdf')}><Download className="mr-2 h-4 w-4" />PDF</Button><Button variant="outline" disabled={exporting} onClick={() => void exportView('png')}><Download className="mr-2 h-4 w-4" />PNG</Button></div>
             </header>
 
-            <section className="flex flex-wrap items-end gap-3 rounded-2xl border border-stone-200 bg-white p-4 shadow-sm"><label className="text-xs font-medium text-stone-600">Period<select className="mt-1 block h-9 rounded-md border border-stone-200 bg-white px-3 text-sm" value={timePeriod} onChange={(event) => setTimePeriod(event.target.value)}><option value="1m">1 month</option><option value="3m">3 months</option><option value="6m">6 months</option><option value="1y">1 year</option><option value="all">All recorded</option><option value="custom">Custom</option></select></label>{timePeriod === 'custom' && <><label className="text-xs font-medium text-stone-600">From<input className="mt-1 block h-9 rounded-md border border-stone-200 px-3 text-sm" type="date" value={dateFrom} onChange={(event) => setDateFrom(event.target.value)} /></label><label className="text-xs font-medium text-stone-600">To<input className="mt-1 block h-9 rounded-md border border-stone-200 px-3 text-sm" type="date" value={dateTo} onChange={(event) => setDateTo(event.target.value)} /></label></>}<label className="text-xs font-medium text-stone-600">History chart<select className="mt-1 block h-9 rounded-md border border-stone-200 bg-white px-3 text-sm" value={chartType} onChange={(event) => setChartType(event.target.value as 'line' | 'area')}><option value="line">Line</option><option value="area">Area</option></select></label><Button onClick={() => void saveView()} disabled={timePeriod === 'custom' && (!dateFrom || !dateTo)}>Apply and save</Button></section>
-
             {error && <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">{error}</div>}
-
-            {hasUnavailableInsights && <section className="flex flex-col gap-4 rounded-2xl border border-emerald-200 bg-gradient-to-r from-emerald-50 to-stone-50 p-5 sm:flex-row sm:items-center sm:justify-between">
-                <div className="max-w-3xl">
-                    <h2 className="font-semibold text-stone-950">Your dashboard is useful from day one</h2>
-                    <p className="mt-1 text-sm leading-6 text-stone-600">
-                        Net worth, balances, allocation, holdings and recorded cashflow use everything you have already added. Growth and measured risk need repeated dated snapshots, while 80C needs an eligible transaction record. QUANT leaves only those measurements unavailable instead of guessing.
-                    </p>
-                </div>
-                <Button className="shrink-0" onClick={askAssistantAboutCurrentData}><MessageCircle className="mr-2 h-4 w-4" />Ask about my current data</Button>
-            </section>}
 
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 <MetricCard label="Net worth" value={formatCurrency(data.net_worth)} icon={<IndianRupee className="h-4 w-4" />} tooltip="Total verified bank & investment balances minus active liabilities." detail={
                     data.net_worth_growth === null ? 'Available now; growth appears after two dated snapshots' : `${data.net_worth_growth}% across the selected recorded period`
                 } />
-                <MetricCard label="Measured portfolio risk" value={data.risk_level} icon={<ShieldCheck className="h-4 w-4" />} tooltip="Calculated from historical return observations using standard deviation of returns." detail={
-                    data.risk_level === 'Unavailable' ? `Needs 30 return observations; ${data.measured_portfolio_risk?.sample_count || 0} recorded so far` : `Measured from history · stated preference: ${data.stated_risk_profile || 'not set'}`
+                <MetricCard label="Measured portfolio risk" value={displayRiskLevel} icon={<ShieldCheck className="h-4 w-4" />} tooltip="Calculated from historical return observations and stated risk profile." detail={
+                    riskDetail
                 } />
                 <MetricCard label="Current-month surplus" value={formatCurrency(data.surplus)} icon={<TrendingUp className="h-4 w-4" />} tooltip="Calculated as Monthly Income − Total Expenses for the current month." detail={
-                    `${formatCurrency(data.monthly_income)} income · ${formatCurrency(data.monthly_expenses)} expenses`
+                    data.cashflow?.current_month && (data.cashflow.current_month.income > 0 || data.cashflow.current_month.expense > 0)
+                        ? `${formatCurrency(data.cashflow.current_month.income)} income · ${formatCurrency(data.cashflow.current_month.expense)} expenses (bank)`
+                        : `${formatCurrency(data.monthly_income)} income · ${formatCurrency(data.monthly_expenses)} expenses`
                 } />
-                <MetricCard label="80C evidence recorded" value={data.tax_saved === null ? 'Unavailable' : formatCurrency(data.tax_saved)} icon={<Database className="h-4 w-4" />} tooltip="Sum of all identified PPF, ELSS, LIC, and other §80C eligible investment records." detail={
-                    data.tax_saved === null ? 'Add or categorize an eligible PPF, ELSS, LIC or 80C record' : `Recorded evidence against the ${formatCurrency(data.tax_limit)} limit`
+                <MetricCard label="80C evidence recorded" value={formatCurrency(taxRecorded)} icon={<Database className="h-4 w-4" />} tooltip="Sum of all identified PPF, ELSS, LIC, and other §80C eligible investment records." detail={
+                    taxRecorded > 0
+                        ? `${formatCurrency(taxRecorded)} of ${formatCurrency(taxLimit)} limit (${formatCurrency(taxHeadroom)} headroom)`
+                        : `₹0 recorded · ${formatCurrency(taxLimit)} headroom remaining`
                 } />
             </div>
 
             <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
-                <section className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
-                    <div className="mb-5 flex items-center justify-between"><div><h2 className="font-semibold text-stone-950">Portfolio snapshots</h2><p className="text-sm text-stone-500">Recorded values only—no simulated history</p></div><BarChart3 className="h-5 w-5 text-emerald-700" /></div>
-                    {data.portfolio_history.length === 0 ? <div className="flex h-72 items-center justify-center rounded-xl bg-stone-50 px-6 text-center text-sm text-stone-500">History begins after the first successful market-data sync.</div> :
-                        <ResponsiveContainer width="100%" height={288}>{chartType === 'area' ? <AreaChart data={data.portfolio_history}><CartesianGrid strokeDasharray="3 3" stroke="#E7E5E4" /><XAxis dataKey="month" tick={{ fontSize: 11 }} /><YAxis tickFormatter={formatChartValue} tick={{ fontSize: 11 }} /><Tooltip formatter={(value) => formatCurrency(Number(value))} /><Area type="monotone" dataKey="value" stroke="#064E3B" fill="#ECFDF5" strokeWidth={2.5} /></AreaChart> : <LineChart data={data.portfolio_history}><CartesianGrid strokeDasharray="3 3" stroke="#E7E5E4" /><XAxis dataKey="month" tick={{ fontSize: 11 }} /><YAxis tickFormatter={formatChartValue} tick={{ fontSize: 11 }} /><Tooltip formatter={(value) => formatCurrency(Number(value))} /><Line type="monotone" dataKey="value" stroke="#064E3B" strokeWidth={2.5} dot={{ r: 3 }} /></LineChart>}</ResponsiveContainer>}
+                <section className="flex flex-col justify-between rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
+                    <div>
+                        <div className="mb-5 flex items-center justify-between">
+                            <div>
+                                <h2 className="font-semibold text-stone-950">Portfolio snapshots</h2>
+                                <p className="text-sm text-stone-500">Recorded values only—no simulated history</p>
+                            </div>
+                            <BarChart3 className="h-5 w-5 text-emerald-700" />
+                        </div>
+
+                        {data.portfolio_history.length === 0 ? (
+                            <div className="flex h-72 items-center justify-center rounded-xl bg-stone-50 px-6 text-center text-sm text-stone-500">
+                                History begins after the first successful market-data sync.
+                            </div>
+                        ) : (
+                            <ResponsiveContainer width="100%" height={288}>
+                                {chartType === 'area' ? (
+                                    <AreaChart data={data.portfolio_history}>
+                                        <CartesianGrid strokeDasharray="3 3" stroke="#E7E5E4" />
+                                        <XAxis dataKey="month" tick={{ fontSize: 11 }} />
+                                        <YAxis tickFormatter={formatChartValue} tick={{ fontSize: 11 }} />
+                                        <Tooltip formatter={(value) => formatCurrency(Number(value))} />
+                                        <Area type="monotone" dataKey="value" stroke="#064E3B" fill="#ECFDF5" strokeWidth={2.5} />
+                                    </AreaChart>
+                                ) : (
+                                    <LineChart data={data.portfolio_history}>
+                                        <CartesianGrid strokeDasharray="3 3" stroke="#E7E5E4" />
+                                        <XAxis dataKey="month" tick={{ fontSize: 11 }} />
+                                        <YAxis tickFormatter={formatChartValue} tick={{ fontSize: 11 }} />
+                                        <Tooltip formatter={(value) => formatCurrency(Number(value))} />
+                                        <Line type="monotone" dataKey="value" stroke="#064E3B" strokeWidth={2.5} dot={{ r: 3 }} />
+                                    </LineChart>
+                                )}
+                            </ResponsiveContainer>
+                        )}
+                    </div>
+
+                    {/* Chart Controls & Apply / Save moved directly below graph */}
+                    <div className="mt-6 border-t border-stone-100 pt-4 flex flex-wrap items-end gap-3">
+                        <label className="text-xs font-medium text-stone-600">
+                            Period
+                            <select
+                                className="mt-1 block h-9 rounded-md border border-stone-200 bg-white px-3 text-sm"
+                                value={timePeriod}
+                                onChange={(event) => setTimePeriod(event.target.value)}
+                            >
+                                <option value="1m">1 month</option>
+                                <option value="3m">3 months</option>
+                                <option value="6m">6 months</option>
+                                <option value="1y">1 year</option>
+                                <option value="all">All recorded</option>
+                                <option value="custom">Custom</option>
+                            </select>
+                        </label>
+                        {timePeriod === 'custom' && (
+                            <>
+                                <label className="text-xs font-medium text-stone-600">
+                                    From
+                                    <input
+                                        className="mt-1 block h-9 rounded-md border border-stone-200 px-3 text-sm"
+                                        type="date"
+                                        value={dateFrom}
+                                        onChange={(event) => setDateFrom(event.target.value)}
+                                    />
+                                </label>
+                                <label className="text-xs font-medium text-stone-600">
+                                    To
+                                    <input
+                                        className="mt-1 block h-9 rounded-md border border-stone-200 px-3 text-sm"
+                                        type="date"
+                                        value={dateTo}
+                                        onChange={(event) => setDateTo(event.target.value)}
+                                    />
+                                </label>
+                            </>
+                        )}
+                        <label className="text-xs font-medium text-stone-600">
+                            History chart
+                            <select
+                                className="mt-1 block h-9 rounded-md border border-stone-200 bg-white px-3 text-sm"
+                                value={chartType}
+                                onChange={(event) => setChartType(event.target.value as 'line' | 'area')}
+                            >
+                                <option value="line">Line</option>
+                                <option value="area">Area</option>
+                            </select>
+                        </label>
+                        <Button size="sm" className="h-9" onClick={() => void saveView()} disabled={timePeriod === 'custom' && (!dateFrom || !dateTo)}>
+                            Apply and save
+                        </Button>
+                    </div>
                 </section>
+
                 <section className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
-                    <h2 className="font-semibold text-stone-950">Asset allocation</h2><p className="text-sm text-stone-500">Share of current reported net worth</p>
-                    {data.asset_allocation.length === 0 ? <div className="flex h-64 items-center justify-center text-sm text-stone-500">No valued assets yet</div> :
-                        <ResponsiveContainer width="100%" height={260}><PieChart><Pie data={data.asset_allocation} innerRadius={55} outerRadius={82} dataKey="value" paddingAngle={3}>{data.asset_allocation.map((item) => <Cell key={item.name} fill={item.color} />)}</Pie><Legend iconType="circle" iconSize={8} /></PieChart></ResponsiveContainer>}
+                    <h2 className="font-semibold text-stone-950">Asset allocation</h2>
+                    <p className="text-sm text-stone-500">Share of current reported net worth</p>
+                    {data.asset_allocation.length === 0 ? (
+                        <div className="flex h-64 items-center justify-center text-sm text-stone-500">No valued assets yet</div>
+                    ) : (
+                        <ResponsiveContainer width="100%" height={260}>
+                            <PieChart>
+                                <Pie data={data.asset_allocation} innerRadius={55} outerRadius={82} dataKey="value" paddingAngle={3}>
+                                    {data.asset_allocation.map((item) => (
+                                        <Cell key={item.name} fill={item.color} />
+                                    ))}
+                                </Pie>
+                                <Legend iconType="circle" iconSize={8} />
+                            </PieChart>
+                        </ResponsiveContainer>
+                    )}
                 </section>
             </div>
 
@@ -219,6 +354,21 @@ export default function DashboardPage() {
                         <div className="overflow-x-auto"><table className="w-full text-sm"><thead className="bg-stone-100 text-left text-xs uppercase tracking-wide text-stone-600"><tr><th className="px-6 py-3">Instrument</th><th className="px-4 py-3">Type</th><th className="px-4 py-3 text-right">Value</th><th className="px-4 py-3 text-right">P/L</th><th className="px-6 py-3">Source</th></tr></thead><tbody className="divide-y divide-stone-100">{data.top_holdings.map((holding) => <tr key={`${holding.type}-${holding.instrument}`} className="hover:bg-stone-50 transition-colors"><td className="px-6 py-4 font-medium text-stone-950">{holding.instrument}</td><td className="px-4 py-4 text-stone-600">{holding.type}</td><td className="px-4 py-4 text-right font-mono font-medium text-stone-900">{formatCurrency(holding.current_value)}</td><td className="px-4 py-4 text-right font-mono">{holding.profit_loss_percent === null ? '—' : `${holding.profit_loss_percent}%`}</td><td className="px-6 py-4"><StatusPill tone={holding.valuation_status === 'stored' ? 'good' : 'warn'}>{holding.price_source || holding.valuation_status || 'unavailable'}</StatusPill></td></tr>)}</tbody></table></div>}
                 </section>
                 <section className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm"><h2 className="font-semibold text-stone-950">Evidence-based alerts</h2><p className="mb-4 text-sm text-stone-500">Shown only when a rule is true</p>{data.alerts.length === 0 ? <div className="rounded-xl bg-emerald-50 p-4 text-sm text-emerald-800">No active rule-based alerts.</div> : <div className="space-y-3">{data.alerts.map((alert) => <div key={alert.id} className="flex gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4"><AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-amber-600" /><p className="text-sm text-amber-900">{alert.message}</p></div>)}</div>}</section>
+            </div>
+
+            {/* ── Continue to Recommendations ── */}
+            <div className="flex items-center justify-between rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
+                <div>
+                    <p className="font-semibold text-stone-950">Ready for your investment plan?</p>
+                    <p className="mt-0.5 text-sm text-stone-500">See goal-aligned recommendations and trading insights based on your data.</p>
+                </div>
+                <Link
+                    href="/insights"
+                    className="group flex shrink-0 items-center gap-2 rounded-full bg-stone-900 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-emerald-700 hover:shadow-md"
+                >
+                    Investment Recommendations
+                    <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                </Link>
             </div>
         </main></PageTransition></>
     );

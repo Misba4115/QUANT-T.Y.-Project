@@ -257,6 +257,87 @@ function LandingPageContent() {
                 </div>
             </motion.section>
 
+            {/* ── GUIDE VIDEO PLACEHOLDER ── */}
+            <section id="guide" className="relative z-10 py-16 sm:py-24">
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <Reveal>
+                        <p className="text-sm font-medium text-emerald-400">How it works</p>
+                        <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                            Get started in minutes
+                        </h2>
+                        <p className="mt-4 max-w-2xl text-lg text-neutral-400">
+                            See how QUANT transforms your financial data into clear, actionable insights.
+                        </p>
+                    </Reveal>
+
+                    {/* Step indicators */}
+                    <Reveal delay={0.1}>
+                        <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
+                            {[
+                                { step: '01', label: 'What QUANT does' },
+                                { step: '02', label: 'What data to provide' },
+                                { step: '03', label: 'How recommendations work' },
+                            ].map((item, i) => (
+                                <div key={item.step} className="flex items-center gap-2">
+                                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-emerald-500/20 text-xs font-bold text-emerald-400 border border-emerald-500/30">
+                                        {item.step}
+                                    </span>
+                                    <span className="text-sm text-neutral-300">{item.label}</span>
+                                    {i < 2 && <span className="hidden text-neutral-700 sm:block">→</span>}
+                                </div>
+                            ))}
+                        </div>
+                    </Reveal>
+
+                    {/* Video placeholder */}
+                    <Reveal delay={0.2}>
+                        <div className="mt-10 overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900/60 shadow-2xl backdrop-blur-sm">
+                            {/* Placeholder frame — replace the inner content with a real <video> or embed */}
+                            <div className="relative flex aspect-video w-full items-center justify-center bg-gradient-to-br from-neutral-900 via-emerald-950/20 to-neutral-900">
+                                {/* Decorative grid */}
+                                <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0wIDBoNjB2NjBIMHoiLz48cGF0aCBkPSJNNjAgMEgwdjYwaDYwVjB6TTEgMWg1OHY1OEgxVjF6IiBmaWxsPSIjMjAyMDIwIiBmaWxsLW9wYWNpdHk9Ii4xIi8+PC9nPjwvc3ZnPg==')] opacity-20" />
+
+                                {/* Play button */}
+                                <div className="relative flex flex-col items-center gap-5">
+                                    <motion.div
+                                        whileHover={{ scale: 1.08 }}
+                                        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                                        className="flex h-20 w-20 cursor-pointer items-center justify-center rounded-full bg-emerald-500 shadow-[0_0_40px_rgba(16,185,129,0.5)] transition-shadow hover:shadow-[0_0_60px_rgba(16,185,129,0.7)]"
+                                    >
+                                        <svg className="h-8 w-8 translate-x-0.5 text-neutral-950" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M8 5v14l11-7z" />
+                                        </svg>
+                                    </motion.div>
+                                    <div className="text-center">
+                                        <p className="text-base font-semibold text-white">Watch the walkthrough</p>
+                                        <p className="mt-1 text-sm text-neutral-400">Video guide coming soon · ~3 min</p>
+                                    </div>
+                                </div>
+
+                                {/* Corner label */}
+                                <div className="absolute left-4 top-4 flex items-center gap-2 rounded-full border border-neutral-700 bg-neutral-900/80 px-3 py-1.5 text-xs text-neutral-400 backdrop-blur-md">
+                                    <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
+                                    AI Walkthrough
+                                </div>
+                            </div>
+
+                            {/* Caption bar */}
+                            <div className="flex flex-col gap-4 border-t border-neutral-800 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
+                                <p className="text-sm text-neutral-400">
+                                    Learn how to upload your holdings, set goals, and get your first recommendations.
+                                </p>
+                                <Link
+                                    href="/register"
+                                    className="group flex shrink-0 items-center gap-2 rounded-full bg-emerald-600 px-5 py-2 text-sm font-semibold text-white transition-all hover:bg-emerald-500 hover:scale-[1.02]"
+                                >
+                                    Get Started <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                                </Link>
+                            </div>
+                        </div>
+                    </Reveal>
+                </div>
+            </section>
+
             {/* ── ABOUT ── */}
             <section id="about" className="relative z-10 py-20 sm:py-28">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

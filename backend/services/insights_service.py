@@ -351,19 +351,35 @@ class InsightsService:
                 qty = float(row.get(qty_field) or 0)
                 holdings_by_class[asset_class] = holdings_by_class.get(asset_class, 0) + price * qty
 
-        # Pull price history from portfolio_snapshots for EWMA
+        # Pull price history from portfolio_snapshots for EWMA.
+        # portfolio_snapshots has no asset_class column; instead each row stores
+        # an `allocation` dict (e.g. {"Equity": 58.2, "Mutual Fund": 27.8, "ETF": 14.0})
+        # as percentages of net_worth.  We reconstruct per-asset-class values from this.
         price_history: dict[str, list[float]] = {}
         try:
             snapshots = self.repo.list_for_user(
                 "portfolio_snapshots", user_id, order_by="snapshot_date"
             )
             for snap in snapshots:
-                asset_class = snap.get("asset_class") or "Portfolio"
-                val = float(snap.get("value") or snap.get("net_worth") or 0)
-                if val > 0:
-                    price_history.setdefault(asset_class, []).append(val)
+                net_worth_val = float(snap.get("net_worth") or snap.get("value") or 0)
+                if net_worth_val <= 0:
+                    continue
+                allocation = snap.get("allocation") or {}
+                if isinstance(allocation, dict) and allocation:
+                    # Reconstruct per-asset-class values from allocation percentages
+                    for asset_class, pct in allocation.items():
+                        try:
+                            class_val = net_worth_val * float(pct) / 100.0
+                            if class_val > 0:
+                                price_history.setdefault(asset_class, []).append(class_val)
+                        except (TypeError, ValueError):
+                            continue
+                else:
+                    # Fallback: no allocation breakdown → treat as portfolio-level
+                    ac = snap.get("asset_class") or "Portfolio"
+                    price_history.setdefault(ac, []).append(net_worth_val)
         except Exception:
-            # portfolio_snapshots may not have the asset_class column — degrade gracefully
+            # Degrade gracefully if portfolio_snapshots is unavailable
             pass
 
         return holdings_by_class, price_history

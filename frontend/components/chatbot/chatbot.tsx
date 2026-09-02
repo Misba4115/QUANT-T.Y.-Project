@@ -38,7 +38,7 @@ function chatErrorMessage(error: unknown): string {
         : typeof payload?.message === 'string'
             ? payload.message
             : null;
-    if (error.response.status < 500 && safeDetail) return safeDetail;
+    if (safeDetail) return safeDetail;
     const requestId = typeof payload?.request_id === 'string'
         ? payload.request_id
         : error.response.headers?.['x-request-id'];
@@ -128,25 +128,37 @@ function BotMessageBubble({
             <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
                 <Bot className="h-4 w-4" />
             </div>
-            <div className="max-w-[75%] rounded-2xl rounded-tl-md bg-gray-100 px-3.5 py-2.5 text-sm leading-relaxed text-gray-800">
-                <div className="prose prose-sm max-w-none">
+            <div className="max-w-[88%] rounded-2xl rounded-tl-md border border-stone-200/90 bg-stone-50/90 px-4 py-3 text-sm leading-relaxed text-stone-800 shadow-sm">
+                <div className="prose prose-sm max-w-none text-stone-800">
                     <ReactMarkdown
                         components={{
+                            h3: ({ node: _node, ...props }) => {
+                                void _node;
+                                return <h3 className="font-semibold text-stone-900 text-sm mt-3 mb-1.5 first:mt-0 tracking-tight" {...props} />;
+                            },
+                            h4: ({ node: _node, ...props }) => {
+                                void _node;
+                                return <h4 className="font-medium text-stone-800 text-xs mt-2 mb-1" {...props} />;
+                            },
                             strong: ({ node: _node, ...props }) => {
                                 void _node;
-                                return <strong className="font-bold text-blue-700" {...props} />;
+                                return <strong className="font-semibold text-emerald-950" {...props} />;
                             },
                             ul: ({ node: _node, ...props }) => {
                                 void _node;
-                                return <ul className="list-disc ml-4 my-2 space-y-1" {...props} />;
+                                return <ul className="list-disc ml-4 my-2 space-y-1 text-stone-700" {...props} />;
+                            },
+                            ol: ({ node: _node, ...props }) => {
+                                void _node;
+                                return <ol className="list-decimal ml-4 my-2 space-y-1.5 text-stone-700" {...props} />;
                             },
                             li: ({ node: _node, ...props }) => {
                                 void _node;
-                                return <li className="my-1" {...props} />;
+                                return <li className="my-0.5 leading-snug" {...props} />;
                             },
                             p: ({ node: _node, ...props }) => {
                                 void _node;
-                                return <p className="mb-2 last:mb-0" {...props} />;
+                                return <p className="mb-2.5 last:mb-0 leading-relaxed text-stone-700" {...props} />;
                             },
                         }}
                     >
@@ -270,7 +282,7 @@ export default function Chatbot() {
             setTypingMessageId(botMsgId);
             setConversationId(data.conversation_id);
         } catch (error) {
-            console.error('Chat error:', error);
+            console.warn('Chat request failed:', error);
             setIsThinking(false);
             const errorId = addMessage(
                 'bot',

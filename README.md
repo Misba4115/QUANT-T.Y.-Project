@@ -1,4 +1,4 @@
-# QUANT
+# QUANT v0.1.0
 
 QUANT is a privacy-conscious financial intelligence application for Indian retail investors. It combines a Next.js interface, a FastAPI service layer, Supabase-backed financial records, and a multi-agent analysis workflow.
 
@@ -8,17 +8,26 @@ The application is designed to distinguish recorded facts from estimates. Missin
 
 - Email/password and Google authentication with HTTP-only session cookies
 - Banking accounts, goals, holdings, and transaction management
-- Preview-before-commit imports for CSV, XLSX, and text-based CAS PDF files
+- **Statement ingestion pipeline**: Preview-before-commit imports for CSV, XLSX, and text-based CAS PDF files using Ingestion Inbox and import templates
+- Server-side parsing for sensitive financial statement data
 - Column normalization, validation, row-level error reporting, and duplicate protection
 - Dashboard aggregation with net worth, cash flow, allocation, holdings, and evidence-aware status labels
 - Market-price adapters for supported public data sources
 - Portfolio risk and optimization analytics when sufficient price history exists
 - Tax analytics based on recorded transaction evidence
-- Guardian event processing and durable in-app notifications
-- Public-knowledge RAG using Qdrant without embedding private portfolio rows
+- Guardian event processing with **real-time streaming** and durable in-app notifications
+- Public-knowledge RAG using Qdrant (expanded with regulatory/tax documents) without embedding private portfolio rows
 - Signed PDF and PNG dashboard exports
 - Background job schedules and a separately operated worker
-- A read-only Upstox connector implementation with OAuth, encrypted credentials, preview, commit, and revocation flows
+- A live read-only Upstox connector implementation with OAuth, encrypted credentials, preview, commit, and revocation flows
+- **End-to-End User Journey**: Streamlined flow from data ingestion (`/input-data`) to the dashboard, investment recommendations, trading insights, and a final review confirmation.
+- **Investment Recommendations & Trading Insights**: Goal tracking, adjustable investment amounts with expected outcomes, and market outlooks based on ingested data.
+
+## Planned Features (Next Phase)
+
+- **GC-SEC (Grounded Consensus with Self-Evolving Calibration)**: A multi-agent consensus arbiter and outcome evaluator to ensure grounded predictions.
+- **Advanced Security Layer**: Argon2id hashing, AES-256-GCM field-level encryption, HashiCorp Vault envelope encryption, and zero-trust access.
+- **Benchmarking & Evaluation Infrastructure**: Comprehensive test sets and ablation studies for Guardian, Portfolio Analytics, Tax Engine, Cashflow Engine, and RAG.
 
 Upstox is not active until valid application credentials and a registered redirect URL are configured and the connection is authorized by a user.
 

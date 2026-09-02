@@ -143,8 +143,8 @@ export default function InputDataPage() {
             {isNewUser && <OnboardingModal />}
 
             <header className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-                <div><p className="text-sm font-medium text-emerald-700">Data control center</p><h1 className="mt-1 text-3xl font-semibold tracking-tight text-stone-950">Connected financial records</h1><p className="mt-2 max-w-2xl text-sm text-stone-600">Add your bank accounts, investment holdings, and financial goals. Everything is securely stored in your private profile.</p></div>
-                <div className="flex gap-2"><Button variant="outline" disabled={loading} onClick={() => void refresh()}><RefreshCw className={`mr-2 h-4 w-4 ${loading ? 'animate-spin' : ''}`} />Refresh</Button><Button asChild><Link href="/csv-files"><FileUp className="mr-2 h-4 w-4" />Import file</Link></Button></div>
+                <div><p className="text-sm font-medium text-emerald-700">Data control center</p><h1 className="mt-1 text-3xl font-semibold tracking-tight text-stone-950">Connected financial records</h1><p className="mt-2 max-w-2xl text-sm text-stone-600">Add your bank accounts, investment holdings, and financial goals.</p></div>
+                <div className="flex gap-2"><Button variant="outline" disabled={loading} onClick={() => void refresh()}><RefreshCw className={`mr-2 h-4 w-4 ${loading ? 'animate-spin' : ''}`} />Refresh</Button><Button asChild><Link href="/csv-files"><FileUp className="mr-2 h-4 w-4" />Import file</Link></Button><Button variant="outline" asChild><Link href="/dashboard">Dashboard</Link></Button></div>
             </header>
 
             {error && <div className="rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-800">{error}</div>}

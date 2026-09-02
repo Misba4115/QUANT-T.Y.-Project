@@ -62,19 +62,23 @@ class YahooFinanceProvider:
         return f"{instrument_key}{'.BO' if exchange == 'BSE' else '.NS'}"
 
     def fetch_history(self, instrument_key: str, days: int = 370, **metadata) -> list[dict]:
-        import yfinance as yf
+        try:
+            import yfinance as yf
 
-        frame = yf.Ticker(self._ticker_symbol(instrument_key, metadata)).history(
-            period="2y" if days > 370 else "1y", auto_adjust=True
-        )
-        if frame.empty or "Close" not in frame:
+            frame = yf.Ticker(self._ticker_symbol(instrument_key, metadata)).history(
+                period="2y" if days > 370 else "1y", auto_adjust=True
+            )
+            if frame.empty or "Close" not in frame:
+                return []
+            cutoff = datetime.now(timezone.utc).date().toordinal() - max(1, days)
+            return [
+                {"price_date": index.date().isoformat(), "adjusted_close": float(value)}
+                for index, value in frame["Close"].items()
+                if index.date().toordinal() >= cutoff and float(value) > 0
+            ]
+        except Exception:
             return []
-        cutoff = datetime.now(timezone.utc).date().toordinal() - max(1, days)
-        return [
-            {"price_date": index.date().isoformat(), "adjusted_close": float(value)}
-            for index, value in frame["Close"].items()
-            if index.date().toordinal() >= cutoff and float(value) > 0
-        ]
+
 
 
 class MutualFundNAVProvider:
@@ -97,18 +101,22 @@ class MutualFundNAVProvider:
     def fetch_history(self, instrument_key: str, days: int = 370, **metadata) -> list[dict]:
         del metadata
         settings = get_settings()
-        with httpx.Client(timeout=settings.market_data_timeout_seconds) as client:
-            response = client.get(f"https://api.mfapi.in/mf/{instrument_key}")
-            response.raise_for_status()
-            payload = response.json()
-        cutoff = datetime.now(timezone.utc).date().toordinal() - max(1, days)
-        points = []
-        for item in payload.get("data") or []:
-            observed = datetime.strptime(item["date"], "%d-%m-%Y").date()
-            nav = float(item["nav"])
-            if observed.toordinal() >= cutoff and nav > 0:
-                points.append({"price_date": observed.isoformat(), "adjusted_close": nav})
-        return sorted(points, key=lambda item: item["price_date"])
+        try:
+            with httpx.Client(timeout=settings.market_data_timeout_seconds) as client:
+                response = client.get(f"https://api.mfapi.in/mf/{instrument_key}")
+                response.raise_for_status()
+                payload = response.json()
+            cutoff = datetime.now(timezone.utc).date().toordinal() - max(1, days)
+            points = []
+            for item in payload.get("data") or []:
+                observed = datetime.strptime(item["date"], "%d-%m-%Y").date()
+                nav = float(item["nav"])
+                if observed.toordinal() >= cutoff and nav > 0:
+                    points.append({"price_date": observed.isoformat(), "adjusted_close": nav})
+            return sorted(points, key=lambda item: item["price_date"])
+        except Exception:
+            return []
+
 
 
 class CoinGeckoProvider:
@@ -142,16 +150,20 @@ class CoinGeckoProvider:
         symbol = instrument_key.upper()
         coin_id = str(metadata.get("provider_id") or self.SYMBOL_IDS.get(symbol) or symbol.lower())
         headers = {"x-cg-demo-api-key": settings.coingecko_api_key} if settings.coingecko_api_key else {}
-        with httpx.Client(timeout=settings.market_data_timeout_seconds, headers=headers) as client:
-            response = client.get(
-                f"https://api.coingecko.com/api/v3/coins/{coin_id}/market_chart",
-                params={"vs_currency": "inr", "days": min(max(1, days), 730), "interval": "daily"},
-            )
-            response.raise_for_status()
-            payload = response.json()
-        by_date: dict[str, float] = {}
-        for timestamp_ms, price in payload.get("prices") or []:
-            observed = datetime.fromtimestamp(float(timestamp_ms) / 1000, tz=timezone.utc).date().isoformat()
-            if float(price) > 0:
-                by_date[observed] = float(price)
-        return [{"price_date": day, "adjusted_close": by_date[day]} for day in sorted(by_date)]
+        try:
+            with httpx.Client(timeout=settings.market_data_timeout_seconds, headers=headers) as client:
+                response = client.get(
+                    f"https://api.coingecko.com/api/v3/coins/{coin_id}/market_chart",
+                    params={"vs_currency": "inr", "days": min(max(1, days), 730), "interval": "daily"},
+                )
+                response.raise_for_status()
+                payload = response.json()
+            by_date: dict[str, float] = {}
+            for timestamp_ms, price in payload.get("prices") or []:
+                observed = datetime.fromtimestamp(float(timestamp_ms) / 1000, tz=timezone.utc).date().isoformat()
+                if float(price) > 0:
+                    by_date[observed] = float(price)
+            return [{"price_date": day, "adjusted_close": by_date[day]} for day in sorted(by_date)]
+        except Exception:
+            return []
+
