@@ -152,6 +152,8 @@ export interface ImportMappingDiagnostic {
     }>;
 }
 
+export type StatementFrequency = 'weekly' | 'monthly' | 'quarterly' | '6_months' | 'yearly';
+
 export interface ImportBatch {
     import_batch_id: string;
     filename: string;
@@ -164,6 +166,7 @@ export interface ImportBatch {
     parser_version: string;
     duplicate: boolean;
     column_mapping: {
+        bank_statement?: { account_id: string; statement_frequency: StatementFrequency };
         source_to_canonical?: Record<string, string>;
         recognized_columns?: string[];
         ignored_columns?: string[];
@@ -199,6 +202,15 @@ export interface ChatMessage {
     timestamp: Date;
     citations?: ChatCitation[];
     warnings?: string[];
+    analysis_sections?: ChatAnalysisSection[];
+    intent?: string;
+}
+
+export interface ChatAnalysisSection {
+    specialist: string;
+    status: string;
+    summary: string;
+    metrics: Record<string, string | number | boolean | null>;
 }
 
 export interface ConnectorAccount {

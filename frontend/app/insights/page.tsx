@@ -11,14 +11,11 @@ import {
     CheckCircle2,
     ChevronDown,
     ChevronRight,
-    Clock,
     Database,
     Info,
     RefreshCw,
     ShieldCheck,
     Sparkles,
-    Star,
-    Target,
     TrendingDown,
     TrendingUp,
     X,
@@ -26,8 +23,10 @@ import {
 
 import Navbar from '@/components/layout/navbar';
 import PageTransition from '@/components/layout/page-transition';
+import InvestmentDiscovery from '@/components/insights/investment-discovery';
 import { insightsApi } from '@/lib/api';
 import { formatCurrency } from '@/lib/helpers';
+import { insightsChatContext, publishChatViewContext } from '@/lib/chat-view-context';
 import type {
     AssetForecast,
     GoalGap,
@@ -84,19 +83,6 @@ function SignalBadge({ signal }: { signal: 'HOLD' | 'REDUCE' | 'ADD' }) {
     return (
         <span className={`rounded-lg border px-3 py-1.5 text-xs font-bold tracking-wide ${styles[signal]}`}>
             {signal}
-        </span>
-    );
-}
-
-function RiskBadge({ level }: { level: 'Low' | 'Medium' | 'High' }) {
-    const styles = {
-        Low: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-        Medium: 'bg-amber-50 text-amber-700 border-amber-200',
-        High: 'bg-red-50 text-red-700 border-red-200',
-    };
-    return (
-        <span className={`rounded-full border px-2.5 py-0.5 text-xs font-medium ${styles[level]}`}>
-            {level}
         </span>
     );
 }
@@ -187,105 +173,6 @@ function ActionRow({ action, index }: { action: RebalanceAction; index: number }
 // Layer B sub-components (Recommendations)
 // ---------------------------------------------------------------------------
 
-function GoalTrackingCard({ gap, index }: { gap: GoalGap; index: number }) {
-    const progress = gap.target_amount > 0
-        ? Math.min(100, (gap.current_amount / gap.target_amount) * 100)
-        : 0;
-
-    return (
-        <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.07 }}
-            className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
-        >
-            <div className="flex items-start justify-between">
-                <div className="flex items-center gap-2.5">
-                    <div className={`rounded-xl p-2 ${gap.on_track ? 'bg-emerald-50' : 'bg-amber-50'}`}>
-                        <Target className={`h-4 w-4 ${gap.on_track ? 'text-emerald-600' : 'text-amber-600'}`} />
-                    </div>
-                    <div>
-                        <p className="font-semibold text-slate-800">{gap.goal_name}</p>
-                        <p className="text-xs text-slate-400 capitalize">{gap.horizon}-term · {gap.target_date ?? 'No date set'}</p>
-                    </div>
-                </div>
-                <div className="text-right">
-                    <p className="text-xs text-slate-400">Target</p>
-                    <p className="font-semibold text-slate-700">{formatCurrency(gap.target_amount)}</p>
-                </div>
-            </div>
-
-            <div className="mt-4">
-                <div className="flex items-center justify-between text-xs text-slate-500 mb-1.5">
-                    <span>{formatCurrency(gap.current_amount)} saved</span>
-                    <span>{progress.toFixed(0)}%</span>
-                </div>
-                <div className="h-2 w-full rounded-full bg-slate-100 overflow-hidden">
-                    <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: `${progress}%` }}
-                        transition={{ duration: 0.8, ease: 'easeOut', delay: index * 0.07 + 0.2 }}
-                        className={`h-full rounded-full ${gap.on_track ? 'bg-emerald-500' : 'bg-amber-500'}`}
-                    />
-                </div>
-            </div>
-
-            {!gap.on_track && (
-                <div className="mt-4 flex items-center justify-between rounded-lg bg-amber-50 px-4 py-3">
-                    <div>
-                        <p className="text-xs text-amber-700 font-medium">You are</p>
-                        <p className="text-xl font-bold text-amber-700">{gap.shortfall_pct.toFixed(0)}% short</p>
-                        <p className="text-xs text-amber-600">at current pace</p>
-                    </div>
-                    <div className="text-right">
-                        <p className="text-xs text-slate-500">Gap</p>
-                        <p className="font-semibold text-slate-700">{formatCurrency(gap.gap)}</p>
-                        {gap.required_monthly_sip > 0 && (
-                            <>
-                                <p className="mt-1 text-xs text-slate-400">Suggested SIP</p>
-                                <p className="text-sm font-semibold text-amber-700">{formatCurrency(gap.required_monthly_sip)}/mo</p>
-                            </>
-                        )}
-                    </div>
-                </div>
-            )}
-
-            {gap.on_track && (
-                <div className="mt-4 flex items-center gap-2 rounded-lg bg-emerald-50 px-4 py-3">
-                    <CheckCircle2 className="h-4 w-4 text-emerald-600" />
-                    <p className="text-sm font-medium text-emerald-700">On track — keep it up!</p>
-                </div>
-            )}
-        </motion.div>
-    );
-}
-
-function SuggestionRow({ suggestion, index }: { suggestion: InstrumentSuggestion; index: number }) {
-    const icons = ['📊', '🌐', '🏅', '🏦'];
-    return (
-        <motion.div
-            initial={{ opacity: 0, x: -12 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: index * 0.07 }}
-            className="flex items-center justify-between rounded-xl border border-slate-100 bg-white p-4 hover:bg-slate-50 transition-colors"
-        >
-            <div className="flex items-center gap-3">
-                <span className="text-xl">{icons[index % icons.length]}</span>
-                <div>
-                    <p className="font-semibold text-slate-800 text-sm">{suggestion.name}</p>
-                    <p className="text-xs text-slate-500 mt-0.5">{suggestion.rationale}</p>
-                    {suggestion.driven_by_goal && (
-                        <p className="text-xs text-blue-500 mt-0.5">For: {suggestion.driven_by_goal}</p>
-                    )}
-                </div>
-            </div>
-            <div className="flex-shrink-0">
-                <RiskBadge level={suggestion.risk_level} />
-            </div>
-        </motion.div>
-    );
-}
-
 // ---------------------------------------------------------------------------
 // Per-Goal Recommendation Panel — unified recommendation journey
 // ---------------------------------------------------------------------------
@@ -301,9 +188,10 @@ function GoalRecommendationPanel({
 }) {
     const [investAmount, setInvestAmount] = useState(gap.required_monthly_sip > 0 ? gap.required_monthly_sip : 5000);
 
+    const [calculatedAt] = useState(() => Date.now());
     const maxSlider = Math.max(gap.required_monthly_sip * 3, 50000);
     const monthsRemaining = gap.target_date
-        ? Math.max(1, Math.round((new Date(gap.target_date).getTime() - Date.now()) / (1000 * 60 * 60 * 24 * 30)))
+        ? Math.max(1, Math.round((new Date(gap.target_date).getTime() - calculatedAt) / (1000 * 60 * 60 * 24 * 30)))
         : 60;
     const estimatedReturn = 0.12;
     const monthlyRate = estimatedReturn / 12;
@@ -752,6 +640,10 @@ export default function InsightsPage() {
 
     useEffect(() => { void load(); }, [load]);
 
+    useEffect(() => {
+        if (data) publishChatViewContext(insightsChatContext(data));
+    }, [data]);
+
     const layerAAvailable = data?.layer_a.status === 'available';
     const layerBAvailable = data?.layer_b.status === 'available';
     const hasAnyData = layerAAvailable || layerBAvailable;
@@ -789,18 +681,44 @@ export default function InsightsPage() {
                                     <RefreshCw className={`h-4 w-4 ${refreshing ? 'animate-spin' : ''}`} />
                                     {refreshing ? 'Refreshing…' : 'Refresh now'}
                                 </button>
-                                <Link
-                                    href="/final-review"
-                                    className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-50"
-                                >
-                                    Continue to Final Review <ArrowRight className="h-4 w-4" />
-                                </Link>
                             </div>
                         </div>
                         <p className="mt-1.5 text-sm text-slate-500">
                             Goal-aligned investment recommendations, then market trading signals.
                         </p>
                     </div>
+
+                    <InvestmentDiscovery>
+                        {!loading && !error && data && hasAnyData && (
+                            <section>
+                                <div className="mb-4 flex flex-wrap items-center gap-3">
+                                    <Sparkles className="h-5 w-5 text-emerald-600" />
+                                    <h2 className="text-lg font-bold text-slate-900">Goal planning</h2>
+                                    <span className="rounded-full bg-indigo-50 border border-indigo-100 px-2.5 py-0.5 text-xs font-medium text-indigo-600">
+                                        Goal-driven
+                                    </span>
+                                </div>
+
+                                {!layerBAvailable ? (
+                                    <EmptyState
+                                        title="No goals found"
+                                        body="Add financial goals under Input Data to see how your portfolio tracks toward them."
+                                    />
+                                ) : (
+                                    <div className="space-y-6">
+                                        {data.layer_b.goal_gaps.map((gap, i) => (
+                                            <GoalRecommendationPanel
+                                                key={gap.goal_id ?? i}
+                                                gap={gap}
+                                                suggestion={data.layer_b.instrument_suggestions.find(s => s.driven_by_goal === gap.goal_name) ?? data.layer_b.instrument_suggestions[i]}
+                                                priorityAction={data.layer_b.priority_action}
+                                            />
+                                        ))}
+                                    </div>
+                                )}
+                            </section>
+                        )}
+                    </InvestmentDiscovery>
 
                     {/* ── Loading skeleton ─────────────────────────────── */}
                     {loading && (
@@ -835,38 +753,7 @@ export default function InsightsPage() {
                         <div className="space-y-10">
 
                             {/* ═══════════════════════════════════════════════
-                                SECTION 1 — INVESTMENT RECOMMENDATIONS (first)
-                            ═══════════════════════════════════════════════ */}
-                            <section>
-                                <div className="mb-4 flex flex-wrap items-center gap-3">
-                                    <Sparkles className="h-5 w-5 text-emerald-600" />
-                                    <h2 className="text-lg font-bold text-slate-900">Investment Recommendations</h2>
-                                    <span className="rounded-full bg-indigo-50 border border-indigo-100 px-2.5 py-0.5 text-xs font-medium text-indigo-600">
-                                        Goal-driven
-                                    </span>
-                                </div>
-
-                                {!layerBAvailable ? (
-                                    <EmptyState
-                                        title="No goals found"
-                                        body="Add financial goals under Input Data to see how your portfolio tracks toward them."
-                                    />
-                                ) : (
-                                    <div className="space-y-6">
-                                        {data.layer_b.goal_gaps.map((gap, i) => (
-                                            <GoalRecommendationPanel
-                                                key={gap.goal_id ?? i}
-                                                gap={gap}
-                                                suggestion={data.layer_b.instrument_suggestions.find(s => s.driven_by_goal === gap.goal_name) ?? data.layer_b.instrument_suggestions[i]}
-                                                priorityAction={data.layer_b.priority_action}
-                                            />
-                                        ))}
-                                    </div>
-                                )}
-                            </section>
-
-                            {/* ═══════════════════════════════════════════════
-                                SECTION 2 — TRADING SIGNALS (second)
+                                SECTION 2 — TRADING SIGNALS
                             ═══════════════════════════════════════════════ */}
                             <section>
                                 <div className="mb-4 flex flex-wrap items-center gap-3">
@@ -931,22 +818,6 @@ export default function InsightsPage() {
                                     </div>
                                 )}
                             </section>
-
-                            {/* ── Continue to Final Review ─────────────────── */}
-                            <div className="flex items-center justify-between rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-                                <div>
-                                    <p className="font-semibold text-slate-900">Ready to confirm your plan?</p>
-                                    <p className="mt-0.5 text-sm text-slate-500">Review a full summary of your goals, recommendations, and trading signals.</p>
-                                </div>
-                                <button
-                                    id="btn-final-review"
-                                    onClick={() => setShowFinalReview(true)}
-                                    className="group flex shrink-0 items-center gap-2 rounded-full bg-stone-900 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-emerald-700 hover:shadow-md"
-                                >
-                                    Continue to Final Review
-                                    <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                                </button>
-                            </div>
 
                             {/* ── GC-SEC footer accordion ─────────────────────── */}
                             <motion.section

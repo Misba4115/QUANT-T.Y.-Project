@@ -258,6 +258,7 @@ class AssetTransactionCreate(APIModel):
 class ChatRequest(APIModel):
     message: str = Field(min_length=1, max_length=4_000)
     conversation_id: str | None = None
+    view_context: str | None = Field(default=None, max_length=240)
 
 
 class Citation(APIModel):

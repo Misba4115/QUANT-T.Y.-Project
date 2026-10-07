@@ -225,6 +225,12 @@ function LandingPageContent() {
                                 Sign in
                             </Link>
                         </motion.div>
+                        <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.85 }}
+                            className="mt-10 rounded-2xl border border-emerald-500/30 bg-emerald-950/30 p-5 text-left shadow-xl backdrop-blur-md">
+                            <div className="flex items-center gap-2 text-sm font-semibold text-emerald-300"><ShieldCheck className="h-4 w-4" />Security & data privacy</div>
+                            <p className="mt-2 text-sm leading-6 text-neutral-200">Uploads are checked and previewed before saving; the original file bytes are not kept after parsing. Broker sync is read-only, and connector credentials are encrypted before storage. Preview rows, confirmed records, and chat history are retained in your account.</p>
+                            <a href="#security" className="mt-2 inline-block text-xs font-medium text-emerald-300 hover:underline">How your data is handled →</a>
+                        </motion.div>
                     </div>
 
                     {/* Feature row */}
@@ -238,7 +244,7 @@ function LandingPageContent() {
                             { icon: BarChart3, label: 'Portfolio Tracking', desc: 'Real-time valuations across all asset classes' },
                             { icon: TrendingUp, label: 'Tax Optimization', desc: 'Evidence-based 80C tracking and reporting' },
                             { icon: Zap, label: 'AI Insights', desc: 'Smart analysis powered by your actual data' },
-                        ].map((feat, i) => (
+                        ].map((feat) => (
                             <motion.div
                                 key={feat.label}
                                 whileHover={{ y: -3 }}
@@ -385,20 +391,20 @@ function LandingPageContent() {
                     <Reveal>
                         <p className="text-sm font-medium text-emerald-400">Privacy & Security</p>
                         <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-                            Your data never leaves your control
+                            Security you can understand
                         </h2>
                         <p className="mt-4 max-w-2xl text-lg text-neutral-400">
-                            Every layer of QUANT is designed with privacy at its core. No third-party sharing, no hidden analytics, no compromises.
+                            Clear controls for imports, connections, and saved records.
                         </p>
                     </Reveal>
 
                     <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                        <BentoCard icon={Shield} title="Private Session Processing" description="All analysis happens within your encrypted session. Your raw data is never exposed to other users or external services." delay={0.1} />
-                        <BentoCard icon={Lock} title="Client-Side Isolation" description="Financial parsing and normalization happen in isolated, stateless pipelines. Each session is fully sandboxed with zero cross-contamination." delay={0.2} />
-                        <BentoCard icon={ShieldCheck} title="Bank-Grade Encryption" description="TLS 1.3 in transit, AES-256 at rest. Session tokens rotate automatically, and all credentials are stored using industry-standard hashing." delay={0.3} />
-                        <BentoCard icon={Zap} title="Instant Data Deletion" description="Delete everything with a single click. No delayed queues, no hidden backups — your data is purged immediately and permanently." delay={0.4} />
-                        <BentoCard icon={BarChart3} title="Evidence-Only Metrics" description="QUANT never fabricates projections or simulates history. Every number on your dashboard comes from a verified, traceable source." delay={0.5} />
-                        <BentoCard icon={TrendingUp} title="No Third-Party Sharing" description="Your financial data is never sold, shared, or used for advertising. QUANT makes money from the product, not from your data." delay={0.6} />
+                        <BentoCard icon={Shield} title="Account-scoped records" description="Financial records are retrieved for your signed-in profile. Imported rows and chat history are saved so you can revisit them." delay={0.1} />
+                        <BentoCard icon={Lock} title="Encrypted connector secrets" description="Broker connection credentials are encrypted before storage. QUANT does not ask for your broker password during OAuth authorization." delay={0.2} />
+                        <BentoCard icon={ShieldCheck} title="Validated imports" description="Supported file types and size limits are checked. Review the row preview and errors before confirming an import." delay={0.3} />
+                        <BentoCard icon={Zap} title="Review before syncing" description="Broker access is read-only. You can inspect a sync preview before saving new records and revoke a connection in settings." delay={0.4} />
+                        <BentoCard icon={BarChart3} title="Evidence-aware answers" description="Chat uses a limited, user-scoped financial context and marks missing evidence instead of treating it as a complete portfolio." delay={0.5} />
+                        <BentoCard icon={TrendingUp} title="Clear retention" description="Original upload bytes are not kept after parsing. Confirmed records, import previews, and chat messages are retained in your account." delay={0.6} />
                     </div>
                 </div>
             </section>
@@ -478,13 +484,13 @@ function LandingPageContent() {
 /* ═════════════════════════════════════════════ */
 export default function LandingPage() {
     const router = useRouter();
-    const { isAuthenticated, isLoading } = useUser();
+    const { isAuthenticated, isLoading, isNewUser } = useUser();
 
     useEffect(() => {
         if (!isLoading && isAuthenticated) {
-            router.replace('/dashboard');
+            router.replace(isNewUser ? '/csv-files' : '/dashboard');
         }
-    }, [isAuthenticated, isLoading, router]);
+    }, [isAuthenticated, isLoading, isNewUser, router]);
 
     if (isLoading) {
         return (

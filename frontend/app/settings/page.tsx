@@ -12,6 +12,7 @@ import { Switch } from '@/components/ui/switch';
 import { connectorsApi, ingestionInboxApi, jobsApi, notificationsApi, personalizationApi, userApi } from '@/lib/api';
 import type { ConnectorAccount, ConnectorSyncPreview, NotificationPreference, UserPreference } from '@/types';
 import { useUser } from '@/contexts/user-context';
+import { SecurityBadge } from '@/components/ui/security-badge';
 
 const defaultNotifications: NotificationPreference = { in_app_enabled: true, email_enabled: false, minimum_severity: 'info', timezone: 'Asia/Kolkata', weekly_summary: true };
 const defaultPreference: UserPreference = { persona: 'guided', explanation_depth: 'balanced', dashboard_emphasis: [], explicit_feedback: {} };
@@ -66,6 +67,7 @@ export default function SettingsPage() {
         <Section icon={<User className="h-5 w-5" />} title="Profile" description="Your authenticated identity and display name."><div className="grid gap-4 sm:grid-cols-2"><div><Label>Full name</Label><Input className="mt-2" value={fullName} onChange={(event) => setFullName(event.target.value)} /></div><div><Label>Email</Label><Input className="mt-2" value={user?.email || ''} disabled /></div></div><Button className="mt-4" disabled={busy === 'profile' || !fullName.trim()} onClick={() => void saveProfile()}>{busy === 'profile' ? 'Saving…' : 'Save profile'}</Button></Section>
 
         <Section icon={<Cable className="h-5 w-5" />} title="Broker connections" description="Review-first, read-only sync. Live trading is not available.">
+            <div className="mb-4 flex flex-wrap gap-2"><SecurityBadge label="Read-only broker access" /><SecurityBadge label="Encrypted connector credentials" /></div>
             <div className="space-y-3">{activeConnections.map((account) => <div key={account.connector_account_id} className="flex flex-col gap-3 rounded-xl border border-slate-200 p-4 sm:flex-row sm:items-center sm:justify-between"><div><p className="font-medium text-slate-900">{account.display_name}</p><p className="text-xs text-slate-500">{account.provider} · {account.status.replaceAll('_', ' ')} · Last sync {account.last_successful_sync_at ? new Date(account.last_successful_sync_at).toLocaleString() : 'never'}</p></div><div className="flex gap-2"><Button variant="outline" disabled={busy === 'sync'} onClick={() => void previewSync(account.connector_account_id)}><RefreshCw className="mr-2 h-4 w-4" />Preview sync</Button><Button variant="outline" onClick={() => void run('revoke', async () => { await connectorsApi.revoke(account.connector_account_id); await load(); }, 'Connection revoked and credentials deleted.')}>Disconnect</Button></div></div>)}</div>
             {activeConnections.length === 0 && <p className="rounded-xl bg-slate-50 p-4 text-sm text-slate-600">No broker is connected. Manual entry and file upload remain available.</p>}
             <Button className="mt-4" disabled={busy === 'upstox'} onClick={() => void connectUpstox()}>Connect Upstox</Button><p className="mt-2 text-xs text-slate-500">Authorization occurs on Upstox. QUANT never receives your broker password.</p>

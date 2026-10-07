@@ -9,20 +9,20 @@ import { useUser } from '@/contexts/user-context';
 const cards = [
     {
         icon: ShieldCheck,
-        title: 'Private & Isolated',
-        description: 'Your data is encrypted in transit and at rest. Nothing ever leaves your secure session — all processing happens within your private, isolated environment.',
+        title: 'Your account, your records',
+        description: 'Financial records are scoped to your signed-in account. Connector credentials are encrypted before storage, and broker sync is read-only.',
         color: 'bg-emerald-50 text-emerald-700 border-emerald-200',
     },
     {
         icon: Sparkles,
         title: 'Smart Financial Structuring',
-        description: 'Your CSV and CAS statements are automatically organized into clear, readable summaries. Raw transaction trails are never stored or exposed — only structured insights.',
+        description: 'CSV and CAS uploads are checked and previewed before import. Confirmed rows and chat history are saved so you can revisit them.',
         color: 'bg-stone-50 text-stone-700 border-stone-200',
     },
     {
         icon: UserCheck,
-        title: '100% User Control',
-        description: 'You retain complete ownership of your data at all times. Permanently delete everything with a single click — no questions asked, no residual copies.',
+        title: 'Review before saving',
+        description: 'Check import errors and matched fields before confirming an upload. Broker sync also shows a preview before saving records.',
         color: 'bg-emerald-50 text-emerald-700 border-emerald-200',
     },
 ];

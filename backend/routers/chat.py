@@ -85,6 +85,7 @@ def chat(
             conversation_id,
             history=history,
             request_id=getattr(request.state, "request_id", None),
+            view_context=body.view_context,
         )
     except Exception as exc:
         import logging

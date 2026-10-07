@@ -189,22 +189,24 @@ export const goalsApi = {
 // Backend: POST /chat/
 // ==========================================
 export const chatApi = {
-    sendMessage: (message: string, conversationId?: string) =>
-        apiClient.post<{reply: string; conversation_id: string; intent: string; agent: string; citations: import('@/types').ChatCitation[]; warnings: string[]}>(
+    sendMessage: (message: string, conversationId?: string, viewContext?: string) =>
+        apiClient.post<{reply: string; conversation_id: string; intent: string; agent: string; citations: import('@/types').ChatCitation[]; warnings: string[]; analysis_sections: import('@/types').ChatAnalysisSection[]}>(
             '/chat',
-            { message, conversation_id: conversationId },
+            { message, conversation_id: conversationId, view_context: viewContext },
             { timeout: 90000 }
         ),
 };
 
 export const importApi = {
     list: () => apiClient.get<ImportBatch[]>('/imports'),
-    preview: (file: File, options?: { targetType?: string; columnMapping?: Record<string, string>; fileMode?: 'holdings_snapshot' | 'investment_history' | 'bank_transactions' }) => {
+    preview: (file: File, options?: { targetType?: string; columnMapping?: Record<string, string>; fileMode?: 'holdings_snapshot' | 'investment_history' | 'bank_transactions'; accountId?: string; statementFrequency?: import('@/types').StatementFrequency }) => {
         const form = new FormData();
         form.append('file', file);
         if (options) {
             if (options.targetType) form.append('target_type', options.targetType);
             if (options.columnMapping) form.append('column_mapping', JSON.stringify(options.columnMapping));
+            if (options.accountId) form.append('account_id', options.accountId);
+            if (options.statementFrequency) form.append('statement_frequency', options.statementFrequency);
             if (options.fileMode) form.append('file_mode', options.fileMode);
         }
         return apiClient.post<ImportBatch>('/imports/preview', form, {

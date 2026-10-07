@@ -8,6 +8,7 @@ class AgentState(TypedDict, total=False):
     user_id: str
     conversation_id: str
     user_message: str
+    view_context: str | None
     history: list[dict[str, str]]
     intent: str
     route_decision: dict[str, Any]

@@ -29,8 +29,12 @@ DOMAIN_PATTERNS = {
         r"\b(?:money left|monthly burn|runway|cash needs?)\b",
     ),
 }
-ACTION_RE = re.compile(r"\b(?:should I|what should I|recommend|buy|sell|invest|rebalance|allocate|best investment)\b", re.I)
-EXECUTION_RE = re.compile(r"\b(?:execute|place|submit|make) (?:a |the )?(?:(?:buy|sell) )?(?:trade|order|purchase|sale)\b", re.I)
+ACTION_RE = re.compile(r"\b(?:should I|what should I|recommend|buy|sell|invest|rebalance|allocate|best investment|second opinion|compare investments|compare options)\b", re.I)
+EXECUTION_RE = re.compile(
+    r"\b(?:execute|place|submit|make) (?:a |the )?(?:(?:buy|sell) )?(?:trade|order|purchase|sale)\b"
+    r"|^\s*(?:(?:please|can you|could you|would you)\s+)*(?:buy|sell|purchase)\b",
+    re.I,
+)
 GUARANTEE_RE = re.compile(r"\b(?:guaranteed?|risk[- ]free) (?:return|profit|gain)s?\b", re.I)
 
 
@@ -94,7 +98,7 @@ class StructuredIntentRouter:
             secondary_intents=specialists,
             required_specialists=specialists,
             required_private_contexts=contexts,
-            requires_public_knowledge=primary in {"informational_education", "cross_domain_analysis", "recommendation_like"} or "tax" in specialists,
+            requires_public_knowledge=primary in {"informational_education", "cross_domain_analysis", "recommendation_like"} or "tax" in specialists or bool(re.search(r"\b(?:current|recent|latest)\b.*\b(?:market|economic)\b|\b(?:market|economic)\b.*\b(?:conditions|outlook)\b", lowered)),
             risk_level="high" if action or unsupported else "medium" if specialists else "low",
             clarification_required=clarification,
             confidence=0.92 if unsupported else 0.82 if specialists else 0.65,

@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useUser } from '@/contexts/user-context';
+import { configureGoogleIdentity } from '@/lib/google-identity';
 import { authApi, userApi } from '@/lib/api';
 import axios from 'axios';
 
@@ -24,7 +25,7 @@ type LoginFormData = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
     const router = useRouter();
-    const { login } = useUser();
+    const { login, setNewUser } = useUser();
     const [showPassword, setShowPassword] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -47,9 +48,10 @@ export default function LoginPage() {
             const profileRes = await userApi.getProfile();
             const user = profileRes.data;
             login(user);
+            setNewUser(Boolean(res.data.is_new_user));
             setMessage('Login successful! Redirecting...');
             setTimeout(() => {
-                router.push(res.data.is_new_user ? '/input-data' : '/dashboard');
+                router.push(res.data.is_new_user ? '/csv-files' : '/dashboard');
             }, 500);
         } catch (err: unknown) {
             const msg = axios.isAxiosError(err) ? err.response?.data?.detail || err.message : 'Google sign-in failed';
@@ -57,32 +59,31 @@ export default function LoginPage() {
         } finally {
             setIsSubmitting(false);
         }
-    }, [login, router]);
+    }, [login, router, setNewUser]);
 
     useEffect(() => {
-        const script = document.createElement('script');
-        script.src = 'https://accounts.google.com/gsi/client';
-        script.async = true;
-        script.defer = true;
-        script.onload = () => {
-            const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-            if (clientId && clientId !== 'YOUR_GOOGLE_CLIENT_ID_HERE' && window.google) {
-                window.google.accounts.id.initialize({
-                    client_id: clientId,
-                    callback: handleGoogleResponse,
-                });
-
+        const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+        if (!clientId || clientId === 'YOUR_GOOGLE_CLIENT_ID_HERE') return;
+        let disposed = false;
+        let unregister: (() => void) | undefined;
+        void configureGoogleIdentity(clientId, handleGoogleResponse)
+            .then((cleanup) => {
+                if (disposed) return cleanup();
+                unregister = cleanup;
                 const btnContainer = document.getElementById('googleSignInDiv');
-                if (btnContainer) {
+                if (btnContainer && window.google) {
+                    btnContainer.replaceChildren();
                     window.google.accounts.id.renderButton(
                         btnContainer,
                         { theme: 'outline', size: 'large', text: 'signin_with', width: '400' }
                     );
                 }
-            }
+            })
+            .catch(() => undefined);
+        return () => {
+            disposed = true;
+            unregister?.();
         };
-        document.head.appendChild(script);
-        return () => { document.head.removeChild(script); };
     }, [handleGoogleResponse]);
 
     const onSubmit = async (data: LoginFormData) => {

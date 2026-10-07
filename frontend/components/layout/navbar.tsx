@@ -71,7 +71,7 @@ export default function Navbar() {
                 </Link>
 
                 {/* Nav Links */}
-                <nav className="hidden items-center gap-1 md:flex">
+                <nav className="quant-desktop-nav hidden items-center gap-1 md:flex">
                     {navLinks.map((link) => {
                         const isActive = pathname === link.href;
                         return (
@@ -158,7 +158,7 @@ export default function Navbar() {
                     </DropdownMenu>
 
                     {/* Mobile Nav */}
-                    <div className="flex items-center md:hidden">
+                    <div className="quant-compact-nav flex items-center md:hidden">
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild><button aria-label="Open navigation"><Badge variant="outline" className="text-xs">Menu</Badge></button></DropdownMenuTrigger>
                             <DropdownMenuContent align="end">

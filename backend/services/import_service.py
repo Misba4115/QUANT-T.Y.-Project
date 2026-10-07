@@ -62,7 +62,17 @@ async def preview_import(
     target_override: str | None = None,
     mapping_override: dict[str, str] | None = None,
     file_mode: str | None = None,
+    account_id: str | None = None,
+    statement_frequency: str | None = None,
 ) -> dict[str, Any]:
+    bank_statement = None
+    if account_id is not None or statement_frequency is not None:
+        if not account_id or statement_frequency not in {"weekly", "monthly", "quarterly", "6_months", "yearly"}:
+            raise HTTPException(status_code=422, detail="A bank account and supported statement frequency are required")
+        accounts = SupabaseRepository(db).list_for_user("banking_accounts", user_id)
+        if not any(str(account.get("account_id")) == account_id for account in accounts):
+            raise HTTPException(status_code=422, detail="Select a bank account belonging to your profile")
+        bank_statement = {"account_id": account_id, "statement_frequency": statement_frequency}
     settings = get_settings()
     filename = _safe_filename(file.filename)
     extension = Path(filename).suffix.lower()
@@ -75,6 +85,8 @@ async def preview_import(
         raise HTTPException(status_code=422, detail="The uploaded file is empty")
 
     content_hash = hashlib.sha256(content).hexdigest()
+    if bank_statement:
+        content_hash = _canonical_hash({"content_hash": content_hash, "bank_statement": bank_statement})
     repo = SupabaseRepository(db)
     try:
         existing = repo.find(
@@ -116,6 +128,8 @@ async def preview_import(
         else:
             raise HTTPException(status_code=422, detail=str(exc)) from exc
     target, raw_rows = parsed.target, parsed.rows
+    if bank_statement and target != "bank_transactions":
+        raise HTTPException(status_code=422, detail="Upload a bank transaction statement for the selected account")
     if len(raw_rows) > settings.max_import_rows:
         raise HTTPException(status_code=413, detail=f"File exceeds the {settings.max_import_rows}-row limit")
 
@@ -123,6 +137,9 @@ async def preview_import(
     row_errors: list[dict[str, Any]] = []
     for index, raw in enumerate(raw_rows, start=2):
         try:
+            if bank_statement:
+                # Apply the selected account consistently, without editing statement dates or amounts.
+                raw = {**raw, "account_id": account_id}
             normalized = normalize_row(target, raw)
             fingerprint = _canonical_hash({"target": target, "row": normalized})
             preview_rows.append({**normalized, "_row_number": index, "_row_hash": fingerprint})
@@ -157,6 +174,7 @@ async def preview_import(
                 "recognized_columns": parsed.recognized_columns,
                 "ignored_columns": parsed.ignored_columns,
                 "method": parsed.mapping_method,
+                **({"bank_statement": bank_statement} if bank_statement else {}),
             },
             "valid_count": len(preview_rows),
             "error_count": len(row_errors),

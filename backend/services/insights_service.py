@@ -213,10 +213,10 @@ def _goal_horizon(target_date: str | None) -> str:
 def _goal_gap(goal: dict[str, Any], net_worth: float) -> dict[str, Any]:
     """Compute gap, trajectory and required SIP for a single goal."""
     target = float(goal.get("target_amount") or 0)
-    current = float(goal.get("current_amount") or 0)
-    # Fallback: use a fraction of net worth as a proxy if no current_amount set
-    if current <= 0 and net_worth > 0:
-        current = net_worth * 0.15  # conservative proxy
+    # The persisted goals schema calls this field ``current_saved``. Keep the
+    # legacy alias for older fixtures, but never replace an explicit zero with
+    # an unexplained percentage of the user's net worth.
+    current = float(goal.get("current_saved", goal.get("current_amount", 0)) or 0)
 
     gap = max(0.0, target - current)
     shortfall_pct = (gap / target * 100) if target > 0 else 0.0

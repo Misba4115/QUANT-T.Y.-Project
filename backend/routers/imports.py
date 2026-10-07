@@ -40,6 +40,8 @@ async def preview(
     target_type: str | None = Form(default=None),
     column_mapping: str | None = Form(default=None),
     file_mode: str | None = Form(default=None),
+    account_id: str | None = Form(default=None),
+    statement_frequency: str | None = Form(default=None),
     current_user: dict[str, Any] = Depends(get_current_user),
     db: Any = Depends(get_db),
 ):
@@ -63,6 +65,8 @@ async def preview(
         target_override=target_type,
         mapping_override=parsed_mapping,
         file_mode=file_mode,
+        account_id=account_id,
+        statement_frequency=statement_frequency,
     )
 
 

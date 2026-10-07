@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
-import { AlertTriangle, ArrowRight, BarChart3, ChevronRight, Clock3, Database, Download, IndianRupee, MessageCircle, RefreshCw, ShieldCheck, TrendingUp } from 'lucide-react';
+import { AlertTriangle, ArrowRight, BarChart3, ChevronRight, Clock3, Database, Download, IndianRupee, MessageCircle, RefreshCw, ShieldCheck, TrendingUp, X } from 'lucide-react';
 import { Area, AreaChart, Cell, CartesianGrid, Legend, Line, LineChart, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 import Navbar from '@/components/layout/navbar';
@@ -12,6 +12,7 @@ import { SkeletonCard, SkeletonChart, SkeletonTable } from '@/components/ui/skel
 import { InfoTooltip } from '@/components/ui/tooltip';
 import { dashboardApi, marketDataApi } from '@/lib/api';
 import { formatChartValue, formatCurrency } from '@/lib/helpers';
+import { dashboardChatContext, publishChatViewContext } from '@/lib/chat-view-context';
 import type { DashboardData } from '@/types';
 
 function StatusPill({ children, tone = 'neutral' }: { children: React.ReactNode; tone?: 'good' | 'warn' | 'neutral' }) {
@@ -49,6 +50,7 @@ export default function DashboardPage() {
     const [dateFrom, setDateFrom] = useState('');
     const [dateTo, setDateTo] = useState('');
     const [chartType, setChartType] = useState<'line' | 'area'>('line');
+    const [showPortfolioStatus, setShowPortfolioStatus] = useState(true);
 
     const loadDashboard = useCallback(async () => {
         setLoading(true);
@@ -71,6 +73,10 @@ export default function DashboardPage() {
     }, [dateFrom, dateTo, timePeriod]);
 
     useEffect(() => { void loadDashboard(); }, [loadDashboard]);
+
+    useEffect(() => {
+        if (data) publishChatViewContext(dashboardChatContext(data, timePeriod));
+    }, [data, timePeriod]);
 
     useEffect(() => {
         void dashboardApi.getConfig().then((response) => {
@@ -173,9 +179,33 @@ export default function DashboardPage() {
     const taxRecorded = data.tax_saved ?? 0;
     const taxLimit = data.tax_limit || 150000;
     const taxHeadroom = Math.max(0, taxLimit - taxRecorded);
+    const portfolioStatus = data.alerts.some((alert) => alert.type === 'warning')
+        ? 'Action Required'
+        : data.valuation_coverage < 0.8 || data.history_status === 'insufficient_history'
+            ? 'Building History'
+            : 'Stable';
 
     return (
         <><Navbar /><PageTransition><main className="mx-auto max-w-7xl space-y-6 px-4 py-8 sm:px-6 lg:px-8">
+            {showPortfolioStatus && (
+                <aside role="status" aria-label="Portfolio status" className="fixed bottom-24 left-4 z-40 w-[min(22rem,calc(100vw-2rem))] rounded-2xl border border-emerald-200 bg-white p-4 shadow-xl sm:bottom-6">
+                    <div className="flex items-start justify-between gap-3">
+                        <div>
+                            <p className="text-xs font-semibold uppercase tracking-wide text-emerald-700">Portfolio status</p>
+                            <p className="mt-1 text-xl font-semibold text-stone-950">{portfolioStatus}</p>
+                        </div>
+                        <button type="button" onClick={() => setShowPortfolioStatus(false)} aria-label="Dismiss portfolio status" className="rounded-md p-1 text-stone-500 hover:bg-stone-100"><X className="h-4 w-4" /></button>
+                    </div>
+                    <p className="mt-2 text-sm text-stone-600">{Math.round(data.valuation_coverage * 100)}% market-price coverage · {data.risk_level === 'Unavailable' ? 'Risk history unavailable' : `${data.risk_level} measured risk`}. Based on your saved data; this is not a return forecast.</p>
+                    <button type="button" onClick={() => {
+                        setShowPortfolioStatus(false);
+                        window.dispatchEvent(new CustomEvent('open-chatbot', { detail: {
+                            prompt: 'Summarize my portfolio against current economic and market conditions in four concise bullets. Use dated evidence if available; identify missing or stale evidence.',
+                            autoSend: true,
+                        } }));
+                    }} className="mt-3 text-sm font-semibold text-emerald-700 hover:underline">Learn more <ArrowRight className="inline h-3.5 w-3.5" /></button>
+                </aside>
+            )}
             <header>
                 <p className="text-sm font-medium text-emerald-700">Financial command center</p>
                 <div className="mt-1 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">

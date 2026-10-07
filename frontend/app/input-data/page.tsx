@@ -4,16 +4,16 @@ import { FormEvent, useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
-import { Building2, Coins, Database, FileUp, Goal, Landmark, Loader2, Plus, RefreshCw, ShieldCheck, TrendingUp } from 'lucide-react';
+import { Building2, Coins, Database, FileUp, Goal, Landmark, Loader2, RefreshCw, ShieldCheck, TrendingUp } from 'lucide-react';
 
 import Navbar from '@/components/layout/navbar';
 import PageTransition from '@/components/layout/page-transition';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { OnboardingModal } from '@/components/ui/onboarding-modal';
 import { bankingApi, cryptoApi, equityApi, etfApi, goalsApi, mutualFundApi, transactionsApi } from '@/lib/api';
 import { useUser } from '@/contexts/user-context';
+import { SecurityBadge } from '@/components/ui/security-badge';
 
 interface Inventory {
     bankAccounts: number;
@@ -34,14 +34,12 @@ function message(error: unknown): string {
 
 export default function InputDataPage() {
     const router = useRouter();
-    const { isAuthenticated, isLoading: sessionLoading, isNewUser } = useUser();
+    const { isAuthenticated, isLoading: sessionLoading, completeOnboarding } = useUser();
     const [inventory, setInventory] = useState<Inventory>(EMPTY);
     const [loading, setLoading] = useState(true);
-    const [savingAccount, setSavingAccount] = useState(false);
     const [savingGoal, setSavingGoal] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [notice, setNotice] = useState<string | null>(null);
-    const [account, setAccount] = useState({ account_type: 'savings', account_name: '', institution: '', current_balance: '' });
     const [goal, setGoal] = useState({ goal_name: '', goal_type: 'custom', target_amount: '', current_saved: '', target_date: '' });
 
     const refresh = useCallback(async () => {
@@ -75,30 +73,6 @@ export default function InputDataPage() {
         }
         void refresh();
     }, [isAuthenticated, refresh, router, sessionLoading]);
-
-    const addAccount = async (event: FormEvent) => {
-        event.preventDefault();
-        setSavingAccount(true);
-        setError(null);
-        setNotice(null);
-        try {
-            await bankingApi.addBankAccount({
-                account_type: account.account_type,
-                account_name: account.account_name,
-                institution: account.institution,
-                current_balance: Number(account.current_balance),
-                currency: 'INR',
-                is_primary: inventory.bankAccounts === 0,
-            });
-            setAccount({ account_type: 'savings', account_name: '', institution: '', current_balance: '' });
-            setNotice('Bank account saved to your profile.');
-            await refresh();
-        } catch (caught) {
-            setError(message(caught));
-        } finally {
-            setSavingAccount(false);
-        }
-    };
 
     const addGoal = async (event: FormEvent) => {
         event.preventDefault();
@@ -140,11 +114,11 @@ export default function InputDataPage() {
 
     return (
         <><Navbar /><PageTransition><main className="mx-auto max-w-7xl space-y-6 px-4 py-8 sm:px-6 lg:px-8">
-            {isNewUser && <OnboardingModal />}
+
 
             <header className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-                <div><p className="text-sm font-medium text-emerald-700">Data control center</p><h1 className="mt-1 text-3xl font-semibold tracking-tight text-stone-950">Connected financial records</h1><p className="mt-2 max-w-2xl text-sm text-stone-600">Add your bank accounts, investment holdings, and financial goals.</p></div>
-                <div className="flex gap-2"><Button variant="outline" disabled={loading} onClick={() => void refresh()}><RefreshCw className={`mr-2 h-4 w-4 ${loading ? 'animate-spin' : ''}`} />Refresh</Button><Button asChild><Link href="/csv-files"><FileUp className="mr-2 h-4 w-4" />Import file</Link></Button><Button variant="outline" asChild><Link href="/dashboard">Dashboard</Link></Button></div>
+                <div><p className="text-sm font-medium text-emerald-700">Data control center</p><h1 className="mt-1 text-3xl font-semibold tracking-tight text-stone-950">Connected financial records</h1><p className="mt-2 max-w-2xl text-sm text-stone-600">Review your saved financial records and add your financial goals.</p></div>
+                <div className="flex flex-wrap gap-2"><Button variant="outline" disabled={loading} onClick={() => void refresh()}><RefreshCw className={`mr-2 h-4 w-4 ${loading ? 'animate-spin' : ''}`} />Refresh</Button><Button asChild><Link href="/csv-files"><FileUp className="mr-2 h-4 w-4" />Import file</Link></Button><Button variant="outline" asChild><Link href="/dashboard" onClick={completeOnboarding}>Continue to Dashboard</Link></Button></div>
             </header>
 
             {error && <div className="rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-800">{error}</div>}
@@ -156,18 +130,7 @@ export default function InputDataPage() {
 
             <div className="grid gap-6 lg:grid-cols-2">
                 <section className="rounded-2xl border border-stone-200 bg-white p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]">
-                    <div className="flex items-center gap-3"><span className="rounded-xl bg-emerald-50 p-2 text-emerald-700"><Plus className="h-5 w-5" /></span><div><h2 className="font-semibold text-stone-950">Add a bank account</h2><p className="text-sm text-stone-500">Accounts are always entered here, never inferred from an uploaded file.</p></div></div>
-                    <form className="mt-6 space-y-4" onSubmit={addAccount}>
-                        <div><Label htmlFor="account-type">Account type</Label><select id="account-type" className="mt-1 h-10 w-full rounded-md border border-stone-200 bg-white px-3 text-sm" value={account.account_type} onChange={(event) => setAccount({ ...account, account_type: event.target.value })}><option value="savings">Savings</option><option value="current">Current</option><option value="fixed_deposit">Fixed deposit</option><option value="recurring_deposit">Recurring deposit</option></select></div>
-                        <div><Label htmlFor="account-name">Account name</Label><Input id="account-name" className="mt-1" required maxLength={120} value={account.account_name} onChange={(event) => setAccount({ ...account, account_name: event.target.value })} placeholder="Primary savings" /></div>
-                        <div><Label htmlFor="institution">Institution</Label><Input id="institution" className="mt-1" required maxLength={120} value={account.institution} onChange={(event) => setAccount({ ...account, institution: event.target.value })} placeholder="Bank name" /></div>
-                        <div><Label htmlFor="balance">Current balance (INR)</Label><Input id="balance" className="mt-1" required min="0" step="0.01" type="number" value={account.current_balance} onChange={(event) => setAccount({ ...account, current_balance: event.target.value })} onWheel={preventScrollChange} /></div>
-                        <Button className="w-full" disabled={savingAccount}>{savingAccount && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}Save account</Button>
-                    </form>
-                </section>
-
-                <section className="rounded-2xl border border-stone-200 bg-white p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]">
-                    <div className="flex items-center gap-3"><span className="rounded-xl bg-emerald-50 p-2 text-emerald-700"><Goal className="h-5 w-5" /></span><div><h2 className="font-semibold text-stone-950">Add a financial goal</h2><p className="text-sm text-stone-500">Tell QUANT what you are working toward in your own words.</p></div></div>
+                    <div className="flex items-center gap-3"><span className="rounded-xl bg-emerald-50 p-2 text-emerald-700"><Goal className="h-5 w-5" /></span><div><div className="flex flex-wrap items-center gap-2"><h2 className="font-semibold text-stone-950">Add a financial goal</h2><SecurityBadge label="Saved to your profile" /></div><p className="text-sm text-stone-500">Tell QUANT what you are working toward in your own words.</p></div></div>
                     <form className="mt-6 space-y-4" onSubmit={addGoal}>
                         <div><Label htmlFor="goal-name">Goal name</Label><Input id="goal-name" className="mt-1" required maxLength={160} value={goal.goal_name} onChange={(event) => setGoal({ ...goal, goal_name: event.target.value })} placeholder="Buy a home" /></div>
                         <div><Label htmlFor="goal-type">Goal type</Label><select id="goal-type" className="mt-1 h-10 w-full rounded-md border border-stone-200 bg-white px-3 text-sm" value={goal.goal_type} onChange={(event) => setGoal({ ...goal, goal_type: event.target.value })}><option value="custom">Custom</option><option value="house">Home</option><option value="retirement">Retirement</option><option value="education">Education</option><option value="emergency">Emergency fund</option><option value="wealth">Wealth building</option></select></div>

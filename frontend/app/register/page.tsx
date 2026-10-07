@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useUser } from '@/contexts/user-context';
+import { configureGoogleIdentity } from '@/lib/google-identity';
 import { authApi, userApi } from '@/lib/api';
 import axios from 'axios';
 
@@ -62,7 +63,7 @@ export default function RegisterPage() {
             if (res.data.is_new_user) setNewUser(true);
             setMessage('Account ready! Redirecting...');
             setTimeout(() => {
-                router.push(res.data.is_new_user ? '/input-data' : '/dashboard');
+                router.push(res.data.is_new_user ? '/csv-files' : '/dashboard');
             }, 500);
         } catch (err: unknown) {
             const msg = axios.isAxiosError(err) ? err.response?.data?.detail || err.message : 'Google sign-up failed';
@@ -73,21 +74,20 @@ export default function RegisterPage() {
     }, [login, setNewUser, router]);
 
     useEffect(() => {
-        const script = document.createElement('script');
-        script.src = 'https://accounts.google.com/gsi/client';
-        script.async = true;
-        script.defer = true;
-        script.onload = () => {
-            const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-            if (clientId && clientId !== 'YOUR_GOOGLE_CLIENT_ID_HERE' && window.google) {
-                window.google.accounts.id.initialize({
-                    client_id: clientId,
-                    callback: handleGoogleResponse,
-                });
-            }
+        const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+        if (!clientId || clientId === 'YOUR_GOOGLE_CLIENT_ID_HERE') return;
+        let disposed = false;
+        let unregister: (() => void) | undefined;
+        void configureGoogleIdentity(clientId, handleGoogleResponse)
+            .then((cleanup) => {
+                if (disposed) return cleanup();
+                unregister = cleanup;
+            })
+            .catch(() => undefined);
+        return () => {
+            disposed = true;
+            unregister?.();
         };
-        document.head.appendChild(script);
-        return () => { document.head.removeChild(script); };
     }, [handleGoogleResponse]);
 
     const onSubmit = async (data: RegisterFormData) => {
@@ -108,7 +108,7 @@ export default function RegisterPage() {
             setNewUser(true);
             setMessage('Registration successful! Redirecting...');
             setTimeout(() => {
-                router.push('/input-data');
+                router.push('/csv-files');
             }, 500);
         } catch (err: unknown) {
             const msg = axios.isAxiosError(err) ? err.response?.data?.detail || err.message : 'Registration failed';

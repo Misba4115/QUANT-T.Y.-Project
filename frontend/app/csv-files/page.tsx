@@ -5,15 +5,18 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import {
-    AlertCircle, ArrowRight, Bitcoin, Building2, CheckCircle2, ChevronRight,
-    Coins, Download, Eye, FileClock, FileSpreadsheet, Goal, Landmark,
-    Loader2, Lock, RefreshCw, ShieldCheck, Trash2, TrendingUp, UploadCloud, X,
+    AlertCircle, ArrowRight, Bitcoin, Building2, CheckCircle2,
+    Coins, Download, FileClock, FileSpreadsheet, Goal, Landmark,
+    Loader2, RefreshCw, ShieldCheck, Trash2, TrendingUp, UploadCloud, X,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import Navbar from '@/components/layout/navbar';
 import PageTransition from '@/components/layout/page-transition';
 import { Button } from '@/components/ui/button';
+import { Fragment } from 'react';
+import { BankStatementSetup, type BankStatementDetails } from '@/components/imports/bank-statement-setup';
+import { UploadStep } from '@/components/imports/upload-step';
 import { InfoTooltip } from '@/components/ui/tooltip';
 import { importApi } from '@/lib/api';
 import { IMPORT_TEMPLATES } from '@/lib/import-templates';
@@ -71,13 +74,6 @@ const CATEGORIES: {
     { key: 'goals',        label: 'Goals',           desc: 'Financial goals and targets',                  icon: Goal,        action: 'goal' },
 ];
 
-const STEPPER = [
-    { num: '01', label: 'Choose data' },
-    { num: '02', label: 'Upload file' },
-    { num: '03', label: 'Review data' },
-    { num: '04', label: 'Save import' },
-];
-
 // ---------------------------------------------------------------------------
 // Main page
 // ---------------------------------------------------------------------------
@@ -88,12 +84,14 @@ export default function DataImportsPage() {
     const inputRef = useRef<HTMLInputElement>(null);
 
     // Upload state
-    const [activeCategory, setActiveCategory] = useState<CategoryKey | null>(null);
+    const [activeCategory, setActiveCategory] = useState<CategoryKey | null>('bank');
     const [file, setFile] = useState<File | null>(null);
     const [batch, setBatch] = useState<ImportBatch | null>(null);
     const [busy, setBusy] = useState<'preview' | 'commit' | 'delete' | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [dragging, setDragging] = useState(false);
+
+    const [bankDetails, setBankDetails] = useState<BankStatementDetails>({ accountId: '', statementFrequency: 'monthly' });
 
     // Mapping state (unchanged logic)
     const [mappingDiagnostic, setMappingDiagnostic] = useState<ImportMappingDiagnostic | null>(null);
@@ -107,8 +105,6 @@ export default function DataImportsPage() {
     const [showBatchData, setShowBatchData] = useState(true);
     const batchRef = useRef<HTMLDivElement>(null);
 
-    // Templates panel
-    const [showTemplates, setShowTemplates] = useState(false);
 
     // ---------------------------------------------------------------------------
     // Data loading
@@ -153,13 +149,22 @@ export default function DataImportsPage() {
         selected: File,
         mappingOptions?: { targetType?: string; columnMapping?: Record<string, string>; fileMode?: 'holdings_snapshot' | 'investment_history' | 'bank_transactions' },
     ) => {
+        if (busy !== null || historyBusy !== null || !activeCategory) return;
+        if (activeCategory === 'bank' && !bankDetails.accountId) {
+            setError('Choose or save your bank details before uploading a statement.');
+            return;
+        }
+        if (activeCategory === 'bank' && !/\.(csv|xlsx)$/i.test(selected.name)) {
+            setError('Bank statements must be CSV or XLSX files.');
+            return;
+        }
         setFile(selected);
         setBatch(null);
         setError(null);
         setBusy('preview');
         setShowBatchData(true);
         try {
-            const response = await importApi.preview(selected, mappingOptions);
+            const response = await importApi.preview(selected, activeCategory === 'bank' ? { ...mappingOptions, fileMode: 'bank_transactions', ...bankDetails } : mappingOptions);
             setBatch(response.data);
             setMappingDiagnostic(null);
         } catch (caught) {
@@ -183,6 +188,7 @@ export default function DataImportsPage() {
 
     const selectFile = (event: ChangeEvent<HTMLInputElement>) => {
         const selected = event.target.files?.[0];
+        event.target.value = '';
         if (selected) void preview(selected);
     };
 
@@ -252,51 +258,18 @@ export default function DataImportsPage() {
         }
     };
 
-    const downloadCleanedImport = async (item: ImportBatch) => {
-        setHistoryBusy(item.import_batch_id);
-        setError(null);
-        try {
-            const response = await importApi.downloadNormalized(item.import_batch_id);
-            const url = URL.createObjectURL(response.data);
-            const anchor = document.createElement('a');
-            anchor.href = url;
-            anchor.download = `${item.filename.replace(/\.[^.]+$/, '') || 'quant-import'}-normalized.csv`;
-            anchor.click();
-            URL.revokeObjectURL(url);
-        } catch (caught) {
-            setError(errorMessage(caught));
-        } finally {
-            setHistoryBusy(null);
-        }
-    };
-
-    const discard = async () => {
-        if (!batch) return;
+    const clearData = async (batchId = batch?.import_batch_id) => {
+        if (!batchId) return;
         setError(null);
         setBusy('delete');
         try {
-            await importApi.deletePreview(batch.import_batch_id);
-            setBatch(null);
-            setFile(null);
-            setShowBatchData(false);
-            if (inputRef.current) inputRef.current.value = '';
-        } catch (caught) {
-            setError(errorMessage(caught));
-        } finally {
-            setBusy(null);
-        }
-    };
-
-    const clearData = async () => {
-        if (!batch) return;
-        setError(null);
-        setBusy('delete');
-        try {
-            await importApi.deletePreview(batch.import_batch_id);
-            setBatch(null);
-            setFile(null);
-            setShowBatchData(false);
-            if (inputRef.current) inputRef.current.value = '';
+            await importApi.deletePreview(batchId);
+            if (batch?.import_batch_id === batchId) {
+                setBatch(null);
+                setFile(null);
+                setShowBatchData(false);
+                if (inputRef.current) inputRef.current.value = '';
+            }
             await loadHistory();
         } catch (caught) {
             setError(errorMessage(caught));
@@ -314,10 +287,6 @@ export default function DataImportsPage() {
     const committed = batch?.status === 'completed' || batch?.status === 'partial';
 
     const activeCategoryInfo = CATEGORIES.find((c) => c.key === activeCategory);
-    const templateForCategory = activeCategoryInfo?.templateId
-        ? IMPORT_TEMPLATES.find((t) => t.id === activeCategoryInfo.templateId)
-        : undefined;
-
     if (sessionLoading || !isAuthenticated) {
         return <main className="flex min-h-screen items-center justify-center text-sm text-stone-500"><Loader2 className="mr-2 h-4 w-4 animate-spin" />Checking your secure session…</main>;
     }
@@ -335,7 +304,7 @@ export default function DataImportsPage() {
                                 Bring your financial data<br className="hidden sm:block" /> into QUANT.
                             </h1>
                             <div className="flex gap-2">
-                                <Button asChild><Link href="/dashboard">Continue to Dashboard <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
+                                <Button asChild><Link href="/input-data">View your data <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
                             </div>
                         </div>
                         <p className="mt-3 max-w-lg text-sm leading-relaxed text-stone-500">
@@ -354,9 +323,7 @@ export default function DataImportsPage() {
                         01  CHOOSE WHAT YOU WANT TO IMPORT
                     ════════════════════════════════════════════ */}
                     <section className="mb-6">
-                        <p className="mb-3 text-xs font-bold uppercase tracking-widest text-stone-500">
-                            <span className="mr-2 text-stone-950">01</span>Choose what you want to import
-                        </p>
+                        <UploadStep number={1} title="Choose what you want to import" security="Importing requires a signed-in session. Your import history is scoped to your user profile." />
 
                         <div className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm">
                             {CATEGORIES.map((cat, i) => {
@@ -365,9 +332,8 @@ export default function DataImportsPage() {
                                 const template = cat.templateId ? IMPORT_TEMPLATES.find((t) => t.id === cat.templateId) : undefined;
 
                                 return (
-                                    <div
-                                        key={cat.key}
-                                        className={`flex items-center gap-4 px-5 py-4 transition-colors ${i > 0 ? 'border-t border-stone-100' : ''} ${isActive ? 'bg-emerald-50/70' : 'hover:bg-stone-50'}`}
+                                    <Fragment key={cat.key}><div
+                                        className={`flex flex-wrap items-center gap-4 px-5 py-4 transition-colors ${i > 0 ? 'border-t border-stone-100' : ''} ${isActive ? 'bg-emerald-50/70' : 'hover:bg-stone-50'}`}
                                     >
                                         {/* Icon */}
                                         <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border ${isActive ? 'border-emerald-200 bg-emerald-50 text-emerald-700' : 'border-stone-200 bg-stone-50 text-stone-500'}`}>
@@ -404,6 +370,7 @@ export default function DataImportsPage() {
                                                 </Link>
                                             ) : (
                                                 <button
+                                                    disabled={busy !== null || historyBusy !== null}
                                                     onClick={() => {
                                                         setActiveCategory(cat.key);
                                                         setBatch(null);
@@ -419,6 +386,8 @@ export default function DataImportsPage() {
                                             )}
                                         </div>
                                     </div>
+                                    {cat.key === 'bank' && isActive && <BankStatementSetup value={bankDetails} onChange={setBankDetails} disabled={busy !== null || historyBusy !== null || file !== null || batch !== null} />}
+                                    </Fragment>
                                 );
                             })}
                         </div>
@@ -428,16 +397,14 @@ export default function DataImportsPage() {
                         02  UPLOAD YOUR DATA
                     ════════════════════════════════════════════ */}
                     <section className="mb-6" id="upload-section">
-                        <p className="mb-3 text-xs font-bold uppercase tracking-widest text-stone-500">
-                            <span className="mr-2 text-stone-950">02</span>Upload your data
-                        </p>
+                        <UploadStep number={activeCategory === 'bank' ? 3 : 2} title="Upload your data" security="Files are checked for supported formats, size limits, and valid rows. Uploading creates a preview; financial records are saved only after confirmation." />
 
                         <input
                             ref={inputRef}
                             className="sr-only"
                             id="financial-file"
                             type="file"
-                            accept=".csv,.xlsx,.pdf"
+                            accept={activeCategory === 'bank' ? ".csv,.xlsx" : ".csv,.xlsx,.pdf"}
                             onChange={selectFile}
                         />
 
@@ -468,24 +435,28 @@ export default function DataImportsPage() {
                                 )}
                             </p>
                             <p className="mt-1 text-sm text-stone-500">Drop your file here or choose a file from your computer</p>
-                            <p className="mt-0.5 text-xs text-stone-400">CSV · XLSX · PDF</p>
+                            <p className="mt-0.5 text-xs text-stone-400">{activeCategory === 'bank' ? 'Bank statements: CSV · XLSX' : 'CSV · XLSX · text-based CAS PDF'}</p>
 
                             <Button
                                 className="mt-4"
                                 onClick={() => inputRef.current?.click()}
-                                disabled={busy !== null || !activeCategory}
+                                disabled={busy !== null || historyBusy !== null || !activeCategory || (activeCategory === 'bank' && !bankDetails.accountId)}
                             >
                                 Choose file
                             </Button>
 
                             <p className="mt-3 flex items-center gap-1.5 text-xs text-stone-400">
                                 <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
-                                Your files are encrypted and never shared.
+                                Review validated rows before saving to your profile.
                             </p>
 
                             {file && <p className="mt-2 text-xs text-stone-500">Selected: {file.name} · {(file.size / 1024).toFixed(1)} KB</p>}
                         </div>
 
+                        <div className="mt-6">
+                            <UploadStep number={activeCategory === 'bank' ? 4 : 3} title="Review data" security="Invalid rows are reported for correction. Review the matched columns and transaction values before confirming the import." />
+                            {!batch && !mappingDiagnostic && <p className="text-sm text-stone-500">Your preview will appear here after upload.</p>}
+                        </div>
                         {/* Mapping diagnostic (unchanged logic, re-styled) */}
                         {mappingDiagnostic && (
                             <div className="mt-4 rounded-2xl border border-amber-200 bg-amber-50/40 p-6">
@@ -500,7 +471,7 @@ export default function DataImportsPage() {
 
                                 <div className="mt-5 flex flex-wrap gap-3">
                                     <Button variant="outline" onClick={() => inputRef.current?.click()}>Choose another file</Button>
-                                    <Button variant="outline" asChild><Link href="/input-data">Enter an account or goal</Link></Button>
+                                    <Button variant="outline" asChild><Link href="/input-data">Add a financial goal</Link></Button>
                                 </div>
 
                                 <div className="mt-5 rounded-xl border border-emerald-100 bg-white p-4">
@@ -582,7 +553,7 @@ export default function DataImportsPage() {
                                             <FileSpreadsheet className="mt-0.5 h-5 w-5 text-emerald-700" />
                                             <div>
                                                 <h2 className="font-semibold text-stone-950">{batch.filename}</h2>
-                                                <p className="text-sm text-stone-500">Detected as {targetLabel(batch.target_type)} · {mappingMethodLabel(batch.column_mapping?.mapping_method)}</p>
+                                                <p className="text-sm text-stone-500">Detected as {targetLabel(batch.target_type)} · {mappingMethodLabel(batch.column_mapping?.method)}</p>
                                             </div>
                                         </div>
                                         <div className="flex items-center gap-3">
@@ -633,6 +604,8 @@ export default function DataImportsPage() {
                                     {/* Batch actions */}
                                     <div className="flex flex-col gap-3 border-t border-stone-100 bg-stone-50 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
                                         <div className="text-sm text-stone-600">
+                                            <UploadStep number={activeCategory === 'bank' ? 5 : 4} title="Save import" security="Confirmation saves validated rows to your signed-in profile. Repeated confirmation does not save the same batch twice." />
+                                            {batch.column_mapping.bank_statement && <p className="mb-2">Statement frequency: {batch.column_mapping.bank_statement.statement_frequency.replace('_', ' ')}</p>}
                                             {committed
                                                 ? <span className="flex items-center gap-2 font-medium text-emerald-700"><CheckCircle2 className="h-4 w-4" />{batch.committed_count} rows saved to your profile</span>
                                                 : <span className="flex items-center gap-2"><ShieldCheck className="h-4 w-4" />Nothing has been saved yet.</span>
@@ -660,7 +633,7 @@ export default function DataImportsPage() {
                     <section className="mb-6">
                         <div className="mb-3 flex items-center justify-between">
                             <p className="text-xs font-bold uppercase tracking-widest text-stone-500">
-                                <span className="mr-2 text-stone-950">03</span>Your uploaded files
+                                Your uploaded files <InfoTooltip content="Only imports owned by your signed-in profile can be reviewed or downloaded." />
                             </p>
                             <Button variant="outline" size="sm" disabled={historyLoading} onClick={() => void loadHistory()}>
                                 <RefreshCw className={`mr-2 h-3.5 w-3.5 ${historyLoading ? 'animate-spin' : ''}`} />Refresh
@@ -706,7 +679,7 @@ export default function DataImportsPage() {
                                                     {/* Status */}
                                                     <span className={`inline-flex w-fit items-center gap-1.5 text-xs font-medium ${item.status === 'completed' ? 'text-emerald-700' : item.status === 'failed' ? 'text-rose-700' : 'text-amber-700'}`}>
                                                         <span className={`h-2 w-2 rounded-full ${item.status === 'completed' ? 'bg-emerald-500' : item.status === 'failed' ? 'bg-rose-500' : 'bg-amber-500'}`} />
-                                                        {item.status === 'completed' ? 'Clean' : item.status === 'failed' ? 'Failed' : item.status === 'pending_review' ? 'Needs review' : 'Processing'}
+                                                        {item.status === 'completed' ? 'Clean' : item.status === 'failed' ? 'Failed' : item.status === 'pending' ? 'Needs review' : 'Processing'}
                                                     </span>
 
                                                     {/* Date */}
@@ -718,14 +691,14 @@ export default function DataImportsPage() {
                                                     <div className="flex items-center gap-3">
                                                         <button
                                                             onClick={() => void openSavedImport(item.import_batch_id)}
-                                                            disabled={historyBusy === item.import_batch_id}
+                                                            disabled={historyBusy !== null || busy !== null}
                                                             className="text-xs font-semibold text-stone-700 hover:text-stone-950 disabled:opacity-50"
                                                         >
                                                             {historyBusy === item.import_batch_id ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : 'Review'}
                                                         </button>
                                                         <button
-                                                            onClick={() => void clearData()}
-                                                            disabled={historyBusy === item.import_batch_id}
+                                                            onClick={() => void clearData(item.import_batch_id)}
+                                                            disabled={historyBusy !== null || busy !== null}
                                                             className="text-rose-400 hover:text-rose-600 disabled:opacity-50"
                                                             aria-label="Delete import"
                                                         >
