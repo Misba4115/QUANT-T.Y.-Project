@@ -1,0 +1,3 @@
+price_sync_runs: status=200 body=[{"price_sync_run_id":"8538db52-87b1-4faf-a420-da42d61532de","user_id":"46e4d577-bdfd-48fe-ad4e-b05ada76848b","status":"completed","requested_count":0,"updated_count":0,"failed_count":0,"errors":[],"s
+market_price_history: status=200 body=[{"price_history_id":"81f1cfae-871b-408f-8ce0-3fd1a85cc1e7","user_id":"fde0869b-279d-4bf9-aa6c-17c9b8e8a868","asset_type":"Benchmark","instrument_key":"NIFTY50","price_date":"2025-08-19","adjusted_clo
+market_price_cache: status=200 body=[{"price_cache_id":"30c79ede-90b4-4f41-9538-5d96a21692ef","asset_type":"Equity","instrument_key":"INFY","price":1131.800049,"currency":"INR","provider":"yahoo_finance","source_timestamp":"2026-08-20T0

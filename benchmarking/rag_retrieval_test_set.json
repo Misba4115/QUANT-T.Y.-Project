@@ -1,0 +1,220 @@
+{
+  "description": "30 template questions for benchmarking RAG retrieval quality (Recall@k, MRR).",
+  "IMPORTANT": "expected_source_chunk_id is a placeholder. Before running this test, go through your actual ingested documents/knowledge base and fill in which chunk ID should be the correct retrieval target for each question.",
+  "metrics_to_compute": [
+    "recall_at_k (k=1,3,5)",
+    "mean_reciprocal_rank"
+  ],
+  "questions": [
+    {
+      "question": "What is the exemption limit for long-term capital gains on equity mutual funds?",
+      "topic": "capital_gains_ltcg",
+      "question_id": "RET001",
+      "expected_source_chunk_id": "FILL_IN_FROM_YOUR_ACTUAL_CORPUS",
+      "notes": "Map this to the actual document/chunk in your knowledge base that should be retrieved for this question."
+    },
+    {
+      "question": "What is the maximum deduction I can claim under Section 80C?",
+      "topic": "section_80c",
+      "question_id": "RET002",
+      "expected_source_chunk_id": "FILL_IN_FROM_YOUR_ACTUAL_CORPUS",
+      "notes": "Map this to the actual document/chunk in your knowledge base that should be retrieved for this question."
+    },
+    {
+      "question": "How is short-term capital gain on equity taxed?",
+      "topic": "capital_gains_stcg",
+      "question_id": "RET003",
+      "expected_source_chunk_id": "FILL_IN_FROM_YOUR_ACTUAL_CORPUS",
+      "notes": "Map this to the actual document/chunk in your knowledge base that should be retrieved for this question."
+    },
+    {
+      "question": "What counts as a long-term holding period for equity mutual funds?",
+      "topic": "holding_period_rules",
+      "question_id": "RET004",
+      "expected_source_chunk_id": "FILL_IN_FROM_YOUR_ACTUAL_CORPUS",
+      "notes": "Map this to the actual document/chunk in your knowledge base that should be retrieved for this question."
+    },
+    {
+      "question": "What is a SIP and how does it work?",
+      "topic": "sip_definition",
+      "question_id": "RET005",
+      "expected_source_chunk_id": "FILL_IN_FROM_YOUR_ACTUAL_CORPUS",
+      "notes": "Map this to the actual document/chunk in your knowledge base that should be retrieved for this question."
+    },
+    {
+      "question": "What is the difference between equity and debt mutual funds?",
+      "topic": "fund_types",
+      "question_id": "RET006",
+      "expected_source_chunk_id": "FILL_IN_FROM_YOUR_ACTUAL_CORPUS",
+      "notes": "Map this to the actual document/chunk in your knowledge base that should be retrieved for this question."
+    },
+    {
+      "question": "How is my portfolio risk measured in the dashboard?",
+      "topic": "risk_metrics",
+      "question_id": "RET007",
+      "expected_source_chunk_id": "FILL_IN_FROM_YOUR_ACTUAL_CORPUS",
+      "notes": "Map this to the actual document/chunk in your knowledge base that should be retrieved for this question."
+    },
+    {
+      "question": "What is CVaR and why does it matter for my portfolio?",
+      "topic": "risk_metrics",
+      "question_id": "RET008",
+      "expected_source_chunk_id": "FILL_IN_FROM_YOUR_ACTUAL_CORPUS",
+      "notes": "Map this to the actual document/chunk in your knowledge base that should be retrieved for this question."
+    },
+    {
+      "question": "What triggers an anomaly flag on my transactions?",
+      "topic": "guardian_anomaly_rules",
+      "question_id": "RET009",
+      "expected_source_chunk_id": "FILL_IN_FROM_YOUR_ACTUAL_CORPUS",
+      "notes": "Map this to the actual document/chunk in your knowledge base that should be retrieved for this question."
+    },
+    {
+      "question": "How often is my portfolio allocation recommendation updated?",
+      "topic": "insights_tab_mechanics",
+      "question_id": "RET010",
+      "expected_source_chunk_id": "FILL_IN_FROM_YOUR_ACTUAL_CORPUS",
+      "notes": "Map this to the actual document/chunk in your knowledge base that should be retrieved for this question."
+    },
+    {
+      "question": "What happens if I sell a fund before completing one year?",
+      "topic": "capital_gains_stcg",
+      "question_id": "RET011",
+      "expected_source_chunk_id": "FILL_IN_FROM_YOUR_ACTUAL_CORPUS",
+      "notes": "Map this to the actual document/chunk in your knowledge base that should be retrieved for this question."
+    },
+    {
+      "question": "Can I claim 80C deduction on ELSS mutual funds?",
+      "topic": "section_80c",
+      "question_id": "RET012",
+      "expected_source_chunk_id": "FILL_IN_FROM_YOUR_ACTUAL_CORPUS",
+      "notes": "Map this to the actual document/chunk in your knowledge base that should be retrieved for this question."
+    },
+    {
+      "question": "What is the lock-in period for ELSS funds?",
+      "topic": "elss_rules",
+      "question_id": "RET013",
+      "expected_source_chunk_id": "FILL_IN_FROM_YOUR_ACTUAL_CORPUS",
+      "notes": "Map this to the actual document/chunk in your knowledge base that should be retrieved for this question."
+    },
+    {
+      "question": "How is my net worth calculated on the dashboard?",
+      "topic": "dashboard_calculations",
+      "question_id": "RET014",
+      "expected_source_chunk_id": "FILL_IN_FROM_YOUR_ACTUAL_CORPUS",
+      "notes": "Map this to the actual document/chunk in your knowledge base that should be retrieved for this question."
+    },
+    {
+      "question": "What data sources are used for live fund prices?",
+      "topic": "data_sources",
+      "question_id": "RET015",
+      "expected_source_chunk_id": "FILL_IN_FROM_YOUR_ACTUAL_CORPUS",
+      "notes": "Map this to the actual document/chunk in your knowledge base that should be retrieved for this question."
+    },
+    {
+      "question": "How does the Grounding Checker verify numbers in chatbot answers?",
+      "topic": "system_architecture",
+      "question_id": "RET016",
+      "expected_source_chunk_id": "FILL_IN_FROM_YOUR_ACTUAL_CORPUS",
+      "notes": "Map this to the actual document/chunk in your knowledge base that should be retrieved for this question."
+    },
+    {
+      "question": "What is the Sharpe ratio shown in my portfolio summary?",
+      "topic": "risk_metrics",
+      "question_id": "RET017",
+      "expected_source_chunk_id": "FILL_IN_FROM_YOUR_ACTUAL_CORPUS",
+      "notes": "Map this to the actual document/chunk in your knowledge base that should be retrieved for this question."
+    },
+    {
+      "question": "How does the Consensus Arbiter resolve conflicting agent advice?",
+      "topic": "system_architecture",
+      "question_id": "RET018",
+      "expected_source_chunk_id": "FILL_IN_FROM_YOUR_ACTUAL_CORPUS",
+      "notes": "Map this to the actual document/chunk in your knowledge base that should be retrieved for this question."
+    },
+    {
+      "question": "What is the tax treatment of gold bonds (SGBs)?",
+      "topic": "capital_gains_other_assets",
+      "question_id": "RET019",
+      "expected_source_chunk_id": "FILL_IN_FROM_YOUR_ACTUAL_CORPUS",
+      "notes": "Map this to the actual document/chunk in your knowledge base that should be retrieved for this question."
+    },
+    {
+      "question": "How is my monthly cashflow surplus or deficit calculated?",
+      "topic": "cashflow_calculations",
+      "question_id": "RET020",
+      "expected_source_chunk_id": "FILL_IN_FROM_YOUR_ACTUAL_CORPUS",
+      "notes": "Map this to the actual document/chunk in your knowledge base that should be retrieved for this question."
+    },
+    {
+      "question": "What is rebalancing and why is it suggested?",
+      "topic": "insights_tab_mechanics",
+      "question_id": "RET021",
+      "expected_source_chunk_id": "FILL_IN_FROM_YOUR_ACTUAL_CORPUS",
+      "notes": "Map this to the actual document/chunk in your knowledge base that should be retrieved for this question."
+    },
+    {
+      "question": "How does the system decide my risk profile?",
+      "topic": "onboarding_rules",
+      "question_id": "RET022",
+      "expected_source_chunk_id": "FILL_IN_FROM_YOUR_ACTUAL_CORPUS",
+      "notes": "Map this to the actual document/chunk in your knowledge base that should be retrieved for this question."
+    },
+    {
+      "question": "What is the difference between LTCG and STCG?",
+      "topic": "capital_gains_general",
+      "question_id": "RET023",
+      "expected_source_chunk_id": "FILL_IN_FROM_YOUR_ACTUAL_CORPUS",
+      "notes": "Map this to the actual document/chunk in your knowledge base that should be retrieved for this question."
+    },
+    {
+      "question": "What is a covariance matrix used for in portfolio optimization?",
+      "topic": "portfolio_theory",
+      "question_id": "RET024",
+      "expected_source_chunk_id": "FILL_IN_FROM_YOUR_ACTUAL_CORPUS",
+      "notes": "Map this to the actual document/chunk in your knowledge base that should be retrieved for this question."
+    },
+    {
+      "question": "How is the return forecast for my equity holdings generated?",
+      "topic": "trading_agent_mechanics",
+      "question_id": "RET025",
+      "expected_source_chunk_id": "FILL_IN_FROM_YOUR_ACTUAL_CORPUS",
+      "notes": "Map this to the actual document/chunk in your knowledge base that should be retrieved for this question."
+    },
+    {
+      "question": "What happens if I don't open the app for several days?",
+      "topic": "insights_tab_mechanics",
+      "question_id": "RET026",
+      "expected_source_chunk_id": "FILL_IN_FROM_YOUR_ACTUAL_CORPUS",
+      "notes": "Map this to the actual document/chunk in your knowledge base that should be retrieved for this question."
+    },
+    {
+      "question": "How is a transaction flagged as a duplicate?",
+      "topic": "guardian_anomaly_rules",
+      "question_id": "RET027",
+      "expected_source_chunk_id": "FILL_IN_FROM_YOUR_ACTUAL_CORPUS",
+      "notes": "Map this to the actual document/chunk in your knowledge base that should be retrieved for this question."
+    },
+    {
+      "question": "What is the difference between the Dashboard tab and the Insights tab?",
+      "topic": "product_overview",
+      "question_id": "RET028",
+      "expected_source_chunk_id": "FILL_IN_FROM_YOUR_ACTUAL_CORPUS",
+      "notes": "Map this to the actual document/chunk in your knowledge base that should be retrieved for this question."
+    },
+    {
+      "question": "Are my financial documents encrypted?",
+      "topic": "security_overview",
+      "question_id": "RET029",
+      "expected_source_chunk_id": "FILL_IN_FROM_YOUR_ACTUAL_CORPUS",
+      "notes": "Map this to the actual document/chunk in your knowledge base that should be retrieved for this question."
+    },
+    {
+      "question": "What is the outcome evaluator and what does it log?",
+      "topic": "system_architecture",
+      "question_id": "RET030",
+      "expected_source_chunk_id": "FILL_IN_FROM_YOUR_ACTUAL_CORPUS",
+      "notes": "Map this to the actual document/chunk in your knowledge base that should be retrieved for this question."
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "generated_at": "2026-09-28T19:28:57.728505+00:00",
+  "disclaimer": "This is control validation of representative threat cases only, not a complete security audit.",
+  "agents_mode": "live",
+  "app_mode": "code_inspection",
+  "totals": {
+    "total_cases": 28,
+    "passed": 13,
+    "inspection_pass": 8,
+    "failed": 0,
+    "not_applicable": 7
+  },
+  "table_v": [
+    {
+      "threat_id": "T01",
+      "threat_name": "Broken Object-Level Authorization (BOLA/IDOR)",
+      "total_cases": 4,
+      "passed": 0,
+      "failed": 0,
+      "not_applicable": 3,
+      "inspection_pass": 1,
+      "overall_verdict": "INSPECTION_ONLY",
+      "notes": ""
+    },
+    {
+      "threat_id": "T02",
+      "threat_name": "Authentication / Session Security",
+      "total_cases": 4,
+      "passed": 0,
+      "failed": 0,
+      "not_applicable": 1,
+      "inspection_pass": 3,
+      "overall_verdict": "INSPECTION_ONLY",
+      "notes": ""
+    },
+    {
+      "threat_id": "T03",
+      "threat_name": "Credential Exposure",
+      "total_cases": 2,
+      "passed": 0,
+      "failed": 0,
+      "not_applicable": 0,
+      "inspection_pass": 2,
+      "overall_verdict": "INSPECTION_ONLY",
+      "notes": ""
+    },
+    {
+      "threat_id": "T04",
+      "threat_name": "Sensitive File / Artifact Exposure",
+      "total_cases": 2,
+      "passed": 0,
+      "failed": 0,
+      "not_applicable": 0,
+      "inspection_pass": 2,
+      "overall_verdict": "INSPECTION_ONLY",
+      "notes": ""
+    },
+    {
+      "threat_id": "T05",
+      "threat_name": "Malicious / Unsafe Input",
+      "total_cases": 3,
+      "passed": 0,
+      "failed": 0,
+      "not_applicable": 3,
+      "inspection_pass": 0,
+      "overall_verdict": "NOT_APPLICABLE",
+      "notes": ""
+    },
+    {
+      "threat_id": "T06",
+      "threat_name": "Injection -- Imported Data (CAS/CSV)",
+      "total_cases": 5,
+      "passed": 5,
+      "failed": 0,
+      "not_applicable": 0,
+      "inspection_pass": 0,
+      "overall_verdict": "ALL_PASS",
+      "notes": ""
+    },
+    {
+      "threat_id": "T07",
+      "threat_name": "Injection -- Retrieved Documents (RAG/Qdrant)",
+      "total_cases": 4,
+      "passed": 4,
+      "failed": 0,
+      "not_applicable": 0,
+      "inspection_pass": 0,
+      "overall_verdict": "ALL_PASS",
+      "notes": ""
+    },
+    {
+      "threat_id": "T08",
+      "threat_name": "Injection -- Connector Payload",
+      "total_cases": 4,
+      "passed": 4,
+      "failed": 0,
+      "not_applicable": 0,
+      "inspection_pass": 0,
+      "overall_verdict": "ALL_PASS",
+      "notes": ""
+    }
+  ]
+}

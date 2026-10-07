@@ -1,0 +1,1303 @@
+{
+  "description": "20 synthetic portfolios for validating Portfolio Analytics Engine output against a reference library (e.g. PyPortfolioOpt).",
+  "validation_method": "Run the same inputs (expected returns, volatility, correlation matrix, risk-free rate) through both your engine and PyPortfolioOpt's efficient frontier / max Sharpe optimizer. Compare resulting weights and Sharpe ratio.",
+  "metrics_to_compute": [
+    "% weight deviation vs reference",
+    "Sharpe ratio absolute difference",
+    "pass/fail at 1% tolerance threshold"
+  ],
+  "portfolios": [
+    {
+      "portfolio_id": "PORT01",
+      "description": "Synthetic test portfolio with 6 assets, risk profile: conservative",
+      "risk_free_rate": 0.065,
+      "assets": [
+        {
+          "ticker": "SMALLCAP_FUND",
+          "expected_annual_return": 0.083,
+          "annual_volatility": 0.1848
+        },
+        {
+          "ticker": "US_EQUITY_FUND",
+          "expected_annual_return": 0.1265,
+          "annual_volatility": 0.155
+        },
+        {
+          "ticker": "REIT_INDEX",
+          "expected_annual_return": 0.0695,
+          "annual_volatility": 0.1356
+        },
+        {
+          "ticker": "CORP_BOND_FUND",
+          "expected_annual_return": 0.0851,
+          "annual_volatility": 0.2164
+        },
+        {
+          "ticker": "LIQUID_FUND",
+          "expected_annual_return": 0.1196,
+          "annual_volatility": 0.2723
+        },
+        {
+          "ticker": "GOVT_BOND_FUND",
+          "expected_annual_return": 0.136,
+          "annual_volatility": 0.1182
+        }
+      ],
+      "correlation_matrix": [
+        [
+          1.0,
+          0.05,
+          0.51,
+          0.13,
+          0.64,
+          -0.02
+        ],
+        [
+          0.05,
+          1.0,
+          -0.04,
+          0.49,
+          -0.18,
+          0.45
+        ],
+        [
+          0.51,
+          -0.04,
+          1.0,
+          0.52,
+          0.55,
+          -0.14
+        ],
+        [
+          0.13,
+          0.49,
+          0.52,
+          1.0,
+          -0.07,
+          0.07
+        ],
+        [
+          0.64,
+          -0.18,
+          0.55,
+          -0.07,
+          1.0,
+          0.2
+        ],
+        [
+          -0.02,
+          0.45,
+          -0.14,
+          0.07,
+          0.2,
+          1.0
+        ]
+      ]
+    },
+    {
+      "portfolio_id": "PORT02",
+      "description": "Synthetic test portfolio with 6 assets, risk profile: aggressive",
+      "risk_free_rate": 0.065,
+      "assets": [
+        {
+          "ticker": "LIQUID_FUND",
+          "expected_annual_return": 0.1506,
+          "annual_volatility": 0.0662
+        },
+        {
+          "ticker": "NIFTY50_INDEX",
+          "expected_annual_return": 0.0773,
+          "annual_volatility": 0.1995
+        },
+        {
+          "ticker": "SMALLCAP_FUND",
+          "expected_annual_return": 0.0683,
+          "annual_volatility": 0.187
+        },
+        {
+          "ticker": "US_EQUITY_FUND",
+          "expected_annual_return": 0.112,
+          "annual_volatility": 0.1948
+        },
+        {
+          "ticker": "GOVT_BOND_FUND",
+          "expected_annual_return": 0.1211,
+          "annual_volatility": 0.272
+        },
+        {
+          "ticker": "MIDCAP_FUND",
+          "expected_annual_return": 0.0865,
+          "annual_volatility": 0.2311
+        }
+      ],
+      "correlation_matrix": [
+        [
+          1.0,
+          -0.1,
+          -0.11,
+          -0.0,
+          0.47,
+          0.3
+        ],
+        [
+          -0.1,
+          1.0,
+          -0.0,
+          0.14,
+          0.22,
+          0.41
+        ],
+        [
+          -0.11,
+          -0.0,
+          1.0,
+          0.7,
+          0.23,
+          0.07
+        ],
+        [
+          -0.0,
+          0.14,
+          0.7,
+          1.0,
+          0.46,
+          0.11
+        ],
+        [
+          0.47,
+          0.22,
+          0.23,
+          0.46,
+          1.0,
+          -0.11
+        ],
+        [
+          0.3,
+          0.41,
+          0.07,
+          0.11,
+          -0.11,
+          1.0
+        ]
+      ]
+    },
+    {
+      "portfolio_id": "PORT03",
+      "description": "Synthetic test portfolio with 3 assets, risk profile: aggressive",
+      "risk_free_rate": 0.065,
+      "assets": [
+        {
+          "ticker": "SMALLCAP_FUND",
+          "expected_annual_return": 0.0768,
+          "annual_volatility": 0.0819
+        },
+        {
+          "ticker": "SENSEX_INDEX",
+          "expected_annual_return": 0.0676,
+          "annual_volatility": 0.1744
+        },
+        {
+          "ticker": "GOLD_ETF",
+          "expected_annual_return": 0.1554,
+          "annual_volatility": 0.0956
+        }
+      ],
+      "correlation_matrix": [
+        [
+          1.0,
+          0.16,
+          -0.03
+        ],
+        [
+          0.16,
+          1.0,
+          0.19
+        ],
+        [
+          -0.03,
+          0.19,
+          1.0
+        ]
+      ]
+    },
+    {
+      "portfolio_id": "PORT04",
+      "description": "Synthetic test portfolio with 4 assets, risk profile: aggressive",
+      "risk_free_rate": 0.065,
+      "assets": [
+        {
+          "ticker": "US_EQUITY_FUND",
+          "expected_annual_return": 0.0736,
+          "annual_volatility": 0.1068
+        },
+        {
+          "ticker": "MIDCAP_FUND",
+          "expected_annual_return": 0.1274,
+          "annual_volatility": 0.231
+        },
+        {
+          "ticker": "LIQUID_FUND",
+          "expected_annual_return": 0.1135,
+          "annual_volatility": 0.2319
+        },
+        {
+          "ticker": "NIFTY50_INDEX",
+          "expected_annual_return": 0.1091,
+          "annual_volatility": 0.1278
+        }
+      ],
+      "correlation_matrix": [
+        [
+          1.0,
+          -0.02,
+          -0.1,
+          0.4
+        ],
+        [
+          -0.02,
+          1.0,
+          0.67,
+          0.08
+        ],
+        [
+          -0.1,
+          0.67,
+          1.0,
+          -0.1
+        ],
+        [
+          0.4,
+          0.08,
+          -0.1,
+          1.0
+        ]
+      ]
+    },
+    {
+      "portfolio_id": "PORT05",
+      "description": "Synthetic test portfolio with 5 assets, risk profile: conservative",
+      "risk_free_rate": 0.065,
+      "assets": [
+        {
+          "ticker": "REIT_INDEX",
+          "expected_annual_return": 0.0836,
+          "annual_volatility": 0.0839
+        },
+        {
+          "ticker": "SENSEX_INDEX",
+          "expected_annual_return": 0.1263,
+          "annual_volatility": 0.1626
+        },
+        {
+          "ticker": "GOLD_ETF",
+          "expected_annual_return": 0.096,
+          "annual_volatility": 0.0731
+        },
+        {
+          "ticker": "US_EQUITY_FUND",
+          "expected_annual_return": 0.0922,
+          "annual_volatility": 0.0846
+        },
+        {
+          "ticker": "NIFTY50_INDEX",
+          "expected_annual_return": 0.1199,
+          "annual_volatility": 0.2064
+        }
+      ],
+      "correlation_matrix": [
+        [
+          1.0,
+          0.38,
+          0.7,
+          0.3,
+          0.24
+        ],
+        [
+          0.38,
+          1.0,
+          0.08,
+          0.21,
+          -0.15
+        ],
+        [
+          0.7,
+          0.08,
+          1.0,
+          -0.08,
+          0.53
+        ],
+        [
+          0.3,
+          0.21,
+          -0.08,
+          1.0,
+          0.42
+        ],
+        [
+          0.24,
+          -0.15,
+          0.53,
+          0.42,
+          1.0
+        ]
+      ]
+    },
+    {
+      "portfolio_id": "PORT06",
+      "description": "Synthetic test portfolio with 3 assets, risk profile: moderate",
+      "risk_free_rate": 0.065,
+      "assets": [
+        {
+          "ticker": "CORP_BOND_FUND",
+          "expected_annual_return": 0.0747,
+          "annual_volatility": 0.1093
+        },
+        {
+          "ticker": "GOVT_BOND_FUND",
+          "expected_annual_return": 0.1359,
+          "annual_volatility": 0.1758
+        },
+        {
+          "ticker": "NIFTY50_INDEX",
+          "expected_annual_return": 0.135,
+          "annual_volatility": 0.1589
+        }
+      ],
+      "correlation_matrix": [
+        [
+          1.0,
+          0.26,
+          0.32
+        ],
+        [
+          0.26,
+          1.0,
+          0.29
+        ],
+        [
+          0.32,
+          0.29,
+          1.0
+        ]
+      ]
+    },
+    {
+      "portfolio_id": "PORT07",
+      "description": "Synthetic test portfolio with 3 assets, risk profile: moderate",
+      "risk_free_rate": 0.065,
+      "assets": [
+        {
+          "ticker": "US_EQUITY_FUND",
+          "expected_annual_return": 0.0613,
+          "annual_volatility": 0.2392
+        },
+        {
+          "ticker": "LIQUID_FUND",
+          "expected_annual_return": 0.1326,
+          "annual_volatility": 0.1115
+        },
+        {
+          "ticker": "CORP_BOND_FUND",
+          "expected_annual_return": 0.1599,
+          "annual_volatility": 0.1479
+        }
+      ],
+      "correlation_matrix": [
+        [
+          1.0,
+          0.11,
+          0.54
+        ],
+        [
+          0.11,
+          1.0,
+          0.69
+        ],
+        [
+          0.54,
+          0.69,
+          1.0
+        ]
+      ]
+    },
+    {
+      "portfolio_id": "PORT08",
+      "description": "Synthetic test portfolio with 5 assets, risk profile: conservative",
+      "risk_free_rate": 0.065,
+      "assets": [
+        {
+          "ticker": "REIT_INDEX",
+          "expected_annual_return": 0.1395,
+          "annual_volatility": 0.2333
+        },
+        {
+          "ticker": "MIDCAP_FUND",
+          "expected_annual_return": 0.1127,
+          "annual_volatility": 0.1677
+        },
+        {
+          "ticker": "GOLD_ETF",
+          "expected_annual_return": 0.1157,
+          "annual_volatility": 0.0804
+        },
+        {
+          "ticker": "GOVT_BOND_FUND",
+          "expected_annual_return": 0.1577,
+          "annual_volatility": 0.1102
+        },
+        {
+          "ticker": "SENSEX_INDEX",
+          "expected_annual_return": 0.113,
+          "annual_volatility": 0.2686
+        }
+      ],
+      "correlation_matrix": [
+        [
+          1.0,
+          0.26,
+          0.61,
+          0.53,
+          -0.08
+        ],
+        [
+          0.26,
+          1.0,
+          0.17,
+          -0.15,
+          0.05
+        ],
+        [
+          0.61,
+          0.17,
+          1.0,
+          -0.08,
+          -0.07
+        ],
+        [
+          0.53,
+          -0.15,
+          -0.08,
+          1.0,
+          0.15
+        ],
+        [
+          -0.08,
+          0.05,
+          -0.07,
+          0.15,
+          1.0
+        ]
+      ]
+    },
+    {
+      "portfolio_id": "PORT09",
+      "description": "Synthetic test portfolio with 3 assets, risk profile: aggressive",
+      "risk_free_rate": 0.065,
+      "assets": [
+        {
+          "ticker": "SENSEX_INDEX",
+          "expected_annual_return": 0.153,
+          "annual_volatility": 0.1286
+        },
+        {
+          "ticker": "MIDCAP_FUND",
+          "expected_annual_return": 0.1545,
+          "annual_volatility": 0.1185
+        },
+        {
+          "ticker": "GOVT_BOND_FUND",
+          "expected_annual_return": 0.0503,
+          "annual_volatility": 0.2258
+        }
+      ],
+      "correlation_matrix": [
+        [
+          1.0,
+          0.46,
+          0.46
+        ],
+        [
+          0.46,
+          1.0,
+          0.4
+        ],
+        [
+          0.46,
+          0.4,
+          1.0
+        ]
+      ]
+    },
+    {
+      "portfolio_id": "PORT10",
+      "description": "Synthetic test portfolio with 6 assets, risk profile: moderate",
+      "risk_free_rate": 0.065,
+      "assets": [
+        {
+          "ticker": "CORP_BOND_FUND",
+          "expected_annual_return": 0.0872,
+          "annual_volatility": 0.1787
+        },
+        {
+          "ticker": "MIDCAP_FUND",
+          "expected_annual_return": 0.1123,
+          "annual_volatility": 0.1565
+        },
+        {
+          "ticker": "REIT_INDEX",
+          "expected_annual_return": 0.0878,
+          "annual_volatility": 0.2038
+        },
+        {
+          "ticker": "US_EQUITY_FUND",
+          "expected_annual_return": 0.0553,
+          "annual_volatility": 0.0639
+        },
+        {
+          "ticker": "GOLD_ETF",
+          "expected_annual_return": 0.1362,
+          "annual_volatility": 0.1503
+        },
+        {
+          "ticker": "SMALLCAP_FUND",
+          "expected_annual_return": 0.0637,
+          "annual_volatility": 0.2458
+        }
+      ],
+      "correlation_matrix": [
+        [
+          1.0,
+          0.2,
+          -0.2,
+          0.66,
+          -0.02,
+          0.42
+        ],
+        [
+          0.2,
+          1.0,
+          0.38,
+          -0.06,
+          0.64,
+          0.05
+        ],
+        [
+          -0.2,
+          0.38,
+          1.0,
+          0.13,
+          0.61,
+          -0.05
+        ],
+        [
+          0.66,
+          -0.06,
+          0.13,
+          1.0,
+          0.01,
+          0.39
+        ],
+        [
+          -0.02,
+          0.64,
+          0.61,
+          0.01,
+          1.0,
+          0.0
+        ],
+        [
+          0.42,
+          0.05,
+          -0.05,
+          0.39,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "portfolio_id": "PORT11",
+      "description": "Synthetic test portfolio with 6 assets, risk profile: aggressive",
+      "risk_free_rate": 0.065,
+      "assets": [
+        {
+          "ticker": "GOLD_ETF",
+          "expected_annual_return": 0.1387,
+          "annual_volatility": 0.0648
+        },
+        {
+          "ticker": "US_EQUITY_FUND",
+          "expected_annual_return": 0.0904,
+          "annual_volatility": 0.1118
+        },
+        {
+          "ticker": "SENSEX_INDEX",
+          "expected_annual_return": 0.0921,
+          "annual_volatility": 0.2352
+        },
+        {
+          "ticker": "LIQUID_FUND",
+          "expected_annual_return": 0.1462,
+          "annual_volatility": 0.194
+        },
+        {
+          "ticker": "CORP_BOND_FUND",
+          "expected_annual_return": 0.1245,
+          "annual_volatility": 0.0564
+        },
+        {
+          "ticker": "NIFTY50_INDEX",
+          "expected_annual_return": 0.112,
+          "annual_volatility": 0.1865
+        }
+      ],
+      "correlation_matrix": [
+        [
+          1.0,
+          -0.05,
+          0.12,
+          -0.01,
+          0.47,
+          0.63
+        ],
+        [
+          -0.05,
+          1.0,
+          0.2,
+          -0.0,
+          0.61,
+          -0.07
+        ],
+        [
+          0.12,
+          0.2,
+          1.0,
+          0.12,
+          0.19,
+          0.51
+        ],
+        [
+          -0.01,
+          -0.0,
+          0.12,
+          1.0,
+          0.34,
+          0.45
+        ],
+        [
+          0.47,
+          0.61,
+          0.19,
+          0.34,
+          1.0,
+          0.59
+        ],
+        [
+          0.63,
+          -0.07,
+          0.51,
+          0.45,
+          0.59,
+          1.0
+        ]
+      ]
+    },
+    {
+      "portfolio_id": "PORT12",
+      "description": "Synthetic test portfolio with 4 assets, risk profile: moderate",
+      "risk_free_rate": 0.065,
+      "assets": [
+        {
+          "ticker": "US_EQUITY_FUND",
+          "expected_annual_return": 0.1202,
+          "annual_volatility": 0.057
+        },
+        {
+          "ticker": "MIDCAP_FUND",
+          "expected_annual_return": 0.1478,
+          "annual_volatility": 0.0429
+        },
+        {
+          "ticker": "SENSEX_INDEX",
+          "expected_annual_return": 0.0897,
+          "annual_volatility": 0.116
+        },
+        {
+          "ticker": "REIT_INDEX",
+          "expected_annual_return": 0.0926,
+          "annual_volatility": 0.2414
+        }
+      ],
+      "correlation_matrix": [
+        [
+          1.0,
+          0.18,
+          0.29,
+          -0.04
+        ],
+        [
+          0.18,
+          1.0,
+          0.69,
+          -0.13
+        ],
+        [
+          0.29,
+          0.69,
+          1.0,
+          -0.01
+        ],
+        [
+          -0.04,
+          -0.13,
+          -0.01,
+          1.0
+        ]
+      ]
+    },
+    {
+      "portfolio_id": "PORT13",
+      "description": "Synthetic test portfolio with 5 assets, risk profile: conservative",
+      "risk_free_rate": 0.065,
+      "assets": [
+        {
+          "ticker": "LIQUID_FUND",
+          "expected_annual_return": 0.1205,
+          "annual_volatility": 0.169
+        },
+        {
+          "ticker": "MIDCAP_FUND",
+          "expected_annual_return": 0.0668,
+          "annual_volatility": 0.0601
+        },
+        {
+          "ticker": "REIT_INDEX",
+          "expected_annual_return": 0.0587,
+          "annual_volatility": 0.261
+        },
+        {
+          "ticker": "SMALLCAP_FUND",
+          "expected_annual_return": 0.1572,
+          "annual_volatility": 0.0773
+        },
+        {
+          "ticker": "CORP_BOND_FUND",
+          "expected_annual_return": 0.0859,
+          "annual_volatility": 0.1807
+        }
+      ],
+      "correlation_matrix": [
+        [
+          1.0,
+          0.49,
+          0.38,
+          0.38,
+          0.08
+        ],
+        [
+          0.49,
+          1.0,
+          0.66,
+          0.01,
+          0.02
+        ],
+        [
+          0.38,
+          0.66,
+          1.0,
+          0.35,
+          -0.15
+        ],
+        [
+          0.38,
+          0.01,
+          0.35,
+          1.0,
+          -0.19
+        ],
+        [
+          0.08,
+          0.02,
+          -0.15,
+          -0.19,
+          1.0
+        ]
+      ]
+    },
+    {
+      "portfolio_id": "PORT14",
+      "description": "Synthetic test portfolio with 5 assets, risk profile: aggressive",
+      "risk_free_rate": 0.065,
+      "assets": [
+        {
+          "ticker": "GOLD_ETF",
+          "expected_annual_return": 0.1475,
+          "annual_volatility": 0.2251
+        },
+        {
+          "ticker": "SMALLCAP_FUND",
+          "expected_annual_return": 0.0532,
+          "annual_volatility": 0.2337
+        },
+        {
+          "ticker": "REIT_INDEX",
+          "expected_annual_return": 0.0799,
+          "annual_volatility": 0.0553
+        },
+        {
+          "ticker": "LIQUID_FUND",
+          "expected_annual_return": 0.1284,
+          "annual_volatility": 0.1784
+        },
+        {
+          "ticker": "US_EQUITY_FUND",
+          "expected_annual_return": 0.0585,
+          "annual_volatility": 0.1492
+        }
+      ],
+      "correlation_matrix": [
+        [
+          1.0,
+          0.12,
+          0.25,
+          0.31,
+          0.13
+        ],
+        [
+          0.12,
+          1.0,
+          -0.11,
+          0.32,
+          0.45
+        ],
+        [
+          0.25,
+          -0.11,
+          1.0,
+          -0.16,
+          0.58
+        ],
+        [
+          0.31,
+          0.32,
+          -0.16,
+          1.0,
+          -0.06
+        ],
+        [
+          0.13,
+          0.45,
+          0.58,
+          -0.06,
+          1.0
+        ]
+      ]
+    },
+    {
+      "portfolio_id": "PORT15",
+      "description": "Synthetic test portfolio with 6 assets, risk profile: moderate",
+      "risk_free_rate": 0.065,
+      "assets": [
+        {
+          "ticker": "CORP_BOND_FUND",
+          "expected_annual_return": 0.1409,
+          "annual_volatility": 0.1772
+        },
+        {
+          "ticker": "SMALLCAP_FUND",
+          "expected_annual_return": 0.0631,
+          "annual_volatility": 0.2016
+        },
+        {
+          "ticker": "REIT_INDEX",
+          "expected_annual_return": 0.0558,
+          "annual_volatility": 0.0936
+        },
+        {
+          "ticker": "US_EQUITY_FUND",
+          "expected_annual_return": 0.1067,
+          "annual_volatility": 0.051
+        },
+        {
+          "ticker": "LIQUID_FUND",
+          "expected_annual_return": 0.0941,
+          "annual_volatility": 0.2505
+        },
+        {
+          "ticker": "GOLD_ETF",
+          "expected_annual_return": 0.1453,
+          "annual_volatility": 0.2256
+        }
+      ],
+      "correlation_matrix": [
+        [
+          1.0,
+          0.08,
+          -0.12,
+          0.21,
+          0.13,
+          0.06
+        ],
+        [
+          0.08,
+          1.0,
+          0.47,
+          0.02,
+          0.13,
+          0.67
+        ],
+        [
+          -0.12,
+          0.47,
+          1.0,
+          0.46,
+          0.29,
+          0.52
+        ],
+        [
+          0.21,
+          0.02,
+          0.46,
+          1.0,
+          0.29,
+          0.37
+        ],
+        [
+          0.13,
+          0.13,
+          0.29,
+          0.29,
+          1.0,
+          0.14
+        ],
+        [
+          0.06,
+          0.67,
+          0.52,
+          0.37,
+          0.14,
+          1.0
+        ]
+      ]
+    },
+    {
+      "portfolio_id": "PORT16",
+      "description": "Synthetic test portfolio with 3 assets, risk profile: conservative",
+      "risk_free_rate": 0.065,
+      "assets": [
+        {
+          "ticker": "GOLD_ETF",
+          "expected_annual_return": 0.1513,
+          "annual_volatility": 0.2553
+        },
+        {
+          "ticker": "GOVT_BOND_FUND",
+          "expected_annual_return": 0.1072,
+          "annual_volatility": 0.2082
+        },
+        {
+          "ticker": "SENSEX_INDEX",
+          "expected_annual_return": 0.091,
+          "annual_volatility": 0.2739
+        }
+      ],
+      "correlation_matrix": [
+        [
+          1.0,
+          -0.12,
+          -0.11
+        ],
+        [
+          -0.12,
+          1.0,
+          0.54
+        ],
+        [
+          -0.11,
+          0.54,
+          1.0
+        ]
+      ]
+    },
+    {
+      "portfolio_id": "PORT17",
+      "description": "Synthetic test portfolio with 6 assets, risk profile: aggressive",
+      "risk_free_rate": 0.065,
+      "assets": [
+        {
+          "ticker": "GOLD_ETF",
+          "expected_annual_return": 0.1415,
+          "annual_volatility": 0.1183
+        },
+        {
+          "ticker": "CORP_BOND_FUND",
+          "expected_annual_return": 0.0998,
+          "annual_volatility": 0.0961
+        },
+        {
+          "ticker": "GOVT_BOND_FUND",
+          "expected_annual_return": 0.1538,
+          "annual_volatility": 0.0727
+        },
+        {
+          "ticker": "REIT_INDEX",
+          "expected_annual_return": 0.1347,
+          "annual_volatility": 0.0662
+        },
+        {
+          "ticker": "MIDCAP_FUND",
+          "expected_annual_return": 0.0616,
+          "annual_volatility": 0.1479
+        },
+        {
+          "ticker": "LIQUID_FUND",
+          "expected_annual_return": 0.0845,
+          "annual_volatility": 0.069
+        }
+      ],
+      "correlation_matrix": [
+        [
+          1.0,
+          0.12,
+          0.49,
+          0.21,
+          0.22,
+          0.57
+        ],
+        [
+          0.12,
+          1.0,
+          0.53,
+          0.07,
+          0.43,
+          0.34
+        ],
+        [
+          0.49,
+          0.53,
+          1.0,
+          -0.07,
+          0.44,
+          0.67
+        ],
+        [
+          0.21,
+          0.07,
+          -0.07,
+          1.0,
+          0.54,
+          -0.04
+        ],
+        [
+          0.22,
+          0.43,
+          0.44,
+          0.54,
+          1.0,
+          -0.11
+        ],
+        [
+          0.57,
+          0.34,
+          0.67,
+          -0.04,
+          -0.11,
+          1.0
+        ]
+      ]
+    },
+    {
+      "portfolio_id": "PORT18",
+      "description": "Synthetic test portfolio with 4 assets, risk profile: aggressive",
+      "risk_free_rate": 0.065,
+      "assets": [
+        {
+          "ticker": "GOLD_ETF",
+          "expected_annual_return": 0.1193,
+          "annual_volatility": 0.1947
+        },
+        {
+          "ticker": "CORP_BOND_FUND",
+          "expected_annual_return": 0.1141,
+          "annual_volatility": 0.1021
+        },
+        {
+          "ticker": "MIDCAP_FUND",
+          "expected_annual_return": 0.1394,
+          "annual_volatility": 0.0452
+        },
+        {
+          "ticker": "REIT_INDEX",
+          "expected_annual_return": 0.0571,
+          "annual_volatility": 0.2566
+        }
+      ],
+      "correlation_matrix": [
+        [
+          1.0,
+          0.2,
+          -0.08,
+          0.61
+        ],
+        [
+          0.2,
+          1.0,
+          0.1,
+          -0.16
+        ],
+        [
+          -0.08,
+          0.1,
+          1.0,
+          0.32
+        ],
+        [
+          0.61,
+          -0.16,
+          0.32,
+          1.0
+        ]
+      ]
+    },
+    {
+      "portfolio_id": "PORT19",
+      "description": "Synthetic test portfolio with 6 assets, risk profile: moderate",
+      "risk_free_rate": 0.065,
+      "assets": [
+        {
+          "ticker": "GOLD_ETF",
+          "expected_annual_return": 0.1472,
+          "annual_volatility": 0.0483
+        },
+        {
+          "ticker": "SMALLCAP_FUND",
+          "expected_annual_return": 0.1181,
+          "annual_volatility": 0.099
+        },
+        {
+          "ticker": "CORP_BOND_FUND",
+          "expected_annual_return": 0.0825,
+          "annual_volatility": 0.1389
+        },
+        {
+          "ticker": "SENSEX_INDEX",
+          "expected_annual_return": 0.1106,
+          "annual_volatility": 0.0546
+        },
+        {
+          "ticker": "REIT_INDEX",
+          "expected_annual_return": 0.0808,
+          "annual_volatility": 0.0729
+        },
+        {
+          "ticker": "LIQUID_FUND",
+          "expected_annual_return": 0.0719,
+          "annual_volatility": 0.2523
+        }
+      ],
+      "correlation_matrix": [
+        [
+          1.0,
+          0.27,
+          0.37,
+          0.52,
+          0.52,
+          0.69
+        ],
+        [
+          0.27,
+          1.0,
+          0.12,
+          0.29,
+          0.24,
+          0.62
+        ],
+        [
+          0.37,
+          0.12,
+          1.0,
+          -0.04,
+          0.09,
+          -0.0
+        ],
+        [
+          0.52,
+          0.29,
+          -0.04,
+          1.0,
+          0.69,
+          0.28
+        ],
+        [
+          0.52,
+          0.24,
+          0.09,
+          0.69,
+          1.0,
+          0.39
+        ],
+        [
+          0.69,
+          0.62,
+          -0.0,
+          0.28,
+          0.39,
+          1.0
+        ]
+      ]
+    },
+    {
+      "portfolio_id": "PORT20",
+      "description": "Synthetic test portfolio with 4 assets, risk profile: conservative",
+      "risk_free_rate": 0.065,
+      "assets": [
+        {
+          "ticker": "REIT_INDEX",
+          "expected_annual_return": 0.0694,
+          "annual_volatility": 0.1822
+        },
+        {
+          "ticker": "MIDCAP_FUND",
+          "expected_annual_return": 0.1387,
+          "annual_volatility": 0.2074
+        },
+        {
+          "ticker": "SMALLCAP_FUND",
+          "expected_annual_return": 0.1505,
+          "annual_volatility": 0.0468
+        },
+        {
+          "ticker": "LIQUID_FUND",
+          "expected_annual_return": 0.1271,
+          "annual_volatility": 0.2674
+        }
+      ],
+      "correlation_matrix": [
+        [
+          1.0,
+          0.31,
+          0.31,
+          -0.03
+        ],
+        [
+          0.31,
+          1.0,
+          0.59,
+          0.24
+        ],
+        [
+          0.31,
+          0.59,
+          1.0,
+          -0.12
+        ],
+        [
+          -0.03,
+          0.24,
+          -0.12,
+          1.0
+        ]
+      ]
+    }
+  ]
+}

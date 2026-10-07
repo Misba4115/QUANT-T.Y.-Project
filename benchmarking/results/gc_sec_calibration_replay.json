@@ -1,0 +1,181 @@
+{
+  "label": "SIMULATED CALIBRATION -- NOT LIVE VALIDATION",
+  "generated_at": "2026-09-28T06:47:23.579313+00:00",
+  "methodology": "Simulated historical replay with controlled prediction-outcome pairs. Per evaluation plan Section 3.3: longitudinal live data is unavailable, so this replay demonstrates the update rule and parameter evolution without claiming live calibration effectiveness.",
+  "update_rule": "theta_u(t+1) = theta_u(t) + alpha * (outcome(t) - theta_u(t))",
+  "hyperparameters": {
+    "theta_u_initial": 0.85,
+    "alpha": 0.1,
+    "theta_u_clamp": [
+      0.0,
+      1.0
+    ]
+  },
+  "summary": {
+    "total_steps": 12,
+    "theta_u_initial": 0.85,
+    "theta_u_final": 0.828377,
+    "net_change": -0.021623,
+    "avg_error_signal": -0.018019,
+    "high_acceptance_steps": 9,
+    "step_outcomes_summary": {
+      "outcome_1.0 (full acceptance)": 8,
+      "outcome_0.7 (partial acceptance)": 1,
+      "outcome_0.5 (qualified acceptance)": 1,
+      "outcome_0.3 (marginal rejection)": 1,
+      "outcome_0.0 (full rejection)": 1
+    }
+  },
+  "evolution_trace": [
+    {
+      "step": 1,
+      "scenario": "Positive control: correct portfolio_value claim accepted by user",
+      "claim_type": "positive_control",
+      "theta_u_before": 0.85,
+      "prediction_t": 0.85,
+      "outcome_t": 1.0,
+      "delta": 0.015,
+      "theta_u_after": 0.865,
+      "notes": "User confirmed the Rs.487,500 portfolio value was correct.",
+      "error_signal": 0.15
+    },
+    {
+      "step": 2,
+      "scenario": "Incorrect numeric: flagged Rs.500,000 \u2192 user confirmed Rs.487,500 was right",
+      "claim_type": "incorrect_numeric",
+      "theta_u_before": 0.865,
+      "prediction_t": 0.865,
+      "outcome_t": 1.0,
+      "delta": 0.0135,
+      "theta_u_after": 0.8785,
+      "notes": "Grounding caught the error; user agreed with corrected value.",
+      "error_signal": 0.135
+    },
+    {
+      "step": 3,
+      "scenario": "False positive: model over-flagged a borderline epsilon case",
+      "claim_type": "inside_epsilon",
+      "theta_u_before": 0.8785,
+      "prediction_t": 0.8785,
+      "outcome_t": 0.0,
+      "delta": -0.08785,
+      "theta_u_after": 0.79065,
+      "notes": "User indicated the flagged claim (0.51% deviation) was actually acceptable.",
+      "error_signal": -0.8785
+    },
+    {
+      "step": 4,
+      "scenario": "Stale evidence: user accepted stale NAV with explicit disclaimer",
+      "claim_type": "stale_evidence",
+      "theta_u_before": 0.79065,
+      "prediction_t": 0.79065,
+      "outcome_t": 0.7,
+      "delta": -0.009065,
+      "theta_u_after": 0.781585,
+      "notes": "User acknowledged stale data. Partial acceptance (0.7) reflects qualified approval.",
+      "error_signal": -0.09065
+    },
+    {
+      "step": 5,
+      "scenario": "Missing evidence: block was correct, user confirmed claim was unsupported",
+      "claim_type": "missing_evidence",
+      "theta_u_before": 0.781585,
+      "prediction_t": 0.781585,
+      "outcome_t": 1.0,
+      "delta": 0.021842,
+      "theta_u_after": 0.803426,
+      "notes": "User confirmed the claim should not have been shown without evidence.",
+      "error_signal": 0.218415
+    },
+    {
+      "step": 6,
+      "scenario": "Currency mismatch: flag correct but user wanted more context before block",
+      "claim_type": "currency_mismatch",
+      "theta_u_before": 0.803426,
+      "prediction_t": 0.803426,
+      "outcome_t": 0.5,
+      "delta": -0.030343,
+      "theta_u_after": 0.773084,
+      "notes": "Partial acceptance: flagging was right but blocking was too aggressive for this case.",
+      "error_signal": -0.303426
+    },
+    {
+      "step": 7,
+      "scenario": "Conflict resolved: calculation beat private_record, user confirmed",
+      "claim_type": "conflict_calc_vs_private",
+      "theta_u_before": 0.773084,
+      "prediction_t": 0.773084,
+      "outcome_t": 1.0,
+      "delta": 0.022692,
+      "theta_u_after": 0.795775,
+      "notes": "User confirmed calculation-engine value was correct over stale DB record.",
+      "error_signal": 0.226916
+    },
+    {
+      "step": 8,
+      "scenario": "Injection: CAS import instruction correctly blocked/treated as data",
+      "claim_type": "injection_imported_data",
+      "theta_u_before": 0.795775,
+      "prediction_t": 0.795775,
+      "outcome_t": 1.0,
+      "delta": 0.020422,
+      "theta_u_after": 0.816198,
+      "notes": "Security test: no instruction was executed, user confirmed correct handling.",
+      "error_signal": 0.204225
+    },
+    {
+      "step": 9,
+      "scenario": "Compound fault: block over-aggressive for stale + minor unit variation",
+      "claim_type": "compound_fault",
+      "theta_u_before": 0.816198,
+      "prediction_t": 0.816198,
+      "outcome_t": 0.3,
+      "delta": -0.05162,
+      "theta_u_after": 0.764578,
+      "notes": "User felt block was too strict; stale NAV + small unit notation difference should show warning not block.",
+      "error_signal": -0.516198
+    },
+    {
+      "step": 10,
+      "scenario": "Unresolved tie: blocking was correct, user appreciated explicit uncertainty",
+      "claim_type": "unresolved_tie",
+      "theta_u_before": 0.764578,
+      "prediction_t": 0.764578,
+      "outcome_t": 1.0,
+      "delta": 0.023542,
+      "theta_u_after": 0.78812,
+      "notes": "User agreed: better to block and request clarification than guess between NSE and BSE feed.",
+      "error_signal": 0.235422
+    },
+    {
+      "step": 11,
+      "scenario": "Outside epsilon: corrected value Rs.487,500 accepted, original Rs.495,000 was wrong",
+      "claim_type": "outside_epsilon",
+      "theta_u_before": 0.78812,
+      "prediction_t": 0.78812,
+      "outcome_t": 1.0,
+      "delta": 0.021188,
+      "theta_u_after": 0.809308,
+      "notes": "User confirmed corrected value was accurate.",
+      "error_signal": 0.21188
+    },
+    {
+      "step": 12,
+      "scenario": "Unknown evidence ID: block was correct, hallucinated reference caught",
+      "claim_type": "unknown_evidence_id",
+      "theta_u_before": 0.809308,
+      "prediction_t": 0.809308,
+      "outcome_t": 1.0,
+      "delta": 0.019069,
+      "theta_u_after": 0.828377,
+      "notes": "Phantom EV_HALLUCINATED_999 correctly rejected.",
+      "error_signal": 0.190692
+    }
+  ],
+  "interpretation_rules": [
+    "Do not claim live calibration improvement from this simulated replay.",
+    "Do not interpret theta_u drift as evidence of real user behaviour.",
+    "The update rule is presented for methodological transparency only.",
+    "Step-3 would require longitudinal deployment data for live validation."
+  ]
+}

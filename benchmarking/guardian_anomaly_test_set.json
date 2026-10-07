@@ -1,0 +1,4605 @@
+{
+  "description": "Synthetic transaction set for Guardian anomaly-detection benchmarking.",
+  "total_transactions": 510,
+  "anomaly_count": 60,
+  "metrics_to_compute": [
+    "precision",
+    "recall",
+    "f1_score",
+    "roc_auc",
+    "false_positive_rate"
+  ],
+  "instructions": "Run Guardian's anomaly detector on each transaction, compare predicted is_anomaly to the labeled is_anomaly field.",
+  "transactions": [
+    {
+      "transaction_id": "TXN0094",
+      "date": "2026-05-18 16:01",
+      "merchant": "PVR CINEMAS",
+      "category": "Entertainment",
+      "amount": 479.77,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0425",
+      "date": "2026-06-10 23:18",
+      "merchant": "SWIGGY BANGALORE",
+      "category": "Food & Dining",
+      "amount": 523.53,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0338",
+      "date": "2026-06-18 10:21",
+      "merchant": "RELIANCE FRESH",
+      "category": "Groceries",
+      "amount": 2643.57,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0086",
+      "date": "2026-03-02 11:51",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 561.4,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0407",
+      "date": "2026-07-02 11:50",
+      "merchant": "MYNTRA FASHION",
+      "category": "Shopping",
+      "amount": 5152.76,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0351",
+      "date": "2026-07-27 21:57",
+      "merchant": "PHONEPE RECHARGE",
+      "category": "Utilities",
+      "amount": 826.17,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0333",
+      "date": "2026-07-01 20:28",
+      "merchant": "OLA CABS",
+      "category": "Transport",
+      "amount": 100.35,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0103",
+      "date": "2026-02-19 19:42",
+      "merchant": "MYNTRA FASHION",
+      "category": "Shopping",
+      "amount": 3460.15,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0144",
+      "date": "2026-01-28 06:59",
+      "merchant": "OLA CABS",
+      "category": "Transport",
+      "amount": 581.65,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0336",
+      "date": "2026-06-11 16:04",
+      "merchant": "LIC PREMIUM",
+      "category": "Investment",
+      "amount": 1733.12,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0501",
+      "date": "2026-01-16 09:29",
+      "merchant": "NEFT TRANSFER OUT",
+      "category": "Transfer",
+      "amount": 75000.0,
+      "is_anomaly": true,
+      "anomaly_type": "large_round_transfer"
+    },
+    {
+      "transaction_id": "TXN0398",
+      "date": "2026-04-06 20:48",
+      "merchant": "DECATHLON SPORTS",
+      "category": "Shopping",
+      "amount": 5708.29,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0453",
+      "date": "2026-03-09 13:46",
+      "merchant": "SWIGGY BANGALORE",
+      "category": "Food & Dining",
+      "amount": 8623.31,
+      "is_anomaly": true,
+      "anomaly_type": "amount_spike"
+    },
+    {
+      "transaction_id": "TXN0121",
+      "date": "2026-03-03 14:28",
+      "merchant": "PVR CINEMAS",
+      "category": "Entertainment",
+      "amount": 539.22,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0157",
+      "date": "2026-03-08 16:17",
+      "merchant": "NETFLIX SUBSCRIPTION",
+      "category": "Entertainment",
+      "amount": 448.38,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0064",
+      "date": "2026-06-02 07:39",
+      "merchant": "HOSPITAL CONSULT FEE",
+      "category": "Healthcare",
+      "amount": 728.61,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0110",
+      "date": "2026-02-20 10:01",
+      "merchant": "MYNTRA FASHION",
+      "category": "Shopping",
+      "amount": 1580.45,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0026",
+      "date": "2026-04-19 08:24",
+      "merchant": "OLA CABS",
+      "category": "Transport",
+      "amount": 491.88,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0084",
+      "date": "2026-02-23 13:42",
+      "merchant": "ZOMATO ORDER",
+      "category": "Food & Dining",
+      "amount": 824.19,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0150",
+      "date": "2026-01-28 19:23",
+      "merchant": "IRCTC RAILWAY",
+      "category": "Transport",
+      "amount": 507.61,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0347",
+      "date": "2026-06-08 10:38",
+      "merchant": "BESCOM ELECTRICITY",
+      "category": "Utilities",
+      "amount": 2228.06,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0492",
+      "date": "2026-02-04 22:29",
+      "merchant": "CRYPTO EXCHANGE TRANSFER",
+      "category": "Uncategorized/High-Risk",
+      "amount": 73355.6,
+      "is_anomaly": true,
+      "anomaly_type": "unusual_category_first_seen"
+    },
+    {
+      "transaction_id": "TXN0434",
+      "date": "2026-05-28 16:12",
+      "merchant": "OLA CABS",
+      "category": "Transport",
+      "amount": 503.01,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0264",
+      "date": "2026-02-24 06:03",
+      "merchant": "DECATHLON SPORTS",
+      "category": "Shopping",
+      "amount": 822.54,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0088",
+      "date": "2026-04-16 13:17",
+      "merchant": "BESCOM ELECTRICITY",
+      "category": "Utilities",
+      "amount": 2021.25,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0436",
+      "date": "2026-01-24 18:32",
+      "merchant": "MYNTRA FASHION",
+      "category": "Shopping",
+      "amount": 3135.01,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0362",
+      "date": "2026-06-16 16:50",
+      "merchant": "AMAZON.IN",
+      "category": "Shopping",
+      "amount": 5083.3,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0259",
+      "date": "2026-02-09 19:41",
+      "merchant": "HOSPITAL CONSULT FEE",
+      "category": "Healthcare",
+      "amount": 1894.33,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0422",
+      "date": "2026-06-04 16:53",
+      "merchant": "LIC PREMIUM",
+      "category": "Investment",
+      "amount": 11088.86,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0132",
+      "date": "2026-04-30 10:39",
+      "merchant": "STARBUCKS COFFEE",
+      "category": "Food & Dining",
+      "amount": 693.14,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0119",
+      "date": "2026-02-10 21:28",
+      "merchant": "PHONEPE RECHARGE",
+      "category": "Utilities",
+      "amount": 1281.01,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0386",
+      "date": "2026-04-09 16:11",
+      "merchant": "DECATHLON SPORTS",
+      "category": "Shopping",
+      "amount": 5399.43,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0076",
+      "date": "2026-03-29 12:43",
+      "merchant": "LIC PREMIUM",
+      "category": "Investment",
+      "amount": 3948.82,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0034",
+      "date": "2026-06-03 16:31",
+      "merchant": "PVR CINEMAS",
+      "category": "Entertainment",
+      "amount": 842.95,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0207",
+      "date": "2026-01-04 23:26",
+      "merchant": "OLA CABS",
+      "category": "Transport",
+      "amount": 241.59,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0354",
+      "date": "2026-07-25 10:55",
+      "merchant": "OLA CABS",
+      "category": "Transport",
+      "amount": 504.78,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0209",
+      "date": "2026-07-03 15:32",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 339.16,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0113",
+      "date": "2026-03-04 10:41",
+      "merchant": "STARBUCKS COFFEE",
+      "category": "Food & Dining",
+      "amount": 520.78,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0019",
+      "date": "2026-04-13 14:04",
+      "merchant": "ZOMATO ORDER",
+      "category": "Food & Dining",
+      "amount": 753.78,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0421",
+      "date": "2026-06-01 10:10",
+      "merchant": "PVR CINEMAS",
+      "category": "Entertainment",
+      "amount": 648.69,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0146",
+      "date": "2026-06-26 13:06",
+      "merchant": "NETFLIX SUBSCRIPTION",
+      "category": "Entertainment",
+      "amount": 253.2,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0485",
+      "date": "2026-01-02 03:00",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 291.59,
+      "is_anomaly": true,
+      "anomaly_type": "odd_hour"
+    },
+    {
+      "transaction_id": "TXN0099",
+      "date": "2026-05-18 12:23",
+      "merchant": "PVR CINEMAS",
+      "category": "Entertainment",
+      "amount": 847.9,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0416",
+      "date": "2026-01-15 09:33",
+      "merchant": "PVR CINEMAS",
+      "category": "Entertainment",
+      "amount": 837.5,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0495",
+      "date": "2026-05-26 12:11",
+      "merchant": "CRYPTO EXCHANGE TRANSFER",
+      "category": "Uncategorized/High-Risk",
+      "amount": 67446.06,
+      "is_anomaly": true,
+      "anomaly_type": "unusual_category_first_seen"
+    },
+    {
+      "transaction_id": "TXN0053",
+      "date": "2026-03-05 08:28",
+      "merchant": "OLA CABS",
+      "category": "Transport",
+      "amount": 224.84,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0427",
+      "date": "2026-01-16 11:28",
+      "merchant": "DECATHLON SPORTS",
+      "category": "Shopping",
+      "amount": 715.95,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0358",
+      "date": "2026-04-22 08:58",
+      "merchant": "PVR CINEMAS",
+      "category": "Entertainment",
+      "amount": 303.14,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0198",
+      "date": "2026-06-27 21:18",
+      "merchant": "OLA CABS",
+      "category": "Transport",
+      "amount": 251.5,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0420",
+      "date": "2026-06-07 23:05",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 405.01,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0314",
+      "date": "2026-06-26 17:05",
+      "merchant": "LIC PREMIUM",
+      "category": "Investment",
+      "amount": 7441.36,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0467",
+      "date": "2026-03-18 15:45",
+      "merchant": "MYNTRA FASHION",
+      "category": "Shopping",
+      "amount": 1581.74,
+      "is_anomaly": true,
+      "anomaly_type": "duplicate_transaction"
+    },
+    {
+      "transaction_id": "TXN0323",
+      "date": "2026-06-09 16:55",
+      "merchant": "HOSPITAL CONSULT FEE",
+      "category": "Healthcare",
+      "amount": 1661.03,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0355",
+      "date": "2026-05-04 17:35",
+      "merchant": "RELIANCE FRESH",
+      "category": "Groceries",
+      "amount": 561.76,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0475",
+      "date": "2026-07-17 10:18",
+      "merchant": "STARBUCKS COFFEE",
+      "category": "Food & Dining",
+      "amount": 763.78,
+      "is_anomaly": true,
+      "anomaly_type": "duplicate_transaction"
+    },
+    {
+      "transaction_id": "TXN0181",
+      "date": "2026-02-23 12:16",
+      "merchant": "AMAZON.IN",
+      "category": "Shopping",
+      "amount": 5701.26,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0067",
+      "date": "2026-06-21 15:29",
+      "merchant": "RELIANCE FRESH",
+      "category": "Groceries",
+      "amount": 1626.94,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0006",
+      "date": "2026-02-10 19:21",
+      "merchant": "SWIGGY BANGALORE",
+      "category": "Food & Dining",
+      "amount": 719.11,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0174",
+      "date": "2026-01-14 14:55",
+      "merchant": "BESCOM ELECTRICITY",
+      "category": "Utilities",
+      "amount": 705.6,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0479",
+      "date": "2026-07-11 21:13",
+      "merchant": "DECATHLON SPORTS",
+      "category": "Shopping",
+      "amount": 4039.04,
+      "is_anomaly": true,
+      "anomaly_type": "duplicate_transaction"
+    },
+    {
+      "transaction_id": "TXN0148",
+      "date": "2026-03-30 23:27",
+      "merchant": "HOSPITAL CONSULT FEE",
+      "category": "Healthcare",
+      "amount": 1989.19,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0291",
+      "date": "2026-02-27 09:22",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 421.5,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0083",
+      "date": "2026-03-20 17:57",
+      "merchant": "IRCTC RAILWAY",
+      "category": "Transport",
+      "amount": 146.27,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0057",
+      "date": "2026-01-01 18:16",
+      "merchant": "ZOMATO ORDER",
+      "category": "Food & Dining",
+      "amount": 273.48,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0040",
+      "date": "2026-06-26 12:45",
+      "merchant": "PHONEPE RECHARGE",
+      "category": "Utilities",
+      "amount": 1961.58,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0001",
+      "date": "2026-03-12 13:14",
+      "merchant": "AMAZON.IN",
+      "category": "Shopping",
+      "amount": 442.56,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0189",
+      "date": "2026-04-23 09:29",
+      "merchant": "HOSPITAL CONSULT FEE",
+      "category": "Healthcare",
+      "amount": 2314.8,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0014",
+      "date": "2026-04-04 11:23",
+      "merchant": "RELIANCE FRESH",
+      "category": "Groceries",
+      "amount": 1805.57,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0499",
+      "date": "2026-07-12 14:21",
+      "merchant": "CRYPTO EXCHANGE TRANSFER",
+      "category": "Uncategorized/High-Risk",
+      "amount": 34131.28,
+      "is_anomaly": true,
+      "anomaly_type": "unusual_category_first_seen"
+    },
+    {
+      "transaction_id": "TXN0320",
+      "date": "2026-02-20 11:38",
+      "merchant": "AMAZON.IN",
+      "category": "Shopping",
+      "amount": 1134.73,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0166",
+      "date": "2026-02-19 16:07",
+      "merchant": "APOLLO PHARMACY",
+      "category": "Healthcare",
+      "amount": 433.54,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0244",
+      "date": "2026-04-04 10:05",
+      "merchant": "DECATHLON SPORTS",
+      "category": "Shopping",
+      "amount": 490.18,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0133",
+      "date": "2026-04-11 06:05",
+      "merchant": "PHONEPE RECHARGE",
+      "category": "Utilities",
+      "amount": 359.33,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0379",
+      "date": "2026-05-03 11:51",
+      "merchant": "DECATHLON SPORTS",
+      "category": "Shopping",
+      "amount": 5890.67,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0224",
+      "date": "2026-06-16 08:54",
+      "merchant": "LIC PREMIUM",
+      "category": "Investment",
+      "amount": 10697.86,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0413",
+      "date": "2026-03-23 08:28",
+      "merchant": "HOSPITAL CONSULT FEE",
+      "category": "Healthcare",
+      "amount": 323.31,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0100",
+      "date": "2026-06-20 16:39",
+      "merchant": "IRCTC RAILWAY",
+      "category": "Transport",
+      "amount": 116.39,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0409",
+      "date": "2026-05-07 06:23",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 203.1,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0308",
+      "date": "2026-04-08 23:45",
+      "merchant": "IRCTC RAILWAY",
+      "category": "Transport",
+      "amount": 171.36,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0108",
+      "date": "2026-03-14 22:42",
+      "merchant": "OLA CABS",
+      "category": "Transport",
+      "amount": 422.6,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0460",
+      "date": "2026-05-03 22:24",
+      "merchant": "BESCOM ELECTRICITY",
+      "category": "Utilities",
+      "amount": 29971.84,
+      "is_anomaly": true,
+      "anomaly_type": "amount_spike"
+    },
+    {
+      "transaction_id": "TXN0268",
+      "date": "2026-05-19 14:51",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 593.51,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0175",
+      "date": "2026-01-17 18:31",
+      "merchant": "DMART RETAIL",
+      "category": "Groceries",
+      "amount": 753.67,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0183",
+      "date": "2026-04-26 21:18",
+      "merchant": "OLA CABS",
+      "category": "Transport",
+      "amount": 81.39,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0049",
+      "date": "2026-04-16 20:55",
+      "merchant": "IRCTC RAILWAY",
+      "category": "Transport",
+      "amount": 264.23,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0500",
+      "date": "2026-05-27 06:16",
+      "merchant": "CRYPTO EXCHANGE TRANSFER",
+      "category": "Uncategorized/High-Risk",
+      "amount": 54947.65,
+      "is_anomaly": true,
+      "anomaly_type": "unusual_category_first_seen"
+    },
+    {
+      "transaction_id": "TXN0266",
+      "date": "2026-02-25 13:21",
+      "merchant": "PHONEPE RECHARGE",
+      "category": "Utilities",
+      "amount": 755.75,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0497",
+      "date": "2026-06-21 09:11",
+      "merchant": "CRYPTO EXCHANGE TRANSFER",
+      "category": "Uncategorized/High-Risk",
+      "amount": 25204.27,
+      "is_anomaly": true,
+      "anomaly_type": "unusual_category_first_seen"
+    },
+    {
+      "transaction_id": "TXN0205",
+      "date": "2026-06-28 21:07",
+      "merchant": "MYNTRA FASHION",
+      "category": "Shopping",
+      "amount": 2797.26,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0163",
+      "date": "2026-05-29 17:30",
+      "merchant": "APOLLO PHARMACY",
+      "category": "Healthcare",
+      "amount": 869.58,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0399",
+      "date": "2026-05-16 17:25",
+      "merchant": "BIGBASKET GROCERY",
+      "category": "Groceries",
+      "amount": 2179.16,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0082",
+      "date": "2026-05-30 23:09",
+      "merchant": "ZOMATO ORDER",
+      "category": "Food & Dining",
+      "amount": 775.95,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0312",
+      "date": "2026-04-17 15:07",
+      "merchant": "STARBUCKS COFFEE",
+      "category": "Food & Dining",
+      "amount": 682.12,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0444",
+      "date": "2026-07-23 16:35",
+      "merchant": "AMAZON.IN",
+      "category": "Shopping",
+      "amount": 2545.25,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0384",
+      "date": "2026-01-13 16:17",
+      "merchant": "AIRTEL POSTPAID",
+      "category": "Utilities",
+      "amount": 2196.7,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0506",
+      "date": "2026-07-13 23:51",
+      "merchant": "NEFT TRANSFER OUT",
+      "category": "Transfer",
+      "amount": 150000.0,
+      "is_anomaly": true,
+      "anomaly_type": "large_round_transfer"
+    },
+    {
+      "transaction_id": "TXN0280",
+      "date": "2026-04-21 09:50",
+      "merchant": "DECATHLON SPORTS",
+      "category": "Shopping",
+      "amount": 3181.64,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0078",
+      "date": "2026-01-12 06:21",
+      "merchant": "IRCTC RAILWAY",
+      "category": "Transport",
+      "amount": 511.26,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0151",
+      "date": "2026-04-22 11:46",
+      "merchant": "DECATHLON SPORTS",
+      "category": "Shopping",
+      "amount": 4331.66,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0010",
+      "date": "2026-04-07 08:35",
+      "merchant": "AMAZON.IN",
+      "category": "Shopping",
+      "amount": 5846.76,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0332",
+      "date": "2026-01-22 22:41",
+      "merchant": "BESCOM ELECTRICITY",
+      "category": "Utilities",
+      "amount": 2461.25,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0253",
+      "date": "2026-06-08 23:20",
+      "merchant": "APOLLO PHARMACY",
+      "category": "Healthcare",
+      "amount": 1257.97,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0223",
+      "date": "2026-07-20 14:21",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 118.91,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0007",
+      "date": "2026-07-15 16:06",
+      "merchant": "RELIANCE FRESH",
+      "category": "Groceries",
+      "amount": 881.99,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0045",
+      "date": "2026-03-26 08:32",
+      "merchant": "BIGBASKET GROCERY",
+      "category": "Groceries",
+      "amount": 3206.8,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0509",
+      "date": "2026-01-16 23:57",
+      "merchant": "NEFT TRANSFER OUT",
+      "category": "Transfer",
+      "amount": 50000.0,
+      "is_anomaly": true,
+      "anomaly_type": "large_round_transfer"
+    },
+    {
+      "transaction_id": "TXN0284",
+      "date": "2026-03-07 17:09",
+      "merchant": "IRCTC RAILWAY",
+      "category": "Transport",
+      "amount": 242.51,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0143",
+      "date": "2026-07-11 09:49",
+      "merchant": "LIC PREMIUM",
+      "category": "Investment",
+      "amount": 9501.46,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0464",
+      "date": "2026-07-17 14:39",
+      "merchant": "PHONEPE RECHARGE",
+      "category": "Utilities",
+      "amount": 1079.43,
+      "is_anomaly": true,
+      "anomaly_type": "duplicate_transaction"
+    },
+    {
+      "transaction_id": "TXN0089",
+      "date": "2026-01-28 18:55",
+      "merchant": "OLA CABS",
+      "category": "Transport",
+      "amount": 489.43,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0250",
+      "date": "2026-07-22 18:00",
+      "merchant": "PHONEPE RECHARGE",
+      "category": "Utilities",
+      "amount": 1104.71,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0489",
+      "date": "2026-04-12 03:00",
+      "merchant": "ZOMATO ORDER",
+      "category": "Food & Dining",
+      "amount": 711.75,
+      "is_anomaly": true,
+      "anomaly_type": "odd_hour"
+    },
+    {
+      "transaction_id": "TXN0340",
+      "date": "2026-07-01 08:19",
+      "merchant": "STARBUCKS COFFEE",
+      "category": "Food & Dining",
+      "amount": 246.71,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0300",
+      "date": "2026-01-14 10:10",
+      "merchant": "HOSPITAL CONSULT FEE",
+      "category": "Healthcare",
+      "amount": 1551.13,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0378",
+      "date": "2026-07-28 11:53",
+      "merchant": "AIRTEL POSTPAID",
+      "category": "Utilities",
+      "amount": 1501.23,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0043",
+      "date": "2026-05-22 13:37",
+      "merchant": "BESCOM ELECTRICITY",
+      "category": "Utilities",
+      "amount": 346.28,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0493",
+      "date": "2026-01-29 16:10",
+      "merchant": "CRYPTO EXCHANGE TRANSFER",
+      "category": "Uncategorized/High-Risk",
+      "amount": 31568.68,
+      "is_anomaly": true,
+      "anomaly_type": "unusual_category_first_seen"
+    },
+    {
+      "transaction_id": "TXN0430",
+      "date": "2026-02-03 17:32",
+      "merchant": "AIRTEL POSTPAID",
+      "category": "Utilities",
+      "amount": 2445.82,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0087",
+      "date": "2026-01-07 11:47",
+      "merchant": "OLA CABS",
+      "category": "Transport",
+      "amount": 538.34,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0176",
+      "date": "2026-06-25 07:09",
+      "merchant": "BIGBASKET GROCERY",
+      "category": "Groceries",
+      "amount": 2188.77,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0298",
+      "date": "2026-04-18 20:21",
+      "merchant": "PVR CINEMAS",
+      "category": "Entertainment",
+      "amount": 350.59,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0302",
+      "date": "2026-04-24 19:17",
+      "merchant": "IRCTC RAILWAY",
+      "category": "Transport",
+      "amount": 332.54,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0200",
+      "date": "2026-03-24 09:49",
+      "merchant": "BIGBASKET GROCERY",
+      "category": "Groceries",
+      "amount": 1375.0,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0465",
+      "date": "2026-03-05 14:35",
+      "merchant": "DMART RETAIL",
+      "category": "Groceries",
+      "amount": 996.02,
+      "is_anomaly": true,
+      "anomaly_type": "duplicate_transaction"
+    },
+    {
+      "transaction_id": "TXN0073",
+      "date": "2026-07-29 23:19",
+      "merchant": "PVR CINEMAS",
+      "category": "Entertainment",
+      "amount": 205.48,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0327",
+      "date": "2026-03-15 08:41",
+      "merchant": "ZOMATO ORDER",
+      "category": "Food & Dining",
+      "amount": 426.55,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0483",
+      "date": "2026-01-13 03:00",
+      "merchant": "APOLLO PHARMACY",
+      "category": "Healthcare",
+      "amount": 697.17,
+      "is_anomaly": true,
+      "anomaly_type": "odd_hour"
+    },
+    {
+      "transaction_id": "TXN0197",
+      "date": "2026-03-24 09:54",
+      "merchant": "AIRTEL POSTPAID",
+      "category": "Utilities",
+      "amount": 1198.37,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0357",
+      "date": "2026-03-11 20:57",
+      "merchant": "BIGBASKET GROCERY",
+      "category": "Groceries",
+      "amount": 2765.66,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0037",
+      "date": "2026-07-14 23:49",
+      "merchant": "DMART RETAIL",
+      "category": "Groceries",
+      "amount": 2929.67,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0054",
+      "date": "2026-06-16 23:53",
+      "merchant": "PHONEPE RECHARGE",
+      "category": "Utilities",
+      "amount": 515.4,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0187",
+      "date": "2026-02-08 14:52",
+      "merchant": "PHONEPE RECHARGE",
+      "category": "Utilities",
+      "amount": 794.58,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0081",
+      "date": "2026-06-26 10:34",
+      "merchant": "AMAZON.IN",
+      "category": "Shopping",
+      "amount": 728.89,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0265",
+      "date": "2026-02-02 12:04",
+      "merchant": "BESCOM ELECTRICITY",
+      "category": "Utilities",
+      "amount": 835.85,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0160",
+      "date": "2026-07-14 13:44",
+      "merchant": "IRCTC RAILWAY",
+      "category": "Transport",
+      "amount": 334.06,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0381",
+      "date": "2026-07-22 12:56",
+      "merchant": "MYNTRA FASHION",
+      "category": "Shopping",
+      "amount": 1449.07,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0226",
+      "date": "2026-01-10 08:15",
+      "merchant": "DMART RETAIL",
+      "category": "Groceries",
+      "amount": 3104.39,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0426",
+      "date": "2026-07-26 18:19",
+      "merchant": "MYNTRA FASHION",
+      "category": "Shopping",
+      "amount": 3052.79,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0456",
+      "date": "2026-06-29 09:12",
+      "merchant": "APOLLO PHARMACY",
+      "category": "Healthcare",
+      "amount": 15473.56,
+      "is_anomaly": true,
+      "anomaly_type": "amount_spike"
+    },
+    {
+      "transaction_id": "TXN0439",
+      "date": "2026-01-28 19:08",
+      "merchant": "PHONEPE RECHARGE",
+      "category": "Utilities",
+      "amount": 317.99,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0055",
+      "date": "2026-07-12 13:10",
+      "merchant": "SWIGGY BANGALORE",
+      "category": "Food & Dining",
+      "amount": 876.75,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0059",
+      "date": "2026-03-17 12:03",
+      "merchant": "DMART RETAIL",
+      "category": "Groceries",
+      "amount": 879.87,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0011",
+      "date": "2026-06-08 17:36",
+      "merchant": "MYNTRA FASHION",
+      "category": "Shopping",
+      "amount": 5027.61,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0450",
+      "date": "2026-05-11 23:31",
+      "merchant": "BESCOM ELECTRICITY",
+      "category": "Utilities",
+      "amount": 1416.09,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0180",
+      "date": "2026-03-20 07:39",
+      "merchant": "HOSPITAL CONSULT FEE",
+      "category": "Healthcare",
+      "amount": 2476.57,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0232",
+      "date": "2026-04-08 13:31",
+      "merchant": "OLA CABS",
+      "category": "Transport",
+      "amount": 121.06,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0510",
+      "date": "2026-05-27 23:09",
+      "merchant": "NEFT TRANSFER OUT",
+      "category": "Transfer",
+      "amount": 75000.0,
+      "is_anomaly": true,
+      "anomaly_type": "large_round_transfer"
+    },
+    {
+      "transaction_id": "TXN0304",
+      "date": "2026-06-23 21:33",
+      "merchant": "AMAZON.IN",
+      "category": "Shopping",
+      "amount": 1914.5,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0128",
+      "date": "2026-03-18 18:54",
+      "merchant": "SWIGGY BANGALORE",
+      "category": "Food & Dining",
+      "amount": 857.06,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0022",
+      "date": "2026-07-10 23:34",
+      "merchant": "RELIANCE FRESH",
+      "category": "Groceries",
+      "amount": 832.85,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0367",
+      "date": "2026-03-02 15:07",
+      "merchant": "AMAZON.IN",
+      "category": "Shopping",
+      "amount": 4724.18,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0433",
+      "date": "2026-06-07 19:15",
+      "merchant": "MYNTRA FASHION",
+      "category": "Shopping",
+      "amount": 5688.69,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0015",
+      "date": "2026-03-10 08:38",
+      "merchant": "AIRTEL POSTPAID",
+      "category": "Utilities",
+      "amount": 760.92,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0370",
+      "date": "2026-07-03 10:18",
+      "merchant": "PVR CINEMAS",
+      "category": "Entertainment",
+      "amount": 602.53,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0222",
+      "date": "2026-01-04 10:26",
+      "merchant": "PVR CINEMAS",
+      "category": "Entertainment",
+      "amount": 837.31,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0431",
+      "date": "2026-03-03 20:07",
+      "merchant": "PHONEPE RECHARGE",
+      "category": "Utilities",
+      "amount": 533.6,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0473",
+      "date": "2026-05-20 18:57",
+      "merchant": "AMAZON.IN",
+      "category": "Shopping",
+      "amount": 3568.82,
+      "is_anomaly": true,
+      "anomaly_type": "duplicate_transaction"
+    },
+    {
+      "transaction_id": "TXN0167",
+      "date": "2026-06-26 11:12",
+      "merchant": "PHONEPE RECHARGE",
+      "category": "Utilities",
+      "amount": 2391.93,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0270",
+      "date": "2026-03-02 16:01",
+      "merchant": "AIRTEL POSTPAID",
+      "category": "Utilities",
+      "amount": 2037.97,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0395",
+      "date": "2026-06-23 20:02",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 521.31,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0201",
+      "date": "2026-07-31 06:42",
+      "merchant": "STARBUCKS COFFEE",
+      "category": "Food & Dining",
+      "amount": 798.68,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0343",
+      "date": "2026-01-05 17:19",
+      "merchant": "IRCTC RAILWAY",
+      "category": "Transport",
+      "amount": 344.41,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0408",
+      "date": "2026-02-01 12:50",
+      "merchant": "AIRTEL POSTPAID",
+      "category": "Utilities",
+      "amount": 1419.26,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0063",
+      "date": "2026-03-02 18:07",
+      "merchant": "LIC PREMIUM",
+      "category": "Investment",
+      "amount": 1951.45,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0452",
+      "date": "2026-04-17 15:50",
+      "merchant": "BESCOM ELECTRICITY",
+      "category": "Utilities",
+      "amount": 25107.1,
+      "is_anomaly": true,
+      "anomaly_type": "amount_spike"
+    },
+    {
+      "transaction_id": "TXN0376",
+      "date": "2026-07-07 09:49",
+      "merchant": "BIGBASKET GROCERY",
+      "category": "Groceries",
+      "amount": 1468.89,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0104",
+      "date": "2026-02-14 15:25",
+      "merchant": "STARBUCKS COFFEE",
+      "category": "Food & Dining",
+      "amount": 657.99,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0208",
+      "date": "2026-01-30 20:07",
+      "merchant": "BIGBASKET GROCERY",
+      "category": "Groceries",
+      "amount": 1096.57,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0311",
+      "date": "2026-03-22 19:36",
+      "merchant": "DECATHLON SPORTS",
+      "category": "Shopping",
+      "amount": 5550.63,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0102",
+      "date": "2026-03-25 18:44",
+      "merchant": "MYNTRA FASHION",
+      "category": "Shopping",
+      "amount": 4101.29,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0326",
+      "date": "2026-04-29 20:02",
+      "merchant": "PVR CINEMAS",
+      "category": "Entertainment",
+      "amount": 251.93,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0462",
+      "date": "2026-04-28 23:21",
+      "merchant": "BESCOM ELECTRICITY",
+      "category": "Utilities",
+      "amount": 2404.71,
+      "is_anomaly": true,
+      "anomaly_type": "duplicate_transaction"
+    },
+    {
+      "transaction_id": "TXN0065",
+      "date": "2026-05-30 22:20",
+      "merchant": "BIGBASKET GROCERY",
+      "category": "Groceries",
+      "amount": 1699.6,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0191",
+      "date": "2026-06-03 07:56",
+      "merchant": "DMART RETAIL",
+      "category": "Groceries",
+      "amount": 1757.05,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0387",
+      "date": "2026-04-05 22:17",
+      "merchant": "DMART RETAIL",
+      "category": "Groceries",
+      "amount": 2545.41,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0050",
+      "date": "2026-06-15 09:03",
+      "merchant": "ZOMATO ORDER",
+      "category": "Food & Dining",
+      "amount": 655.02,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0062",
+      "date": "2026-01-21 11:04",
+      "merchant": "ZOMATO ORDER",
+      "category": "Food & Dining",
+      "amount": 870.58,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0490",
+      "date": "2026-01-10 03:00",
+      "merchant": "MYNTRA FASHION",
+      "category": "Shopping",
+      "amount": 3735.86,
+      "is_anomaly": true,
+      "anomaly_type": "odd_hour"
+    },
+    {
+      "transaction_id": "TXN0448",
+      "date": "2026-02-05 16:59",
+      "merchant": "LIC PREMIUM",
+      "category": "Investment",
+      "amount": 13503.84,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0352",
+      "date": "2026-05-27 20:29",
+      "merchant": "NETFLIX SUBSCRIPTION",
+      "category": "Entertainment",
+      "amount": 457.49,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0028",
+      "date": "2026-01-03 09:43",
+      "merchant": "PHONEPE RECHARGE",
+      "category": "Utilities",
+      "amount": 2193.72,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0046",
+      "date": "2026-05-05 12:34",
+      "merchant": "APOLLO PHARMACY",
+      "category": "Healthcare",
+      "amount": 804.42,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0111",
+      "date": "2026-05-02 08:29",
+      "merchant": "ZOMATO ORDER",
+      "category": "Food & Dining",
+      "amount": 333.63,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0257",
+      "date": "2026-02-04 18:29",
+      "merchant": "APOLLO PHARMACY",
+      "category": "Healthcare",
+      "amount": 2235.06,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0508",
+      "date": "2026-06-30 17:04",
+      "merchant": "NEFT TRANSFER OUT",
+      "category": "Transfer",
+      "amount": 200000.0,
+      "is_anomaly": true,
+      "anomaly_type": "large_round_transfer"
+    },
+    {
+      "transaction_id": "TXN0129",
+      "date": "2026-07-08 23:51",
+      "merchant": "IRCTC RAILWAY",
+      "category": "Transport",
+      "amount": 359.87,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0341",
+      "date": "2026-07-22 16:52",
+      "merchant": "PHONEPE RECHARGE",
+      "category": "Utilities",
+      "amount": 1128.69,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0334",
+      "date": "2026-02-10 17:23",
+      "merchant": "PVR CINEMAS",
+      "category": "Entertainment",
+      "amount": 565.92,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0313",
+      "date": "2026-03-25 11:51",
+      "merchant": "STARBUCKS COFFEE",
+      "category": "Food & Dining",
+      "amount": 165.64,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0071",
+      "date": "2026-04-05 15:10",
+      "merchant": "BIGBASKET GROCERY",
+      "category": "Groceries",
+      "amount": 3125.74,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0466",
+      "date": "2026-03-05 14:35",
+      "merchant": "DMART RETAIL",
+      "category": "Groceries",
+      "amount": 996.02,
+      "is_anomaly": true,
+      "anomaly_type": "duplicate_transaction"
+    },
+    {
+      "transaction_id": "TXN0136",
+      "date": "2026-04-08 14:48",
+      "merchant": "BESCOM ELECTRICITY",
+      "category": "Utilities",
+      "amount": 1974.71,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0325",
+      "date": "2026-06-01 07:22",
+      "merchant": "MYNTRA FASHION",
+      "category": "Shopping",
+      "amount": 4839.08,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0004",
+      "date": "2026-01-07 23:12",
+      "merchant": "APOLLO PHARMACY",
+      "category": "Healthcare",
+      "amount": 1337.58,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0220",
+      "date": "2026-01-10 10:32",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 337.57,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0412",
+      "date": "2026-07-16 19:52",
+      "merchant": "DMART RETAIL",
+      "category": "Groceries",
+      "amount": 2029.66,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0137",
+      "date": "2026-01-21 21:01",
+      "merchant": "IRCTC RAILWAY",
+      "category": "Transport",
+      "amount": 211.18,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0221",
+      "date": "2026-01-26 20:06",
+      "merchant": "HOSPITAL CONSULT FEE",
+      "category": "Healthcare",
+      "amount": 930.19,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0005",
+      "date": "2026-04-25 14:51",
+      "merchant": "PHONEPE RECHARGE",
+      "category": "Utilities",
+      "amount": 1222.94,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0294",
+      "date": "2026-08-01 14:01",
+      "merchant": "LIC PREMIUM",
+      "category": "Investment",
+      "amount": 14007.18,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0261",
+      "date": "2026-02-25 20:28",
+      "merchant": "ZOMATO ORDER",
+      "category": "Food & Dining",
+      "amount": 667.71,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0337",
+      "date": "2026-06-23 18:18",
+      "merchant": "BESCOM ELECTRICITY",
+      "category": "Utilities",
+      "amount": 507.91,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0290",
+      "date": "2026-01-27 22:13",
+      "merchant": "LIC PREMIUM",
+      "category": "Investment",
+      "amount": 5374.28,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0306",
+      "date": "2026-02-24 10:48",
+      "merchant": "NETFLIX SUBSCRIPTION",
+      "category": "Entertainment",
+      "amount": 410.99,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0316",
+      "date": "2026-04-12 15:47",
+      "merchant": "STARBUCKS COFFEE",
+      "category": "Food & Dining",
+      "amount": 542.97,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0159",
+      "date": "2026-01-22 13:46",
+      "merchant": "PVR CINEMAS",
+      "category": "Entertainment",
+      "amount": 863.64,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0319",
+      "date": "2026-07-29 10:15",
+      "merchant": "AIRTEL POSTPAID",
+      "category": "Utilities",
+      "amount": 1072.42,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0096",
+      "date": "2026-06-02 19:22",
+      "merchant": "RELIANCE FRESH",
+      "category": "Groceries",
+      "amount": 518.6,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0117",
+      "date": "2026-05-24 16:48",
+      "merchant": "DECATHLON SPORTS",
+      "category": "Shopping",
+      "amount": 4105.19,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0130",
+      "date": "2026-05-05 13:17",
+      "merchant": "LIC PREMIUM",
+      "category": "Investment",
+      "amount": 13569.36,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0056",
+      "date": "2026-02-24 18:57",
+      "merchant": "IRCTC RAILWAY",
+      "category": "Transport",
+      "amount": 332.53,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0003",
+      "date": "2026-01-08 08:13",
+      "merchant": "HOSPITAL CONSULT FEE",
+      "category": "Healthcare",
+      "amount": 1141.52,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0039",
+      "date": "2026-06-05 19:13",
+      "merchant": "RELIANCE FRESH",
+      "category": "Groceries",
+      "amount": 2035.79,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0182",
+      "date": "2026-02-14 23:04",
+      "merchant": "BIGBASKET GROCERY",
+      "category": "Groceries",
+      "amount": 886.88,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0396",
+      "date": "2026-07-19 17:23",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 114.96,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0505",
+      "date": "2026-07-11 17:26",
+      "merchant": "NEFT TRANSFER OUT",
+      "category": "Transfer",
+      "amount": 150000.0,
+      "is_anomaly": true,
+      "anomaly_type": "large_round_transfer"
+    },
+    {
+      "transaction_id": "TXN0162",
+      "date": "2026-02-26 18:44",
+      "merchant": "SWIGGY BANGALORE",
+      "category": "Food & Dining",
+      "amount": 219.79,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0451",
+      "date": "2026-07-28 06:23",
+      "merchant": "HOSPITAL CONSULT FEE",
+      "category": "Healthcare",
+      "amount": 19496.86,
+      "is_anomaly": true,
+      "anomaly_type": "amount_spike"
+    },
+    {
+      "transaction_id": "TXN0240",
+      "date": "2026-05-25 07:58",
+      "merchant": "STARBUCKS COFFEE",
+      "category": "Food & Dining",
+      "amount": 355.86,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0400",
+      "date": "2026-03-05 09:01",
+      "merchant": "BESCOM ELECTRICITY",
+      "category": "Utilities",
+      "amount": 1729.03,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0429",
+      "date": "2026-07-03 16:46",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 242.54,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0353",
+      "date": "2026-05-09 22:26",
+      "merchant": "MYNTRA FASHION",
+      "category": "Shopping",
+      "amount": 4735.31,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0013",
+      "date": "2026-03-01 09:24",
+      "merchant": "MYNTRA FASHION",
+      "category": "Shopping",
+      "amount": 5915.76,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0172",
+      "date": "2026-07-12 21:06",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 411.69,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0504",
+      "date": "2026-02-26 10:30",
+      "merchant": "NEFT TRANSFER OUT",
+      "category": "Transfer",
+      "amount": 75000.0,
+      "is_anomaly": true,
+      "anomaly_type": "large_round_transfer"
+    },
+    {
+      "transaction_id": "TXN0020",
+      "date": "2026-05-26 16:13",
+      "merchant": "NETFLIX SUBSCRIPTION",
+      "category": "Entertainment",
+      "amount": 839.2,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0470",
+      "date": "2026-05-06 16:30",
+      "merchant": "NETFLIX SUBSCRIPTION",
+      "category": "Entertainment",
+      "amount": 683.17,
+      "is_anomaly": true,
+      "anomaly_type": "duplicate_transaction"
+    },
+    {
+      "transaction_id": "TXN0405",
+      "date": "2026-07-27 16:42",
+      "merchant": "DECATHLON SPORTS",
+      "category": "Shopping",
+      "amount": 5984.4,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0366",
+      "date": "2026-07-06 22:27",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 365.38,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0135",
+      "date": "2026-02-24 20:20",
+      "merchant": "RELIANCE FRESH",
+      "category": "Groceries",
+      "amount": 1575.22,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0016",
+      "date": "2026-03-04 11:29",
+      "merchant": "OLA CABS",
+      "category": "Transport",
+      "amount": 357.75,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0249",
+      "date": "2026-02-27 18:54",
+      "merchant": "BIGBASKET GROCERY",
+      "category": "Groceries",
+      "amount": 836.35,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0139",
+      "date": "2026-06-16 07:48",
+      "merchant": "BIGBASKET GROCERY",
+      "category": "Groceries",
+      "amount": 2821.82,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0228",
+      "date": "2026-06-30 09:28",
+      "merchant": "AMAZON.IN",
+      "category": "Shopping",
+      "amount": 4634.11,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0235",
+      "date": "2026-02-10 08:28",
+      "merchant": "MYNTRA FASHION",
+      "category": "Shopping",
+      "amount": 4162.38,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0317",
+      "date": "2026-07-19 11:04",
+      "merchant": "BESCOM ELECTRICITY",
+      "category": "Utilities",
+      "amount": 787.46,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0247",
+      "date": "2026-03-07 21:51",
+      "merchant": "RELIANCE FRESH",
+      "category": "Groceries",
+      "amount": 2974.47,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0140",
+      "date": "2026-02-21 06:39",
+      "merchant": "SWIGGY BANGALORE",
+      "category": "Food & Dining",
+      "amount": 862.21,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0281",
+      "date": "2026-06-16 23:46",
+      "merchant": "AMAZON.IN",
+      "category": "Shopping",
+      "amount": 5160.92,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0463",
+      "date": "2026-07-17 14:39",
+      "merchant": "PHONEPE RECHARGE",
+      "category": "Utilities",
+      "amount": 1079.43,
+      "is_anomaly": true,
+      "anomaly_type": "duplicate_transaction"
+    },
+    {
+      "transaction_id": "TXN0245",
+      "date": "2026-04-17 11:12",
+      "merchant": "MYNTRA FASHION",
+      "category": "Shopping",
+      "amount": 2162.3,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0091",
+      "date": "2026-07-30 13:14",
+      "merchant": "DECATHLON SPORTS",
+      "category": "Shopping",
+      "amount": 2293.05,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0292",
+      "date": "2026-07-15 14:36",
+      "merchant": "PHONEPE RECHARGE",
+      "category": "Utilities",
+      "amount": 1108.63,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0188",
+      "date": "2026-02-12 15:38",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 117.13,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0044",
+      "date": "2026-07-01 07:14",
+      "merchant": "APOLLO PHARMACY",
+      "category": "Healthcare",
+      "amount": 166.9,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0260",
+      "date": "2026-06-07 19:17",
+      "merchant": "AMAZON.IN",
+      "category": "Shopping",
+      "amount": 5052.05,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0252",
+      "date": "2026-07-30 17:06",
+      "merchant": "RELIANCE FRESH",
+      "category": "Groceries",
+      "amount": 2212.14,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0477",
+      "date": "2026-07-02 08:22",
+      "merchant": "ZOMATO ORDER",
+      "category": "Food & Dining",
+      "amount": 365.72,
+      "is_anomaly": true,
+      "anomaly_type": "duplicate_transaction"
+    },
+    {
+      "transaction_id": "TXN0488",
+      "date": "2026-02-14 03:00",
+      "merchant": "ZOMATO ORDER",
+      "category": "Food & Dining",
+      "amount": 281.84,
+      "is_anomaly": true,
+      "anomaly_type": "odd_hour"
+    },
+    {
+      "transaction_id": "TXN0186",
+      "date": "2026-02-20 19:07",
+      "merchant": "HOSPITAL CONSULT FEE",
+      "category": "Healthcare",
+      "amount": 1703.78,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0248",
+      "date": "2026-03-28 09:29",
+      "merchant": "MYNTRA FASHION",
+      "category": "Shopping",
+      "amount": 4555.39,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0389",
+      "date": "2026-03-24 09:05",
+      "merchant": "OLA CABS",
+      "category": "Transport",
+      "amount": 363.65,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0211",
+      "date": "2026-04-09 12:58",
+      "merchant": "DECATHLON SPORTS",
+      "category": "Shopping",
+      "amount": 3442.21,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0356",
+      "date": "2026-05-13 09:18",
+      "merchant": "AMAZON.IN",
+      "category": "Shopping",
+      "amount": 4354.99,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0432",
+      "date": "2026-02-06 09:03",
+      "merchant": "RELIANCE FRESH",
+      "category": "Groceries",
+      "amount": 1793.75,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0173",
+      "date": "2026-05-01 21:28",
+      "merchant": "SWIGGY BANGALORE",
+      "category": "Food & Dining",
+      "amount": 580.55,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0256",
+      "date": "2026-05-07 09:06",
+      "merchant": "ZOMATO ORDER",
+      "category": "Food & Dining",
+      "amount": 378.27,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0390",
+      "date": "2026-03-20 20:38",
+      "merchant": "BESCOM ELECTRICITY",
+      "category": "Utilities",
+      "amount": 1754.02,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0397",
+      "date": "2026-01-09 10:43",
+      "merchant": "STARBUCKS COFFEE",
+      "category": "Food & Dining",
+      "amount": 862.1,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0417",
+      "date": "2026-02-11 16:59",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 238.14,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0169",
+      "date": "2026-02-19 15:14",
+      "merchant": "MYNTRA FASHION",
+      "category": "Shopping",
+      "amount": 5888.91,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0101",
+      "date": "2026-02-01 15:32",
+      "merchant": "BESCOM ELECTRICITY",
+      "category": "Utilities",
+      "amount": 1759.45,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0079",
+      "date": "2026-03-09 11:47",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 411.3,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0152",
+      "date": "2026-03-11 23:49",
+      "merchant": "PVR CINEMAS",
+      "category": "Entertainment",
+      "amount": 875.83,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0454",
+      "date": "2026-02-13 22:40",
+      "merchant": "ZOMATO ORDER",
+      "category": "Food & Dining",
+      "amount": 8551.03,
+      "is_anomaly": true,
+      "anomaly_type": "amount_spike"
+    },
+    {
+      "transaction_id": "TXN0282",
+      "date": "2026-02-28 19:21",
+      "merchant": "NETFLIX SUBSCRIPTION",
+      "category": "Entertainment",
+      "amount": 501.05,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0402",
+      "date": "2026-06-30 20:13",
+      "merchant": "RELIANCE FRESH",
+      "category": "Groceries",
+      "amount": 2802.39,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0075",
+      "date": "2026-02-09 14:18",
+      "merchant": "AMAZON.IN",
+      "category": "Shopping",
+      "amount": 4531.78,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0365",
+      "date": "2026-01-05 14:13",
+      "merchant": "SWIGGY BANGALORE",
+      "category": "Food & Dining",
+      "amount": 829.39,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0471",
+      "date": "2026-07-23 14:18",
+      "merchant": "AIRTEL POSTPAID",
+      "category": "Utilities",
+      "amount": 1533.07,
+      "is_anomaly": true,
+      "anomaly_type": "duplicate_transaction"
+    },
+    {
+      "transaction_id": "TXN0443",
+      "date": "2026-03-13 09:08",
+      "merchant": "DECATHLON SPORTS",
+      "category": "Shopping",
+      "amount": 4657.1,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0161",
+      "date": "2026-05-06 20:50",
+      "merchant": "DMART RETAIL",
+      "category": "Groceries",
+      "amount": 2402.3,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0318",
+      "date": "2026-05-16 22:12",
+      "merchant": "PVR CINEMAS",
+      "category": "Entertainment",
+      "amount": 643.26,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0293",
+      "date": "2026-05-24 23:01",
+      "merchant": "APOLLO PHARMACY",
+      "category": "Healthcare",
+      "amount": 2046.97,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0346",
+      "date": "2026-05-19 22:02",
+      "merchant": "AMAZON.IN",
+      "category": "Shopping",
+      "amount": 3193.83,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0241",
+      "date": "2026-03-15 13:38",
+      "merchant": "LIC PREMIUM",
+      "category": "Investment",
+      "amount": 11432.41,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0051",
+      "date": "2026-07-24 09:15",
+      "merchant": "STARBUCKS COFFEE",
+      "category": "Food & Dining",
+      "amount": 696.16,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0328",
+      "date": "2026-05-10 18:29",
+      "merchant": "BIGBASKET GROCERY",
+      "category": "Groceries",
+      "amount": 2306.53,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0255",
+      "date": "2026-01-30 10:02",
+      "merchant": "MYNTRA FASHION",
+      "category": "Shopping",
+      "amount": 4000.66,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0491",
+      "date": "2026-06-14 23:33",
+      "merchant": "CRYPTO EXCHANGE TRANSFER",
+      "category": "Uncategorized/High-Risk",
+      "amount": 37073.7,
+      "is_anomaly": true,
+      "anomaly_type": "unusual_category_first_seen"
+    },
+    {
+      "transaction_id": "TXN0185",
+      "date": "2026-03-01 14:50",
+      "merchant": "DECATHLON SPORTS",
+      "category": "Shopping",
+      "amount": 705.72,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0134",
+      "date": "2026-04-29 11:03",
+      "merchant": "IRCTC RAILWAY",
+      "category": "Transport",
+      "amount": 150.56,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0482",
+      "date": "2026-02-05 03:00",
+      "merchant": "RELIANCE FRESH",
+      "category": "Groceries",
+      "amount": 2219.17,
+      "is_anomaly": true,
+      "anomaly_type": "odd_hour"
+    },
+    {
+      "transaction_id": "TXN0184",
+      "date": "2026-06-30 15:44",
+      "merchant": "ZOMATO ORDER",
+      "category": "Food & Dining",
+      "amount": 323.61,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0274",
+      "date": "2026-01-12 22:19",
+      "merchant": "APOLLO PHARMACY",
+      "category": "Healthcare",
+      "amount": 2371.73,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0239",
+      "date": "2026-03-17 06:53",
+      "merchant": "MYNTRA FASHION",
+      "category": "Shopping",
+      "amount": 5958.34,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0418",
+      "date": "2026-05-13 15:54",
+      "merchant": "APOLLO PHARMACY",
+      "category": "Healthcare",
+      "amount": 963.15,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0145",
+      "date": "2026-04-07 18:45",
+      "merchant": "MYNTRA FASHION",
+      "category": "Shopping",
+      "amount": 3582.04,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0481",
+      "date": "2026-07-31 03:00",
+      "merchant": "NETFLIX SUBSCRIPTION",
+      "category": "Entertainment",
+      "amount": 593.41,
+      "is_anomaly": true,
+      "anomaly_type": "odd_hour"
+    },
+    {
+      "transaction_id": "TXN0283",
+      "date": "2026-07-06 09:20",
+      "merchant": "DECATHLON SPORTS",
+      "category": "Shopping",
+      "amount": 2572.76,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0123",
+      "date": "2026-01-21 10:09",
+      "merchant": "BESCOM ELECTRICITY",
+      "category": "Utilities",
+      "amount": 2264.66,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0204",
+      "date": "2026-05-21 10:59",
+      "merchant": "ZOMATO ORDER",
+      "category": "Food & Dining",
+      "amount": 302.67,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0322",
+      "date": "2026-05-25 20:43",
+      "merchant": "DMART RETAIL",
+      "category": "Groceries",
+      "amount": 1838.25,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0324",
+      "date": "2026-01-18 21:28",
+      "merchant": "BESCOM ELECTRICITY",
+      "category": "Utilities",
+      "amount": 632.11,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0468",
+      "date": "2026-03-18 15:45",
+      "merchant": "MYNTRA FASHION",
+      "category": "Shopping",
+      "amount": 1581.74,
+      "is_anomaly": true,
+      "anomaly_type": "duplicate_transaction"
+    },
+    {
+      "transaction_id": "TXN0437",
+      "date": "2026-02-25 17:03",
+      "merchant": "DECATHLON SPORTS",
+      "category": "Shopping",
+      "amount": 5810.11,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0404",
+      "date": "2026-04-26 11:57",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 523.47,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0109",
+      "date": "2026-07-29 13:43",
+      "merchant": "LIC PREMIUM",
+      "category": "Investment",
+      "amount": 5692.64,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0008",
+      "date": "2026-04-02 17:38",
+      "merchant": "BIGBASKET GROCERY",
+      "category": "Groceries",
+      "amount": 1577.77,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0156",
+      "date": "2026-03-25 11:31",
+      "merchant": "SWIGGY BANGALORE",
+      "category": "Food & Dining",
+      "amount": 520.73,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0171",
+      "date": "2026-01-14 23:18",
+      "merchant": "RELIANCE FRESH",
+      "category": "Groceries",
+      "amount": 541.1,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0107",
+      "date": "2026-02-24 22:30",
+      "merchant": "DECATHLON SPORTS",
+      "category": "Shopping",
+      "amount": 2820.31,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0246",
+      "date": "2026-04-04 22:32",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 488.99,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0383",
+      "date": "2026-01-10 12:18",
+      "merchant": "PHONEPE RECHARGE",
+      "category": "Utilities",
+      "amount": 1341.48,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0486",
+      "date": "2026-05-03 03:00",
+      "merchant": "DMART RETAIL",
+      "category": "Groceries",
+      "amount": 1395.62,
+      "is_anomaly": true,
+      "anomaly_type": "odd_hour"
+    },
+    {
+      "transaction_id": "TXN0301",
+      "date": "2026-01-21 14:28",
+      "merchant": "LIC PREMIUM",
+      "category": "Investment",
+      "amount": 1696.67,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0411",
+      "date": "2026-01-17 15:25",
+      "merchant": "LIC PREMIUM",
+      "category": "Investment",
+      "amount": 13379.45,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0472",
+      "date": "2026-07-23 14:18",
+      "merchant": "AIRTEL POSTPAID",
+      "category": "Utilities",
+      "amount": 1533.07,
+      "is_anomaly": true,
+      "anomaly_type": "duplicate_transaction"
+    },
+    {
+      "transaction_id": "TXN0021",
+      "date": "2026-06-14 20:09",
+      "merchant": "DMART RETAIL",
+      "category": "Groceries",
+      "amount": 1626.46,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0309",
+      "date": "2026-06-21 17:04",
+      "merchant": "APOLLO PHARMACY",
+      "category": "Healthcare",
+      "amount": 1325.62,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0310",
+      "date": "2026-01-11 19:01",
+      "merchant": "STARBUCKS COFFEE",
+      "category": "Food & Dining",
+      "amount": 796.32,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0447",
+      "date": "2026-05-13 20:09",
+      "merchant": "BESCOM ELECTRICITY",
+      "category": "Utilities",
+      "amount": 2068.72,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0138",
+      "date": "2026-03-31 13:41",
+      "merchant": "PHONEPE RECHARGE",
+      "category": "Utilities",
+      "amount": 414.59,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0027",
+      "date": "2026-04-30 22:16",
+      "merchant": "STARBUCKS COFFEE",
+      "category": "Food & Dining",
+      "amount": 596.92,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0098",
+      "date": "2026-01-12 19:00",
+      "merchant": "HOSPITAL CONSULT FEE",
+      "category": "Healthcare",
+      "amount": 596.69,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0275",
+      "date": "2026-01-08 07:30",
+      "merchant": "DECATHLON SPORTS",
+      "category": "Shopping",
+      "amount": 3967.04,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0048",
+      "date": "2026-02-18 09:06",
+      "merchant": "DMART RETAIL",
+      "category": "Groceries",
+      "amount": 2903.24,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0190",
+      "date": "2026-03-11 22:34",
+      "merchant": "MYNTRA FASHION",
+      "category": "Shopping",
+      "amount": 4288.48,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0231",
+      "date": "2026-05-25 11:10",
+      "merchant": "APOLLO PHARMACY",
+      "category": "Healthcare",
+      "amount": 1398.24,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0041",
+      "date": "2026-06-21 17:28",
+      "merchant": "MYNTRA FASHION",
+      "category": "Shopping",
+      "amount": 2574.26,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0170",
+      "date": "2026-01-04 23:08",
+      "merchant": "AIRTEL POSTPAID",
+      "category": "Utilities",
+      "amount": 694.77,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0105",
+      "date": "2026-03-19 15:13",
+      "merchant": "PHONEPE RECHARGE",
+      "category": "Utilities",
+      "amount": 2134.2,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0478",
+      "date": "2026-07-02 08:22",
+      "merchant": "ZOMATO ORDER",
+      "category": "Food & Dining",
+      "amount": 365.72,
+      "is_anomaly": true,
+      "anomaly_type": "duplicate_transaction"
+    },
+    {
+      "transaction_id": "TXN0125",
+      "date": "2026-05-19 20:26",
+      "merchant": "IRCTC RAILWAY",
+      "category": "Transport",
+      "amount": 291.95,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0199",
+      "date": "2026-05-21 07:29",
+      "merchant": "STARBUCKS COFFEE",
+      "category": "Food & Dining",
+      "amount": 760.17,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0440",
+      "date": "2026-07-15 18:23",
+      "merchant": "RELIANCE FRESH",
+      "category": "Groceries",
+      "amount": 2655.27,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0272",
+      "date": "2026-05-02 20:49",
+      "merchant": "AMAZON.IN",
+      "category": "Shopping",
+      "amount": 4550.29,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0360",
+      "date": "2026-04-06 13:24",
+      "merchant": "ZOMATO ORDER",
+      "category": "Food & Dining",
+      "amount": 447.34,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0410",
+      "date": "2026-04-30 23:08",
+      "merchant": "PHONEPE RECHARGE",
+      "category": "Utilities",
+      "amount": 1559.01,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0364",
+      "date": "2026-05-01 20:39",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 474.6,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0288",
+      "date": "2026-04-16 17:55",
+      "merchant": "BESCOM ELECTRICITY",
+      "category": "Utilities",
+      "amount": 1774.03,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0487",
+      "date": "2026-07-16 03:00",
+      "merchant": "ZOMATO ORDER",
+      "category": "Food & Dining",
+      "amount": 324.17,
+      "is_anomaly": true,
+      "anomaly_type": "odd_hour"
+    },
+    {
+      "transaction_id": "TXN0424",
+      "date": "2026-02-23 19:39",
+      "merchant": "HOSPITAL CONSULT FEE",
+      "category": "Healthcare",
+      "amount": 771.94,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0502",
+      "date": "2026-04-14 22:59",
+      "merchant": "NEFT TRANSFER OUT",
+      "category": "Transfer",
+      "amount": 75000.0,
+      "is_anomaly": true,
+      "anomaly_type": "large_round_transfer"
+    },
+    {
+      "transaction_id": "TXN0342",
+      "date": "2026-08-01 22:05",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 428.46,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0116",
+      "date": "2026-02-01 20:08",
+      "merchant": "ZOMATO ORDER",
+      "category": "Food & Dining",
+      "amount": 568.05,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0401",
+      "date": "2026-04-10 23:07",
+      "merchant": "OLA CABS",
+      "category": "Transport",
+      "amount": 339.5,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0243",
+      "date": "2026-06-10 07:19",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 406.69,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0435",
+      "date": "2026-05-12 20:31",
+      "merchant": "OLA CABS",
+      "category": "Transport",
+      "amount": 339.1,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0095",
+      "date": "2026-03-08 11:37",
+      "merchant": "AMAZON.IN",
+      "category": "Shopping",
+      "amount": 5299.12,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0445",
+      "date": "2026-02-20 22:25",
+      "merchant": "AIRTEL POSTPAID",
+      "category": "Utilities",
+      "amount": 1960.92,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0363",
+      "date": "2026-03-15 21:44",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 151.55,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0077",
+      "date": "2026-03-06 07:05",
+      "merchant": "RELIANCE FRESH",
+      "category": "Groceries",
+      "amount": 1966.77,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0459",
+      "date": "2026-05-13 12:35",
+      "merchant": "ZOMATO ORDER",
+      "category": "Food & Dining",
+      "amount": 9211.19,
+      "is_anomaly": true,
+      "anomaly_type": "amount_spike"
+    },
+    {
+      "transaction_id": "TXN0214",
+      "date": "2026-03-18 21:55",
+      "merchant": "SWIGGY BANGALORE",
+      "category": "Food & Dining",
+      "amount": 362.13,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0377",
+      "date": "2026-03-27 10:02",
+      "merchant": "HOSPITAL CONSULT FEE",
+      "category": "Healthcare",
+      "amount": 1877.69,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0269",
+      "date": "2026-01-07 10:00",
+      "merchant": "OLA CABS",
+      "category": "Transport",
+      "amount": 137.16,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0449",
+      "date": "2026-04-11 15:37",
+      "merchant": "LIC PREMIUM",
+      "category": "Investment",
+      "amount": 5459.42,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0344",
+      "date": "2026-03-29 21:12",
+      "merchant": "OLA CABS",
+      "category": "Transport",
+      "amount": 574.61,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0330",
+      "date": "2026-03-24 21:32",
+      "merchant": "HOSPITAL CONSULT FEE",
+      "category": "Healthcare",
+      "amount": 1681.82,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0469",
+      "date": "2026-05-06 16:30",
+      "merchant": "NETFLIX SUBSCRIPTION",
+      "category": "Entertainment",
+      "amount": 683.17,
+      "is_anomaly": true,
+      "anomaly_type": "duplicate_transaction"
+    },
+    {
+      "transaction_id": "TXN0391",
+      "date": "2026-04-24 17:28",
+      "merchant": "IRCTC RAILWAY",
+      "category": "Transport",
+      "amount": 166.66,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0254",
+      "date": "2026-01-17 20:58",
+      "merchant": "LIC PREMIUM",
+      "category": "Investment",
+      "amount": 4099.14,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0285",
+      "date": "2026-08-01 08:05",
+      "merchant": "DMART RETAIL",
+      "category": "Groceries",
+      "amount": 608.11,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0219",
+      "date": "2026-06-30 18:24",
+      "merchant": "BESCOM ELECTRICITY",
+      "category": "Utilities",
+      "amount": 1938.35,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0348",
+      "date": "2026-02-16 11:46",
+      "merchant": "STARBUCKS COFFEE",
+      "category": "Food & Dining",
+      "amount": 265.69,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0321",
+      "date": "2026-06-17 08:11",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 475.31,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0090",
+      "date": "2026-02-26 12:52",
+      "merchant": "ZOMATO ORDER",
+      "category": "Food & Dining",
+      "amount": 793.94,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0303",
+      "date": "2026-01-30 17:27",
+      "merchant": "NETFLIX SUBSCRIPTION",
+      "category": "Entertainment",
+      "amount": 728.46,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0286",
+      "date": "2026-07-09 17:51",
+      "merchant": "IRCTC RAILWAY",
+      "category": "Transport",
+      "amount": 130.21,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0032",
+      "date": "2026-03-18 22:38",
+      "merchant": "AMAZON.IN",
+      "category": "Shopping",
+      "amount": 5261.96,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0141",
+      "date": "2026-05-02 09:36",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 204.04,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0154",
+      "date": "2026-01-23 14:56",
+      "merchant": "APOLLO PHARMACY",
+      "category": "Healthcare",
+      "amount": 2102.22,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0212",
+      "date": "2026-02-04 08:17",
+      "merchant": "LIC PREMIUM",
+      "category": "Investment",
+      "amount": 8115.37,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0114",
+      "date": "2026-07-17 09:49",
+      "merchant": "SWIGGY BANGALORE",
+      "category": "Food & Dining",
+      "amount": 819.49,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0507",
+      "date": "2026-06-24 08:33",
+      "merchant": "NEFT TRANSFER OUT",
+      "category": "Transfer",
+      "amount": 75000.0,
+      "is_anomaly": true,
+      "anomaly_type": "large_round_transfer"
+    },
+    {
+      "transaction_id": "TXN0406",
+      "date": "2026-05-21 23:18",
+      "merchant": "AIRTEL POSTPAID",
+      "category": "Utilities",
+      "amount": 1860.99,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0074",
+      "date": "2026-02-04 14:07",
+      "merchant": "AMAZON.IN",
+      "category": "Shopping",
+      "amount": 5651.9,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0155",
+      "date": "2026-04-29 18:21",
+      "merchant": "DECATHLON SPORTS",
+      "category": "Shopping",
+      "amount": 1690.02,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0122",
+      "date": "2026-03-02 14:21",
+      "merchant": "BIGBASKET GROCERY",
+      "category": "Groceries",
+      "amount": 2611.99,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0165",
+      "date": "2026-03-11 15:16",
+      "merchant": "AIRTEL POSTPAID",
+      "category": "Utilities",
+      "amount": 1846.28,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0403",
+      "date": "2026-05-06 12:07",
+      "merchant": "LIC PREMIUM",
+      "category": "Investment",
+      "amount": 4998.08,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0457",
+      "date": "2026-04-18 10:26",
+      "merchant": "SWIGGY BANGALORE",
+      "category": "Food & Dining",
+      "amount": 7781.61,
+      "is_anomaly": true,
+      "anomaly_type": "amount_spike"
+    },
+    {
+      "transaction_id": "TXN0296",
+      "date": "2026-02-16 10:36",
+      "merchant": "BESCOM ELECTRICITY",
+      "category": "Utilities",
+      "amount": 1072.25,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0164",
+      "date": "2026-04-19 23:21",
+      "merchant": "PHONEPE RECHARGE",
+      "category": "Utilities",
+      "amount": 1468.03,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0295",
+      "date": "2026-07-15 15:58",
+      "merchant": "OLA CABS",
+      "category": "Transport",
+      "amount": 222.1,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0375",
+      "date": "2026-03-06 06:22",
+      "merchant": "STARBUCKS COFFEE",
+      "category": "Food & Dining",
+      "amount": 885.78,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0385",
+      "date": "2026-04-22 18:47",
+      "merchant": "AMAZON.IN",
+      "category": "Shopping",
+      "amount": 4856.25,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0149",
+      "date": "2026-06-15 16:00",
+      "merchant": "AIRTEL POSTPAID",
+      "category": "Utilities",
+      "amount": 451.7,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0258",
+      "date": "2026-07-10 23:26",
+      "merchant": "AIRTEL POSTPAID",
+      "category": "Utilities",
+      "amount": 1775.07,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0072",
+      "date": "2026-06-30 15:39",
+      "merchant": "DECATHLON SPORTS",
+      "category": "Shopping",
+      "amount": 5052.35,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0494",
+      "date": "2026-07-03 11:00",
+      "merchant": "CRYPTO EXCHANGE TRANSFER",
+      "category": "Uncategorized/High-Risk",
+      "amount": 58897.12,
+      "is_anomaly": true,
+      "anomaly_type": "unusual_category_first_seen"
+    },
+    {
+      "transaction_id": "TXN0474",
+      "date": "2026-05-20 18:57",
+      "merchant": "AMAZON.IN",
+      "category": "Shopping",
+      "amount": 3568.82,
+      "is_anomaly": true,
+      "anomaly_type": "duplicate_transaction"
+    },
+    {
+      "transaction_id": "TXN0441",
+      "date": "2026-05-26 23:12",
+      "merchant": "ZOMATO ORDER",
+      "category": "Food & Dining",
+      "amount": 450.44,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0120",
+      "date": "2026-06-13 14:49",
+      "merchant": "RELIANCE FRESH",
+      "category": "Groceries",
+      "amount": 2730.51,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0225",
+      "date": "2026-05-17 18:20",
+      "merchant": "BESCOM ELECTRICITY",
+      "category": "Utilities",
+      "amount": 2175.15,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0206",
+      "date": "2026-06-05 13:45",
+      "merchant": "SWIGGY BANGALORE",
+      "category": "Food & Dining",
+      "amount": 879.86,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0023",
+      "date": "2026-04-20 18:23",
+      "merchant": "RELIANCE FRESH",
+      "category": "Groceries",
+      "amount": 2715.74,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0380",
+      "date": "2026-07-18 20:02",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 112.81,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0126",
+      "date": "2026-04-18 18:57",
+      "merchant": "ZOMATO ORDER",
+      "category": "Food & Dining",
+      "amount": 305.13,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0025",
+      "date": "2026-01-29 10:40",
+      "merchant": "BIGBASKET GROCERY",
+      "category": "Groceries",
+      "amount": 2742.92,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0361",
+      "date": "2026-01-08 16:59",
+      "merchant": "BIGBASKET GROCERY",
+      "category": "Groceries",
+      "amount": 1562.23,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0423",
+      "date": "2026-01-08 08:02",
+      "merchant": "HOSPITAL CONSULT FEE",
+      "category": "Healthcare",
+      "amount": 246.81,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0307",
+      "date": "2026-01-31 06:31",
+      "merchant": "RELIANCE FRESH",
+      "category": "Groceries",
+      "amount": 1297.29,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0496",
+      "date": "2026-04-14 19:32",
+      "merchant": "CRYPTO EXCHANGE TRANSFER",
+      "category": "Uncategorized/High-Risk",
+      "amount": 71368.79,
+      "is_anomaly": true,
+      "anomaly_type": "unusual_category_first_seen"
+    },
+    {
+      "transaction_id": "TXN0018",
+      "date": "2026-07-18 07:14",
+      "merchant": "BESCOM ELECTRICITY",
+      "category": "Utilities",
+      "amount": 2154.27,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0305",
+      "date": "2026-04-12 07:00",
+      "merchant": "MYNTRA FASHION",
+      "category": "Shopping",
+      "amount": 558.88,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0052",
+      "date": "2026-04-25 10:27",
+      "merchant": "NETFLIX SUBSCRIPTION",
+      "category": "Entertainment",
+      "amount": 333.15,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0035",
+      "date": "2026-04-03 15:15",
+      "merchant": "SWIGGY BANGALORE",
+      "category": "Food & Dining",
+      "amount": 233.9,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0503",
+      "date": "2026-06-13 15:23",
+      "merchant": "NEFT TRANSFER OUT",
+      "category": "Transfer",
+      "amount": 50000.0,
+      "is_anomaly": true,
+      "anomaly_type": "large_round_transfer"
+    },
+    {
+      "transaction_id": "TXN0124",
+      "date": "2026-02-09 12:04",
+      "merchant": "APOLLO PHARMACY",
+      "category": "Healthcare",
+      "amount": 1050.13,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0009",
+      "date": "2026-07-06 20:34",
+      "merchant": "RELIANCE FRESH",
+      "category": "Groceries",
+      "amount": 2902.1,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0455",
+      "date": "2026-04-08 10:52",
+      "merchant": "LIC PREMIUM",
+      "category": "Investment",
+      "amount": 159714.55,
+      "is_anomaly": true,
+      "anomaly_type": "amount_spike"
+    },
+    {
+      "transaction_id": "TXN0315",
+      "date": "2026-03-04 19:37",
+      "merchant": "IRCTC RAILWAY",
+      "category": "Transport",
+      "amount": 519.13,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0215",
+      "date": "2026-05-04 17:21",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 312.2,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0442",
+      "date": "2026-01-19 18:32",
+      "merchant": "AIRTEL POSTPAID",
+      "category": "Utilities",
+      "amount": 1517.09,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0498",
+      "date": "2026-03-05 06:16",
+      "merchant": "CRYPTO EXCHANGE TRANSFER",
+      "category": "Uncategorized/High-Risk",
+      "amount": 48647.25,
+      "is_anomaly": true,
+      "anomaly_type": "unusual_category_first_seen"
+    },
+    {
+      "transaction_id": "TXN0058",
+      "date": "2026-06-28 23:42",
+      "merchant": "DECATHLON SPORTS",
+      "category": "Shopping",
+      "amount": 1925.92,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0392",
+      "date": "2026-04-01 19:17",
+      "merchant": "ZOMATO ORDER",
+      "category": "Food & Dining",
+      "amount": 695.11,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0372",
+      "date": "2026-06-21 08:33",
+      "merchant": "IRCTC RAILWAY",
+      "category": "Transport",
+      "amount": 177.4,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0097",
+      "date": "2026-05-11 09:24",
+      "merchant": "BESCOM ELECTRICITY",
+      "category": "Utilities",
+      "amount": 1260.07,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0142",
+      "date": "2026-03-07 17:10",
+      "merchant": "NETFLIX SUBSCRIPTION",
+      "category": "Entertainment",
+      "amount": 525.52,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0080",
+      "date": "2026-04-20 23:00",
+      "merchant": "DECATHLON SPORTS",
+      "category": "Shopping",
+      "amount": 3444.58,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0178",
+      "date": "2026-04-17 13:49",
+      "merchant": "AMAZON.IN",
+      "category": "Shopping",
+      "amount": 3481.02,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0236",
+      "date": "2026-03-18 19:44",
+      "merchant": "AIRTEL POSTPAID",
+      "category": "Utilities",
+      "amount": 2472.83,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0127",
+      "date": "2026-01-06 18:30",
+      "merchant": "HOSPITAL CONSULT FEE",
+      "category": "Healthcare",
+      "amount": 2373.25,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0118",
+      "date": "2026-07-04 22:27",
+      "merchant": "DECATHLON SPORTS",
+      "category": "Shopping",
+      "amount": 3792.12,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0195",
+      "date": "2026-03-13 11:37",
+      "merchant": "PVR CINEMAS",
+      "category": "Entertainment",
+      "amount": 656.06,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0273",
+      "date": "2026-01-28 20:32",
+      "merchant": "AIRTEL POSTPAID",
+      "category": "Utilities",
+      "amount": 1429.12,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0218",
+      "date": "2026-07-18 19:02",
+      "merchant": "STARBUCKS COFFEE",
+      "category": "Food & Dining",
+      "amount": 325.17,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0279",
+      "date": "2026-06-02 22:18",
+      "merchant": "BESCOM ELECTRICITY",
+      "category": "Utilities",
+      "amount": 1137.99,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0369",
+      "date": "2026-05-08 23:01",
+      "merchant": "AMAZON.IN",
+      "category": "Shopping",
+      "amount": 5069.12,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0484",
+      "date": "2026-04-16 03:00",
+      "merchant": "AMAZON.IN",
+      "category": "Shopping",
+      "amount": 873.11,
+      "is_anomaly": true,
+      "anomaly_type": "odd_hour"
+    },
+    {
+      "transaction_id": "TXN0238",
+      "date": "2026-04-08 17:36",
+      "merchant": "DMART RETAIL",
+      "category": "Groceries",
+      "amount": 730.63,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0153",
+      "date": "2026-07-31 14:20",
+      "merchant": "DMART RETAIL",
+      "category": "Groceries",
+      "amount": 1841.11,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0480",
+      "date": "2026-07-11 21:13",
+      "merchant": "DECATHLON SPORTS",
+      "category": "Shopping",
+      "amount": 4039.04,
+      "is_anomaly": true,
+      "anomaly_type": "duplicate_transaction"
+    },
+    {
+      "transaction_id": "TXN0388",
+      "date": "2026-01-21 19:38",
+      "merchant": "BIGBASKET GROCERY",
+      "category": "Groceries",
+      "amount": 2653.95,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0476",
+      "date": "2026-07-17 10:18",
+      "merchant": "STARBUCKS COFFEE",
+      "category": "Food & Dining",
+      "amount": 763.78,
+      "is_anomaly": true,
+      "anomaly_type": "duplicate_transaction"
+    },
+    {
+      "transaction_id": "TXN0428",
+      "date": "2026-02-22 16:38",
+      "merchant": "IRCTC RAILWAY",
+      "category": "Transport",
+      "amount": 331.81,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0115",
+      "date": "2026-07-25 22:29",
+      "merchant": "IRCTC RAILWAY",
+      "category": "Transport",
+      "amount": 193.8,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0373",
+      "date": "2026-05-15 23:32",
+      "merchant": "AIRTEL POSTPAID",
+      "category": "Utilities",
+      "amount": 448.89,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0066",
+      "date": "2026-07-03 16:15",
+      "merchant": "RELIANCE FRESH",
+      "category": "Groceries",
+      "amount": 1033.2,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0271",
+      "date": "2026-02-02 19:33",
+      "merchant": "OLA CABS",
+      "category": "Transport",
+      "amount": 217.99,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0202",
+      "date": "2026-01-14 12:33",
+      "merchant": "PHONEPE RECHARGE",
+      "category": "Utilities",
+      "amount": 1316.35,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0276",
+      "date": "2026-01-28 21:45",
+      "merchant": "STARBUCKS COFFEE",
+      "category": "Food & Dining",
+      "amount": 469.71,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0092",
+      "date": "2026-04-13 16:17",
+      "merchant": "SWIGGY BANGALORE",
+      "category": "Food & Dining",
+      "amount": 645.02,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0061",
+      "date": "2026-05-09 22:10",
+      "merchant": "ZOMATO ORDER",
+      "category": "Food & Dining",
+      "amount": 588.13,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0179",
+      "date": "2026-04-24 15:55",
+      "merchant": "PVR CINEMAS",
+      "category": "Entertainment",
+      "amount": 466.26,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0335",
+      "date": "2026-07-18 16:43",
+      "merchant": "MYNTRA FASHION",
+      "category": "Shopping",
+      "amount": 2508.27,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0069",
+      "date": "2026-01-26 08:34",
+      "merchant": "LIC PREMIUM",
+      "category": "Investment",
+      "amount": 14978.36,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0277",
+      "date": "2026-01-21 16:38",
+      "merchant": "DECATHLON SPORTS",
+      "category": "Shopping",
+      "amount": 718.9,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0339",
+      "date": "2026-02-06 17:19",
+      "merchant": "BIGBASKET GROCERY",
+      "category": "Groceries",
+      "amount": 2206.49,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0350",
+      "date": "2026-07-11 20:14",
+      "merchant": "LIC PREMIUM",
+      "category": "Investment",
+      "amount": 4988.99,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0042",
+      "date": "2026-03-05 13:04",
+      "merchant": "PVR CINEMAS",
+      "category": "Entertainment",
+      "amount": 516.04,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0193",
+      "date": "2026-06-22 06:48",
+      "merchant": "BIGBASKET GROCERY",
+      "category": "Groceries",
+      "amount": 1109.67,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0194",
+      "date": "2026-07-15 11:30",
+      "merchant": "RELIANCE FRESH",
+      "category": "Groceries",
+      "amount": 2186.37,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0446",
+      "date": "2026-01-10 10:45",
+      "merchant": "PVR CINEMAS",
+      "category": "Entertainment",
+      "amount": 228.18,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0230",
+      "date": "2026-04-06 19:09",
+      "merchant": "ZOMATO ORDER",
+      "category": "Food & Dining",
+      "amount": 370.03,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0196",
+      "date": "2026-05-06 08:30",
+      "merchant": "IRCTC RAILWAY",
+      "category": "Transport",
+      "amount": 410.09,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0192",
+      "date": "2026-06-04 14:01",
+      "merchant": "IRCTC RAILWAY",
+      "category": "Transport",
+      "amount": 461.96,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0216",
+      "date": "2026-04-07 20:59",
+      "merchant": "PHONEPE RECHARGE",
+      "category": "Utilities",
+      "amount": 1978.32,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0331",
+      "date": "2026-04-26 09:51",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 578.02,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0374",
+      "date": "2026-04-10 21:02",
+      "merchant": "PVR CINEMAS",
+      "category": "Entertainment",
+      "amount": 587.91,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0329",
+      "date": "2026-07-22 07:28",
+      "merchant": "HOSPITAL CONSULT FEE",
+      "category": "Healthcare",
+      "amount": 1452.64,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0393",
+      "date": "2026-06-13 18:23",
+      "merchant": "ZOMATO ORDER",
+      "category": "Food & Dining",
+      "amount": 206.28,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0070",
+      "date": "2026-02-03 17:56",
+      "merchant": "NETFLIX SUBSCRIPTION",
+      "category": "Entertainment",
+      "amount": 554.12,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0394",
+      "date": "2026-06-23 11:01",
+      "merchant": "PVR CINEMAS",
+      "category": "Entertainment",
+      "amount": 760.77,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0093",
+      "date": "2026-03-13 17:41",
+      "merchant": "BIGBASKET GROCERY",
+      "category": "Groceries",
+      "amount": 3397.36,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0210",
+      "date": "2026-05-04 21:15",
+      "merchant": "RELIANCE FRESH",
+      "category": "Groceries",
+      "amount": 1688.02,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0147",
+      "date": "2026-06-03 09:50",
+      "merchant": "MYNTRA FASHION",
+      "category": "Shopping",
+      "amount": 5146.67,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0017",
+      "date": "2026-06-13 23:14",
+      "merchant": "STARBUCKS COFFEE",
+      "category": "Food & Dining",
+      "amount": 352.46,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0242",
+      "date": "2026-02-18 14:43",
+      "merchant": "AIRTEL POSTPAID",
+      "category": "Utilities",
+      "amount": 781.81,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0036",
+      "date": "2026-05-26 08:05",
+      "merchant": "ZOMATO ORDER",
+      "category": "Food & Dining",
+      "amount": 330.65,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0458",
+      "date": "2026-07-18 21:55",
+      "merchant": "NETFLIX SUBSCRIPTION",
+      "category": "Entertainment",
+      "amount": 7616.04,
+      "is_anomaly": true,
+      "anomaly_type": "amount_spike"
+    },
+    {
+      "transaction_id": "TXN0031",
+      "date": "2026-07-15 11:32",
+      "merchant": "RELIANCE FRESH",
+      "category": "Groceries",
+      "amount": 3412.85,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0278",
+      "date": "2026-03-12 23:45",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 114.15,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0033",
+      "date": "2026-07-15 11:34",
+      "merchant": "NETFLIX SUBSCRIPTION",
+      "category": "Entertainment",
+      "amount": 306.99,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0359",
+      "date": "2026-03-31 06:26",
+      "merchant": "APOLLO PHARMACY",
+      "category": "Healthcare",
+      "amount": 2069.25,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0177",
+      "date": "2026-03-19 08:15",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 501.79,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0217",
+      "date": "2026-06-28 13:36",
+      "merchant": "BESCOM ELECTRICITY",
+      "category": "Utilities",
+      "amount": 2213.12,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0024",
+      "date": "2026-02-05 22:31",
+      "merchant": "APOLLO PHARMACY",
+      "category": "Healthcare",
+      "amount": 2493.72,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0038",
+      "date": "2026-05-02 23:10",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 146.76,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0297",
+      "date": "2026-07-09 06:05",
+      "merchant": "STARBUCKS COFFEE",
+      "category": "Food & Dining",
+      "amount": 202.19,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0112",
+      "date": "2026-05-28 12:45",
+      "merchant": "IRCTC RAILWAY",
+      "category": "Transport",
+      "amount": 540.79,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0382",
+      "date": "2026-03-21 22:25",
+      "merchant": "ZOMATO ORDER",
+      "category": "Food & Dining",
+      "amount": 386.7,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0002",
+      "date": "2026-06-23 23:05",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 462.97,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0419",
+      "date": "2026-06-12 23:17",
+      "merchant": "BIGBASKET GROCERY",
+      "category": "Groceries",
+      "amount": 1176.88,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0131",
+      "date": "2026-04-10 16:42",
+      "merchant": "IRCTC RAILWAY",
+      "category": "Transport",
+      "amount": 332.53,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0203",
+      "date": "2026-05-08 20:48",
+      "merchant": "AIRTEL POSTPAID",
+      "category": "Utilities",
+      "amount": 1669.79,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0012",
+      "date": "2026-01-12 13:49",
+      "merchant": "NETFLIX SUBSCRIPTION",
+      "category": "Entertainment",
+      "amount": 693.2,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0371",
+      "date": "2026-04-01 13:36",
+      "merchant": "IRCTC RAILWAY",
+      "category": "Transport",
+      "amount": 80.81,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0158",
+      "date": "2026-03-12 23:00",
+      "merchant": "LIC PREMIUM",
+      "category": "Investment",
+      "amount": 10816.57,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0414",
+      "date": "2026-03-30 10:56",
+      "merchant": "DECATHLON SPORTS",
+      "category": "Shopping",
+      "amount": 4176.62,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0345",
+      "date": "2026-02-09 08:18",
+      "merchant": "APOLLO PHARMACY",
+      "category": "Healthcare",
+      "amount": 2499.95,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0237",
+      "date": "2026-03-19 12:24",
+      "merchant": "RELIANCE FRESH",
+      "category": "Groceries",
+      "amount": 1816.19,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0287",
+      "date": "2026-05-31 23:35",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 369.31,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0030",
+      "date": "2026-04-27 06:46",
+      "merchant": "MYNTRA FASHION",
+      "category": "Shopping",
+      "amount": 2778.16,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0289",
+      "date": "2026-07-04 07:18",
+      "merchant": "IRCTC RAILWAY",
+      "category": "Transport",
+      "amount": 531.41,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0234",
+      "date": "2026-07-25 20:57",
+      "merchant": "RELIANCE FRESH",
+      "category": "Groceries",
+      "amount": 2467.21,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0213",
+      "date": "2026-07-21 22:17",
+      "merchant": "IRCTC RAILWAY",
+      "category": "Transport",
+      "amount": 256.74,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0263",
+      "date": "2026-03-12 12:07",
+      "merchant": "AIRTEL POSTPAID",
+      "category": "Utilities",
+      "amount": 433.21,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0068",
+      "date": "2026-01-19 06:29",
+      "merchant": "BESCOM ELECTRICITY",
+      "category": "Utilities",
+      "amount": 2343.84,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0233",
+      "date": "2026-04-29 14:29",
+      "merchant": "HOSPITAL CONSULT FEE",
+      "category": "Healthcare",
+      "amount": 486.33,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0029",
+      "date": "2026-07-16 16:07",
+      "merchant": "PHONEPE RECHARGE",
+      "category": "Utilities",
+      "amount": 1951.93,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0415",
+      "date": "2026-02-16 10:27",
+      "merchant": "PHONEPE RECHARGE",
+      "category": "Utilities",
+      "amount": 1707.55,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0229",
+      "date": "2026-01-08 07:20",
+      "merchant": "OLA CABS",
+      "category": "Transport",
+      "amount": 440.88,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0262",
+      "date": "2026-01-26 17:34",
+      "merchant": "APOLLO PHARMACY",
+      "category": "Healthcare",
+      "amount": 2160.31,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0461",
+      "date": "2026-04-28 23:21",
+      "merchant": "BESCOM ELECTRICITY",
+      "category": "Utilities",
+      "amount": 2404.71,
+      "is_anomaly": true,
+      "anomaly_type": "duplicate_transaction"
+    },
+    {
+      "transaction_id": "TXN0047",
+      "date": "2026-05-27 21:15",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 456.14,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0251",
+      "date": "2026-04-27 17:43",
+      "merchant": "RELIANCE FRESH",
+      "category": "Groceries",
+      "amount": 2063.37,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0299",
+      "date": "2026-07-04 16:49",
+      "merchant": "OLA CABS",
+      "category": "Transport",
+      "amount": 272.43,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0368",
+      "date": "2026-06-13 20:04",
+      "merchant": "ZOMATO ORDER",
+      "category": "Food & Dining",
+      "amount": 328.83,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0106",
+      "date": "2026-06-05 16:29",
+      "merchant": "IRCTC RAILWAY",
+      "category": "Transport",
+      "amount": 488.59,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0349",
+      "date": "2026-04-04 13:28",
+      "merchant": "DECATHLON SPORTS",
+      "category": "Shopping",
+      "amount": 549.05,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0060",
+      "date": "2026-01-16 16:03",
+      "merchant": "HOSPITAL CONSULT FEE",
+      "category": "Healthcare",
+      "amount": 1878.98,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0227",
+      "date": "2026-07-11 08:27",
+      "merchant": "MYNTRA FASHION",
+      "category": "Shopping",
+      "amount": 5985.33,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0267",
+      "date": "2026-06-02 06:17",
+      "merchant": "UBER TRIP BLR",
+      "category": "Transport",
+      "amount": 490.09,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0438",
+      "date": "2026-06-02 21:18",
+      "merchant": "ZOMATO ORDER",
+      "category": "Food & Dining",
+      "amount": 361.02,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0168",
+      "date": "2026-03-12 22:38",
+      "merchant": "NETFLIX SUBSCRIPTION",
+      "category": "Entertainment",
+      "amount": 717.02,
+      "is_anomaly": false,
+      "anomaly_type": null
+    },
+    {
+      "transaction_id": "TXN0085",
+      "date": "2026-05-24 19:39",
+      "merchant": "AMAZON.IN",
+      "category": "Shopping",
+      "amount": 2315.97,
+      "is_anomaly": false,
+      "anomaly_type": null
+    }
+  ]
+}

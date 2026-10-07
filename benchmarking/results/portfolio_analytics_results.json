@@ -1,0 +1,2110 @@
+{
+  "component": "portfolio_analytics",
+  "total": 20,
+  "passed": 18,
+  "failed": 0,
+  "errored": 2,
+  "sharpe_tolerance": 0.01,
+  "sim_observations": 120,
+  "risk_free_rate": 0.065,
+  "portfolios": [
+    {
+      "portfolio_id": "PORT01",
+      "description": "Synthetic test portfolio with 6 assets, risk profile: conservative",
+      "tickers": [
+        "SMALLCAP_FUND",
+        "US_EQUITY_FUND",
+        "REIT_INDEX",
+        "CORP_BOND_FUND",
+        "LIQUID_FUND",
+        "GOVT_BOND_FUND"
+      ],
+      "risk_free_rate": 0.065,
+      "engine_result": {
+        "status": "available",
+        "model_version": "long-only-markowitz-ledoit-wolf-1.0.0",
+        "observations": 121,
+        "instruments": [
+          "SMALLCAP_FUND",
+          "US_EQUITY_FUND",
+          "REIT_INDEX",
+          "CORP_BOND_FUND",
+          "LIQUID_FUND",
+          "GOVT_BOND_FUND"
+        ],
+        "optimized_weights": {
+          "SMALLCAP_FUND": 0.0,
+          "US_EQUITY_FUND": 0.0,
+          "REIT_INDEX": 1.0,
+          "CORP_BOND_FUND": 0.0,
+          "LIQUID_FUND": 0.0,
+          "GOVT_BOND_FUND": 0.0
+        },
+        "expected_annual_return": 0.067447,
+        "expected_annual_volatility": 0.133209,
+        "expected_sharpe_ratio": 0.018368,
+        "portfolio_beta": null,
+        "beta_status": "benchmark_history_unavailable",
+        "beta_basis": "current_portfolio_weights",
+        "benchmark": "NIFTY 50",
+        "rebalancing_suggestions": [
+          {
+            "instrument": "REIT_INDEX",
+            "action": "increase",
+            "current_weight": 0.166667,
+            "target_weight": 1.0,
+            "difference": 0.833333,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "SMALLCAP_FUND",
+            "action": "decrease",
+            "current_weight": 0.166667,
+            "target_weight": 0.0,
+            "difference": -0.166667,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "US_EQUITY_FUND",
+            "action": "decrease",
+            "current_weight": 0.166667,
+            "target_weight": 0.0,
+            "difference": -0.166667,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "CORP_BOND_FUND",
+            "action": "decrease",
+            "current_weight": 0.166667,
+            "target_weight": 0.0,
+            "difference": -0.166667,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "LIQUID_FUND",
+            "action": "decrease",
+            "current_weight": 0.166667,
+            "target_weight": 0.0,
+            "difference": -0.166667,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "GOVT_BOND_FUND",
+            "action": "decrease",
+            "current_weight": 0.166667,
+            "target_weight": 0.0,
+            "difference": -0.166667,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          }
+        ],
+        "assumptions": [
+          "Adjusted price observations are aligned by date.",
+          "Weights are long-only, fully invested, and exclude taxes, slippage, and transaction costs.",
+          "Expected returns use historical arithmetic means; covariance uses Ledoit-Wolf shrinkage.",
+          "Portfolio beta uses current holding weights rather than proposed optimized weights."
+        ],
+        "disclaimer": "Educational research output only. Review completeness, taxes, costs, and suitability before acting."
+      },
+      "pyportfolioopt_result": {
+        "error": "OPTIMIZATION ERROR: OptimizationError: ('Please check your objectives/constraints or use a different solver.', 'Solver status: user_limit')",
+        "weights": {},
+        "sharpe_ratio": null
+      },
+      "engine_sharpe": 0.018368,
+      "ppo_sharpe": null,
+      "sharpe_diff": null,
+      "mean_weight_deviation": 0.1667,
+      "per_ticker_weight_deviation": {
+        "SMALLCAP_FUND": 0.0,
+        "US_EQUITY_FUND": 0.0,
+        "REIT_INDEX": 1.0,
+        "CORP_BOND_FUND": 0.0,
+        "LIQUID_FUND": 0.0,
+        "GOVT_BOND_FUND": 0.0
+      },
+      "status": "ERROR"
+    },
+    {
+      "portfolio_id": "PORT02",
+      "description": "Synthetic test portfolio with 6 assets, risk profile: aggressive",
+      "tickers": [
+        "LIQUID_FUND",
+        "NIFTY50_INDEX",
+        "SMALLCAP_FUND",
+        "US_EQUITY_FUND",
+        "GOVT_BOND_FUND",
+        "MIDCAP_FUND"
+      ],
+      "risk_free_rate": 0.065,
+      "engine_result": {
+        "status": "available",
+        "model_version": "long-only-markowitz-ledoit-wolf-1.0.0",
+        "observations": 121,
+        "instruments": [
+          "LIQUID_FUND",
+          "NIFTY50_INDEX",
+          "SMALLCAP_FUND",
+          "US_EQUITY_FUND",
+          "GOVT_BOND_FUND",
+          "MIDCAP_FUND"
+        ],
+        "optimized_weights": {
+          "LIQUID_FUND": 0.237105,
+          "NIFTY50_INDEX": 0.0,
+          "SMALLCAP_FUND": 0.699409,
+          "US_EQUITY_FUND": 0.063486,
+          "GOVT_BOND_FUND": 0.0,
+          "MIDCAP_FUND": 0.0
+        },
+        "expected_annual_return": 0.173306,
+        "expected_annual_volatility": 0.129103,
+        "expected_sharpe_ratio": 0.838913,
+        "portfolio_beta": null,
+        "beta_status": "benchmark_history_unavailable",
+        "beta_basis": "current_portfolio_weights",
+        "benchmark": "NIFTY 50",
+        "rebalancing_suggestions": [
+          {
+            "instrument": "SMALLCAP_FUND",
+            "action": "increase",
+            "current_weight": 0.166667,
+            "target_weight": 0.699409,
+            "difference": 0.532742,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "NIFTY50_INDEX",
+            "action": "decrease",
+            "current_weight": 0.166667,
+            "target_weight": 0.0,
+            "difference": -0.166667,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "GOVT_BOND_FUND",
+            "action": "decrease",
+            "current_weight": 0.166667,
+            "target_weight": 0.0,
+            "difference": -0.166667,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "MIDCAP_FUND",
+            "action": "decrease",
+            "current_weight": 0.166667,
+            "target_weight": 0.0,
+            "difference": -0.166667,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "US_EQUITY_FUND",
+            "action": "decrease",
+            "current_weight": 0.166667,
+            "target_weight": 0.063486,
+            "difference": -0.103181,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "LIQUID_FUND",
+            "action": "increase",
+            "current_weight": 0.166667,
+            "target_weight": 0.237105,
+            "difference": 0.070438,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          }
+        ],
+        "assumptions": [
+          "Adjusted price observations are aligned by date.",
+          "Weights are long-only, fully invested, and exclude taxes, slippage, and transaction costs.",
+          "Expected returns use historical arithmetic means; covariance uses Ledoit-Wolf shrinkage.",
+          "Portfolio beta uses current holding weights rather than proposed optimized weights."
+        ],
+        "disclaimer": "Educational research output only. Review completeness, taxes, costs, and suitability before acting."
+      },
+      "pyportfolioopt_result": {
+        "weights": {
+          "LIQUID_FUND": 0.2371,
+          "NIFTY50_INDEX": 0.0,
+          "SMALLCAP_FUND": 0.69941,
+          "US_EQUITY_FUND": 0.06348,
+          "GOVT_BOND_FUND": 0.0,
+          "MIDCAP_FUND": 0.0
+        },
+        "expected_annual_return": 0.1733062512651708,
+        "expected_annual_volatility": 0.1291031066914062,
+        "sharpe_ratio": 0.8389128196895687
+      },
+      "engine_sharpe": 0.838913,
+      "ppo_sharpe": 0.8389128196895687,
+      "sharpe_diff": 1.8031043136357283e-07,
+      "mean_weight_deviation": 0.0,
+      "per_ticker_weight_deviation": {
+        "LIQUID_FUND": 5.0000000000050004e-06,
+        "NIFTY50_INDEX": 0.0,
+        "SMALLCAP_FUND": 1.0000000000287557e-06,
+        "US_EQUITY_FUND": 6.0000000000060005e-06,
+        "GOVT_BOND_FUND": 0.0,
+        "MIDCAP_FUND": 0.0
+      },
+      "status": "PASS"
+    },
+    {
+      "portfolio_id": "PORT03",
+      "description": "Synthetic test portfolio with 3 assets, risk profile: aggressive",
+      "tickers": [
+        "SMALLCAP_FUND",
+        "SENSEX_INDEX",
+        "GOLD_ETF"
+      ],
+      "risk_free_rate": 0.065,
+      "engine_result": {
+        "status": "available",
+        "model_version": "long-only-markowitz-ledoit-wolf-1.0.0",
+        "observations": 121,
+        "instruments": [
+          "SMALLCAP_FUND",
+          "SENSEX_INDEX",
+          "GOLD_ETF"
+        ],
+        "optimized_weights": {
+          "SMALLCAP_FUND": 0.668764,
+          "SENSEX_INDEX": 0.0,
+          "GOLD_ETF": 0.331236
+        },
+        "expected_annual_return": 0.102901,
+        "expected_annual_volatility": 0.062129,
+        "expected_sharpe_ratio": 0.610037,
+        "portfolio_beta": null,
+        "beta_status": "benchmark_history_unavailable",
+        "beta_basis": "current_portfolio_weights",
+        "benchmark": "NIFTY 50",
+        "rebalancing_suggestions": [
+          {
+            "instrument": "SMALLCAP_FUND",
+            "action": "increase",
+            "current_weight": 0.333333,
+            "target_weight": 0.668764,
+            "difference": 0.335431,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "SENSEX_INDEX",
+            "action": "decrease",
+            "current_weight": 0.333333,
+            "target_weight": 0.0,
+            "difference": -0.333333,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          }
+        ],
+        "assumptions": [
+          "Adjusted price observations are aligned by date.",
+          "Weights are long-only, fully invested, and exclude taxes, slippage, and transaction costs.",
+          "Expected returns use historical arithmetic means; covariance uses Ledoit-Wolf shrinkage.",
+          "Portfolio beta uses current holding weights rather than proposed optimized weights."
+        ],
+        "disclaimer": "Educational research output only. Review completeness, taxes, costs, and suitability before acting."
+      },
+      "pyportfolioopt_result": {
+        "weights": {
+          "SMALLCAP_FUND": 0.66877,
+          "SENSEX_INDEX": 0.0,
+          "GOLD_ETF": 0.33123
+        },
+        "expected_annual_return": 0.10290078994945674,
+        "expected_annual_volatility": 0.06212871098020845,
+        "sharpe_ratio": 0.6100366376751372
+      },
+      "engine_sharpe": 0.610037,
+      "ppo_sharpe": 0.6100366376751372,
+      "sharpe_diff": 3.623248628903397e-07,
+      "mean_weight_deviation": 0.0,
+      "per_ticker_weight_deviation": {
+        "SMALLCAP_FUND": 5.999999999950489e-06,
+        "SENSEX_INDEX": 0.0,
+        "GOLD_ETF": 5.999999999950489e-06
+      },
+      "status": "PASS"
+    },
+    {
+      "portfolio_id": "PORT04",
+      "description": "Synthetic test portfolio with 4 assets, risk profile: aggressive",
+      "tickers": [
+        "US_EQUITY_FUND",
+        "MIDCAP_FUND",
+        "LIQUID_FUND",
+        "NIFTY50_INDEX"
+      ],
+      "risk_free_rate": 0.065,
+      "engine_result": {
+        "status": "available",
+        "model_version": "long-only-markowitz-ledoit-wolf-1.0.0",
+        "observations": 121,
+        "instruments": [
+          "US_EQUITY_FUND",
+          "MIDCAP_FUND",
+          "LIQUID_FUND",
+          "NIFTY50_INDEX"
+        ],
+        "optimized_weights": {
+          "US_EQUITY_FUND": 0.0,
+          "MIDCAP_FUND": 0.0,
+          "LIQUID_FUND": 0.0,
+          "NIFTY50_INDEX": 1.0
+        },
+        "expected_annual_return": 0.129496,
+        "expected_annual_volatility": 0.127239,
+        "expected_sharpe_ratio": 0.50689,
+        "portfolio_beta": null,
+        "beta_status": "benchmark_history_unavailable",
+        "beta_basis": "current_portfolio_weights",
+        "benchmark": "NIFTY 50",
+        "rebalancing_suggestions": [
+          {
+            "instrument": "NIFTY50_INDEX",
+            "action": "increase",
+            "current_weight": 0.25,
+            "target_weight": 1.0,
+            "difference": 0.75,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "US_EQUITY_FUND",
+            "action": "decrease",
+            "current_weight": 0.25,
+            "target_weight": 0.0,
+            "difference": -0.25,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "MIDCAP_FUND",
+            "action": "decrease",
+            "current_weight": 0.25,
+            "target_weight": 0.0,
+            "difference": -0.25,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "LIQUID_FUND",
+            "action": "decrease",
+            "current_weight": 0.25,
+            "target_weight": 0.0,
+            "difference": -0.25,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          }
+        ],
+        "assumptions": [
+          "Adjusted price observations are aligned by date.",
+          "Weights are long-only, fully invested, and exclude taxes, slippage, and transaction costs.",
+          "Expected returns use historical arithmetic means; covariance uses Ledoit-Wolf shrinkage.",
+          "Portfolio beta uses current holding weights rather than proposed optimized weights."
+        ],
+        "disclaimer": "Educational research output only. Review completeness, taxes, costs, and suitability before acting."
+      },
+      "pyportfolioopt_result": {
+        "weights": {
+          "US_EQUITY_FUND": 0.0,
+          "MIDCAP_FUND": 0.0,
+          "LIQUID_FUND": 0.0,
+          "NIFTY50_INDEX": 1.0
+        },
+        "expected_annual_return": 0.12949569347514361,
+        "expected_annual_volatility": 0.12723905065697536,
+        "sharpe_ratio": 0.5068860003444855
+      },
+      "engine_sharpe": 0.50689,
+      "ppo_sharpe": 0.5068860003444855,
+      "sharpe_diff": 3.9996555144528045e-06,
+      "mean_weight_deviation": 0.0,
+      "per_ticker_weight_deviation": {
+        "US_EQUITY_FUND": 0.0,
+        "MIDCAP_FUND": 0.0,
+        "LIQUID_FUND": 0.0,
+        "NIFTY50_INDEX": 0.0
+      },
+      "status": "PASS"
+    },
+    {
+      "portfolio_id": "PORT05",
+      "description": "Synthetic test portfolio with 5 assets, risk profile: conservative",
+      "tickers": [
+        "REIT_INDEX",
+        "SENSEX_INDEX",
+        "GOLD_ETF",
+        "US_EQUITY_FUND",
+        "NIFTY50_INDEX"
+      ],
+      "risk_free_rate": 0.065,
+      "engine_result": {
+        "status": "available",
+        "model_version": "long-only-markowitz-ledoit-wolf-1.0.0",
+        "observations": 121,
+        "instruments": [
+          "REIT_INDEX",
+          "SENSEX_INDEX",
+          "GOLD_ETF",
+          "US_EQUITY_FUND",
+          "NIFTY50_INDEX"
+        ],
+        "optimized_weights": {
+          "REIT_INDEX": 0.0,
+          "SENSEX_INDEX": 0.0,
+          "GOLD_ETF": 1.0,
+          "US_EQUITY_FUND": 0.0,
+          "NIFTY50_INDEX": 0.0
+        },
+        "expected_annual_return": 0.055606,
+        "expected_annual_volatility": 0.066963,
+        "expected_sharpe_ratio": -0.140291,
+        "portfolio_beta": null,
+        "beta_status": "benchmark_history_unavailable",
+        "beta_basis": "current_portfolio_weights",
+        "benchmark": "NIFTY 50",
+        "rebalancing_suggestions": [
+          {
+            "instrument": "GOLD_ETF",
+            "action": "increase",
+            "current_weight": 0.2,
+            "target_weight": 1.0,
+            "difference": 0.8,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "REIT_INDEX",
+            "action": "decrease",
+            "current_weight": 0.2,
+            "target_weight": 0.0,
+            "difference": -0.2,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "SENSEX_INDEX",
+            "action": "decrease",
+            "current_weight": 0.2,
+            "target_weight": 0.0,
+            "difference": -0.2,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "US_EQUITY_FUND",
+            "action": "decrease",
+            "current_weight": 0.2,
+            "target_weight": 0.0,
+            "difference": -0.2,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "NIFTY50_INDEX",
+            "action": "decrease",
+            "current_weight": 0.2,
+            "target_weight": 0.0,
+            "difference": -0.2,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          }
+        ],
+        "assumptions": [
+          "Adjusted price observations are aligned by date.",
+          "Weights are long-only, fully invested, and exclude taxes, slippage, and transaction costs.",
+          "Expected returns use historical arithmetic means; covariance uses Ledoit-Wolf shrinkage.",
+          "Portfolio beta uses current holding weights rather than proposed optimized weights."
+        ],
+        "disclaimer": "Educational research output only. Review completeness, taxes, costs, and suitability before acting."
+      },
+      "pyportfolioopt_result": {
+        "error": "OPTIMIZATION ERROR: ValueError: at least one of the assets must have an expected return exceeding the risk-free rate",
+        "weights": {},
+        "sharpe_ratio": null
+      },
+      "engine_sharpe": -0.140291,
+      "ppo_sharpe": null,
+      "sharpe_diff": null,
+      "mean_weight_deviation": 0.2,
+      "per_ticker_weight_deviation": {
+        "REIT_INDEX": 0.0,
+        "SENSEX_INDEX": 0.0,
+        "GOLD_ETF": 1.0,
+        "US_EQUITY_FUND": 0.0,
+        "NIFTY50_INDEX": 0.0
+      },
+      "status": "ERROR"
+    },
+    {
+      "portfolio_id": "PORT06",
+      "description": "Synthetic test portfolio with 3 assets, risk profile: moderate",
+      "tickers": [
+        "CORP_BOND_FUND",
+        "GOVT_BOND_FUND",
+        "NIFTY50_INDEX"
+      ],
+      "risk_free_rate": 0.065,
+      "engine_result": {
+        "status": "available",
+        "model_version": "long-only-markowitz-ledoit-wolf-1.0.0",
+        "observations": 121,
+        "instruments": [
+          "CORP_BOND_FUND",
+          "GOVT_BOND_FUND",
+          "NIFTY50_INDEX"
+        ],
+        "optimized_weights": {
+          "CORP_BOND_FUND": 0.763467,
+          "GOVT_BOND_FUND": 0.236533,
+          "NIFTY50_INDEX": 0.0
+        },
+        "expected_annual_return": 0.116422,
+        "expected_annual_volatility": 0.099922,
+        "expected_sharpe_ratio": 0.514622,
+        "portfolio_beta": null,
+        "beta_status": "benchmark_history_unavailable",
+        "beta_basis": "current_portfolio_weights",
+        "benchmark": "NIFTY 50",
+        "rebalancing_suggestions": [
+          {
+            "instrument": "CORP_BOND_FUND",
+            "action": "increase",
+            "current_weight": 0.333333,
+            "target_weight": 0.763467,
+            "difference": 0.430134,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "NIFTY50_INDEX",
+            "action": "decrease",
+            "current_weight": 0.333333,
+            "target_weight": 0.0,
+            "difference": -0.333333,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "GOVT_BOND_FUND",
+            "action": "decrease",
+            "current_weight": 0.333333,
+            "target_weight": 0.236533,
+            "difference": -0.0968,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          }
+        ],
+        "assumptions": [
+          "Adjusted price observations are aligned by date.",
+          "Weights are long-only, fully invested, and exclude taxes, slippage, and transaction costs.",
+          "Expected returns use historical arithmetic means; covariance uses Ledoit-Wolf shrinkage.",
+          "Portfolio beta uses current holding weights rather than proposed optimized weights."
+        ],
+        "disclaimer": "Educational research output only. Review completeness, taxes, costs, and suitability before acting."
+      },
+      "pyportfolioopt_result": {
+        "weights": {
+          "CORP_BOND_FUND": 0.76347,
+          "GOVT_BOND_FUND": 0.23653,
+          "NIFTY50_INDEX": 0.0
+        },
+        "expected_annual_return": 0.11642204593668502,
+        "expected_annual_volatility": 0.09992194742392185,
+        "sharpe_ratio": 0.5146221352004425
+      },
+      "engine_sharpe": 0.514622,
+      "ppo_sharpe": 0.5146221352004425,
+      "sharpe_diff": 1.3520044250814323e-07,
+      "mean_weight_deviation": 0.0,
+      "per_ticker_weight_deviation": {
+        "CORP_BOND_FUND": 2.9999999999752447e-06,
+        "GOVT_BOND_FUND": 3.0000000000030003e-06,
+        "NIFTY50_INDEX": 0.0
+      },
+      "status": "PASS"
+    },
+    {
+      "portfolio_id": "PORT07",
+      "description": "Synthetic test portfolio with 3 assets, risk profile: moderate",
+      "tickers": [
+        "US_EQUITY_FUND",
+        "LIQUID_FUND",
+        "CORP_BOND_FUND"
+      ],
+      "risk_free_rate": 0.065,
+      "engine_result": {
+        "status": "available",
+        "model_version": "long-only-markowitz-ledoit-wolf-1.0.0",
+        "observations": 121,
+        "instruments": [
+          "US_EQUITY_FUND",
+          "LIQUID_FUND",
+          "CORP_BOND_FUND"
+        ],
+        "optimized_weights": {
+          "US_EQUITY_FUND": 0.305579,
+          "LIQUID_FUND": 0.694421,
+          "CORP_BOND_FUND": 0.0
+        },
+        "expected_annual_return": 0.124821,
+        "expected_annual_volatility": 0.10968,
+        "expected_sharpe_ratio": 0.545417,
+        "portfolio_beta": null,
+        "beta_status": "benchmark_history_unavailable",
+        "beta_basis": "current_portfolio_weights",
+        "benchmark": "NIFTY 50",
+        "rebalancing_suggestions": [
+          {
+            "instrument": "LIQUID_FUND",
+            "action": "increase",
+            "current_weight": 0.333333,
+            "target_weight": 0.694421,
+            "difference": 0.361088,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "CORP_BOND_FUND",
+            "action": "decrease",
+            "current_weight": 0.333333,
+            "target_weight": 0.0,
+            "difference": -0.333333,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          }
+        ],
+        "assumptions": [
+          "Adjusted price observations are aligned by date.",
+          "Weights are long-only, fully invested, and exclude taxes, slippage, and transaction costs.",
+          "Expected returns use historical arithmetic means; covariance uses Ledoit-Wolf shrinkage.",
+          "Portfolio beta uses current holding weights rather than proposed optimized weights."
+        ],
+        "disclaimer": "Educational research output only. Review completeness, taxes, costs, and suitability before acting."
+      },
+      "pyportfolioopt_result": {
+        "weights": {
+          "US_EQUITY_FUND": 0.30558,
+          "LIQUID_FUND": 0.69442,
+          "CORP_BOND_FUND": 0.0
+        },
+        "expected_annual_return": 0.12482150606148744,
+        "expected_annual_volatility": 0.10968028496637706,
+        "sharpe_ratio": 0.5454171283364733
+      },
+      "engine_sharpe": 0.545417,
+      "ppo_sharpe": 0.5454171283364733,
+      "sharpe_diff": 1.2833647322629815e-07,
+      "mean_weight_deviation": 0.0,
+      "per_ticker_weight_deviation": {
+        "US_EQUITY_FUND": 1.0000000000287557e-06,
+        "LIQUID_FUND": 9.999999999177334e-07,
+        "CORP_BOND_FUND": 0.0
+      },
+      "status": "PASS"
+    },
+    {
+      "portfolio_id": "PORT08",
+      "description": "Synthetic test portfolio with 5 assets, risk profile: conservative",
+      "tickers": [
+        "REIT_INDEX",
+        "MIDCAP_FUND",
+        "GOLD_ETF",
+        "GOVT_BOND_FUND",
+        "SENSEX_INDEX"
+      ],
+      "risk_free_rate": 0.065,
+      "engine_result": {
+        "status": "available",
+        "model_version": "long-only-markowitz-ledoit-wolf-1.0.0",
+        "observations": 121,
+        "instruments": [
+          "REIT_INDEX",
+          "MIDCAP_FUND",
+          "GOLD_ETF",
+          "GOVT_BOND_FUND",
+          "SENSEX_INDEX"
+        ],
+        "optimized_weights": {
+          "REIT_INDEX": 0.0,
+          "MIDCAP_FUND": 0.0,
+          "GOLD_ETF": 1.0,
+          "GOVT_BOND_FUND": 0.0,
+          "SENSEX_INDEX": 0.0
+        },
+        "expected_annual_return": 0.082626,
+        "expected_annual_volatility": 0.081619,
+        "expected_sharpe_ratio": 0.215957,
+        "portfolio_beta": null,
+        "beta_status": "benchmark_history_unavailable",
+        "beta_basis": "current_portfolio_weights",
+        "benchmark": "NIFTY 50",
+        "rebalancing_suggestions": [
+          {
+            "instrument": "GOLD_ETF",
+            "action": "increase",
+            "current_weight": 0.2,
+            "target_weight": 1.0,
+            "difference": 0.8,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "REIT_INDEX",
+            "action": "decrease",
+            "current_weight": 0.2,
+            "target_weight": 0.0,
+            "difference": -0.2,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "MIDCAP_FUND",
+            "action": "decrease",
+            "current_weight": 0.2,
+            "target_weight": 0.0,
+            "difference": -0.2,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "GOVT_BOND_FUND",
+            "action": "decrease",
+            "current_weight": 0.2,
+            "target_weight": 0.0,
+            "difference": -0.2,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "SENSEX_INDEX",
+            "action": "decrease",
+            "current_weight": 0.2,
+            "target_weight": 0.0,
+            "difference": -0.2,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          }
+        ],
+        "assumptions": [
+          "Adjusted price observations are aligned by date.",
+          "Weights are long-only, fully invested, and exclude taxes, slippage, and transaction costs.",
+          "Expected returns use historical arithmetic means; covariance uses Ledoit-Wolf shrinkage.",
+          "Portfolio beta uses current holding weights rather than proposed optimized weights."
+        ],
+        "disclaimer": "Educational research output only. Review completeness, taxes, costs, and suitability before acting."
+      },
+      "pyportfolioopt_result": {
+        "weights": {
+          "REIT_INDEX": 0.0,
+          "MIDCAP_FUND": 0.0,
+          "GOLD_ETF": 1.0,
+          "GOVT_BOND_FUND": 0.0,
+          "SENSEX_INDEX": 0.0
+        },
+        "expected_annual_return": 0.0826262228768525,
+        "expected_annual_volatility": 0.08161854659204854,
+        "sharpe_ratio": 0.21595854879593862
+      },
+      "engine_sharpe": 0.215957,
+      "ppo_sharpe": 0.21595854879593862,
+      "sharpe_diff": 1.5487959386106809e-06,
+      "mean_weight_deviation": 0.0,
+      "per_ticker_weight_deviation": {
+        "REIT_INDEX": 0.0,
+        "MIDCAP_FUND": 0.0,
+        "GOLD_ETF": 0.0,
+        "GOVT_BOND_FUND": 0.0,
+        "SENSEX_INDEX": 0.0
+      },
+      "status": "PASS"
+    },
+    {
+      "portfolio_id": "PORT09",
+      "description": "Synthetic test portfolio with 3 assets, risk profile: aggressive",
+      "tickers": [
+        "SENSEX_INDEX",
+        "MIDCAP_FUND",
+        "GOVT_BOND_FUND"
+      ],
+      "risk_free_rate": 0.065,
+      "engine_result": {
+        "status": "available",
+        "model_version": "long-only-markowitz-ledoit-wolf-1.0.0",
+        "observations": 121,
+        "instruments": [
+          "SENSEX_INDEX",
+          "MIDCAP_FUND",
+          "GOVT_BOND_FUND"
+        ],
+        "optimized_weights": {
+          "SENSEX_INDEX": 0.731158,
+          "MIDCAP_FUND": 0.268842,
+          "GOVT_BOND_FUND": 0.0
+        },
+        "expected_annual_return": 0.188722,
+        "expected_annual_volatility": 0.107693,
+        "expected_sharpe_ratio": 1.148839,
+        "portfolio_beta": null,
+        "beta_status": "benchmark_history_unavailable",
+        "beta_basis": "current_portfolio_weights",
+        "benchmark": "NIFTY 50",
+        "rebalancing_suggestions": [
+          {
+            "instrument": "SENSEX_INDEX",
+            "action": "increase",
+            "current_weight": 0.333333,
+            "target_weight": 0.731158,
+            "difference": 0.397825,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "GOVT_BOND_FUND",
+            "action": "decrease",
+            "current_weight": 0.333333,
+            "target_weight": 0.0,
+            "difference": -0.333333,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "MIDCAP_FUND",
+            "action": "decrease",
+            "current_weight": 0.333333,
+            "target_weight": 0.268842,
+            "difference": -0.064491,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          }
+        ],
+        "assumptions": [
+          "Adjusted price observations are aligned by date.",
+          "Weights are long-only, fully invested, and exclude taxes, slippage, and transaction costs.",
+          "Expected returns use historical arithmetic means; covariance uses Ledoit-Wolf shrinkage.",
+          "Portfolio beta uses current holding weights rather than proposed optimized weights."
+        ],
+        "disclaimer": "Educational research output only. Review completeness, taxes, costs, and suitability before acting."
+      },
+      "pyportfolioopt_result": {
+        "weights": {
+          "SENSEX_INDEX": 0.73116,
+          "MIDCAP_FUND": 0.26884,
+          "GOVT_BOND_FUND": 0.0
+        },
+        "expected_annual_return": 0.1887219496530955,
+        "expected_annual_volatility": 0.1076930651429322,
+        "sharpe_ratio": 1.1488385950282822
+      },
+      "engine_sharpe": 1.148839,
+      "ppo_sharpe": 1.1488385950282822,
+      "sharpe_diff": 4.049717177156964e-07,
+      "mean_weight_deviation": 0.0,
+      "per_ticker_weight_deviation": {
+        "SENSEX_INDEX": 2.0000000000575113e-06,
+        "MIDCAP_FUND": 2.000000000002e-06,
+        "GOVT_BOND_FUND": 0.0
+      },
+      "status": "PASS"
+    },
+    {
+      "portfolio_id": "PORT10",
+      "description": "Synthetic test portfolio with 6 assets, risk profile: moderate",
+      "tickers": [
+        "CORP_BOND_FUND",
+        "MIDCAP_FUND",
+        "REIT_INDEX",
+        "US_EQUITY_FUND",
+        "GOLD_ETF",
+        "SMALLCAP_FUND"
+      ],
+      "risk_free_rate": 0.065,
+      "engine_result": {
+        "status": "available",
+        "model_version": "long-only-markowitz-ledoit-wolf-1.0.0",
+        "observations": 121,
+        "instruments": [
+          "CORP_BOND_FUND",
+          "MIDCAP_FUND",
+          "REIT_INDEX",
+          "US_EQUITY_FUND",
+          "GOLD_ETF",
+          "SMALLCAP_FUND"
+        ],
+        "optimized_weights": {
+          "CORP_BOND_FUND": 0.0,
+          "MIDCAP_FUND": 0.0,
+          "REIT_INDEX": 1.0,
+          "US_EQUITY_FUND": 0.0,
+          "GOLD_ETF": 0.0,
+          "SMALLCAP_FUND": 0.0
+        },
+        "expected_annual_return": 0.138902,
+        "expected_annual_volatility": 0.179042,
+        "expected_sharpe_ratio": 0.412761,
+        "portfolio_beta": null,
+        "beta_status": "benchmark_history_unavailable",
+        "beta_basis": "current_portfolio_weights",
+        "benchmark": "NIFTY 50",
+        "rebalancing_suggestions": [
+          {
+            "instrument": "REIT_INDEX",
+            "action": "increase",
+            "current_weight": 0.166667,
+            "target_weight": 1.0,
+            "difference": 0.833333,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "CORP_BOND_FUND",
+            "action": "decrease",
+            "current_weight": 0.166667,
+            "target_weight": 0.0,
+            "difference": -0.166667,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "MIDCAP_FUND",
+            "action": "decrease",
+            "current_weight": 0.166667,
+            "target_weight": 0.0,
+            "difference": -0.166667,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "US_EQUITY_FUND",
+            "action": "decrease",
+            "current_weight": 0.166667,
+            "target_weight": 0.0,
+            "difference": -0.166667,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "GOLD_ETF",
+            "action": "decrease",
+            "current_weight": 0.166667,
+            "target_weight": 0.0,
+            "difference": -0.166667,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "SMALLCAP_FUND",
+            "action": "decrease",
+            "current_weight": 0.166667,
+            "target_weight": 0.0,
+            "difference": -0.166667,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          }
+        ],
+        "assumptions": [
+          "Adjusted price observations are aligned by date.",
+          "Weights are long-only, fully invested, and exclude taxes, slippage, and transaction costs.",
+          "Expected returns use historical arithmetic means; covariance uses Ledoit-Wolf shrinkage.",
+          "Portfolio beta uses current holding weights rather than proposed optimized weights."
+        ],
+        "disclaimer": "Educational research output only. Review completeness, taxes, costs, and suitability before acting."
+      },
+      "pyportfolioopt_result": {
+        "weights": {
+          "CORP_BOND_FUND": 0.0,
+          "MIDCAP_FUND": 0.0,
+          "REIT_INDEX": 1.0,
+          "US_EQUITY_FUND": 0.0,
+          "GOLD_ETF": 0.0,
+          "SMALLCAP_FUND": 0.0
+        },
+        "expected_annual_return": 0.1389011447220631,
+        "expected_annual_volatility": 0.17904197331655292,
+        "sharpe_ratio": 0.41275877020972684
+      },
+      "engine_sharpe": 0.412761,
+      "ppo_sharpe": 0.41275877020972684,
+      "sharpe_diff": 2.2297902731449604e-06,
+      "mean_weight_deviation": 0.0,
+      "per_ticker_weight_deviation": {
+        "CORP_BOND_FUND": 0.0,
+        "MIDCAP_FUND": 0.0,
+        "REIT_INDEX": 0.0,
+        "US_EQUITY_FUND": 0.0,
+        "GOLD_ETF": 0.0,
+        "SMALLCAP_FUND": 0.0
+      },
+      "status": "PASS"
+    },
+    {
+      "portfolio_id": "PORT11",
+      "description": "Synthetic test portfolio with 6 assets, risk profile: aggressive",
+      "tickers": [
+        "GOLD_ETF",
+        "US_EQUITY_FUND",
+        "SENSEX_INDEX",
+        "LIQUID_FUND",
+        "CORP_BOND_FUND",
+        "NIFTY50_INDEX"
+      ],
+      "risk_free_rate": 0.065,
+      "engine_result": {
+        "status": "available",
+        "model_version": "long-only-markowitz-ledoit-wolf-1.0.0",
+        "observations": 121,
+        "instruments": [
+          "GOLD_ETF",
+          "US_EQUITY_FUND",
+          "SENSEX_INDEX",
+          "LIQUID_FUND",
+          "CORP_BOND_FUND",
+          "NIFTY50_INDEX"
+        ],
+        "optimized_weights": {
+          "GOLD_ETF": 0.0,
+          "US_EQUITY_FUND": 0.0,
+          "SENSEX_INDEX": 0.271054,
+          "LIQUID_FUND": 0.728946,
+          "CORP_BOND_FUND": 0.0,
+          "NIFTY50_INDEX": 0.0
+        },
+        "expected_annual_return": 0.166934,
+        "expected_annual_volatility": 0.15586,
+        "expected_sharpe_ratio": 0.65401,
+        "portfolio_beta": null,
+        "beta_status": "benchmark_history_unavailable",
+        "beta_basis": "current_portfolio_weights",
+        "benchmark": "NIFTY 50",
+        "rebalancing_suggestions": [
+          {
+            "instrument": "LIQUID_FUND",
+            "action": "increase",
+            "current_weight": 0.166667,
+            "target_weight": 0.728946,
+            "difference": 0.562279,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "GOLD_ETF",
+            "action": "decrease",
+            "current_weight": 0.166667,
+            "target_weight": 0.0,
+            "difference": -0.166667,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "US_EQUITY_FUND",
+            "action": "decrease",
+            "current_weight": 0.166667,
+            "target_weight": 0.0,
+            "difference": -0.166667,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "CORP_BOND_FUND",
+            "action": "decrease",
+            "current_weight": 0.166667,
+            "target_weight": 0.0,
+            "difference": -0.166667,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "NIFTY50_INDEX",
+            "action": "decrease",
+            "current_weight": 0.166667,
+            "target_weight": 0.0,
+            "difference": -0.166667,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "SENSEX_INDEX",
+            "action": "increase",
+            "current_weight": 0.166667,
+            "target_weight": 0.271054,
+            "difference": 0.104387,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          }
+        ],
+        "assumptions": [
+          "Adjusted price observations are aligned by date.",
+          "Weights are long-only, fully invested, and exclude taxes, slippage, and transaction costs.",
+          "Expected returns use historical arithmetic means; covariance uses Ledoit-Wolf shrinkage.",
+          "Portfolio beta uses current holding weights rather than proposed optimized weights."
+        ],
+        "disclaimer": "Educational research output only. Review completeness, taxes, costs, and suitability before acting."
+      },
+      "pyportfolioopt_result": {
+        "weights": {
+          "GOLD_ETF": 0.0,
+          "US_EQUITY_FUND": 0.0,
+          "SENSEX_INDEX": 0.27105,
+          "LIQUID_FUND": 0.72895,
+          "CORP_BOND_FUND": 0.0,
+          "NIFTY50_INDEX": 0.0
+        },
+        "expected_annual_return": 0.16693427081957218,
+        "expected_annual_volatility": 0.15586046767965236,
+        "sharpe_ratio": 0.6540097841171801
+      },
+      "engine_sharpe": 0.65401,
+      "ppo_sharpe": 0.6540097841171801,
+      "sharpe_diff": 2.1588281984286084e-07,
+      "mean_weight_deviation": 0.0,
+      "per_ticker_weight_deviation": {
+        "GOLD_ETF": 0.0,
+        "US_EQUITY_FUND": 0.0,
+        "SENSEX_INDEX": 4.000000000004e-06,
+        "LIQUID_FUND": 4.000000000004e-06,
+        "CORP_BOND_FUND": 0.0,
+        "NIFTY50_INDEX": 0.0
+      },
+      "status": "PASS"
+    },
+    {
+      "portfolio_id": "PORT12",
+      "description": "Synthetic test portfolio with 4 assets, risk profile: moderate",
+      "tickers": [
+        "US_EQUITY_FUND",
+        "MIDCAP_FUND",
+        "SENSEX_INDEX",
+        "REIT_INDEX"
+      ],
+      "risk_free_rate": 0.065,
+      "engine_result": {
+        "status": "available",
+        "model_version": "long-only-markowitz-ledoit-wolf-1.0.0",
+        "observations": 121,
+        "instruments": [
+          "US_EQUITY_FUND",
+          "MIDCAP_FUND",
+          "SENSEX_INDEX",
+          "REIT_INDEX"
+        ],
+        "optimized_weights": {
+          "US_EQUITY_FUND": 0.579894,
+          "MIDCAP_FUND": 0.100363,
+          "SENSEX_INDEX": 0.0,
+          "REIT_INDEX": 0.319743
+        },
+        "expected_annual_return": 0.170908,
+        "expected_annual_volatility": 0.084118,
+        "expected_sharpe_ratio": 1.259031,
+        "portfolio_beta": null,
+        "beta_status": "benchmark_history_unavailable",
+        "beta_basis": "current_portfolio_weights",
+        "benchmark": "NIFTY 50",
+        "rebalancing_suggestions": [
+          {
+            "instrument": "US_EQUITY_FUND",
+            "action": "increase",
+            "current_weight": 0.25,
+            "target_weight": 0.579894,
+            "difference": 0.329894,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "SENSEX_INDEX",
+            "action": "decrease",
+            "current_weight": 0.25,
+            "target_weight": 0.0,
+            "difference": -0.25,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "MIDCAP_FUND",
+            "action": "decrease",
+            "current_weight": 0.25,
+            "target_weight": 0.100363,
+            "difference": -0.149637,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "REIT_INDEX",
+            "action": "increase",
+            "current_weight": 0.25,
+            "target_weight": 0.319743,
+            "difference": 0.069743,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          }
+        ],
+        "assumptions": [
+          "Adjusted price observations are aligned by date.",
+          "Weights are long-only, fully invested, and exclude taxes, slippage, and transaction costs.",
+          "Expected returns use historical arithmetic means; covariance uses Ledoit-Wolf shrinkage.",
+          "Portfolio beta uses current holding weights rather than proposed optimized weights."
+        ],
+        "disclaimer": "Educational research output only. Review completeness, taxes, costs, and suitability before acting."
+      },
+      "pyportfolioopt_result": {
+        "weights": {
+          "US_EQUITY_FUND": 0.57989,
+          "MIDCAP_FUND": 0.10036,
+          "SENSEX_INDEX": 0.0,
+          "REIT_INDEX": 0.31974
+        },
+        "expected_annual_return": 0.17090766898984536,
+        "expected_annual_volatility": 0.08411842098065983,
+        "sharpe_ratio": 1.2590306350875895
+      },
+      "engine_sharpe": 1.259031,
+      "ppo_sharpe": 1.2590306350875895,
+      "sharpe_diff": 3.649124105109536e-07,
+      "mean_weight_deviation": 0.0,
+      "per_ticker_weight_deviation": {
+        "US_EQUITY_FUND": 4.000000000004e-06,
+        "MIDCAP_FUND": 2.9999999999891225e-06,
+        "SENSEX_INDEX": 0.0,
+        "REIT_INDEX": 2.9999999999752447e-06
+      },
+      "status": "PASS"
+    },
+    {
+      "portfolio_id": "PORT13",
+      "description": "Synthetic test portfolio with 5 assets, risk profile: conservative",
+      "tickers": [
+        "LIQUID_FUND",
+        "MIDCAP_FUND",
+        "REIT_INDEX",
+        "SMALLCAP_FUND",
+        "CORP_BOND_FUND"
+      ],
+      "risk_free_rate": 0.065,
+      "engine_result": {
+        "status": "available",
+        "model_version": "long-only-markowitz-ledoit-wolf-1.0.0",
+        "observations": 121,
+        "instruments": [
+          "LIQUID_FUND",
+          "MIDCAP_FUND",
+          "REIT_INDEX",
+          "SMALLCAP_FUND",
+          "CORP_BOND_FUND"
+        ],
+        "optimized_weights": {
+          "LIQUID_FUND": 0.0,
+          "MIDCAP_FUND": 0.0,
+          "REIT_INDEX": 0.0,
+          "SMALLCAP_FUND": 1.0,
+          "CORP_BOND_FUND": 0.0
+        },
+        "expected_annual_return": 0.101724,
+        "expected_annual_volatility": 0.082815,
+        "expected_sharpe_ratio": 0.44345,
+        "portfolio_beta": null,
+        "beta_status": "benchmark_history_unavailable",
+        "beta_basis": "current_portfolio_weights",
+        "benchmark": "NIFTY 50",
+        "rebalancing_suggestions": [
+          {
+            "instrument": "SMALLCAP_FUND",
+            "action": "increase",
+            "current_weight": 0.2,
+            "target_weight": 1.0,
+            "difference": 0.8,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "LIQUID_FUND",
+            "action": "decrease",
+            "current_weight": 0.2,
+            "target_weight": 0.0,
+            "difference": -0.2,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "MIDCAP_FUND",
+            "action": "decrease",
+            "current_weight": 0.2,
+            "target_weight": 0.0,
+            "difference": -0.2,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "REIT_INDEX",
+            "action": "decrease",
+            "current_weight": 0.2,
+            "target_weight": 0.0,
+            "difference": -0.2,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "CORP_BOND_FUND",
+            "action": "decrease",
+            "current_weight": 0.2,
+            "target_weight": 0.0,
+            "difference": -0.2,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          }
+        ],
+        "assumptions": [
+          "Adjusted price observations are aligned by date.",
+          "Weights are long-only, fully invested, and exclude taxes, slippage, and transaction costs.",
+          "Expected returns use historical arithmetic means; covariance uses Ledoit-Wolf shrinkage.",
+          "Portfolio beta uses current holding weights rather than proposed optimized weights."
+        ],
+        "disclaimer": "Educational research output only. Review completeness, taxes, costs, and suitability before acting."
+      },
+      "pyportfolioopt_result": {
+        "weights": {
+          "LIQUID_FUND": 0.0,
+          "MIDCAP_FUND": 0.0,
+          "REIT_INDEX": 0.0,
+          "SMALLCAP_FUND": 1.0,
+          "CORP_BOND_FUND": 0.0
+        },
+        "expected_annual_return": 0.10172431050901096,
+        "expected_annual_volatility": 0.08281507218704359,
+        "sharpe_ratio": 0.4434495984748591
+      },
+      "engine_sharpe": 0.44345,
+      "ppo_sharpe": 0.4434495984748591,
+      "sharpe_diff": 4.0152514091396085e-07,
+      "mean_weight_deviation": 0.0,
+      "per_ticker_weight_deviation": {
+        "LIQUID_FUND": 0.0,
+        "MIDCAP_FUND": 0.0,
+        "REIT_INDEX": 0.0,
+        "SMALLCAP_FUND": 0.0,
+        "CORP_BOND_FUND": 0.0
+      },
+      "status": "PASS"
+    },
+    {
+      "portfolio_id": "PORT14",
+      "description": "Synthetic test portfolio with 5 assets, risk profile: aggressive",
+      "tickers": [
+        "GOLD_ETF",
+        "SMALLCAP_FUND",
+        "REIT_INDEX",
+        "LIQUID_FUND",
+        "US_EQUITY_FUND"
+      ],
+      "risk_free_rate": 0.065,
+      "engine_result": {
+        "status": "available",
+        "model_version": "long-only-markowitz-ledoit-wolf-1.0.0",
+        "observations": 121,
+        "instruments": [
+          "GOLD_ETF",
+          "SMALLCAP_FUND",
+          "REIT_INDEX",
+          "LIQUID_FUND",
+          "US_EQUITY_FUND"
+        ],
+        "optimized_weights": {
+          "GOLD_ETF": 0.0,
+          "SMALLCAP_FUND": 0.0,
+          "REIT_INDEX": 1.0,
+          "LIQUID_FUND": 0.0,
+          "US_EQUITY_FUND": 0.0
+        },
+        "expected_annual_return": 0.092321,
+        "expected_annual_volatility": 0.068362,
+        "expected_sharpe_ratio": 0.399659,
+        "portfolio_beta": null,
+        "beta_status": "benchmark_history_unavailable",
+        "beta_basis": "current_portfolio_weights",
+        "benchmark": "NIFTY 50",
+        "rebalancing_suggestions": [
+          {
+            "instrument": "REIT_INDEX",
+            "action": "increase",
+            "current_weight": 0.2,
+            "target_weight": 1.0,
+            "difference": 0.8,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "GOLD_ETF",
+            "action": "decrease",
+            "current_weight": 0.2,
+            "target_weight": 0.0,
+            "difference": -0.2,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "SMALLCAP_FUND",
+            "action": "decrease",
+            "current_weight": 0.2,
+            "target_weight": 0.0,
+            "difference": -0.2,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "LIQUID_FUND",
+            "action": "decrease",
+            "current_weight": 0.2,
+            "target_weight": 0.0,
+            "difference": -0.2,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "US_EQUITY_FUND",
+            "action": "decrease",
+            "current_weight": 0.2,
+            "target_weight": 0.0,
+            "difference": -0.2,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          }
+        ],
+        "assumptions": [
+          "Adjusted price observations are aligned by date.",
+          "Weights are long-only, fully invested, and exclude taxes, slippage, and transaction costs.",
+          "Expected returns use historical arithmetic means; covariance uses Ledoit-Wolf shrinkage.",
+          "Portfolio beta uses current holding weights rather than proposed optimized weights."
+        ],
+        "disclaimer": "Educational research output only. Review completeness, taxes, costs, and suitability before acting."
+      },
+      "pyportfolioopt_result": {
+        "weights": {
+          "GOLD_ETF": 0.0,
+          "SMALLCAP_FUND": 0.0,
+          "REIT_INDEX": 1.0,
+          "LIQUID_FUND": 0.0,
+          "US_EQUITY_FUND": 0.0
+        },
+        "expected_annual_return": 0.09232158431477143,
+        "expected_annual_volatility": 0.06836187270306313,
+        "sharpe_ratio": 0.39966114494033184
+      },
+      "engine_sharpe": 0.399659,
+      "ppo_sharpe": 0.39966114494033184,
+      "sharpe_diff": 2.144940331849643e-06,
+      "mean_weight_deviation": 0.0,
+      "per_ticker_weight_deviation": {
+        "GOLD_ETF": 0.0,
+        "SMALLCAP_FUND": 0.0,
+        "REIT_INDEX": 0.0,
+        "LIQUID_FUND": 0.0,
+        "US_EQUITY_FUND": 0.0
+      },
+      "status": "PASS"
+    },
+    {
+      "portfolio_id": "PORT15",
+      "description": "Synthetic test portfolio with 6 assets, risk profile: moderate",
+      "tickers": [
+        "CORP_BOND_FUND",
+        "SMALLCAP_FUND",
+        "REIT_INDEX",
+        "US_EQUITY_FUND",
+        "LIQUID_FUND",
+        "GOLD_ETF"
+      ],
+      "risk_free_rate": 0.065,
+      "engine_result": {
+        "status": "available",
+        "model_version": "long-only-markowitz-ledoit-wolf-1.0.0",
+        "observations": 121,
+        "instruments": [
+          "CORP_BOND_FUND",
+          "SMALLCAP_FUND",
+          "REIT_INDEX",
+          "US_EQUITY_FUND",
+          "LIQUID_FUND",
+          "GOLD_ETF"
+        ],
+        "optimized_weights": {
+          "CORP_BOND_FUND": 0.0,
+          "SMALLCAP_FUND": 0.0,
+          "REIT_INDEX": 0.0,
+          "US_EQUITY_FUND": 1.0,
+          "LIQUID_FUND": 0.0,
+          "GOLD_ETF": 0.0
+        },
+        "expected_annual_return": 0.114464,
+        "expected_annual_volatility": 0.069555,
+        "expected_sharpe_ratio": 0.711148,
+        "portfolio_beta": null,
+        "beta_status": "benchmark_history_unavailable",
+        "beta_basis": "current_portfolio_weights",
+        "benchmark": "NIFTY 50",
+        "rebalancing_suggestions": [
+          {
+            "instrument": "US_EQUITY_FUND",
+            "action": "increase",
+            "current_weight": 0.166667,
+            "target_weight": 1.0,
+            "difference": 0.833333,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "CORP_BOND_FUND",
+            "action": "decrease",
+            "current_weight": 0.166667,
+            "target_weight": 0.0,
+            "difference": -0.166667,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "SMALLCAP_FUND",
+            "action": "decrease",
+            "current_weight": 0.166667,
+            "target_weight": 0.0,
+            "difference": -0.166667,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "REIT_INDEX",
+            "action": "decrease",
+            "current_weight": 0.166667,
+            "target_weight": 0.0,
+            "difference": -0.166667,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "LIQUID_FUND",
+            "action": "decrease",
+            "current_weight": 0.166667,
+            "target_weight": 0.0,
+            "difference": -0.166667,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "GOLD_ETF",
+            "action": "decrease",
+            "current_weight": 0.166667,
+            "target_weight": 0.0,
+            "difference": -0.166667,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          }
+        ],
+        "assumptions": [
+          "Adjusted price observations are aligned by date.",
+          "Weights are long-only, fully invested, and exclude taxes, slippage, and transaction costs.",
+          "Expected returns use historical arithmetic means; covariance uses Ledoit-Wolf shrinkage.",
+          "Portfolio beta uses current holding weights rather than proposed optimized weights."
+        ],
+        "disclaimer": "Educational research output only. Review completeness, taxes, costs, and suitability before acting."
+      },
+      "pyportfolioopt_result": {
+        "weights": {
+          "CORP_BOND_FUND": 0.0,
+          "SMALLCAP_FUND": 0.0,
+          "REIT_INDEX": 0.0,
+          "US_EQUITY_FUND": 1.0,
+          "LIQUID_FUND": 0.0,
+          "GOLD_ETF": 0.0
+        },
+        "expected_annual_return": 0.11446392721263247,
+        "expected_annual_volatility": 0.06955504714229316,
+        "sharpe_ratio": 0.7111479216086359
+      },
+      "engine_sharpe": 0.711148,
+      "ppo_sharpe": 0.7111479216086359,
+      "sharpe_diff": 7.83913640667322e-08,
+      "mean_weight_deviation": 0.0,
+      "per_ticker_weight_deviation": {
+        "CORP_BOND_FUND": 0.0,
+        "SMALLCAP_FUND": 0.0,
+        "REIT_INDEX": 0.0,
+        "US_EQUITY_FUND": 0.0,
+        "LIQUID_FUND": 0.0,
+        "GOLD_ETF": 0.0
+      },
+      "status": "PASS"
+    },
+    {
+      "portfolio_id": "PORT16",
+      "description": "Synthetic test portfolio with 3 assets, risk profile: conservative",
+      "tickers": [
+        "GOLD_ETF",
+        "GOVT_BOND_FUND",
+        "SENSEX_INDEX"
+      ],
+      "risk_free_rate": 0.065,
+      "engine_result": {
+        "status": "available",
+        "model_version": "long-only-markowitz-ledoit-wolf-1.0.0",
+        "observations": 121,
+        "instruments": [
+          "GOLD_ETF",
+          "GOVT_BOND_FUND",
+          "SENSEX_INDEX"
+        ],
+        "optimized_weights": {
+          "GOLD_ETF": 0.993804,
+          "GOVT_BOND_FUND": 0.006196,
+          "SENSEX_INDEX": 0.0
+        },
+        "expected_annual_return": 0.245501,
+        "expected_annual_volatility": 0.240098,
+        "expected_sharpe_ratio": 0.751778,
+        "portfolio_beta": null,
+        "beta_status": "benchmark_history_unavailable",
+        "beta_basis": "current_portfolio_weights",
+        "benchmark": "NIFTY 50",
+        "rebalancing_suggestions": [
+          {
+            "instrument": "GOLD_ETF",
+            "action": "increase",
+            "current_weight": 0.333333,
+            "target_weight": 0.993804,
+            "difference": 0.660471,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "SENSEX_INDEX",
+            "action": "decrease",
+            "current_weight": 0.333333,
+            "target_weight": 0.0,
+            "difference": -0.333333,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "GOVT_BOND_FUND",
+            "action": "decrease",
+            "current_weight": 0.333333,
+            "target_weight": 0.006196,
+            "difference": -0.327137,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          }
+        ],
+        "assumptions": [
+          "Adjusted price observations are aligned by date.",
+          "Weights are long-only, fully invested, and exclude taxes, slippage, and transaction costs.",
+          "Expected returns use historical arithmetic means; covariance uses Ledoit-Wolf shrinkage.",
+          "Portfolio beta uses current holding weights rather than proposed optimized weights."
+        ],
+        "disclaimer": "Educational research output only. Review completeness, taxes, costs, and suitability before acting."
+      },
+      "pyportfolioopt_result": {
+        "weights": {
+          "GOLD_ETF": 0.9938,
+          "GOVT_BOND_FUND": 0.0062,
+          "SENSEX_INDEX": 0.0
+        },
+        "expected_annual_return": 0.2455004624617454,
+        "expected_annual_volatility": 0.24009808875891878,
+        "sharpe_ratio": 0.7517780062088913
+      },
+      "engine_sharpe": 0.751778,
+      "ppo_sharpe": 0.7517780062088913,
+      "sharpe_diff": 6.208891401016103e-09,
+      "mean_weight_deviation": 0.0,
+      "per_ticker_weight_deviation": {
+        "GOLD_ETF": 4.000000000004e-06,
+        "GOVT_BOND_FUND": 3.9999999999996635e-06,
+        "SENSEX_INDEX": 0.0
+      },
+      "status": "PASS"
+    },
+    {
+      "portfolio_id": "PORT17",
+      "description": "Synthetic test portfolio with 6 assets, risk profile: aggressive",
+      "tickers": [
+        "GOLD_ETF",
+        "CORP_BOND_FUND",
+        "GOVT_BOND_FUND",
+        "REIT_INDEX",
+        "MIDCAP_FUND",
+        "LIQUID_FUND"
+      ],
+      "risk_free_rate": 0.065,
+      "engine_result": {
+        "status": "available",
+        "model_version": "long-only-markowitz-ledoit-wolf-1.0.0",
+        "observations": 121,
+        "instruments": [
+          "GOLD_ETF",
+          "CORP_BOND_FUND",
+          "GOVT_BOND_FUND",
+          "REIT_INDEX",
+          "MIDCAP_FUND",
+          "LIQUID_FUND"
+        ],
+        "optimized_weights": {
+          "GOLD_ETF": 0.0,
+          "CORP_BOND_FUND": 0.0,
+          "GOVT_BOND_FUND": 0.400298,
+          "REIT_INDEX": 0.599702,
+          "MIDCAP_FUND": 0.0,
+          "LIQUID_FUND": 0.0
+        },
+        "expected_annual_return": 0.105666,
+        "expected_annual_volatility": 0.048184,
+        "expected_sharpe_ratio": 0.843974,
+        "portfolio_beta": null,
+        "beta_status": "benchmark_history_unavailable",
+        "beta_basis": "current_portfolio_weights",
+        "benchmark": "NIFTY 50",
+        "rebalancing_suggestions": [
+          {
+            "instrument": "REIT_INDEX",
+            "action": "increase",
+            "current_weight": 0.166667,
+            "target_weight": 0.599702,
+            "difference": 0.433035,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "GOVT_BOND_FUND",
+            "action": "increase",
+            "current_weight": 0.166667,
+            "target_weight": 0.400298,
+            "difference": 0.233631,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "GOLD_ETF",
+            "action": "decrease",
+            "current_weight": 0.166667,
+            "target_weight": 0.0,
+            "difference": -0.166667,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "CORP_BOND_FUND",
+            "action": "decrease",
+            "current_weight": 0.166667,
+            "target_weight": 0.0,
+            "difference": -0.166667,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "MIDCAP_FUND",
+            "action": "decrease",
+            "current_weight": 0.166667,
+            "target_weight": 0.0,
+            "difference": -0.166667,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "LIQUID_FUND",
+            "action": "decrease",
+            "current_weight": 0.166667,
+            "target_weight": 0.0,
+            "difference": -0.166667,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          }
+        ],
+        "assumptions": [
+          "Adjusted price observations are aligned by date.",
+          "Weights are long-only, fully invested, and exclude taxes, slippage, and transaction costs.",
+          "Expected returns use historical arithmetic means; covariance uses Ledoit-Wolf shrinkage.",
+          "Portfolio beta uses current holding weights rather than proposed optimized weights."
+        ],
+        "disclaimer": "Educational research output only. Review completeness, taxes, costs, and suitability before acting."
+      },
+      "pyportfolioopt_result": {
+        "weights": {
+          "GOLD_ETF": 0.0,
+          "CORP_BOND_FUND": 0.0,
+          "GOVT_BOND_FUND": 0.4003,
+          "REIT_INDEX": 0.5997,
+          "MIDCAP_FUND": 0.0,
+          "LIQUID_FUND": 0.0
+        },
+        "expected_annual_return": 0.10566623391648308,
+        "expected_annual_volatility": 0.04818423850550305,
+        "sharpe_ratio": 0.8439737801779029
+      },
+      "engine_sharpe": 0.843974,
+      "ppo_sharpe": 0.8439737801779029,
+      "sharpe_diff": 2.1982209708060196e-07,
+      "mean_weight_deviation": 0.0,
+      "per_ticker_weight_deviation": {
+        "GOLD_ETF": 0.0,
+        "CORP_BOND_FUND": 0.0,
+        "GOVT_BOND_FUND": 2.000000000002e-06,
+        "REIT_INDEX": 1.999999999946489e-06,
+        "MIDCAP_FUND": 0.0,
+        "LIQUID_FUND": 0.0
+      },
+      "status": "PASS"
+    },
+    {
+      "portfolio_id": "PORT18",
+      "description": "Synthetic test portfolio with 4 assets, risk profile: aggressive",
+      "tickers": [
+        "GOLD_ETF",
+        "CORP_BOND_FUND",
+        "MIDCAP_FUND",
+        "REIT_INDEX"
+      ],
+      "risk_free_rate": 0.065,
+      "engine_result": {
+        "status": "available",
+        "model_version": "long-only-markowitz-ledoit-wolf-1.0.0",
+        "observations": 121,
+        "instruments": [
+          "GOLD_ETF",
+          "CORP_BOND_FUND",
+          "MIDCAP_FUND",
+          "REIT_INDEX"
+        ],
+        "optimized_weights": {
+          "GOLD_ETF": 0.0,
+          "CORP_BOND_FUND": 0.0,
+          "MIDCAP_FUND": 0.94487,
+          "REIT_INDEX": 0.05513
+        },
+        "expected_annual_return": 0.178069,
+        "expected_annual_volatility": 0.057561,
+        "expected_sharpe_ratio": 1.964316,
+        "portfolio_beta": null,
+        "beta_status": "benchmark_history_unavailable",
+        "beta_basis": "current_portfolio_weights",
+        "benchmark": "NIFTY 50",
+        "rebalancing_suggestions": [
+          {
+            "instrument": "MIDCAP_FUND",
+            "action": "increase",
+            "current_weight": 0.25,
+            "target_weight": 0.94487,
+            "difference": 0.69487,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "GOLD_ETF",
+            "action": "decrease",
+            "current_weight": 0.25,
+            "target_weight": 0.0,
+            "difference": -0.25,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "CORP_BOND_FUND",
+            "action": "decrease",
+            "current_weight": 0.25,
+            "target_weight": 0.0,
+            "difference": -0.25,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "REIT_INDEX",
+            "action": "decrease",
+            "current_weight": 0.25,
+            "target_weight": 0.05513,
+            "difference": -0.19487,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          }
+        ],
+        "assumptions": [
+          "Adjusted price observations are aligned by date.",
+          "Weights are long-only, fully invested, and exclude taxes, slippage, and transaction costs.",
+          "Expected returns use historical arithmetic means; covariance uses Ledoit-Wolf shrinkage.",
+          "Portfolio beta uses current holding weights rather than proposed optimized weights."
+        ],
+        "disclaimer": "Educational research output only. Review completeness, taxes, costs, and suitability before acting."
+      },
+      "pyportfolioopt_result": {
+        "weights": {
+          "GOLD_ETF": 0.0,
+          "CORP_BOND_FUND": 0.0,
+          "MIDCAP_FUND": 0.94487,
+          "REIT_INDEX": 0.05513
+        },
+        "expected_annual_return": 0.17806864303204967,
+        "expected_annual_volatility": 0.05756132436506573,
+        "sharpe_ratio": 1.9643162189067285
+      },
+      "engine_sharpe": 1.964316,
+      "ppo_sharpe": 1.9643162189067285,
+      "sharpe_diff": 2.1890672852187265e-07,
+      "mean_weight_deviation": 0.0,
+      "per_ticker_weight_deviation": {
+        "GOLD_ETF": 0.0,
+        "CORP_BOND_FUND": 0.0,
+        "MIDCAP_FUND": 0.0,
+        "REIT_INDEX": 0.0
+      },
+      "status": "PASS"
+    },
+    {
+      "portfolio_id": "PORT19",
+      "description": "Synthetic test portfolio with 6 assets, risk profile: moderate",
+      "tickers": [
+        "GOLD_ETF",
+        "SMALLCAP_FUND",
+        "CORP_BOND_FUND",
+        "SENSEX_INDEX",
+        "REIT_INDEX",
+        "LIQUID_FUND"
+      ],
+      "risk_free_rate": 0.065,
+      "engine_result": {
+        "status": "available",
+        "model_version": "long-only-markowitz-ledoit-wolf-1.0.0",
+        "observations": 121,
+        "instruments": [
+          "GOLD_ETF",
+          "SMALLCAP_FUND",
+          "CORP_BOND_FUND",
+          "SENSEX_INDEX",
+          "REIT_INDEX",
+          "LIQUID_FUND"
+        ],
+        "optimized_weights": {
+          "GOLD_ETF": 0.902756,
+          "SMALLCAP_FUND": 0.0,
+          "CORP_BOND_FUND": 0.097244,
+          "SENSEX_INDEX": 0.0,
+          "REIT_INDEX": 0.0,
+          "LIQUID_FUND": 0.0
+        },
+        "expected_annual_return": 0.089461,
+        "expected_annual_volatility": 0.057684,
+        "expected_sharpe_ratio": 0.424055,
+        "portfolio_beta": null,
+        "beta_status": "benchmark_history_unavailable",
+        "beta_basis": "current_portfolio_weights",
+        "benchmark": "NIFTY 50",
+        "rebalancing_suggestions": [
+          {
+            "instrument": "GOLD_ETF",
+            "action": "increase",
+            "current_weight": 0.166667,
+            "target_weight": 0.902756,
+            "difference": 0.736089,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "SMALLCAP_FUND",
+            "action": "decrease",
+            "current_weight": 0.166667,
+            "target_weight": 0.0,
+            "difference": -0.166667,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "SENSEX_INDEX",
+            "action": "decrease",
+            "current_weight": 0.166667,
+            "target_weight": 0.0,
+            "difference": -0.166667,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "REIT_INDEX",
+            "action": "decrease",
+            "current_weight": 0.166667,
+            "target_weight": 0.0,
+            "difference": -0.166667,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "LIQUID_FUND",
+            "action": "decrease",
+            "current_weight": 0.166667,
+            "target_weight": 0.0,
+            "difference": -0.166667,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "CORP_BOND_FUND",
+            "action": "decrease",
+            "current_weight": 0.166667,
+            "target_weight": 0.097244,
+            "difference": -0.069423,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          }
+        ],
+        "assumptions": [
+          "Adjusted price observations are aligned by date.",
+          "Weights are long-only, fully invested, and exclude taxes, slippage, and transaction costs.",
+          "Expected returns use historical arithmetic means; covariance uses Ledoit-Wolf shrinkage.",
+          "Portfolio beta uses current holding weights rather than proposed optimized weights."
+        ],
+        "disclaimer": "Educational research output only. Review completeness, taxes, costs, and suitability before acting."
+      },
+      "pyportfolioopt_result": {
+        "weights": {
+          "GOLD_ETF": 0.90276,
+          "SMALLCAP_FUND": 0.0,
+          "CORP_BOND_FUND": 0.09724,
+          "SENSEX_INDEX": 0.0,
+          "REIT_INDEX": 0.0,
+          "LIQUID_FUND": 0.0
+        },
+        "expected_annual_return": 0.08946116958240857,
+        "expected_annual_volatility": 0.05768391155165927,
+        "sharpe_ratio": 0.42405532018233855
+      },
+      "engine_sharpe": 0.424055,
+      "ppo_sharpe": 0.42405532018233855,
+      "sharpe_diff": 3.2018233853126077e-07,
+      "mean_weight_deviation": 0.0,
+      "per_ticker_weight_deviation": {
+        "GOLD_ETF": 4.000000000004e-06,
+        "SMALLCAP_FUND": 0.0,
+        "CORP_BOND_FUND": 4.000000000004e-06,
+        "SENSEX_INDEX": 0.0,
+        "REIT_INDEX": 0.0,
+        "LIQUID_FUND": 0.0
+      },
+      "status": "PASS"
+    },
+    {
+      "portfolio_id": "PORT20",
+      "description": "Synthetic test portfolio with 4 assets, risk profile: conservative",
+      "tickers": [
+        "REIT_INDEX",
+        "MIDCAP_FUND",
+        "SMALLCAP_FUND",
+        "LIQUID_FUND"
+      ],
+      "risk_free_rate": 0.065,
+      "engine_result": {
+        "status": "available",
+        "model_version": "long-only-markowitz-ledoit-wolf-1.0.0",
+        "observations": 121,
+        "instruments": [
+          "REIT_INDEX",
+          "MIDCAP_FUND",
+          "SMALLCAP_FUND",
+          "LIQUID_FUND"
+        ],
+        "optimized_weights": {
+          "REIT_INDEX": 0.0,
+          "MIDCAP_FUND": 0.0,
+          "SMALLCAP_FUND": 0.997497,
+          "LIQUID_FUND": 0.002503
+        },
+        "expected_annual_return": 0.133384,
+        "expected_annual_volatility": 0.066209,
+        "expected_sharpe_ratio": 1.032848,
+        "portfolio_beta": null,
+        "beta_status": "benchmark_history_unavailable",
+        "beta_basis": "current_portfolio_weights",
+        "benchmark": "NIFTY 50",
+        "rebalancing_suggestions": [
+          {
+            "instrument": "SMALLCAP_FUND",
+            "action": "increase",
+            "current_weight": 0.25,
+            "target_weight": 0.997497,
+            "difference": 0.747497,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "REIT_INDEX",
+            "action": "decrease",
+            "current_weight": 0.25,
+            "target_weight": 0.0,
+            "difference": -0.25,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "MIDCAP_FUND",
+            "action": "decrease",
+            "current_weight": 0.25,
+            "target_weight": 0.0,
+            "difference": -0.25,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          },
+          {
+            "instrument": "LIQUID_FUND",
+            "action": "decrease",
+            "current_weight": 0.25,
+            "target_weight": 0.002503,
+            "difference": -0.247497,
+            "reason": "Long-only maximum-Sharpe research allocation differs by at least 5 percentage points."
+          }
+        ],
+        "assumptions": [
+          "Adjusted price observations are aligned by date.",
+          "Weights are long-only, fully invested, and exclude taxes, slippage, and transaction costs.",
+          "Expected returns use historical arithmetic means; covariance uses Ledoit-Wolf shrinkage.",
+          "Portfolio beta uses current holding weights rather than proposed optimized weights."
+        ],
+        "disclaimer": "Educational research output only. Review completeness, taxes, costs, and suitability before acting."
+      },
+      "pyportfolioopt_result": {
+        "weights": {
+          "REIT_INDEX": 0.0,
+          "MIDCAP_FUND": 0.0,
+          "SMALLCAP_FUND": 0.9975,
+          "LIQUID_FUND": 0.0025
+        },
+        "expected_annual_return": 0.13338352231132844,
+        "expected_annual_volatility": 0.06620870012064214,
+        "sharpe_ratio": 1.0328479820132919
+      },
+      "engine_sharpe": 1.032848,
+      "ppo_sharpe": 1.0328479820132919,
+      "sharpe_diff": 1.7986708122919026e-08,
+      "mean_weight_deviation": 0.0,
+      "per_ticker_weight_deviation": {
+        "REIT_INDEX": 0.0,
+        "MIDCAP_FUND": 0.0,
+        "SMALLCAP_FUND": 3.000000000086267e-06,
+        "LIQUID_FUND": 2.9999999999999645e-06
+      },
+      "status": "PASS"
+    }
+  ]
+}

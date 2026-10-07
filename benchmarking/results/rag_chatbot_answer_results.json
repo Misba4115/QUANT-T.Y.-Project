@@ -1,0 +1,1491 @@
+{
+  "component": "rag_chatbot_answer",
+  "bench_user_id": "bench_test_user",
+  "dry_run": false,
+  "seed_before_run": false,
+  "ragas_enabled": false,
+  "total": 50,
+  "fact_check_accuracy": 0.02,
+  "chatbot_errors": 13,
+  "empty_answers": 0,
+  "no_context_retrieved": 50,
+  "grounding_correction_rate": 0.0,
+  "avg_faithfulness": null,
+  "avg_answer_relevancy": null,
+  "avg_context_precision": null,
+  "database_user_check": {
+    "user_lookup_attempted": true,
+    "user_exists": null,
+    "user_lookup_error": "APIError: {'message': 'invalid input syntax for type uuid: \"bench_test_user\"', 'code': '22P02', 'hint': None, 'details': None}"
+  },
+  "questions": [
+    {
+      "question_id": "ANS001",
+      "question": "What is my total current portfolio value?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "₹365,700 approx (sum of current_value across holdings)"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [
+        {
+          "node": "portfolio",
+          "code": "APIError"
+        }
+      ],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "₹365,700 approx (sum of current_value across holdings)"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS002",
+      "question": "How much have I invested in equity mutual funds in total?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "₹132,000 (HDFC Flexicap + Parag Parikh invested_value)"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "₹132,000 (HDFC Flexicap + Parag Parikh invested_value)"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS003",
+      "question": "What is my unrealized gain on the HDFC Flexicap Fund?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "₹15,600 (81,600 - 66,000)"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "₹15,600 (81,600 - 66,000)"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS004",
+      "question": "Is my HDFC Flexicap Fund holding eligible for LTCG treatment right now?",
+      "requires_grounding_from": "holdings + tax rules",
+      "expected_answer_facts": [
+        "Yes, purchased 2023-11-10, held over 1 year as of FY 2025-26"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [
+        {
+          "node": "portfolio",
+          "code": "APIError"
+        },
+        {
+          "node": "tax",
+          "code": "APIError"
+        }
+      ],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "Yes, purchased 2023-11-10, held over 1 year as of FY 2025-26"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS005",
+      "question": "Is my Parag Parikh Flexicap Fund holding eligible for LTCG treatment right now?",
+      "requires_grounding_from": "holdings + tax rules",
+      "expected_answer_facts": [
+        "Depends on current date vs 2024-06-15 purchase date, check against 365-day threshold"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [
+        {
+          "node": "portfolio",
+          "code": "APIError"
+        },
+        {
+          "node": "tax",
+          "code": "APIError"
+        }
+      ],
+      "fact_check_passed": true,
+      "matched_facts": [
+        "Depends on current date vs 2024-06-15 purchase date, check against 365-day threshold"
+      ],
+      "missed_facts": [],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS006",
+      "question": "How much of my Section 80C limit have I used this year?",
+      "requires_grounding_from": "profile",
+      "expected_answer_facts": [
+        "₹30,000 used, ₹120,000 remaining of ₹150,000 cap"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [
+        {
+          "node": "tax",
+          "code": "APIError"
+        }
+      ],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "₹30,000 used, ₹120,000 remaining of ₹150,000 cap"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS007",
+      "question": "What is my risk profile on file?",
+      "requires_grounding_from": "profile",
+      "expected_answer_facts": [
+        "Moderate"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "Moderate"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS008",
+      "question": "What was my salary credit amount in the sample transactions?",
+      "requires_grounding_from": "transactions_sample",
+      "expected_answer_facts": [
+        "₹100,000 on 2026-07-02"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "₹100,000 on 2026-07-02"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS009",
+      "question": "How much did I spend on Swiggy in the sample transactions?",
+      "requires_grounding_from": "transactions_sample",
+      "expected_answer_facts": [
+        "₹450 on 2026-07-01"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [
+        {
+          "node": "cashflow",
+          "code": "APIError"
+        }
+      ],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "₹450 on 2026-07-01"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS010",
+      "question": "What is my current value in gold holdings?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "₹122,000 (SGB 2029 Series)"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [
+        {
+          "node": "portfolio",
+          "code": "APIError"
+        }
+      ],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "₹122,000 (SGB 2029 Series)"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS011",
+      "question": "How many units of ELSS Tax Saver Fund do I hold?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "1000 units"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [
+        {
+          "node": "tax",
+          "code": "APIError"
+        }
+      ],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "1000 units"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS012",
+      "question": "What is my total invested value across all holdings?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "₹311,000 (sum of invested_value)"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [
+        {
+          "node": "portfolio",
+          "code": "APIError"
+        }
+      ],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "₹311,000 (sum of invested_value)"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS013",
+      "question": "What is my annual income on file?",
+      "requires_grounding_from": "profile",
+      "expected_answer_facts": [
+        "₹12,00,000"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [
+        {
+          "node": "cashflow",
+          "code": "APIError"
+        }
+      ],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "₹12,00,000"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS014",
+      "question": "What financial year is my current data associated with?",
+      "requires_grounding_from": "profile",
+      "expected_answer_facts": [
+        "2025-26"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "2025-26"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS015",
+      "question": "What is my unrealized gain on the SGB 2029 Series?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "₹18,000 (122,000 - 104,000)"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "₹18,000 (122,000 - 104,000)"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS016",
+      "question": "What is the current NAV of HDFC Flexicap Fund?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "68.0"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "68.0"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS017",
+      "question": "What is the purchase NAV I bought HDFC Flexicap Fund at?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "55.0"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "55.0"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS018",
+      "question": "How many units of HDFC Flexicap Fund do I hold?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "1200"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "1200"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS019",
+      "question": "What is the invested value in HDFC Flexicap Fund?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "66000"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "66000"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS020",
+      "question": "What is the current value of HDFC Flexicap Fund?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "81600"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "81600"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS021",
+      "question": "When did I purchase HDFC Flexicap Fund?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "2023-11-10"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "2023-11-10"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS022",
+      "question": "What type of asset is HDFC Flexicap Fund classified as?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "equity_mf"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "equity_mf"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS023",
+      "question": "What is the current NAV of Parag Parikh Flexicap Fund?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "62.0"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "62.0"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS024",
+      "question": "What is the purchase NAV I bought Parag Parikh Flexicap Fund at?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "45.0"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "45.0"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS025",
+      "question": "How many units of Parag Parikh Flexicap Fund do I hold?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "800"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "800"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS026",
+      "question": "What is the invested value in Parag Parikh Flexicap Fund?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "36000"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "36000"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS027",
+      "question": "What is the current value of Parag Parikh Flexicap Fund?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "49600"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "49600"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS028",
+      "question": "When did I purchase Parag Parikh Flexicap Fund?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "2024-06-15"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "2024-06-15"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS029",
+      "question": "What type of asset is Parag Parikh Flexicap Fund classified as?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "equity_mf"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "equity_mf"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS030",
+      "question": "What is the current NAV of HDFC Corporate Bond Fund?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "26.5"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "26.5"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS031",
+      "question": "What is the purchase NAV I bought HDFC Corporate Bond Fund at?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "25.0"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "25.0"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS032",
+      "question": "How many units of HDFC Corporate Bond Fund do I hold?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "3000"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "3000"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS033",
+      "question": "What is the invested value in HDFC Corporate Bond Fund?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "75000"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "75000"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS034",
+      "question": "What is the current value of HDFC Corporate Bond Fund?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "79500"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "79500"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS035",
+      "question": "When did I purchase HDFC Corporate Bond Fund?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "2024-01-20"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "2024-01-20"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS036",
+      "question": "What type of asset is HDFC Corporate Bond Fund classified as?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "debt_mf"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "debt_mf"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS037",
+      "question": "What is the current NAV of SGB 2029 Series?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "6100"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "6100"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS038",
+      "question": "What is the purchase NAV I bought SGB 2029 Series at?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "5200"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "5200"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS039",
+      "question": "How many units of SGB 2029 Series do I hold?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "20"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "20"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS040",
+      "question": "What is the invested value in SGB 2029 Series?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "104000"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "104000"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS041",
+      "question": "What is the current value of SGB 2029 Series?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "122000"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "122000"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS042",
+      "question": "When did I purchase SGB 2029 Series?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "2022-08-05"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "2022-08-05"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS043",
+      "question": "What type of asset is SGB 2029 Series classified as?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "gold"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "gold"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS044",
+      "question": "What is the current NAV of ELSS Tax Saver Fund?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "33.0"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "33.0"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS045",
+      "question": "What is the purchase NAV I bought ELSS Tax Saver Fund at?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "30.0"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [
+        {
+          "node": "tax",
+          "code": "APIError"
+        }
+      ],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "30.0"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS046",
+      "question": "How many units of ELSS Tax Saver Fund do I hold?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "1000"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [
+        {
+          "node": "tax",
+          "code": "APIError"
+        }
+      ],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "1000"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS047",
+      "question": "What is the invested value in ELSS Tax Saver Fund?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "30000"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "30000"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS048",
+      "question": "What is the current value of ELSS Tax Saver Fund?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "33000"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "33000"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS049",
+      "question": "When did I purchase ELSS Tax Saver Fund?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "2025-03-01"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [
+        {
+          "node": "tax",
+          "code": "APIError"
+        }
+      ],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "2025-03-01"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    },
+    {
+      "question_id": "ANS050",
+      "question": "What type of asset is ELSS Tax Saver Fund classified as?",
+      "requires_grounding_from": "holdings",
+      "expected_answer_facts": [
+        "equity_mf_elss"
+      ],
+      "chatbot_answer": "The conversational AI service is currently unavailable, and no grounded specialist result was requested. Please try again later.",
+      "citations": [],
+      "warnings": [
+        "Public knowledge search unavailable (ResponseHandlingException)",
+        "Chat model unavailable (ClientError)"
+      ],
+      "errors": [
+        {
+          "node": "tax",
+          "code": "APIError"
+        }
+      ],
+      "fact_check_passed": false,
+      "matched_facts": [],
+      "missed_facts": [
+        "equity_mf_elss"
+      ],
+      "grounding_correction_fired": false,
+      "context_count": 0,
+      "ragas_scores": {
+        "faithfulness": null,
+        "answer_relevancy": null,
+        "context_precision": null,
+        "ragas_error": "RAGAS disabled"
+      }
+    }
+  ]
+}
