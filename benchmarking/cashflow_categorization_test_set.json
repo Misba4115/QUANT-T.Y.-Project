@@ -1,0 +1,1424 @@
+{
+  "description": "200 labeled transactions for benchmarking Cashflow Engine's auto-categorization.",
+  "categories": [
+    "Food & Dining",
+    "Groceries",
+    "Transport",
+    "Shopping",
+    "Utilities",
+    "Entertainment",
+    "Healthcare",
+    "Investment",
+    "Rent",
+    "Salary/Income",
+    "Transfer"
+  ],
+  "metrics_to_compute": [
+    "overall_accuracy",
+    "per_category_precision_recall_f1",
+    "confusion_matrix"
+  ],
+  "instructions": "Run Cashflow Engine's categorizer on raw_description for each row, compare predicted_category to correct_category.",
+  "transactions": [
+    {
+      "transaction_id": "CF0001",
+      "raw_description": "SWIGGY BANGALORE",
+      "amount": 1725.5,
+      "transaction_type": "debit",
+      "correct_category": "Food & Dining"
+    },
+    {
+      "transaction_id": "CF0002",
+      "raw_description": "RENT PAYMENT LANDLORD",
+      "amount": 17641.0,
+      "transaction_type": "debit",
+      "correct_category": "Rent"
+    },
+    {
+      "transaction_id": "CF0003",
+      "raw_description": "RELIANCE FRESH",
+      "amount": 1769.72,
+      "transaction_type": "debit",
+      "correct_category": "Groceries"
+    },
+    {
+      "transaction_id": "CF0004",
+      "raw_description": "UBER TRIP BLR",
+      "amount": 4602.03,
+      "transaction_type": "debit",
+      "correct_category": "Transport"
+    },
+    {
+      "transaction_id": "CF0005",
+      "raw_description": "AJIO FASHION",
+      "amount": 391.82,
+      "transaction_type": "debit",
+      "correct_category": "Shopping"
+    },
+    {
+      "transaction_id": "CF0006",
+      "raw_description": "MORE SUPERMARKET",
+      "amount": 2974.38,
+      "transaction_type": "debit",
+      "correct_category": "Groceries"
+    },
+    {
+      "transaction_id": "CF0007",
+      "raw_description": "MORE SUPERMARKET",
+      "amount": 3894.4,
+      "transaction_type": "debit",
+      "correct_category": "Groceries"
+    },
+    {
+      "transaction_id": "CF0008",
+      "raw_description": "PRACTO CONSULTATION",
+      "amount": 4317.28,
+      "transaction_type": "debit",
+      "correct_category": "Healthcare"
+    },
+    {
+      "transaction_id": "CF0009",
+      "raw_description": "DOMINOS PIZZA",
+      "amount": 1930.59,
+      "transaction_type": "debit",
+      "correct_category": "Food & Dining"
+    },
+    {
+      "transaction_id": "CF0010",
+      "raw_description": "FREELANCE PAYMENT RECEIVED",
+      "amount": 83515.51,
+      "transaction_type": "credit",
+      "correct_category": "Salary/Income"
+    },
+    {
+      "transaction_id": "CF0011",
+      "raw_description": "BIGBASKET GROCERY",
+      "amount": 1749.15,
+      "transaction_type": "debit",
+      "correct_category": "Groceries"
+    },
+    {
+      "transaction_id": "CF0012",
+      "raw_description": "AJIO FASHION",
+      "amount": 768.61,
+      "transaction_type": "debit",
+      "correct_category": "Shopping"
+    },
+    {
+      "transaction_id": "CF0013",
+      "raw_description": "ZEPTO GROCERY",
+      "amount": 3688.52,
+      "transaction_type": "debit",
+      "correct_category": "Groceries"
+    },
+    {
+      "transaction_id": "CF0014",
+      "raw_description": "PVR CINEMAS",
+      "amount": 3980.03,
+      "transaction_type": "debit",
+      "correct_category": "Entertainment"
+    },
+    {
+      "transaction_id": "CF0015",
+      "raw_description": "APOLLO PHARMACY",
+      "amount": 3280.98,
+      "transaction_type": "debit",
+      "correct_category": "Healthcare"
+    },
+    {
+      "transaction_id": "CF0016",
+      "raw_description": "UBER TRIP BLR",
+      "amount": 3565.2,
+      "transaction_type": "debit",
+      "correct_category": "Transport"
+    },
+    {
+      "transaction_id": "CF0017",
+      "raw_description": "LIC PREMIUM",
+      "amount": 14177.65,
+      "transaction_type": "debit",
+      "correct_category": "Investment"
+    },
+    {
+      "transaction_id": "CF0018",
+      "raw_description": "RENT PAYMENT LANDLORD",
+      "amount": 34035.77,
+      "transaction_type": "debit",
+      "correct_category": "Rent"
+    },
+    {
+      "transaction_id": "CF0019",
+      "raw_description": "METRO CARD RECHARGE",
+      "amount": 3361.11,
+      "transaction_type": "debit",
+      "correct_category": "Transport"
+    },
+    {
+      "transaction_id": "CF0020",
+      "raw_description": "UBER TRIP BLR",
+      "amount": 1954.08,
+      "transaction_type": "debit",
+      "correct_category": "Transport"
+    },
+    {
+      "transaction_id": "CF0021",
+      "raw_description": "UPI TRANSFER TO FRIEND",
+      "amount": 15078.6,
+      "transaction_type": "debit",
+      "correct_category": "Transfer"
+    },
+    {
+      "transaction_id": "CF0022",
+      "raw_description": "SWIGGY BANGALORE",
+      "amount": 4749.06,
+      "transaction_type": "debit",
+      "correct_category": "Food & Dining"
+    },
+    {
+      "transaction_id": "CF0023",
+      "raw_description": "SIP AUTO DEBIT MF",
+      "amount": 8440.43,
+      "transaction_type": "debit",
+      "correct_category": "Investment"
+    },
+    {
+      "transaction_id": "CF0024",
+      "raw_description": "SIP AUTO DEBIT MF",
+      "amount": 1615.27,
+      "transaction_type": "debit",
+      "correct_category": "Investment"
+    },
+    {
+      "transaction_id": "CF0025",
+      "raw_description": "NPS CONTRIBUTION",
+      "amount": 7046.12,
+      "transaction_type": "debit",
+      "correct_category": "Investment"
+    },
+    {
+      "transaction_id": "CF0026",
+      "raw_description": "RENT PAYMENT LANDLORD",
+      "amount": 18185.07,
+      "transaction_type": "debit",
+      "correct_category": "Rent"
+    },
+    {
+      "transaction_id": "CF0027",
+      "raw_description": "SIP AUTO DEBIT MF",
+      "amount": 2978.09,
+      "transaction_type": "debit",
+      "correct_category": "Investment"
+    },
+    {
+      "transaction_id": "CF0028",
+      "raw_description": "APOLLO PHARMACY",
+      "amount": 789.15,
+      "transaction_type": "debit",
+      "correct_category": "Healthcare"
+    },
+    {
+      "transaction_id": "CF0029",
+      "raw_description": "DOMINOS PIZZA",
+      "amount": 1266.18,
+      "transaction_type": "debit",
+      "correct_category": "Food & Dining"
+    },
+    {
+      "transaction_id": "CF0030",
+      "raw_description": "AJIO FASHION",
+      "amount": 922.65,
+      "transaction_type": "debit",
+      "correct_category": "Shopping"
+    },
+    {
+      "transaction_id": "CF0031",
+      "raw_description": "CCD COFFEE DAY",
+      "amount": 4126.14,
+      "transaction_type": "debit",
+      "correct_category": "Food & Dining"
+    },
+    {
+      "transaction_id": "CF0032",
+      "raw_description": "FREELANCE PAYMENT RECEIVED",
+      "amount": 110301.3,
+      "transaction_type": "credit",
+      "correct_category": "Salary/Income"
+    },
+    {
+      "transaction_id": "CF0033",
+      "raw_description": "BESCOM ELECTRICITY",
+      "amount": 2288.49,
+      "transaction_type": "debit",
+      "correct_category": "Utilities"
+    },
+    {
+      "transaction_id": "CF0034",
+      "raw_description": "AMAZON.IN",
+      "amount": 1127.45,
+      "transaction_type": "debit",
+      "correct_category": "Shopping"
+    },
+    {
+      "transaction_id": "CF0035",
+      "raw_description": "UPI TRANSFER TO FRIEND",
+      "amount": 3855.84,
+      "transaction_type": "credit",
+      "correct_category": "Transfer"
+    },
+    {
+      "transaction_id": "CF0036",
+      "raw_description": "BIGBASKET GROCERY",
+      "amount": 3630.03,
+      "transaction_type": "debit",
+      "correct_category": "Groceries"
+    },
+    {
+      "transaction_id": "CF0037",
+      "raw_description": "STARBUCKS COFFEE",
+      "amount": 1991.09,
+      "transaction_type": "debit",
+      "correct_category": "Food & Dining"
+    },
+    {
+      "transaction_id": "CF0038",
+      "raw_description": "NETFLIX SUBSCRIPTION",
+      "amount": 4848.6,
+      "transaction_type": "debit",
+      "correct_category": "Entertainment"
+    },
+    {
+      "transaction_id": "CF0039",
+      "raw_description": "NETFLIX SUBSCRIPTION",
+      "amount": 2516.1,
+      "transaction_type": "debit",
+      "correct_category": "Entertainment"
+    },
+    {
+      "transaction_id": "CF0040",
+      "raw_description": "WATER BOARD BILL",
+      "amount": 1821.03,
+      "transaction_type": "debit",
+      "correct_category": "Utilities"
+    },
+    {
+      "transaction_id": "CF0041",
+      "raw_description": "WATER BOARD BILL",
+      "amount": 597.0,
+      "transaction_type": "debit",
+      "correct_category": "Utilities"
+    },
+    {
+      "transaction_id": "CF0042",
+      "raw_description": "HOTSTAR SUBSCRIPTION",
+      "amount": 3964.78,
+      "transaction_type": "debit",
+      "correct_category": "Entertainment"
+    },
+    {
+      "transaction_id": "CF0043",
+      "raw_description": "SIP AUTO DEBIT MF",
+      "amount": 13368.42,
+      "transaction_type": "debit",
+      "correct_category": "Investment"
+    },
+    {
+      "transaction_id": "CF0044",
+      "raw_description": "NEFT TRANSFER OUT",
+      "amount": 11666.35,
+      "transaction_type": "credit",
+      "correct_category": "Transfer"
+    },
+    {
+      "transaction_id": "CF0045",
+      "raw_description": "DOMINOS PIZZA",
+      "amount": 4016.05,
+      "transaction_type": "debit",
+      "correct_category": "Food & Dining"
+    },
+    {
+      "transaction_id": "CF0046",
+      "raw_description": "MCDONALDS",
+      "amount": 1545.05,
+      "transaction_type": "debit",
+      "correct_category": "Food & Dining"
+    },
+    {
+      "transaction_id": "CF0047",
+      "raw_description": "AJIO FASHION",
+      "amount": 1379.53,
+      "transaction_type": "debit",
+      "correct_category": "Shopping"
+    },
+    {
+      "transaction_id": "CF0048",
+      "raw_description": "BIGBASKET GROCERY",
+      "amount": 463.58,
+      "transaction_type": "debit",
+      "correct_category": "Groceries"
+    },
+    {
+      "transaction_id": "CF0049",
+      "raw_description": "ZEPTO GROCERY",
+      "amount": 4450.86,
+      "transaction_type": "debit",
+      "correct_category": "Groceries"
+    },
+    {
+      "transaction_id": "CF0050",
+      "raw_description": "ZEPTO GROCERY",
+      "amount": 3686.73,
+      "transaction_type": "debit",
+      "correct_category": "Groceries"
+    },
+    {
+      "transaction_id": "CF0051",
+      "raw_description": "LIC PREMIUM",
+      "amount": 18894.85,
+      "transaction_type": "debit",
+      "correct_category": "Investment"
+    },
+    {
+      "transaction_id": "CF0052",
+      "raw_description": "CCD COFFEE DAY",
+      "amount": 1755.96,
+      "transaction_type": "debit",
+      "correct_category": "Food & Dining"
+    },
+    {
+      "transaction_id": "CF0053",
+      "raw_description": "RENT PAYMENT LANDLORD",
+      "amount": 37010.33,
+      "transaction_type": "debit",
+      "correct_category": "Rent"
+    },
+    {
+      "transaction_id": "CF0054",
+      "raw_description": "IMPS TRANSFER",
+      "amount": 2034.16,
+      "transaction_type": "debit",
+      "correct_category": "Transfer"
+    },
+    {
+      "transaction_id": "CF0055",
+      "raw_description": "NPS CONTRIBUTION",
+      "amount": 17905.31,
+      "transaction_type": "debit",
+      "correct_category": "Investment"
+    },
+    {
+      "transaction_id": "CF0056",
+      "raw_description": "ZEPTO GROCERY",
+      "amount": 362.42,
+      "transaction_type": "debit",
+      "correct_category": "Groceries"
+    },
+    {
+      "transaction_id": "CF0057",
+      "raw_description": "BESCOM ELECTRICITY",
+      "amount": 1107.2,
+      "transaction_type": "debit",
+      "correct_category": "Utilities"
+    },
+    {
+      "transaction_id": "CF0058",
+      "raw_description": "OLA CABS",
+      "amount": 2105.47,
+      "transaction_type": "debit",
+      "correct_category": "Transport"
+    },
+    {
+      "transaction_id": "CF0059",
+      "raw_description": "LIC PREMIUM",
+      "amount": 14718.72,
+      "transaction_type": "debit",
+      "correct_category": "Investment"
+    },
+    {
+      "transaction_id": "CF0060",
+      "raw_description": "MEDPLUS PHARMACY",
+      "amount": 1399.8,
+      "transaction_type": "debit",
+      "correct_category": "Healthcare"
+    },
+    {
+      "transaction_id": "CF0061",
+      "raw_description": "FLIPKART ORDER",
+      "amount": 1557.26,
+      "transaction_type": "debit",
+      "correct_category": "Shopping"
+    },
+    {
+      "transaction_id": "CF0062",
+      "raw_description": "BIGBASKET GROCERY",
+      "amount": 343.21,
+      "transaction_type": "debit",
+      "correct_category": "Groceries"
+    },
+    {
+      "transaction_id": "CF0063",
+      "raw_description": "SIP AUTO DEBIT MF",
+      "amount": 11443.59,
+      "transaction_type": "debit",
+      "correct_category": "Investment"
+    },
+    {
+      "transaction_id": "CF0064",
+      "raw_description": "APOLLO PHARMACY",
+      "amount": 852.59,
+      "transaction_type": "debit",
+      "correct_category": "Healthcare"
+    },
+    {
+      "transaction_id": "CF0065",
+      "raw_description": "JIO FIBER BILL",
+      "amount": 118.7,
+      "transaction_type": "debit",
+      "correct_category": "Utilities"
+    },
+    {
+      "transaction_id": "CF0066",
+      "raw_description": "CCD COFFEE DAY",
+      "amount": 1543.29,
+      "transaction_type": "debit",
+      "correct_category": "Food & Dining"
+    },
+    {
+      "transaction_id": "CF0067",
+      "raw_description": "FREELANCE PAYMENT RECEIVED",
+      "amount": 108760.0,
+      "transaction_type": "credit",
+      "correct_category": "Salary/Income"
+    },
+    {
+      "transaction_id": "CF0068",
+      "raw_description": "HOTSTAR SUBSCRIPTION",
+      "amount": 1078.41,
+      "transaction_type": "debit",
+      "correct_category": "Entertainment"
+    },
+    {
+      "transaction_id": "CF0069",
+      "raw_description": "ZOMATO ORDER",
+      "amount": 1114.07,
+      "transaction_type": "debit",
+      "correct_category": "Food & Dining"
+    },
+    {
+      "transaction_id": "CF0070",
+      "raw_description": "NOBROKER RENT PAY",
+      "amount": 20170.72,
+      "transaction_type": "debit",
+      "correct_category": "Rent"
+    },
+    {
+      "transaction_id": "CF0071",
+      "raw_description": "CCD COFFEE DAY",
+      "amount": 2420.5,
+      "transaction_type": "debit",
+      "correct_category": "Food & Dining"
+    },
+    {
+      "transaction_id": "CF0072",
+      "raw_description": "DMART RETAIL",
+      "amount": 1610.93,
+      "transaction_type": "debit",
+      "correct_category": "Groceries"
+    },
+    {
+      "transaction_id": "CF0073",
+      "raw_description": "GAS AGENCY PAYMENT",
+      "amount": 2407.63,
+      "transaction_type": "debit",
+      "correct_category": "Utilities"
+    },
+    {
+      "transaction_id": "CF0074",
+      "raw_description": "FREELANCE PAYMENT RECEIVED",
+      "amount": 69150.48,
+      "transaction_type": "credit",
+      "correct_category": "Salary/Income"
+    },
+    {
+      "transaction_id": "CF0075",
+      "raw_description": "SALARY CREDIT XYZCORP",
+      "amount": 99853.86,
+      "transaction_type": "credit",
+      "correct_category": "Salary/Income"
+    },
+    {
+      "transaction_id": "CF0076",
+      "raw_description": "UBER TRIP BLR",
+      "amount": 1918.0,
+      "transaction_type": "debit",
+      "correct_category": "Transport"
+    },
+    {
+      "transaction_id": "CF0077",
+      "raw_description": "WATER BOARD BILL",
+      "amount": 1910.07,
+      "transaction_type": "debit",
+      "correct_category": "Utilities"
+    },
+    {
+      "transaction_id": "CF0078",
+      "raw_description": "SPOTIFY PREMIUM",
+      "amount": 318.62,
+      "transaction_type": "debit",
+      "correct_category": "Entertainment"
+    },
+    {
+      "transaction_id": "CF0079",
+      "raw_description": "SPOTIFY PREMIUM",
+      "amount": 2378.78,
+      "transaction_type": "debit",
+      "correct_category": "Entertainment"
+    },
+    {
+      "transaction_id": "CF0080",
+      "raw_description": "METRO CARD RECHARGE",
+      "amount": 4201.69,
+      "transaction_type": "debit",
+      "correct_category": "Transport"
+    },
+    {
+      "transaction_id": "CF0081",
+      "raw_description": "SIP AUTO DEBIT MF",
+      "amount": 2171.15,
+      "transaction_type": "debit",
+      "correct_category": "Investment"
+    },
+    {
+      "transaction_id": "CF0082",
+      "raw_description": "UPI TRANSFER TO FRIEND",
+      "amount": 33539.69,
+      "transaction_type": "debit",
+      "correct_category": "Transfer"
+    },
+    {
+      "transaction_id": "CF0083",
+      "raw_description": "FREELANCE PAYMENT RECEIVED",
+      "amount": 77817.05,
+      "transaction_type": "credit",
+      "correct_category": "Salary/Income"
+    },
+    {
+      "transaction_id": "CF0084",
+      "raw_description": "MEDPLUS PHARMACY",
+      "amount": 2128.53,
+      "transaction_type": "debit",
+      "correct_category": "Healthcare"
+    },
+    {
+      "transaction_id": "CF0085",
+      "raw_description": "PPF DEPOSIT",
+      "amount": 5322.74,
+      "transaction_type": "debit",
+      "correct_category": "Investment"
+    },
+    {
+      "transaction_id": "CF0086",
+      "raw_description": "STARBUCKS COFFEE",
+      "amount": 4219.91,
+      "transaction_type": "debit",
+      "correct_category": "Food & Dining"
+    },
+    {
+      "transaction_id": "CF0087",
+      "raw_description": "PRACTO CONSULTATION",
+      "amount": 2151.3,
+      "transaction_type": "debit",
+      "correct_category": "Healthcare"
+    },
+    {
+      "transaction_id": "CF0088",
+      "raw_description": "MEDPLUS PHARMACY",
+      "amount": 3466.63,
+      "transaction_type": "debit",
+      "correct_category": "Healthcare"
+    },
+    {
+      "transaction_id": "CF0089",
+      "raw_description": "HOTSTAR SUBSCRIPTION",
+      "amount": 2906.3,
+      "transaction_type": "debit",
+      "correct_category": "Entertainment"
+    },
+    {
+      "transaction_id": "CF0090",
+      "raw_description": "INDIAN OIL FUEL",
+      "amount": 2433.69,
+      "transaction_type": "debit",
+      "correct_category": "Transport"
+    },
+    {
+      "transaction_id": "CF0091",
+      "raw_description": "CCD COFFEE DAY",
+      "amount": 2034.54,
+      "transaction_type": "debit",
+      "correct_category": "Food & Dining"
+    },
+    {
+      "transaction_id": "CF0092",
+      "raw_description": "IMPS TRANSFER",
+      "amount": 2219.06,
+      "transaction_type": "debit",
+      "correct_category": "Transfer"
+    },
+    {
+      "transaction_id": "CF0093",
+      "raw_description": "DMART RETAIL",
+      "amount": 4751.35,
+      "transaction_type": "debit",
+      "correct_category": "Groceries"
+    },
+    {
+      "transaction_id": "CF0094",
+      "raw_description": "SPOTIFY PREMIUM",
+      "amount": 947.11,
+      "transaction_type": "debit",
+      "correct_category": "Entertainment"
+    },
+    {
+      "transaction_id": "CF0095",
+      "raw_description": "ZEPTO GROCERY",
+      "amount": 4863.61,
+      "transaction_type": "debit",
+      "correct_category": "Groceries"
+    },
+    {
+      "transaction_id": "CF0096",
+      "raw_description": "OLA CABS",
+      "amount": 718.31,
+      "transaction_type": "debit",
+      "correct_category": "Transport"
+    },
+    {
+      "transaction_id": "CF0097",
+      "raw_description": "PVR CINEMAS",
+      "amount": 484.01,
+      "transaction_type": "debit",
+      "correct_category": "Entertainment"
+    },
+    {
+      "transaction_id": "CF0098",
+      "raw_description": "NEFT TRANSFER OUT",
+      "amount": 22051.97,
+      "transaction_type": "debit",
+      "correct_category": "Transfer"
+    },
+    {
+      "transaction_id": "CF0099",
+      "raw_description": "NPS CONTRIBUTION",
+      "amount": 5899.84,
+      "transaction_type": "debit",
+      "correct_category": "Investment"
+    },
+    {
+      "transaction_id": "CF0100",
+      "raw_description": "DOMINOS PIZZA",
+      "amount": 526.43,
+      "transaction_type": "debit",
+      "correct_category": "Food & Dining"
+    },
+    {
+      "transaction_id": "CF0101",
+      "raw_description": "LIC PREMIUM",
+      "amount": 8549.74,
+      "transaction_type": "debit",
+      "correct_category": "Investment"
+    },
+    {
+      "transaction_id": "CF0102",
+      "raw_description": "AJIO FASHION",
+      "amount": 4297.46,
+      "transaction_type": "debit",
+      "correct_category": "Shopping"
+    },
+    {
+      "transaction_id": "CF0103",
+      "raw_description": "PRACTO CONSULTATION",
+      "amount": 2344.97,
+      "transaction_type": "debit",
+      "correct_category": "Healthcare"
+    },
+    {
+      "transaction_id": "CF0104",
+      "raw_description": "SWIGGY BANGALORE",
+      "amount": 3954.1,
+      "transaction_type": "debit",
+      "correct_category": "Food & Dining"
+    },
+    {
+      "transaction_id": "CF0105",
+      "raw_description": "RENT PAYMENT LANDLORD",
+      "amount": 28452.13,
+      "transaction_type": "debit",
+      "correct_category": "Rent"
+    },
+    {
+      "transaction_id": "CF0106",
+      "raw_description": "NETFLIX SUBSCRIPTION",
+      "amount": 651.34,
+      "transaction_type": "debit",
+      "correct_category": "Entertainment"
+    },
+    {
+      "transaction_id": "CF0107",
+      "raw_description": "MORE SUPERMARKET",
+      "amount": 826.18,
+      "transaction_type": "debit",
+      "correct_category": "Groceries"
+    },
+    {
+      "transaction_id": "CF0108",
+      "raw_description": "PPF DEPOSIT",
+      "amount": 12070.86,
+      "transaction_type": "debit",
+      "correct_category": "Investment"
+    },
+    {
+      "transaction_id": "CF0109",
+      "raw_description": "BIGBASKET GROCERY",
+      "amount": 4632.15,
+      "transaction_type": "debit",
+      "correct_category": "Groceries"
+    },
+    {
+      "transaction_id": "CF0110",
+      "raw_description": "SIP AUTO DEBIT MF",
+      "amount": 15811.35,
+      "transaction_type": "debit",
+      "correct_category": "Investment"
+    },
+    {
+      "transaction_id": "CF0111",
+      "raw_description": "FLIPKART ORDER",
+      "amount": 4350.63,
+      "transaction_type": "debit",
+      "correct_category": "Shopping"
+    },
+    {
+      "transaction_id": "CF0112",
+      "raw_description": "AIRTEL POSTPAID",
+      "amount": 4401.68,
+      "transaction_type": "debit",
+      "correct_category": "Utilities"
+    },
+    {
+      "transaction_id": "CF0113",
+      "raw_description": "AMAZON.IN",
+      "amount": 1976.91,
+      "transaction_type": "debit",
+      "correct_category": "Shopping"
+    },
+    {
+      "transaction_id": "CF0114",
+      "raw_description": "APOLLO PHARMACY",
+      "amount": 2902.91,
+      "transaction_type": "debit",
+      "correct_category": "Healthcare"
+    },
+    {
+      "transaction_id": "CF0115",
+      "raw_description": "HOTSTAR SUBSCRIPTION",
+      "amount": 283.58,
+      "transaction_type": "debit",
+      "correct_category": "Entertainment"
+    },
+    {
+      "transaction_id": "CF0116",
+      "raw_description": "MYNTRA FASHION",
+      "amount": 2074.57,
+      "transaction_type": "debit",
+      "correct_category": "Shopping"
+    },
+    {
+      "transaction_id": "CF0117",
+      "raw_description": "RENT PAYMENT LANDLORD",
+      "amount": 29042.35,
+      "transaction_type": "debit",
+      "correct_category": "Rent"
+    },
+    {
+      "transaction_id": "CF0118",
+      "raw_description": "UPI TRANSFER TO FRIEND",
+      "amount": 20385.13,
+      "transaction_type": "credit",
+      "correct_category": "Transfer"
+    },
+    {
+      "transaction_id": "CF0119",
+      "raw_description": "BESCOM ELECTRICITY",
+      "amount": 3483.52,
+      "transaction_type": "debit",
+      "correct_category": "Utilities"
+    },
+    {
+      "transaction_id": "CF0120",
+      "raw_description": "STARBUCKS COFFEE",
+      "amount": 3754.17,
+      "transaction_type": "debit",
+      "correct_category": "Food & Dining"
+    },
+    {
+      "transaction_id": "CF0121",
+      "raw_description": "MYNTRA FASHION",
+      "amount": 4495.45,
+      "transaction_type": "debit",
+      "correct_category": "Shopping"
+    },
+    {
+      "transaction_id": "CF0122",
+      "raw_description": "ZOMATO ORDER",
+      "amount": 1755.54,
+      "transaction_type": "debit",
+      "correct_category": "Food & Dining"
+    },
+    {
+      "transaction_id": "CF0123",
+      "raw_description": "DECATHLON SPORTS",
+      "amount": 1623.65,
+      "transaction_type": "debit",
+      "correct_category": "Shopping"
+    },
+    {
+      "transaction_id": "CF0124",
+      "raw_description": "APOLLO PHARMACY",
+      "amount": 4305.35,
+      "transaction_type": "debit",
+      "correct_category": "Healthcare"
+    },
+    {
+      "transaction_id": "CF0125",
+      "raw_description": "NEFT TRANSFER OUT",
+      "amount": 5361.76,
+      "transaction_type": "debit",
+      "correct_category": "Transfer"
+    },
+    {
+      "transaction_id": "CF0126",
+      "raw_description": "RELIANCE FRESH",
+      "amount": 1572.35,
+      "transaction_type": "debit",
+      "correct_category": "Groceries"
+    },
+    {
+      "transaction_id": "CF0127",
+      "raw_description": "SPOTIFY PREMIUM",
+      "amount": 3892.75,
+      "transaction_type": "debit",
+      "correct_category": "Entertainment"
+    },
+    {
+      "transaction_id": "CF0128",
+      "raw_description": "AJIO FASHION",
+      "amount": 1420.16,
+      "transaction_type": "debit",
+      "correct_category": "Shopping"
+    },
+    {
+      "transaction_id": "CF0129",
+      "raw_description": "NETFLIX SUBSCRIPTION",
+      "amount": 3064.4,
+      "transaction_type": "debit",
+      "correct_category": "Entertainment"
+    },
+    {
+      "transaction_id": "CF0130",
+      "raw_description": "CCD COFFEE DAY",
+      "amount": 1020.88,
+      "transaction_type": "debit",
+      "correct_category": "Food & Dining"
+    },
+    {
+      "transaction_id": "CF0131",
+      "raw_description": "IRCTC RAILWAY",
+      "amount": 4575.82,
+      "transaction_type": "debit",
+      "correct_category": "Transport"
+    },
+    {
+      "transaction_id": "CF0132",
+      "raw_description": "NETFLIX SUBSCRIPTION",
+      "amount": 3730.63,
+      "transaction_type": "debit",
+      "correct_category": "Entertainment"
+    },
+    {
+      "transaction_id": "CF0133",
+      "raw_description": "PRACTO CONSULTATION",
+      "amount": 4349.23,
+      "transaction_type": "debit",
+      "correct_category": "Healthcare"
+    },
+    {
+      "transaction_id": "CF0134",
+      "raw_description": "STARBUCKS COFFEE",
+      "amount": 2624.82,
+      "transaction_type": "debit",
+      "correct_category": "Food & Dining"
+    },
+    {
+      "transaction_id": "CF0135",
+      "raw_description": "ZEPTO GROCERY",
+      "amount": 421.52,
+      "transaction_type": "debit",
+      "correct_category": "Groceries"
+    },
+    {
+      "transaction_id": "CF0136",
+      "raw_description": "IMPS TRANSFER",
+      "amount": 25586.37,
+      "transaction_type": "debit",
+      "correct_category": "Transfer"
+    },
+    {
+      "transaction_id": "CF0137",
+      "raw_description": "PRACTO CONSULTATION",
+      "amount": 4408.73,
+      "transaction_type": "debit",
+      "correct_category": "Healthcare"
+    },
+    {
+      "transaction_id": "CF0138",
+      "raw_description": "ZOMATO ORDER",
+      "amount": 951.31,
+      "transaction_type": "debit",
+      "correct_category": "Food & Dining"
+    },
+    {
+      "transaction_id": "CF0139",
+      "raw_description": "OLA CABS",
+      "amount": 4201.19,
+      "transaction_type": "debit",
+      "correct_category": "Transport"
+    },
+    {
+      "transaction_id": "CF0140",
+      "raw_description": "INDIAN OIL FUEL",
+      "amount": 262.05,
+      "transaction_type": "debit",
+      "correct_category": "Transport"
+    },
+    {
+      "transaction_id": "CF0141",
+      "raw_description": "STARBUCKS COFFEE",
+      "amount": 4598.35,
+      "transaction_type": "debit",
+      "correct_category": "Food & Dining"
+    },
+    {
+      "transaction_id": "CF0142",
+      "raw_description": "IMPS TRANSFER",
+      "amount": 10355.93,
+      "transaction_type": "credit",
+      "correct_category": "Transfer"
+    },
+    {
+      "transaction_id": "CF0143",
+      "raw_description": "BOOKMYSHOW TICKET",
+      "amount": 2575.12,
+      "transaction_type": "debit",
+      "correct_category": "Entertainment"
+    },
+    {
+      "transaction_id": "CF0144",
+      "raw_description": "NOBROKER RENT PAY",
+      "amount": 37846.06,
+      "transaction_type": "debit",
+      "correct_category": "Rent"
+    },
+    {
+      "transaction_id": "CF0145",
+      "raw_description": "NEFT TRANSFER OUT",
+      "amount": 2012.88,
+      "transaction_type": "credit",
+      "correct_category": "Transfer"
+    },
+    {
+      "transaction_id": "CF0146",
+      "raw_description": "APOLLO PHARMACY",
+      "amount": 3010.81,
+      "transaction_type": "debit",
+      "correct_category": "Healthcare"
+    },
+    {
+      "transaction_id": "CF0147",
+      "raw_description": "UBER TRIP BLR",
+      "amount": 4806.55,
+      "transaction_type": "debit",
+      "correct_category": "Transport"
+    },
+    {
+      "transaction_id": "CF0148",
+      "raw_description": "HOTSTAR SUBSCRIPTION",
+      "amount": 2975.71,
+      "transaction_type": "debit",
+      "correct_category": "Entertainment"
+    },
+    {
+      "transaction_id": "CF0149",
+      "raw_description": "AIRTEL POSTPAID",
+      "amount": 1786.82,
+      "transaction_type": "debit",
+      "correct_category": "Utilities"
+    },
+    {
+      "transaction_id": "CF0150",
+      "raw_description": "AMAZON.IN",
+      "amount": 3769.91,
+      "transaction_type": "debit",
+      "correct_category": "Shopping"
+    },
+    {
+      "transaction_id": "CF0151",
+      "raw_description": "UPI TRANSFER TO FRIEND",
+      "amount": 4974.4,
+      "transaction_type": "debit",
+      "correct_category": "Transfer"
+    },
+    {
+      "transaction_id": "CF0152",
+      "raw_description": "WATER BOARD BILL",
+      "amount": 343.29,
+      "transaction_type": "debit",
+      "correct_category": "Utilities"
+    },
+    {
+      "transaction_id": "CF0153",
+      "raw_description": "SIP AUTO DEBIT MF",
+      "amount": 15816.77,
+      "transaction_type": "debit",
+      "correct_category": "Investment"
+    },
+    {
+      "transaction_id": "CF0154",
+      "raw_description": "IRCTC RAILWAY",
+      "amount": 4299.84,
+      "transaction_type": "debit",
+      "correct_category": "Transport"
+    },
+    {
+      "transaction_id": "CF0155",
+      "raw_description": "SALARY CREDIT XYZCORP",
+      "amount": 64762.32,
+      "transaction_type": "credit",
+      "correct_category": "Salary/Income"
+    },
+    {
+      "transaction_id": "CF0156",
+      "raw_description": "IRCTC RAILWAY",
+      "amount": 1418.51,
+      "transaction_type": "debit",
+      "correct_category": "Transport"
+    },
+    {
+      "transaction_id": "CF0157",
+      "raw_description": "NETFLIX SUBSCRIPTION",
+      "amount": 2615.08,
+      "transaction_type": "debit",
+      "correct_category": "Entertainment"
+    },
+    {
+      "transaction_id": "CF0158",
+      "raw_description": "NEFT TRANSFER OUT",
+      "amount": 940.45,
+      "transaction_type": "debit",
+      "correct_category": "Transfer"
+    },
+    {
+      "transaction_id": "CF0159",
+      "raw_description": "SALARY CREDIT XYZCORP",
+      "amount": 59052.07,
+      "transaction_type": "credit",
+      "correct_category": "Salary/Income"
+    },
+    {
+      "transaction_id": "CF0160",
+      "raw_description": "SWIGGY BANGALORE",
+      "amount": 1196.47,
+      "transaction_type": "debit",
+      "correct_category": "Food & Dining"
+    },
+    {
+      "transaction_id": "CF0161",
+      "raw_description": "NPS CONTRIBUTION",
+      "amount": 16296.63,
+      "transaction_type": "debit",
+      "correct_category": "Investment"
+    },
+    {
+      "transaction_id": "CF0162",
+      "raw_description": "DECATHLON SPORTS",
+      "amount": 3592.43,
+      "transaction_type": "debit",
+      "correct_category": "Shopping"
+    },
+    {
+      "transaction_id": "CF0163",
+      "raw_description": "IMPS TRANSFER",
+      "amount": 32315.65,
+      "transaction_type": "credit",
+      "correct_category": "Transfer"
+    },
+    {
+      "transaction_id": "CF0164",
+      "raw_description": "WATER BOARD BILL",
+      "amount": 4272.77,
+      "transaction_type": "debit",
+      "correct_category": "Utilities"
+    },
+    {
+      "transaction_id": "CF0165",
+      "raw_description": "BOOKMYSHOW TICKET",
+      "amount": 1334.79,
+      "transaction_type": "debit",
+      "correct_category": "Entertainment"
+    },
+    {
+      "transaction_id": "CF0166",
+      "raw_description": "BOOKMYSHOW TICKET",
+      "amount": 1580.51,
+      "transaction_type": "debit",
+      "correct_category": "Entertainment"
+    },
+    {
+      "transaction_id": "CF0167",
+      "raw_description": "PRACTO CONSULTATION",
+      "amount": 4139.12,
+      "transaction_type": "debit",
+      "correct_category": "Healthcare"
+    },
+    {
+      "transaction_id": "CF0168",
+      "raw_description": "GAS AGENCY PAYMENT",
+      "amount": 2963.99,
+      "transaction_type": "debit",
+      "correct_category": "Utilities"
+    },
+    {
+      "transaction_id": "CF0169",
+      "raw_description": "SWIGGY BANGALORE",
+      "amount": 2606.42,
+      "transaction_type": "debit",
+      "correct_category": "Food & Dining"
+    },
+    {
+      "transaction_id": "CF0170",
+      "raw_description": "FREELANCE PAYMENT RECEIVED",
+      "amount": 146313.4,
+      "transaction_type": "credit",
+      "correct_category": "Salary/Income"
+    },
+    {
+      "transaction_id": "CF0171",
+      "raw_description": "JIO FIBER BILL",
+      "amount": 2851.14,
+      "transaction_type": "debit",
+      "correct_category": "Utilities"
+    },
+    {
+      "transaction_id": "CF0172",
+      "raw_description": "NPS CONTRIBUTION",
+      "amount": 12571.95,
+      "transaction_type": "debit",
+      "correct_category": "Investment"
+    },
+    {
+      "transaction_id": "CF0173",
+      "raw_description": "DECATHLON SPORTS",
+      "amount": 3453.62,
+      "transaction_type": "debit",
+      "correct_category": "Shopping"
+    },
+    {
+      "transaction_id": "CF0174",
+      "raw_description": "HOTSTAR SUBSCRIPTION",
+      "amount": 412.8,
+      "transaction_type": "debit",
+      "correct_category": "Entertainment"
+    },
+    {
+      "transaction_id": "CF0175",
+      "raw_description": "MYNTRA FASHION",
+      "amount": 3238.91,
+      "transaction_type": "debit",
+      "correct_category": "Shopping"
+    },
+    {
+      "transaction_id": "CF0176",
+      "raw_description": "MYNTRA FASHION",
+      "amount": 1379.62,
+      "transaction_type": "debit",
+      "correct_category": "Shopping"
+    },
+    {
+      "transaction_id": "CF0177",
+      "raw_description": "IMPS TRANSFER",
+      "amount": 47633.3,
+      "transaction_type": "credit",
+      "correct_category": "Transfer"
+    },
+    {
+      "transaction_id": "CF0178",
+      "raw_description": "OLA CABS",
+      "amount": 834.65,
+      "transaction_type": "debit",
+      "correct_category": "Transport"
+    },
+    {
+      "transaction_id": "CF0179",
+      "raw_description": "INDIAN OIL FUEL",
+      "amount": 4508.47,
+      "transaction_type": "debit",
+      "correct_category": "Transport"
+    },
+    {
+      "transaction_id": "CF0180",
+      "raw_description": "NPS CONTRIBUTION",
+      "amount": 8677.87,
+      "transaction_type": "debit",
+      "correct_category": "Investment"
+    },
+    {
+      "transaction_id": "CF0181",
+      "raw_description": "AJIO FASHION",
+      "amount": 3435.7,
+      "transaction_type": "debit",
+      "correct_category": "Shopping"
+    },
+    {
+      "transaction_id": "CF0182",
+      "raw_description": "ZOMATO ORDER",
+      "amount": 3311.46,
+      "transaction_type": "debit",
+      "correct_category": "Food & Dining"
+    },
+    {
+      "transaction_id": "CF0183",
+      "raw_description": "FLIPKART ORDER",
+      "amount": 1371.19,
+      "transaction_type": "debit",
+      "correct_category": "Shopping"
+    },
+    {
+      "transaction_id": "CF0184",
+      "raw_description": "NETFLIX SUBSCRIPTION",
+      "amount": 2082.53,
+      "transaction_type": "debit",
+      "correct_category": "Entertainment"
+    },
+    {
+      "transaction_id": "CF0185",
+      "raw_description": "MCDONALDS",
+      "amount": 2956.82,
+      "transaction_type": "debit",
+      "correct_category": "Food & Dining"
+    },
+    {
+      "transaction_id": "CF0186",
+      "raw_description": "SIP AUTO DEBIT MF",
+      "amount": 16504.28,
+      "transaction_type": "debit",
+      "correct_category": "Investment"
+    },
+    {
+      "transaction_id": "CF0187",
+      "raw_description": "BESCOM ELECTRICITY",
+      "amount": 3660.09,
+      "transaction_type": "debit",
+      "correct_category": "Utilities"
+    },
+    {
+      "transaction_id": "CF0188",
+      "raw_description": "METRO CARD RECHARGE",
+      "amount": 3462.96,
+      "transaction_type": "debit",
+      "correct_category": "Transport"
+    },
+    {
+      "transaction_id": "CF0189",
+      "raw_description": "NOBROKER RENT PAY",
+      "amount": 33977.12,
+      "transaction_type": "debit",
+      "correct_category": "Rent"
+    },
+    {
+      "transaction_id": "CF0190",
+      "raw_description": "FREELANCE PAYMENT RECEIVED",
+      "amount": 79434.68,
+      "transaction_type": "credit",
+      "correct_category": "Salary/Income"
+    },
+    {
+      "transaction_id": "CF0191",
+      "raw_description": "DECATHLON SPORTS",
+      "amount": 4242.55,
+      "transaction_type": "debit",
+      "correct_category": "Shopping"
+    },
+    {
+      "transaction_id": "CF0192",
+      "raw_description": "FREELANCE PAYMENT RECEIVED",
+      "amount": 136414.43,
+      "transaction_type": "credit",
+      "correct_category": "Salary/Income"
+    },
+    {
+      "transaction_id": "CF0193",
+      "raw_description": "UBER TRIP BLR",
+      "amount": 1539.54,
+      "transaction_type": "debit",
+      "correct_category": "Transport"
+    },
+    {
+      "transaction_id": "CF0194",
+      "raw_description": "HOTSTAR SUBSCRIPTION",
+      "amount": 726.93,
+      "transaction_type": "debit",
+      "correct_category": "Entertainment"
+    },
+    {
+      "transaction_id": "CF0195",
+      "raw_description": "AMAZON.IN",
+      "amount": 3653.41,
+      "transaction_type": "debit",
+      "correct_category": "Shopping"
+    },
+    {
+      "transaction_id": "CF0196",
+      "raw_description": "LIC PREMIUM",
+      "amount": 15495.45,
+      "transaction_type": "debit",
+      "correct_category": "Investment"
+    },
+    {
+      "transaction_id": "CF0197",
+      "raw_description": "UBER TRIP BLR",
+      "amount": 4739.92,
+      "transaction_type": "debit",
+      "correct_category": "Transport"
+    },
+    {
+      "transaction_id": "CF0198",
+      "raw_description": "BESCOM ELECTRICITY",
+      "amount": 3306.73,
+      "transaction_type": "debit",
+      "correct_category": "Utilities"
+    },
+    {
+      "transaction_id": "CF0199",
+      "raw_description": "METRO CARD RECHARGE",
+      "amount": 1840.89,
+      "transaction_type": "debit",
+      "correct_category": "Transport"
+    },
+    {
+      "transaction_id": "CF0200",
+      "raw_description": "DECATHLON SPORTS",
+      "amount": 2160.32,
+      "transaction_type": "debit",
+      "correct_category": "Shopping"
+    }
+  ]
+}

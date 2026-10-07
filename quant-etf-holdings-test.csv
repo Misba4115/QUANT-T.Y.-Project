@@ -1,0 +1,8 @@
+symbol,etf_name,isin,exchange,category,quantity,avg_price,current_price,broker,demat_account
+NIFTYBEES,Nippon India ETF Nifty BeES,INF000000002,NSE,Index,20,245,252,Zerodha,Primary Demat
+JUNIORBEES,Nippon India ETF Nifty Junior BeES,INF000000008,NSE,Index,15,620,648,Groww,Primary Demat
+BANKBEES,Nippon India ETF Nifty Bank BeES,INF000000009,NSE,Banking,12,525,548,Zerodha,Primary Demat
+GOLDBEES,Nippon India ETF Gold BeES,INF000000010,NSE,Gold,30,62,68,Upstox,Primary Demat
+ITBEES,Nippon India ETF Nifty IT BeES,INF000000011,NSE,IT,18,405,432,Groww,Primary Demat
+PHARMABEES,Nippon India ETF Nifty Pharma BeES,INF000000012,NSE,Pharma,10,210,224,Zerodha,Primary Demat
+CPSEETF,CPSE ETF,INF000000013,NSE,PSU,25,92,101,Upstox,Primary Demat

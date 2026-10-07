@@ -1,0 +1,8 @@
+symbol,equity_name,exchange,quantity,avg_price,current_price,broker,demat_account
+INFY,Infosys Limited,NSE,10,1450,1600,Zerodha,Primary Demat
+RELIANCE,Reliance Industries Limited,NSE,8,2750,2890,Zerodha,Primary Demat
+TCS,Tata Consultancy Services,NSE,5,3950,4125,Upstox,Primary Demat
+HDFCBANK,HDFC Bank Limited,NSE,12,1880,1965,Groww,Primary Demat
+ITC,ITC Limited,NSE,20,485,505,Upstox,Primary Demat
+ICICIBANK,ICICI Bank Limited,NSE,10,1250,1320,Groww,Primary Demat
+BHARTIARTL,Bharti Airtel Limited,NSE,6,1780,1865,Zerodha,Primary Demat

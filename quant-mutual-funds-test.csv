@@ -1,0 +1,8 @@
+mf_name,scheme_code,isin,fund_house,category,units,avg_nav,current_nav,platform,folio_number
+Example Flexi Cap Fund,123456,INF000000001,Example AMC,Equity,125.5,82.4,91.2,CAMS,XXXX001
+Axis Bluechip Fund,123457,INF000000002,Axis Mutual Fund,Large Cap,80.0,52.0,58.5,Groww,XXXX002
+Parag Parikh Flexi Cap Fund,123458,INF000000003,PPFAS Mutual Fund,Flexi Cap,95.0,78.5,86.2,CAMS,XXXX003
+HDFC Balanced Advantage Fund,123459,INF000000004,HDFC Mutual Fund,Hybrid,110.0,245.0,268.4,Groww,XXXX004
+SBI Small Cap Fund,123460,INF000000005,SBI Mutual Fund,Small Cap,60.0,142.0,156.7,CAMS,XXXX005
+Mirae Asset Large Cap Fund,123461,INF000000006,Mirae Asset Mutual Fund,Large Cap,75.0,88.0,96.3,Groww,XXXX006
+ICICI Prudential Technology Fund,123462,INF000000007,ICICI Prudential Mutual Fund,Sectoral,45.0,210.0,232.5,CAMS,XXXX007

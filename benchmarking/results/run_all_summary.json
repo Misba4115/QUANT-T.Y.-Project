@@ -1,0 +1,67 @@
+[
+  {
+    "id": "cashflow_categorization",
+    "key_metrics": [
+      "overall_accuracy"
+    ],
+    "results_path": "C:\\Users\\misba\\QUANT-T.Y.-Project\\benchmarking\\results\\cashflow_categorization_results.json",
+    "run_status": "PASS",
+    "elapsed_seconds": 0.1
+  },
+  {
+    "id": "guardian_anomaly",
+    "key_metrics": [
+      "metrics.precision",
+      "metrics.recall",
+      "metrics.f1_score",
+      "metrics.roc_auc"
+    ],
+    "results_path": "C:\\Users\\misba\\QUANT-T.Y.-Project\\benchmarking\\results\\guardian_anomaly_results.json",
+    "run_status": "PASS",
+    "elapsed_seconds": 4.0
+  },
+  {
+    "id": "portfolio_analytics",
+    "key_metrics": [
+      "passed",
+      "failed",
+      "errored"
+    ],
+    "results_path": "C:\\Users\\misba\\QUANT-T.Y.-Project\\benchmarking\\results\\portfolio_analytics_results.json",
+    "run_status": "PASS",
+    "elapsed_seconds": 2.6
+  },
+  {
+    "id": "tax_engine",
+    "key_metrics": [
+      "exact_match_rate"
+    ],
+    "results_path": "C:\\Users\\misba\\QUANT-T.Y.-Project\\benchmarking\\results\\tax_engine_results.json",
+    "run_status": "PASS",
+    "elapsed_seconds": 0.1
+  },
+  {
+    "id": "rag_retrieval",
+    "key_metrics": [
+      "metrics.mrr",
+      "metrics.recall_at_1",
+      "metrics.recall_at_3",
+      "metrics.recall_at_5"
+    ],
+    "results_path": "C:\\Users\\misba\\QUANT-T.Y.-Project\\benchmarking\\results\\rag_retrieval_results.json",
+    "run_status": "PASS",
+    "elapsed_seconds": 22.2
+  },
+  {
+    "id": "rag_chatbot",
+    "key_metrics": [
+      "fact_check_accuracy",
+      "grounding_correction_rate",
+      "avg_faithfulness",
+      "avg_answer_relevancy"
+    ],
+    "results_path": "C:\\Users\\misba\\QUANT-T.Y.-Project\\benchmarking\\results\\rag_chatbot_answer_results.json",
+    "run_status": "PASS",
+    "elapsed_seconds": 300.3
+  }
+]

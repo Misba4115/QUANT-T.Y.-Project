@@ -1,0 +1,95 @@
+{
+  "user_id": "test_user_priya",
+  "profile": {
+    "name": "Priya Sharma (synthetic test user)",
+    "risk_profile": "moderate",
+    "annual_income": 1200000,
+    "financial_year": "2025-26"
+  },
+  "holdings": [
+    {
+      "asset": "HDFC Flexicap Fund",
+      "type": "equity_mf",
+      "units": 1200,
+      "purchase_nav": 55.0,
+      "current_nav": 68.0,
+      "purchase_date": "2023-11-10",
+      "invested_value": 66000,
+      "current_value": 81600
+    },
+    {
+      "asset": "Parag Parikh Flexicap Fund",
+      "type": "equity_mf",
+      "units": 800,
+      "purchase_nav": 45.0,
+      "current_nav": 62.0,
+      "purchase_date": "2024-06-15",
+      "invested_value": 36000,
+      "current_value": 49600
+    },
+    {
+      "asset": "HDFC Corporate Bond Fund",
+      "type": "debt_mf",
+      "units": 3000,
+      "purchase_nav": 25.0,
+      "current_nav": 26.5,
+      "purchase_date": "2024-01-20",
+      "invested_value": 75000,
+      "current_value": 79500
+    },
+    {
+      "asset": "SGB 2029 Series",
+      "type": "gold",
+      "units": 20,
+      "purchase_nav": 5200,
+      "current_nav": 6100,
+      "purchase_date": "2022-08-05",
+      "invested_value": 104000,
+      "current_value": 122000
+    },
+    {
+      "asset": "ELSS Tax Saver Fund",
+      "type": "equity_mf_elss",
+      "units": 1000,
+      "purchase_nav": 30.0,
+      "current_nav": 33.0,
+      "purchase_date": "2025-03-01",
+      "invested_value": 30000,
+      "current_value": 33000
+    }
+  ],
+  "section_80c_used_this_fy": 30000,
+  "transactions_sample": [
+    {
+      "date": "2026-07-01",
+      "description": "SWIGGY BANGALORE",
+      "amount": 450,
+      "type": "debit"
+    },
+    {
+      "date": "2026-07-02",
+      "description": "SALARY CREDIT XYZCORP",
+      "amount": 100000,
+      "type": "credit"
+    },
+    {
+      "date": "2026-07-03",
+      "description": "ZOMATO ORDER",
+      "amount": 620,
+      "type": "debit"
+    },
+    {
+      "date": "2026-07-05",
+      "description": "BIGBASKET GROCERY",
+      "amount": 2100,
+      "type": "debit"
+    },
+    {
+      "date": "2026-07-07",
+      "description": "UBER TRIP BLR",
+      "amount": 340,
+      "type": "debit"
+    }
+  ],
+  "notes": "All figures are synthetic and constructed for benchmark purposes only. Do not use as real tax guidance."
+}

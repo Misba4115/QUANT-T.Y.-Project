@@ -1,0 +1,441 @@
+{
+  "component": "tax_engine",
+  "total": 18,
+  "exact_matches": 18,
+  "exact_match_rate": 1.0,
+  "rate_config": {
+    "ltcg_exemption": 125000.0,
+    "ltcg_rate": 0.125,
+    "stcg_rate": 0.2,
+    "section_80c_cap": 150000.0
+  },
+  "scenarios": [
+    {
+      "scenario_id": "TAX001",
+      "description": "Equity MF held 400 days, gain well above exemption",
+      "inputs": {
+        "holding_period_days": 400,
+        "capital_gain": 200000,
+        "asset_type": "equity_mf",
+        "ltcg_exemption_used_ytd": 0
+      },
+      "expected_output": {
+        "gain_type": "LTCG",
+        "taxable_gain": 75000,
+        "tax_amount": 9375.0,
+        "exemption_applied": 125000
+      },
+      "predicted_output": {
+        "gain_type": "LTCG",
+        "taxable_gain": 75000.0,
+        "tax_amount": 9375.0,
+        "exemption_applied": 125000.0
+      },
+      "matched": true,
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "scenario_id": "TAX002",
+      "description": "Equity MF held 400 days, gain fully within exemption",
+      "inputs": {
+        "holding_period_days": 400,
+        "capital_gain": 80000,
+        "asset_type": "equity_mf",
+        "ltcg_exemption_used_ytd": 0
+      },
+      "expected_output": {
+        "gain_type": "LTCG",
+        "taxable_gain": 0,
+        "tax_amount": 0.0,
+        "exemption_applied": 80000
+      },
+      "predicted_output": {
+        "gain_type": "LTCG",
+        "taxable_gain": 0.0,
+        "tax_amount": 0.0,
+        "exemption_applied": 80000.0
+      },
+      "matched": true,
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "scenario_id": "TAX003",
+      "description": "Equity MF held exactly 366 days (just over 1yr boundary)",
+      "inputs": {
+        "holding_period_days": 366,
+        "capital_gain": 150000,
+        "asset_type": "equity_mf",
+        "ltcg_exemption_used_ytd": 0
+      },
+      "expected_output": {
+        "gain_type": "LTCG",
+        "taxable_gain": 25000,
+        "tax_amount": 3125.0,
+        "exemption_applied": 125000
+      },
+      "predicted_output": {
+        "gain_type": "LTCG",
+        "taxable_gain": 25000.0,
+        "tax_amount": 3125.0,
+        "exemption_applied": 125000.0
+      },
+      "matched": true,
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "scenario_id": "TAX004",
+      "description": "Equity MF held exactly 365 days (boundary, should be STCG)",
+      "inputs": {
+        "holding_period_days": 365,
+        "capital_gain": 150000,
+        "asset_type": "equity_mf",
+        "ltcg_exemption_used_ytd": 0
+      },
+      "expected_output": {
+        "gain_type": "STCG",
+        "taxable_gain": 150000,
+        "tax_amount": 30000.0,
+        "exemption_applied": 0
+      },
+      "predicted_output": {
+        "gain_type": "STCG",
+        "taxable_gain": 150000.0,
+        "tax_amount": 30000.0,
+        "exemption_applied": 0
+      },
+      "matched": true,
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "scenario_id": "TAX005",
+      "description": "Equity MF held 90 days, short-term gain",
+      "inputs": {
+        "holding_period_days": 90,
+        "capital_gain": 30000,
+        "asset_type": "equity_mf",
+        "ltcg_exemption_used_ytd": 0
+      },
+      "expected_output": {
+        "gain_type": "STCG",
+        "taxable_gain": 30000,
+        "tax_amount": 6000.0,
+        "exemption_applied": 0
+      },
+      "predicted_output": {
+        "gain_type": "STCG",
+        "taxable_gain": 30000.0,
+        "tax_amount": 6000.0,
+        "exemption_applied": 0
+      },
+      "matched": true,
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "scenario_id": "TAX006",
+      "description": "Equity MF LTCG, exemption partially used earlier this FY",
+      "inputs": {
+        "holding_period_days": 500,
+        "capital_gain": 100000,
+        "asset_type": "equity_mf",
+        "ltcg_exemption_used_ytd": 50000
+      },
+      "expected_output": {
+        "gain_type": "LTCG",
+        "taxable_gain": 25000,
+        "tax_amount": 3125.0,
+        "exemption_applied": 75000
+      },
+      "predicted_output": {
+        "gain_type": "LTCG",
+        "taxable_gain": 25000.0,
+        "tax_amount": 3125.0,
+        "exemption_applied": 75000.0
+      },
+      "matched": true,
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "scenario_id": "TAX007",
+      "description": "Equity MF LTCG, exemption fully used earlier this FY",
+      "inputs": {
+        "holding_period_days": 500,
+        "capital_gain": 60000,
+        "asset_type": "equity_mf",
+        "ltcg_exemption_used_ytd": 125000
+      },
+      "expected_output": {
+        "gain_type": "LTCG",
+        "taxable_gain": 60000,
+        "tax_amount": 7500.0,
+        "exemption_applied": 0
+      },
+      "predicted_output": {
+        "gain_type": "LTCG",
+        "taxable_gain": 60000.0,
+        "tax_amount": 7500.0,
+        "exemption_applied": 0.0
+      },
+      "matched": true,
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "scenario_id": "TAX008",
+      "description": "ELSS held 3 years, LTCG applies, no exemption used",
+      "inputs": {
+        "holding_period_days": 1100,
+        "capital_gain": 45000,
+        "asset_type": "equity_mf_elss",
+        "ltcg_exemption_used_ytd": 0
+      },
+      "expected_output": {
+        "gain_type": "LTCG",
+        "taxable_gain": 0,
+        "tax_amount": 0.0,
+        "exemption_applied": 45000
+      },
+      "predicted_output": {
+        "gain_type": "LTCG",
+        "taxable_gain": 0.0,
+        "tax_amount": 0.0,
+        "exemption_applied": 45000.0
+      },
+      "matched": true,
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "scenario_id": "TAX009",
+      "description": "Direct equity STCG, held 10 days",
+      "inputs": {
+        "holding_period_days": 10,
+        "capital_gain": 12000,
+        "asset_type": "direct_equity",
+        "ltcg_exemption_used_ytd": 0
+      },
+      "expected_output": {
+        "gain_type": "STCG",
+        "taxable_gain": 12000,
+        "tax_amount": 2400.0,
+        "exemption_applied": 0
+      },
+      "predicted_output": {
+        "gain_type": "STCG",
+        "taxable_gain": 12000.0,
+        "tax_amount": 2400.0,
+        "exemption_applied": 0
+      },
+      "matched": true,
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "scenario_id": "TAX010",
+      "description": "Direct equity LTCG, held 2 years, large gain",
+      "inputs": {
+        "holding_period_days": 730,
+        "capital_gain": 500000,
+        "asset_type": "direct_equity",
+        "ltcg_exemption_used_ytd": 0
+      },
+      "expected_output": {
+        "gain_type": "LTCG",
+        "taxable_gain": 375000,
+        "tax_amount": 46875.0,
+        "exemption_applied": 125000
+      },
+      "predicted_output": {
+        "gain_type": "LTCG",
+        "taxable_gain": 375000.0,
+        "tax_amount": 46875.0,
+        "exemption_applied": 125000.0
+      },
+      "matched": true,
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "scenario_id": "TAX011",
+      "description": "Equity MF, zero gain (break-even)",
+      "inputs": {
+        "holding_period_days": 400,
+        "capital_gain": 0,
+        "asset_type": "equity_mf",
+        "ltcg_exemption_used_ytd": 0
+      },
+      "expected_output": {
+        "gain_type": "LTCG",
+        "taxable_gain": 0,
+        "tax_amount": 0.0,
+        "exemption_applied": 0
+      },
+      "predicted_output": {
+        "gain_type": "LTCG",
+        "taxable_gain": 0,
+        "tax_amount": 0,
+        "exemption_applied": 0
+      },
+      "matched": true,
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "scenario_id": "TAX012",
+      "description": "Equity MF, loss (negative gain) held long-term",
+      "inputs": {
+        "holding_period_days": 400,
+        "capital_gain": -20000,
+        "asset_type": "equity_mf",
+        "ltcg_exemption_used_ytd": 0
+      },
+      "expected_output": {
+        "gain_type": "LTCG",
+        "taxable_gain": 0,
+        "tax_amount": 0,
+        "exemption_applied": 0,
+        "note": "Loss scenario - no tax, may be eligible for loss set-off (not modeled here)"
+      },
+      "predicted_output": {
+        "gain_type": "LTCG",
+        "taxable_gain": 0,
+        "tax_amount": 0,
+        "exemption_applied": 0
+      },
+      "matched": true,
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "scenario_id": "TAX013",
+      "description": "Equity MF, loss held short-term",
+      "inputs": {
+        "holding_period_days": 60,
+        "capital_gain": -15000,
+        "asset_type": "equity_mf",
+        "ltcg_exemption_used_ytd": 0
+      },
+      "expected_output": {
+        "gain_type": "STCG",
+        "taxable_gain": 0,
+        "tax_amount": 0,
+        "exemption_applied": 0,
+        "note": "Loss scenario - no tax, may be eligible for loss set-off (not modeled here)"
+      },
+      "predicted_output": {
+        "gain_type": "STCG",
+        "taxable_gain": 0,
+        "tax_amount": 0,
+        "exemption_applied": 0
+      },
+      "matched": true,
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "scenario_id": "TAX014",
+      "description": "80C investment below cap",
+      "inputs": {
+        "new_80c_investment": 80000,
+        "section_80c_used_ytd": 0,
+        "section_80c_cap": 150000
+      },
+      "expected_output": {
+        "eligible_deduction_from_this_investment": 80000,
+        "total_80c_used_after": 80000
+      },
+      "predicted_output": {
+        "eligible_deduction_from_this_investment": 80000.0,
+        "total_80c_used_after": 80000.0
+      },
+      "matched": true,
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "scenario_id": "TAX015",
+      "description": "80C investment exactly at cap",
+      "inputs": {
+        "new_80c_investment": 150000,
+        "section_80c_used_ytd": 0,
+        "section_80c_cap": 150000
+      },
+      "expected_output": {
+        "eligible_deduction_from_this_investment": 150000,
+        "total_80c_used_after": 150000
+      },
+      "predicted_output": {
+        "eligible_deduction_from_this_investment": 150000.0,
+        "total_80c_used_after": 150000.0
+      },
+      "matched": true,
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "scenario_id": "TAX016",
+      "description": "80C investment above cap (excess ignored)",
+      "inputs": {
+        "new_80c_investment": 200000,
+        "section_80c_used_ytd": 0,
+        "section_80c_cap": 150000
+      },
+      "expected_output": {
+        "eligible_deduction_from_this_investment": 150000,
+        "total_80c_used_after": 150000
+      },
+      "predicted_output": {
+        "eligible_deduction_from_this_investment": 150000.0,
+        "total_80c_used_after": 150000.0
+      },
+      "matched": true,
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "scenario_id": "TAX017",
+      "description": "80C investment with prior usage this FY, combined under cap",
+      "inputs": {
+        "new_80c_investment": 60000,
+        "section_80c_used_ytd": 70000,
+        "section_80c_cap": 150000
+      },
+      "expected_output": {
+        "eligible_deduction_from_this_investment": 60000,
+        "total_80c_used_after": 130000
+      },
+      "predicted_output": {
+        "eligible_deduction_from_this_investment": 60000.0,
+        "total_80c_used_after": 130000.0
+      },
+      "matched": true,
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "scenario_id": "TAX018",
+      "description": "80C investment with prior usage this FY, combined exceeds cap",
+      "inputs": {
+        "new_80c_investment": 100000,
+        "section_80c_used_ytd": 100000,
+        "section_80c_cap": 150000
+      },
+      "expected_output": {
+        "eligible_deduction_from_this_investment": 50000,
+        "total_80c_used_after": 150000
+      },
+      "predicted_output": {
+        "eligible_deduction_from_this_investment": 50000.0,
+        "total_80c_used_after": 150000.0
+      },
+      "matched": true,
+      "mismatches": [],
+      "status": "PASS"
+    }
+  ]
+}

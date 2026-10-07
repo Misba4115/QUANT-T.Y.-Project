@@ -1,0 +1,413 @@
+{
+  "description": "50 questions with known-correct answers (derived from reference_user_profile.json) for RAGAS-style faithfulness/relevancy evaluation of the chatbot.",
+  "reference_data_file": "reference_user_profile.json \u2014 load this as the test user's data before running these questions.",
+  "metrics_to_compute": [
+    "ragas_faithfulness",
+    "ragas_answer_relevancy",
+    "ragas_context_precision",
+    "grounding_checker_correction_rate"
+  ],
+  "instructions": "Load reference_user_profile.json as the active test user's data. For each question, get the chatbot's answer, then verify (a) via RAGAS metrics using the retrieved context and (b) exact/near-match against expected_answer_facts.",
+  "questions": [
+    {
+      "question": "What is my total current portfolio value?",
+      "expected_answer_facts": [
+        "\u20b9365,700 approx (sum of current_value across holdings)"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS001"
+    },
+    {
+      "question": "How much have I invested in equity mutual funds in total?",
+      "expected_answer_facts": [
+        "\u20b9132,000 (HDFC Flexicap + Parag Parikh invested_value)"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS002"
+    },
+    {
+      "question": "What is my unrealized gain on the HDFC Flexicap Fund?",
+      "expected_answer_facts": [
+        "\u20b915,600 (81,600 - 66,000)"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS003"
+    },
+    {
+      "question": "Is my HDFC Flexicap Fund holding eligible for LTCG treatment right now?",
+      "expected_answer_facts": [
+        "Yes, purchased 2023-11-10, held over 1 year as of FY 2025-26"
+      ],
+      "requires_grounding_from": "holdings + tax rules",
+      "question_id": "ANS004"
+    },
+    {
+      "question": "Is my Parag Parikh Flexicap Fund holding eligible for LTCG treatment right now?",
+      "expected_answer_facts": [
+        "Depends on current date vs 2024-06-15 purchase date, check against 365-day threshold"
+      ],
+      "requires_grounding_from": "holdings + tax rules",
+      "question_id": "ANS005"
+    },
+    {
+      "question": "How much of my Section 80C limit have I used this year?",
+      "expected_answer_facts": [
+        "\u20b930,000 used, \u20b9120,000 remaining of \u20b9150,000 cap"
+      ],
+      "requires_grounding_from": "profile",
+      "question_id": "ANS006"
+    },
+    {
+      "question": "What is my risk profile on file?",
+      "expected_answer_facts": [
+        "Moderate"
+      ],
+      "requires_grounding_from": "profile",
+      "question_id": "ANS007"
+    },
+    {
+      "question": "What was my salary credit amount in the sample transactions?",
+      "expected_answer_facts": [
+        "\u20b9100,000 on 2026-07-02"
+      ],
+      "requires_grounding_from": "transactions_sample",
+      "question_id": "ANS008"
+    },
+    {
+      "question": "How much did I spend on Swiggy in the sample transactions?",
+      "expected_answer_facts": [
+        "\u20b9450 on 2026-07-01"
+      ],
+      "requires_grounding_from": "transactions_sample",
+      "question_id": "ANS009"
+    },
+    {
+      "question": "What is my current value in gold holdings?",
+      "expected_answer_facts": [
+        "\u20b9122,000 (SGB 2029 Series)"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS010"
+    },
+    {
+      "question": "How many units of ELSS Tax Saver Fund do I hold?",
+      "expected_answer_facts": [
+        "1000 units"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS011"
+    },
+    {
+      "question": "What is my total invested value across all holdings?",
+      "expected_answer_facts": [
+        "\u20b9311,000 (sum of invested_value)"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS012"
+    },
+    {
+      "question": "What is my annual income on file?",
+      "expected_answer_facts": [
+        "\u20b912,00,000"
+      ],
+      "requires_grounding_from": "profile",
+      "question_id": "ANS013"
+    },
+    {
+      "question": "What financial year is my current data associated with?",
+      "expected_answer_facts": [
+        "2025-26"
+      ],
+      "requires_grounding_from": "profile",
+      "question_id": "ANS014"
+    },
+    {
+      "question": "What is my unrealized gain on the SGB 2029 Series?",
+      "expected_answer_facts": [
+        "\u20b918,000 (122,000 - 104,000)"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS015"
+    },
+    {
+      "question": "What is the current NAV of HDFC Flexicap Fund?",
+      "expected_answer_facts": [
+        "68.0"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS016"
+    },
+    {
+      "question": "What is the purchase NAV I bought HDFC Flexicap Fund at?",
+      "expected_answer_facts": [
+        "55.0"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS017"
+    },
+    {
+      "question": "How many units of HDFC Flexicap Fund do I hold?",
+      "expected_answer_facts": [
+        "1200"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS018"
+    },
+    {
+      "question": "What is the invested value in HDFC Flexicap Fund?",
+      "expected_answer_facts": [
+        "66000"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS019"
+    },
+    {
+      "question": "What is the current value of HDFC Flexicap Fund?",
+      "expected_answer_facts": [
+        "81600"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS020"
+    },
+    {
+      "question": "When did I purchase HDFC Flexicap Fund?",
+      "expected_answer_facts": [
+        "2023-11-10"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS021"
+    },
+    {
+      "question": "What type of asset is HDFC Flexicap Fund classified as?",
+      "expected_answer_facts": [
+        "equity_mf"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS022"
+    },
+    {
+      "question": "What is the current NAV of Parag Parikh Flexicap Fund?",
+      "expected_answer_facts": [
+        "62.0"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS023"
+    },
+    {
+      "question": "What is the purchase NAV I bought Parag Parikh Flexicap Fund at?",
+      "expected_answer_facts": [
+        "45.0"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS024"
+    },
+    {
+      "question": "How many units of Parag Parikh Flexicap Fund do I hold?",
+      "expected_answer_facts": [
+        "800"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS025"
+    },
+    {
+      "question": "What is the invested value in Parag Parikh Flexicap Fund?",
+      "expected_answer_facts": [
+        "36000"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS026"
+    },
+    {
+      "question": "What is the current value of Parag Parikh Flexicap Fund?",
+      "expected_answer_facts": [
+        "49600"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS027"
+    },
+    {
+      "question": "When did I purchase Parag Parikh Flexicap Fund?",
+      "expected_answer_facts": [
+        "2024-06-15"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS028"
+    },
+    {
+      "question": "What type of asset is Parag Parikh Flexicap Fund classified as?",
+      "expected_answer_facts": [
+        "equity_mf"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS029"
+    },
+    {
+      "question": "What is the current NAV of HDFC Corporate Bond Fund?",
+      "expected_answer_facts": [
+        "26.5"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS030"
+    },
+    {
+      "question": "What is the purchase NAV I bought HDFC Corporate Bond Fund at?",
+      "expected_answer_facts": [
+        "25.0"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS031"
+    },
+    {
+      "question": "How many units of HDFC Corporate Bond Fund do I hold?",
+      "expected_answer_facts": [
+        "3000"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS032"
+    },
+    {
+      "question": "What is the invested value in HDFC Corporate Bond Fund?",
+      "expected_answer_facts": [
+        "75000"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS033"
+    },
+    {
+      "question": "What is the current value of HDFC Corporate Bond Fund?",
+      "expected_answer_facts": [
+        "79500"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS034"
+    },
+    {
+      "question": "When did I purchase HDFC Corporate Bond Fund?",
+      "expected_answer_facts": [
+        "2024-01-20"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS035"
+    },
+    {
+      "question": "What type of asset is HDFC Corporate Bond Fund classified as?",
+      "expected_answer_facts": [
+        "debt_mf"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS036"
+    },
+    {
+      "question": "What is the current NAV of SGB 2029 Series?",
+      "expected_answer_facts": [
+        "6100"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS037"
+    },
+    {
+      "question": "What is the purchase NAV I bought SGB 2029 Series at?",
+      "expected_answer_facts": [
+        "5200"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS038"
+    },
+    {
+      "question": "How many units of SGB 2029 Series do I hold?",
+      "expected_answer_facts": [
+        "20"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS039"
+    },
+    {
+      "question": "What is the invested value in SGB 2029 Series?",
+      "expected_answer_facts": [
+        "104000"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS040"
+    },
+    {
+      "question": "What is the current value of SGB 2029 Series?",
+      "expected_answer_facts": [
+        "122000"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS041"
+    },
+    {
+      "question": "When did I purchase SGB 2029 Series?",
+      "expected_answer_facts": [
+        "2022-08-05"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS042"
+    },
+    {
+      "question": "What type of asset is SGB 2029 Series classified as?",
+      "expected_answer_facts": [
+        "gold"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS043"
+    },
+    {
+      "question": "What is the current NAV of ELSS Tax Saver Fund?",
+      "expected_answer_facts": [
+        "33.0"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS044"
+    },
+    {
+      "question": "What is the purchase NAV I bought ELSS Tax Saver Fund at?",
+      "expected_answer_facts": [
+        "30.0"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS045"
+    },
+    {
+      "question": "How many units of ELSS Tax Saver Fund do I hold?",
+      "expected_answer_facts": [
+        "1000"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS046"
+    },
+    {
+      "question": "What is the invested value in ELSS Tax Saver Fund?",
+      "expected_answer_facts": [
+        "30000"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS047"
+    },
+    {
+      "question": "What is the current value of ELSS Tax Saver Fund?",
+      "expected_answer_facts": [
+        "33000"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS048"
+    },
+    {
+      "question": "When did I purchase ELSS Tax Saver Fund?",
+      "expected_answer_facts": [
+        "2025-03-01"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS049"
+    },
+    {
+      "question": "What type of asset is ELSS Tax Saver Fund classified as?",
+      "expected_answer_facts": [
+        "equity_mf_elss"
+      ],
+      "requires_grounding_from": "holdings",
+      "question_id": "ANS050"
+    }
+  ]
+}
