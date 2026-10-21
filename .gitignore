@@ -27,5 +27,21 @@ Thumbs.db
 backend/.qdrant/
 backend/uploads/
 
+# Private, consented evaluation data and sealed holdout packages
+benchmarking/private_holdout/
+benchmarking/holdout/results/
+benchmarking/generated/
+
 # Package manager cache
 .pnpm-store/
+
+
+# Finished one-off tooling and generated diagnostic output
+.artifact-tool/
+benchmarking/scratch_security_check.py
+backend/error_debug.txt
+backend/scripts/user_check_out.txt
+backend/scripts/table_check_out.txt
+backend/scripts/table_check.txt
+backend/scripts/seed_out.txt
+backend/scripts/seed2_out.txt

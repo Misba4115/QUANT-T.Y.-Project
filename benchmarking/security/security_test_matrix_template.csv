@@ -1,0 +1,7 @@
+case_id,area,procedure,expected_result,actual_result,verdict,evidence_reference,tested_at_utc,implementation_commit,migration_state,reviewer,notes
+SEC-001,RLS,User B selects User A banking account with a user-scoped token,No rows returned,,NOT_RUN,,,,,,
+SEC-002,Application authorization,User B updates User A banking account through API,404 without existence leakage,,NOT_RUN,,,,,,
+SEC-003,Session,Logout then reuse prior session cookie,401,,NOT_RUN,,,,,,
+SEC-004,Upload,Submit malformed and formula-injection CSV,Safe 4xx or inert data; no execution,,NOT_RUN,,,,,,
+SEC-005,Storage,Use expired or modified signed download token,403 or 404,,NOT_RUN,,,,,,
+SEC-006,Connector,Preview hostile connector strings and commit twice,Strings remain data and commit is idempotent,,NOT_RUN,,,,,,

@@ -22,8 +22,9 @@ Outputs:
     results/routing_orchestration_summary.json    <- Figure 5 source
 
 NOTE: This harness tests the routing layer ONLY — it calls StructuredIntentRouter.route()
-      with no live DB or LLM connection. This is the correct scope for Experiment B:
-      isolating routing correctness from downstream specialist execution.
+      with no live DB or LLM connection. `task_success_rate` is only a routing
+      selection proxy, not observed downstream task success. The queries are
+      exposed development cases, not a private holdout.
 """
 from __future__ import annotations
 
@@ -34,6 +35,7 @@ import time
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from typing import Any
+from provenance import provenance
 
 # ── Path setup ───────────────────────────────────────────────────────────────
 BENCH_DIR = pathlib.Path(__file__).parent
@@ -46,14 +48,9 @@ sys.path.insert(0, str(BACKEND_DIR))
 FAMILIES_PATH = BACKEND_DIR / "evaluations" / "chat_case_families.json"
 
 # ── Import routing components ─────────────────────────────────────────────────
-try:
-    from agents.intent_router import StructuredIntentRouter
-    from agents.contracts import IntentDecision
-    BACKEND_AVAILABLE = True
-except ImportError as e:
-    print(f"[WARN] Backend import failed: {e}")
-    print("[WARN] Running in MOCK mode.")
-    BACKEND_AVAILABLE = False
+from agents.intent_router import StructuredIntentRouter
+from agents.contracts import IntentDecision
+BACKEND_AVAILABLE = True
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -318,8 +315,7 @@ def evaluate_query(
             actual_confidence = decision.confidence
             actual_source = decision.route_source
         else:
-            # Mock: simple keyword fallback
-            actual_intent, actual_specialists, actual_confidence, actual_source = _mock_route(query_text, expected_intent, expected_specialists)
+            raise RuntimeError("Production router is unavailable")
     except Exception as ex:
         error = str(ex)
         actual_intent = "error"
@@ -376,11 +372,6 @@ def evaluate_query(
     )
     result.constraint_adhered = _constraint_adhered(result)
     return result
-
-
-def _mock_route(query: str, expected_intent: str, expected_specialists: list[str]):
-    """Minimal deterministic mock — returns expected values for offline testing."""
-    return expected_intent, expected_specialists, 0.80, "mock_deterministic"
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -575,6 +566,7 @@ def run_routing_benchmark():
         {
             "generated_at": datetime.now(timezone.utc).isoformat(),
             "backend_mode": "live" if BACKEND_AVAILABLE else "mock",
+            "provenance": provenance(FAMILIES_PATH, "exposed routing-only development cases; task_success is a selection proxy"),
             "total_queries": len(all_results),
             "results": [asdict(r) for r in all_results],
         },
@@ -586,6 +578,7 @@ def run_routing_benchmark():
         {
             "generated_at": datetime.now(timezone.utc).isoformat(),
             "backend_mode": "live" if BACKEND_AVAILABLE else "mock",
+            "provenance": provenance(FAMILIES_PATH, "exposed routing-only development cases; task_success is a selection proxy"),
             "overall": asdict(overall),
         },
         indent=2,

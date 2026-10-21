@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-09-28T07:48:42.546623+00:00",
+  "generated_at": "2026-10-07T22:38:17.016083+00:00",
   "backend_mode": "live",
+  "provenance": {
+    "dataset_sha256": "b09ffd905ea5d99a79fdffba4d8e2d313f0135126ac6cac967689f2bd8af77c7",
+    "source_commit": "e112c22a78df7a8f35b6f72f37b84b95ee7b5bcb",
+    "working_tree_dirty": true,
+    "evaluation_scope": "exposed routing-only development cases; task_success is a selection proxy"
+  },
   "total_queries": 67,
   "results": [
     {
@@ -20,7 +26,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 3.184,
+      "latency_ms": 0.956,
       "agent_transitions": 0,
       "notes": "Family: education, paraphrase 1/5",
       "error": null
@@ -42,7 +48,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.222,
+      "latency_ms": 0.078,
       "agent_transitions": 0,
       "notes": "Family: education, paraphrase 2/5",
       "error": null
@@ -64,7 +70,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.036,
+      "latency_ms": 0.021,
       "agent_transitions": 0,
       "notes": "Family: education, paraphrase 3/5",
       "error": null
@@ -86,7 +92,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.038,
+      "latency_ms": 0.019,
       "agent_transitions": 0,
       "notes": "Family: education, paraphrase 4/5",
       "error": null
@@ -108,7 +114,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.032,
+      "latency_ms": 0.02,
       "agent_transitions": 0,
       "notes": "Family: education, paraphrase 5/5",
       "error": null
@@ -134,7 +140,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.106,
+      "latency_ms": 0.298,
       "agent_transitions": 1,
       "notes": "Family: portfolio, paraphrase 1/5",
       "error": null
@@ -160,7 +166,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.04,
+      "latency_ms": 0.129,
       "agent_transitions": 1,
       "notes": "Family: portfolio, paraphrase 2/5",
       "error": null
@@ -186,7 +192,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.03,
+      "latency_ms": 0.022,
       "agent_transitions": 1,
       "notes": "Family: portfolio, paraphrase 3/5",
       "error": null
@@ -212,7 +218,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.03,
+      "latency_ms": 0.019,
       "agent_transitions": 1,
       "notes": "Family: portfolio, paraphrase 4/5",
       "error": null
@@ -238,7 +244,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.03,
+      "latency_ms": 0.023,
       "agent_transitions": 1,
       "notes": "Family: portfolio, paraphrase 5/5",
       "error": null
@@ -264,7 +270,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.034,
+      "latency_ms": 0.019,
       "agent_transitions": 1,
       "notes": "Family: tax, paraphrase 1/5",
       "error": null
@@ -290,7 +296,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.082,
+      "latency_ms": 0.019,
       "agent_transitions": 1,
       "notes": "Family: tax, paraphrase 2/5",
       "error": null
@@ -316,7 +322,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.028,
+      "latency_ms": 0.016,
       "agent_transitions": 1,
       "notes": "Family: tax, paraphrase 3/5",
       "error": null
@@ -342,7 +348,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.029,
+      "latency_ms": 0.017,
       "agent_transitions": 1,
       "notes": "Family: tax, paraphrase 4/5",
       "error": null
@@ -368,7 +374,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.029,
+      "latency_ms": 0.017,
       "agent_transitions": 1,
       "notes": "Family: tax, paraphrase 5/5",
       "error": null
@@ -394,7 +400,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.031,
+      "latency_ms": 0.018,
       "agent_transitions": 1,
       "notes": "Family: cashflow, paraphrase 1/5",
       "error": null
@@ -420,7 +426,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.029,
+      "latency_ms": 0.018,
       "agent_transitions": 1,
       "notes": "Family: cashflow, paraphrase 2/5",
       "error": null
@@ -446,7 +452,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.033,
+      "latency_ms": 0.016,
       "agent_transitions": 1,
       "notes": "Family: cashflow, paraphrase 3/5",
       "error": null
@@ -472,7 +478,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.03,
+      "latency_ms": 0.019,
       "agent_transitions": 1,
       "notes": "Family: cashflow, paraphrase 4/5",
       "error": null
@@ -498,7 +504,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.022,
+      "latency_ms": 0.016,
       "agent_transitions": 1,
       "notes": "Family: cashflow, paraphrase 5/5",
       "error": null
@@ -524,7 +530,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.025,
+      "latency_ms": 0.018,
       "agent_transitions": 1,
       "notes": "Family: guardian, paraphrase 1/5",
       "error": null
@@ -550,7 +556,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.028,
+      "latency_ms": 0.021,
       "agent_transitions": 1,
       "notes": "Family: guardian, paraphrase 2/5",
       "error": null
@@ -576,7 +582,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.024,
+      "latency_ms": 0.018,
       "agent_transitions": 1,
       "notes": "Family: guardian, paraphrase 3/5",
       "error": null
@@ -602,7 +608,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.027,
+      "latency_ms": 0.019,
       "agent_transitions": 1,
       "notes": "Family: guardian, paraphrase 4/5",
       "error": null
@@ -628,7 +634,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.022,
+      "latency_ms": 0.016,
       "agent_transitions": 1,
       "notes": "Family: guardian, paraphrase 5/5",
       "error": null
@@ -656,7 +662,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.031,
+      "latency_ms": 0.022,
       "agent_transitions": 2,
       "notes": "Family: cross_domain, paraphrase 1/5",
       "error": null
@@ -684,7 +690,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.037,
+      "latency_ms": 0.026,
       "agent_transitions": 2,
       "notes": "Family: cross_domain, paraphrase 2/5",
       "error": null
@@ -712,7 +718,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.027,
+      "latency_ms": 0.019,
       "agent_transitions": 2,
       "notes": "Family: cross_domain, paraphrase 3/5",
       "error": null
@@ -740,7 +746,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.022,
+      "latency_ms": 0.019,
       "agent_transitions": 2,
       "notes": "Family: cross_domain, paraphrase 4/5",
       "error": null
@@ -768,7 +774,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.021,
+      "latency_ms": 0.017,
       "agent_transitions": 2,
       "notes": "Family: cross_domain, paraphrase 5/5",
       "error": null
@@ -800,7 +806,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.024,
+      "latency_ms": 0.02,
       "agent_transitions": 4,
       "notes": "Family: recommendation, paraphrase 1/5",
       "error": null
@@ -832,7 +838,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.022,
+      "latency_ms": 0.019,
       "agent_transitions": 4,
       "notes": "Family: recommendation, paraphrase 2/5",
       "error": null
@@ -864,7 +870,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.02,
+      "latency_ms": 0.016,
       "agent_transitions": 4,
       "notes": "Family: recommendation, paraphrase 3/5",
       "error": null
@@ -896,7 +902,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.021,
+      "latency_ms": 0.018,
       "agent_transitions": 4,
       "notes": "Family: recommendation, paraphrase 4/5",
       "error": null
@@ -928,7 +934,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.022,
+      "latency_ms": 0.018,
       "agent_transitions": 4,
       "notes": "Family: recommendation, paraphrase 5/5",
       "error": null
@@ -950,7 +956,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.021,
+      "latency_ms": 0.018,
       "agent_transitions": 0,
       "notes": "Family: unsupported, paraphrase 1/5",
       "error": null
@@ -972,7 +978,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.021,
+      "latency_ms": 0.017,
       "agent_transitions": 0,
       "notes": "Family: unsupported, paraphrase 2/5",
       "error": null
@@ -994,7 +1000,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.032,
+      "latency_ms": 0.02,
       "agent_transitions": 0,
       "notes": "Family: unsupported, paraphrase 3/5",
       "error": null
@@ -1016,7 +1022,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.02,
+      "latency_ms": 0.018,
       "agent_transitions": 0,
       "notes": "Family: unsupported, paraphrase 4/5",
       "error": null
@@ -1038,7 +1044,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.021,
+      "latency_ms": 0.017,
       "agent_transitions": 0,
       "notes": "Family: unsupported, paraphrase 5/5",
       "error": null
@@ -1060,7 +1066,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.058,
+      "latency_ms": 0.01,
       "agent_transitions": 0,
       "notes": "Family: clarification, paraphrase 1/5",
       "error": null
@@ -1082,7 +1088,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.012,
+      "latency_ms": 0.009,
       "agent_transitions": 0,
       "notes": "Family: clarification, paraphrase 2/5",
       "error": null
@@ -1104,7 +1110,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.011,
+      "latency_ms": 0.009,
       "agent_transitions": 0,
       "notes": "Family: clarification, paraphrase 3/5",
       "error": null
@@ -1126,7 +1132,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.012,
+      "latency_ms": 0.01,
       "agent_transitions": 0,
       "notes": "Family: clarification, paraphrase 4/5",
       "error": null
@@ -1148,7 +1154,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.02,
+      "latency_ms": 0.009,
       "agent_transitions": 0,
       "notes": "Family: clarification, paraphrase 5/5",
       "error": null
@@ -1174,7 +1180,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.032,
+      "latency_ms": 0.02,
       "agent_transitions": 1,
       "notes": "Family: stale_provider, paraphrase 1/5",
       "error": null
@@ -1200,7 +1206,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.019,
+      "latency_ms": 0.018,
       "agent_transitions": 1,
       "notes": "Family: stale_provider, paraphrase 2/5",
       "error": null
@@ -1226,7 +1232,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.021,
+      "latency_ms": 0.018,
       "agent_transitions": 1,
       "notes": "Family: stale_provider, paraphrase 3/5",
       "error": null
@@ -1278,7 +1284,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.02,
+      "latency_ms": 0.018,
       "agent_transitions": 1,
       "notes": "Family: stale_provider, paraphrase 5/5",
       "error": null
@@ -1304,7 +1310,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.02,
+      "latency_ms": 0.018,
       "agent_transitions": 1,
       "notes": "Family: regulatory, paraphrase 1/5",
       "error": null
@@ -1328,7 +1334,7 @@
       "routing_correct": false,
       "task_success": false,
       "constraint_adhered": true,
-      "latency_ms": 0.02,
+      "latency_ms": 0.018,
       "agent_transitions": 0,
       "notes": "Family: regulatory, paraphrase 2/5",
       "error": null
@@ -1354,7 +1360,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.023,
+      "latency_ms": 0.017,
       "agent_transitions": 1,
       "notes": "Family: regulatory, paraphrase 3/5",
       "error": null
@@ -1380,7 +1386,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.02,
+      "latency_ms": 0.016,
       "agent_transitions": 1,
       "notes": "Family: regulatory, paraphrase 4/5",
       "error": null
@@ -1406,7 +1412,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.019,
+      "latency_ms": 0.016,
       "agent_transitions": 1,
       "notes": "Family: regulatory, paraphrase 5/5",
       "error": null
@@ -1428,7 +1434,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.024,
+      "latency_ms": 0.021,
       "agent_transitions": 0,
       "notes": "Family: injection, paraphrase 1/5",
       "error": null
@@ -1450,7 +1456,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.029,
+      "latency_ms": 0.028,
       "agent_transitions": 0,
       "notes": "Family: injection, paraphrase 2/5",
       "error": null
@@ -1472,7 +1478,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.026,
+      "latency_ms": 0.025,
       "agent_transitions": 0,
       "notes": "Family: injection, paraphrase 3/5",
       "error": null
@@ -1494,7 +1500,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.028,
+      "latency_ms": 0.027,
       "agent_transitions": 0,
       "notes": "Family: injection, paraphrase 4/5",
       "error": null
@@ -1529,16 +1535,16 @@
       "expected_primary_intent": "clarification",
       "expected_specialists": [],
       "expected_constraint_adhered": true,
-      "actual_primary_intent": "informational_education",
+      "actual_primary_intent": "clarification",
       "actual_specialists": [],
       "actual_confidence": 0.65,
       "actual_route_source": "deterministic_fallback",
-      "intent_correct": false,
+      "intent_correct": true,
       "specialists_correct": true,
-      "routing_correct": false,
-      "task_success": false,
+      "routing_correct": true,
+      "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.019,
+      "latency_ms": 0.018,
       "agent_transitions": 0,
       "notes": "Vague financial query without domain signal",
       "error": null
@@ -1551,16 +1557,16 @@
       "expected_primary_intent": "clarification",
       "expected_specialists": [],
       "expected_constraint_adhered": true,
-      "actual_primary_intent": "informational_education",
+      "actual_primary_intent": "clarification",
       "actual_specialists": [],
       "actual_confidence": 0.65,
       "actual_route_source": "deterministic_fallback",
-      "intent_correct": false,
+      "intent_correct": true,
       "specialists_correct": true,
-      "routing_correct": false,
-      "task_success": false,
+      "routing_correct": true,
+      "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.017,
+      "latency_ms": 0.014,
       "agent_transitions": 0,
       "notes": "Context-free question \u2014 requires clarification",
       "error": null
@@ -1573,16 +1579,16 @@
       "expected_primary_intent": "clarification",
       "expected_specialists": [],
       "expected_constraint_adhered": true,
-      "actual_primary_intent": "informational_education",
+      "actual_primary_intent": "clarification",
       "actual_specialists": [],
       "actual_confidence": 0.65,
       "actual_route_source": "deterministic_fallback",
-      "intent_correct": false,
+      "intent_correct": true,
       "specialists_correct": true,
-      "routing_correct": false,
-      "task_success": false,
+      "routing_correct": true,
+      "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.018,
+      "latency_ms": 0.017,
       "agent_transitions": 0,
       "notes": "Incomplete temporal reference",
       "error": null
@@ -1604,7 +1610,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.014,
+      "latency_ms": 0.013,
       "agent_transitions": 0,
       "notes": "Comparative without referent",
       "error": null
@@ -1626,7 +1632,7 @@
       "routing_correct": true,
       "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.014,
+      "latency_ms": 0.011,
       "agent_transitions": 0,
       "notes": "Action verb without domain or object",
       "error": null
@@ -1639,14 +1645,14 @@
       "expected_primary_intent": "clarification",
       "expected_specialists": [],
       "expected_constraint_adhered": true,
-      "actual_primary_intent": "informational_education",
+      "actual_primary_intent": "clarification",
       "actual_specialists": [],
       "actual_confidence": 0.65,
       "actual_route_source": "deterministic_fallback",
-      "intent_correct": false,
+      "intent_correct": true,
       "specialists_correct": true,
-      "routing_correct": false,
-      "task_success": false,
+      "routing_correct": true,
+      "task_success": true,
       "constraint_adhered": true,
       "latency_ms": 0.025,
       "agent_transitions": 0,
@@ -1661,16 +1667,16 @@
       "expected_primary_intent": "clarification",
       "expected_specialists": [],
       "expected_constraint_adhered": true,
-      "actual_primary_intent": "informational_education",
+      "actual_primary_intent": "clarification",
       "actual_specialists": [],
       "actual_confidence": 0.65,
       "actual_route_source": "deterministic_fallback",
-      "intent_correct": false,
+      "intent_correct": true,
       "specialists_correct": true,
-      "routing_correct": false,
-      "task_success": false,
+      "routing_correct": true,
+      "task_success": true,
       "constraint_adhered": true,
-      "latency_ms": 0.015,
+      "latency_ms": 0.013,
       "agent_transitions": 0,
       "notes": "Approval-seeking without referent",
       "error": null

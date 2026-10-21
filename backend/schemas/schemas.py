@@ -1,7 +1,7 @@
 """Validated public request and response contracts for QUANT."""
 from __future__ import annotations
 
-from datetime import date
+from datetime import date, datetime
 from typing import Annotated, Any, Literal
 
 from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator
@@ -226,6 +226,14 @@ class GoalOut(GoalCreate):
 class BankTransactionCreate(APIModel):
     account_id: str | None = None
     tx_date: date
+    occurred_at: datetime | None = None
+
+    @field_validator("occurred_at")
+    @classmethod
+    def timestamp_requires_timezone(cls, value: datetime | None) -> datetime | None:
+        if value is not None and value.utcoffset() is None:
+            raise ValueError("occurred_at must include a timezone offset")
+        return value
     description: str = Field(min_length=1, max_length=500)
     amount: PositiveNumber
     tx_type: Literal["debit", "credit"]

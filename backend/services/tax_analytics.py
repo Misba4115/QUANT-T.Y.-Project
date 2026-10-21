@@ -17,6 +17,39 @@ def _rule(sale_date: date) -> dict[str, float]:
     return {"ltcg_exemption": 100_000.0, "ltcg_rate": 0.10, "stcg_rate": 0.15}
 
 
+def calculate_equity_gain_scenario(
+    *, holding_period_days: int, capital_gain: float, exemption_used: float = 0.0,
+    sale_date: date,
+) -> dict[str, float | str]:
+    """Calculate one simplified Section 111A/112A gain using the dated rule.
+
+    This formula assumes an eligible listed equity instrument and STT treatment.
+    It does not replace the lot, loss-setoff, or taxpayer checks in a tax return.
+    """
+    rule = _rule(sale_date)
+    gain_type = "LTCG" if holding_period_days > 365 else "STCG"
+    gain = max(0.0, float(capital_gain))
+    exemption = min(gain, max(0.0, rule["ltcg_exemption"] - exemption_used)) if gain_type == "LTCG" else 0.0
+    taxable = gain - exemption
+    rate = rule["ltcg_rate"] if gain_type == "LTCG" else rule["stcg_rate"]
+    return {
+        "gain_type": gain_type,
+        "taxable_gain": taxable,
+        "tax_amount": round(taxable * rate, 2),
+        "exemption_applied": exemption,
+    }
+
+
+def calculate_80c_scenario(*, new_investment: float, used_ytd: float) -> dict[str, float]:
+    """Calculate remaining Section 80C capacity for a qualifying contribution."""
+    headroom = max(0.0, SECTION_80C_LIMIT - used_ytd)
+    eligible = min(max(0.0, new_investment), headroom)
+    return {
+        "eligible_deduction_from_this_investment": eligible,
+        "total_80c_used_after": min(SECTION_80C_LIMIT, used_ytd + eligible),
+    }
+
+
 def _realized(rows: list[dict[str, Any]], quantity_key: str, price_key: str) -> tuple[list[dict], list[str]]:
     lots: dict[str, deque] = defaultdict(deque)
     gains: list[dict] = []

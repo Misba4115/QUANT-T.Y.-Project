@@ -1,22 +1,23 @@
 """
 bench_gc_sec_ablation.py -- Experiment A: GC-SEC Ablation Benchmark
 
-Runs all 62 test cases in gc_sec_test_set.json through 4 pipeline configurations:
+Runs all 62 test cases in gc_sec_test_set.json through 3 pipeline configurations:
     Config 1 -- Baseline:    No grounding, no arbitration, no calibration
     Config 2 -- GC-SEC-1:   Grounding only (GroundingChecker, Step 1)
     Config 3 -- GC-SEC-2:   Grounding + Arbitration (Steps 1+2)
-    Config 4 -- Full GC-SEC: All 3 steps (Step 3 = simulated calibration replay)
+The simulated calibration replay is reported separately; it does not affect
+per-case decisions in this ablation.
 
 Outputs:
     results/gc_sec_ablation_baseline.json
     results/gc_sec_ablation_gcsec1.json
     results/gc_sec_ablation_gcsec2.json
-    results/gc_sec_ablation_full.json
     results/gc_sec_ablation_summary.json   ← Table IV source
 """
 from __future__ import annotations
 
 import json
+import argparse
 import pathlib
 import sys
 import time
@@ -24,6 +25,7 @@ from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from decimal import Decimal, InvalidOperation
 from typing import Any
+from provenance import provenance
 
 # -- Path setup ---------------------------------------------------------------
 BENCH_DIR = pathlib.Path(__file__).parent
@@ -35,7 +37,7 @@ sys.path.insert(0, str(BACKEND_DIR))
 
 TEST_SET_PATH = BENCH_DIR / "gc_sec_test_set.json"
 
-# -- Import GC-SEC components (fail gracefully if backend unavailable) ---------
+# -- Import GC-SEC components (fail closed if backend unavailable) -------------
 try:
     from agents.contracts import (
         AgentClaim, AgentConflict, ArbitrationResult, EvidenceRef, GroundingResult
@@ -44,9 +46,7 @@ try:
     from agents.consensus_arbiter import ConsensusArbiter
     BACKEND_AVAILABLE = True
 except ImportError as e:
-    print(f"[WARN] Backend import failed: {e}")
-    print("[WARN] Running in MOCK mode -- results will use deterministic logic only.")
-    BACKEND_AVAILABLE = False
+    raise RuntimeError("GC-SEC benchmark requires the production backend") from e
 
 
 # ===============================================================================
@@ -120,6 +120,10 @@ class ConfigSummary:
 # EVIDENCE + CLAIM RECONSTRUCTION
 # ===============================================================================
 
+def _fixture_time(value: str | None) -> datetime:
+    return datetime.fromisoformat(value.replace("Z", "+00:00")) if value else datetime.now(timezone.utc)
+
+
 def _build_evidence_refs(ev_dicts: list[dict]) -> list:
     """Convert test-set evidence dicts => EvidenceRef objects (or plain dicts in mock mode)."""
     if not BACKEND_AVAILABLE:
@@ -127,26 +131,23 @@ def _build_evidence_refs(ev_dicts: list[dict]) -> list:
 
     refs = []
     for d in ev_dicts:
-        try:
-            ref = EvidenceRef(
+        ref = EvidenceRef(
                 evidence_id=d["evidence_id"],
                 evidence_type=d["evidence_type"],
                 source_name=d["source_name"],
-                retrieved_at=datetime.now(timezone.utc),
+                retrieved_at=_fixture_time(d.get("retrieved_at")),
+                observed_at=_fixture_time(d["observed_at"]) if d.get("observed_at") else None,
                 freshness=d.get("freshness", "unknown"),
                 value=Decimal(d["value"]) if d.get("value") is not None else None,
                 unit=d.get("unit"),
                 currency=d.get("currency"),
                 metadata=d.get("metadata", {}),
-            )
-            refs.append(ref)
-        except Exception as ex:
-            # Fall back to raw dict if pydantic validation fails
-            refs.append(d)
+        )
+        refs.append(ref)
     return refs
 
 
-def _build_agent_claims(claim_dict: dict, claim_b_dict: dict | None) -> list:
+def _build_agent_claims(claim_dict: dict, claim_b_dict: dict | None, epsilon: float = 0.0) -> list:
     """Convert test-set claim dicts => AgentClaim objects (or plain dicts in mock mode)."""
     if not BACKEND_AVAILABLE:
         claims = [claim_dict]
@@ -156,22 +157,20 @@ def _build_agent_claims(claim_dict: dict, claim_b_dict: dict | None) -> list:
 
     claims = []
     for d in ([claim_dict] + ([claim_b_dict] if claim_b_dict else [])):
-        try:
-            c = AgentClaim(
+        c = AgentClaim(
                 claim_id=d["claim_id"],
                 agent=d["agent"],
                 claim_type=d["claim_type"],
                 subject=d["subject"],
                 statement=d["statement"],
                 value=Decimal(d["value"]) if d.get("value") is not None else None,
+                relative_tolerance=Decimal(str(epsilon)),
                 unit=d.get("unit"),
                 evidence_ids=d.get("evidence_ids", []),
-                as_of=datetime.now(timezone.utc),
+                as_of=_fixture_time(d.get("as_of")),
                 model_version="test-frozen-v1.0",
-            )
-            claims.append(c)
-        except Exception:
-            claims.append(d)
+        )
+        claims.append(c)
     return claims
 
 
@@ -181,16 +180,13 @@ def _build_conflicts(conf_dicts: list[dict]) -> list:
 
     result = []
     for d in conf_dicts:
-        try:
-            result.append(AgentConflict(
+        result.append(AgentConflict(
                 conflict_id=d["conflict_id"],
                 claim_ids=d["claim_ids"],
                 conflict_type=d["conflict_type"],
                 subject=d["subject"],
                 material=d.get("material", True),
-            ))
-        except Exception:
-            result.append(d)
+        ))
     return result
 
 
@@ -225,7 +221,7 @@ def run_gcsec1(case: dict, checker: "GroundingChecker | None") -> dict:
     Config 2 -- GC-SEC-1: Grounding checker only (Step 1).
     No arbitration step.
     """
-    claims = _build_agent_claims(case["claim"], case.get("claim_b"))
+    claims = _build_agent_claims(case["claim"], case.get("claim_b"), case.get("epsilon", 0))
     evidence = _build_evidence_refs(case["evidence"])
 
     if BACKEND_AVAILABLE and checker is not None:
@@ -256,7 +252,7 @@ def run_gcsec2(case: dict, checker: "GroundingChecker | None",
     """
     Config 3 -- GC-SEC-2: Grounding + Arbitration (Steps 1+2).
     """
-    claims_raw = _build_agent_claims(case["claim"], case.get("claim_b"))
+    claims_raw = _build_agent_claims(case["claim"], case.get("claim_b"), case.get("epsilon", 0))
     evidence_raw = _build_evidence_refs(case["evidence"])
     conflicts_raw = _build_conflicts(case.get("conflicts", []))
 
@@ -280,7 +276,7 @@ def run_gcsec2(case: dict, checker: "GroundingChecker | None",
     if conflicts_raw:
         if BACKEND_AVAILABLE and arbiter is not None:
             try:
-                all_claims = _build_agent_claims(case["claim"], case.get("claim_b"))
+                all_claims = _build_agent_claims(case["claim"], case.get("claim_b"), case.get("epsilon", 0))
                 # Build proper GroundingResult list from what we have
                 gr_list = grounding_results if isinstance(grounding_results, list) else [grounding_results]
                 for conf in conflicts_raw:
@@ -461,6 +457,8 @@ def _grounding_to_action(outcome: str, reason_codes: list[str]) -> str:
     if outcome == "contradictory":
         if "unknown_evidence_id" in reason_codes or "numerical_claim_unrecomputable" in reason_codes:
             return "block"
+        if "stale_evidence" in reason_codes or "authoritative_source_inactive_or_undated" in reason_codes:
+            return "block"
         return "flag_and_replace"
     if outcome == "unsupported":
         return "block"
@@ -510,11 +508,14 @@ def evaluate_case(tc: dict, pipeline_result: dict, config_name: str) -> CaseResu
     else:
         arb_correct = True  # no conflict => arbitration not applicable
 
-    # Final action correct
+    # Final action correct. A resolved conflict also needs the right winner;
+    # passing the right action verb alone is insufficient.
     # Allow "flag_only" to match either "flag_only" or "flag_and_replace" (both are flagging actions)
     action_correct = (actual_action == expected_action)
     if not action_correct and expected_action in ("flag_only", "flag_and_replace"):
         action_correct = actual_action in ("flag_only", "flag_and_replace")
+    if expected_winner is not None:
+        action_correct = action_correct and actual_winner == expected_winner
 
     # Winning claim
     if expected_winner is not None:
@@ -580,7 +581,10 @@ def compute_summary(config_name: str, config_label: str, results: list[CaseResul
         "conflict_calc_vs_private","conflict_private_vs_market","conflict_market_vs_public","unresolved_tie"
     )]
     if conflict_cases:
-        conflict_accuracy = sum(1 for r in conflict_cases if r.arbitration_correct) / len(conflict_cases)
+        conflict_accuracy = sum(
+            1 for r in conflict_cases
+            if r.arbitration_correct and (r.expected_winning_claim is None or r.winning_claim_correct)
+        ) / len(conflict_cases)
         unresolved_rate = sum(1 for r in conflict_cases if r.actual_arbitration_outcome in ("unresolved","blocked")) / len(conflict_cases)
     else:
         conflict_accuracy = 0.0
@@ -635,13 +639,12 @@ CONFIGS = [
     ("baseline",  "Baseline (no grounding, no arbitration, no calibration)"),
     ("gcsec1",    "GC-SEC-1 (Grounding only -- Step 1)"),
     ("gcsec2",    "GC-SEC-2 (Grounding + Arbitration -- Steps 1+2)"),
-    ("full",      "Full GC-SEC (Steps 1+2+3 -- Step 3 simulated calibration replay)"),
 ]
 
 
-def run_all_configs():
+def run_all_configs(dataset_path: pathlib.Path = TEST_SET_PATH, output_prefix: str = "gc_sec_ablation"):
     # Load test set
-    with open(TEST_SET_PATH, encoding="utf-8") as f:
+    with open(dataset_path, encoding="utf-8") as f:
         dataset = json.load(f)
     test_cases = dataset["cases"]
     print(f"\n{'='*70}")
@@ -668,8 +671,8 @@ def run_all_configs():
                     pipeline_result = run_gcsec1(tc, checker)
                 elif config_name == "gcsec2":
                     pipeline_result = run_gcsec2(tc, checker, arbiter)
-                else:  # full
-                    pipeline_result = run_full_gcsec(tc, checker, arbiter)
+                else:
+                    raise ValueError(f"Unknown configuration: {config_name}")
             except Exception as ex:
                 pipeline_result = {
                     "grounding_outcome": "error",
@@ -690,12 +693,13 @@ def run_all_configs():
         all_summaries.append(summary)
 
         # Write per-config result
-        out_path = RESULTS_DIR / f"gc_sec_ablation_{config_name}.json"
+        out_path = RESULTS_DIR / f"{output_prefix}_{config_name}.json"
         payload = {
             "config": config_name,
             "config_label": config_label,
             "run_at": datetime.now(timezone.utc).isoformat(),
             "backend_mode": "live" if BACKEND_AVAILABLE else "mock",
+            "provenance": provenance(dataset_path, "controlled synthetic ablation cases; not an independent holdout"),
             "summary": asdict(summary),
             "per_case": [asdict(r) for r in case_results],
         }
@@ -716,11 +720,12 @@ def run_all_configs():
         print(f"  => Written to: {out_path.name}\n")
 
     # Write combined summary (source for Table IV)
-    summary_path = RESULTS_DIR / "gc_sec_ablation_summary.json"
+    summary_path = RESULTS_DIR / f"{output_prefix}_summary.json"
     summary_path.write_text(json.dumps(
         {
             "generated_at": datetime.now(timezone.utc).isoformat(),
             "backend_mode": "live" if BACKEND_AVAILABLE else "mock",
+            "provenance": provenance(dataset_path, "controlled synthetic ablation cases; not an independent holdout"),
             "total_test_cases": len(test_cases),
             "configs": [asdict(s) for s in all_summaries],
         },
@@ -753,4 +758,8 @@ def run_all_configs():
 
 
 if __name__ == "__main__":
-    run_all_configs()
+    parser = argparse.ArgumentParser(description="Run the GC-SEC component ablation")
+    parser.add_argument("--dataset", type=pathlib.Path, default=TEST_SET_PATH)
+    parser.add_argument("--output-prefix", default="gc_sec_ablation")
+    args = parser.parse_args()
+    run_all_configs(args.dataset, args.output_prefix)

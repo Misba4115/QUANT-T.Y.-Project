@@ -4,16 +4,12 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from typing import Any
 
-import numpy as np
-from sklearn.ensemble import IsolationForest
-
 from repositories.base import SupabaseRepository, TABLES
+from services.guardian_detector import detect_anomalies
 
 TABLES_TO_ANALYZE = [
     "bank_transactions", "equity_transactions", "mf_transactions", "etf_transactions", "crypto_transactions"
 ]
-MODEL_VERSION = "guardian-isolation-forest-v1"
-RULE_VERSION = "guardian-large-amount-rule-v1"
 
 
 def _transaction_value(table: str, row: dict[str, Any]) -> float:
@@ -39,32 +35,7 @@ def run_guardian(user_id: str, db: Any) -> dict:
     if not records:
         return {"agent": "guardian", "status": "no_transactions", "anomaly_count": 0, "alerts": [], "model_version": None}
 
-    values = np.array([value for _table, _row, value in records], dtype=float)
-    flags = np.zeros(len(records), dtype=bool)
-    scores = np.zeros(len(records), dtype=float)
-    reasons = ["" for _ in records]
-    if len(records) >= 20 and np.unique(values).size > 1:
-        features = []
-        for table, row, value in records:
-            tx_date = str(row.get("tx_date") or "1970-01-01")
-            weekday = datetime.fromisoformat(tx_date[:10]).weekday()
-            table_index = TABLES_TO_ANALYZE.index(table)
-            features.append([np.log1p(value), weekday, table_index])
-        model = IsolationForest(n_estimators=200, contamination="auto", random_state=42)
-        predictions = model.fit_predict(np.asarray(features))
-        scores = model.decision_function(np.asarray(features))
-        flags = predictions == -1
-        reasons = ["Isolation Forest outlier across amount, weekday, and asset type" if flag else "" for flag in flags]
-        model_version = MODEL_VERSION
-        mode = "isolation_forest"
-    else:
-        median = float(np.median(values))
-        threshold = max(median * 3, 10_000)
-        flags = values > threshold
-        scores = np.where(flags, -1.0, 0.0)
-        reasons = [f"Transaction value exceeds transparent rule threshold of ₹{threshold:,.0f}" if flag else "" for flag in flags]
-        model_version = RULE_VERSION
-        mode = "rule_based_insufficient_sample"
+    flags, scores, reasons, mode, model_version = detect_anomalies(records)
 
     alerts = []
     detected_at = datetime.now(timezone.utc).isoformat()

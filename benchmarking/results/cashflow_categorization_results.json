@@ -1,101 +1,136 @@
 {
   "component": "cashflow_categorization",
+  "provenance": {
+    "dataset_sha256": "0d2f79b45da955d87aa830e9505f301c5188035f6266703c583178688d82a739",
+    "source_commit": "e112c22a78df7a8f35b6f72f37b84b95ee7b5bcb",
+    "working_tree_dirty": true,
+    "evaluation_scope": "exposed synthetic development set; not independent validation"
+  },
   "total": 200,
-  "correct": 77,
-  "overall_accuracy": 0.385,
+  "correct": 196,
+  "overall_accuracy": 0.98,
   "per_category_metrics": {
     "Food & Dining": {
       "precision": 1.0,
-      "recall": 0.5,
-      "f1": 0.6667,
-      "tp": 13,
+      "recall": 0.8462,
+      "f1": 0.9167,
+      "support": 26,
+      "tp": 22,
       "fp": 0,
-      "fn": 13
+      "fn": 4
     },
     "Groceries": {
-      "precision": 0.0,
-      "recall": 0.0,
-      "f1": 0.0,
-      "tp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 18,
+      "tp": 18,
       "fp": 0,
-      "fn": 18
+      "fn": 0
     },
     "Transport": {
-      "precision": 0.0,
-      "recall": 0.0,
-      "f1": 0.0,
-      "tp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 21,
+      "tp": 21,
       "fp": 0,
-      "fn": 21
+      "fn": 0
     },
     "Shopping": {
       "precision": 1.0,
-      "recall": 0.4783,
-      "f1": 0.6471,
-      "tp": 11,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 23,
+      "tp": 23,
       "fp": 0,
-      "fn": 12
+      "fn": 0
     },
     "Utilities": {
-      "precision": 0.0,
-      "recall": 0.0,
-      "f1": 0.0,
-      "tp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 16,
+      "tp": 16,
       "fp": 0,
-      "fn": 16
+      "fn": 0
     },
     "Entertainment": {
       "precision": 1.0,
-      "recall": 0.6957,
-      "f1": 0.8205,
-      "tp": 16,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 23,
+      "tp": 23,
       "fp": 0,
-      "fn": 7
+      "fn": 0
     },
     "Healthcare": {
-      "precision": 0.0,
-      "recall": 0.0,
-      "f1": 0.0,
-      "tp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 15,
+      "tp": 15,
       "fp": 0,
-      "fn": 15
+      "fn": 0
     },
     "Investment": {
       "precision": 1.0,
-      "recall": 0.4091,
-      "f1": 0.5806,
-      "tp": 9,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 22,
+      "tp": 22,
       "fp": 0,
-      "fn": 13
+      "fn": 0
     },
     "Rent": {
       "precision": 1.0,
       "recall": 1.0,
       "f1": 1.0,
+      "support": 9,
       "tp": 9,
       "fp": 0,
       "fn": 0
     },
     "Salary/Income": {
       "precision": 1.0,
-      "recall": 0.2727,
-      "f1": 0.4286,
-      "tp": 3,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 11,
+      "tp": 11,
       "fp": 0,
-      "fn": 8
+      "fn": 0
     },
     "Transfer": {
-      "precision": 0.1151,
+      "precision": 1.0,
       "recall": 1.0,
-      "f1": 0.2065,
+      "f1": 1.0,
+      "support": 16,
       "tp": 16,
-      "fp": 123,
+      "fp": 0,
+      "fn": 0
+    },
+    "Other": {
+      "precision": 0.0,
+      "recall": null,
+      "f1": null,
+      "support": 0,
+      "tp": 0,
+      "fp": 4,
+      "fn": 0
+    },
+    "EMI": {
+      "precision": null,
+      "recall": null,
+      "f1": null,
+      "support": 0,
+      "tp": 0,
+      "fp": 0,
       "fn": 0
     }
   },
   "confusion_matrix": {
     "Food & Dining": {
-      "Food & Dining": 13,
+      "Food & Dining": 22,
       "Groceries": 0,
       "Transport": 0,
       "Shopping": 0,
@@ -105,11 +140,13 @@
       "Investment": 0,
       "Rent": 0,
       "Salary/Income": 0,
-      "Transfer": 13
+      "Transfer": 0,
+      "Other": 4,
+      "EMI": 0
     },
     "Groceries": {
       "Food & Dining": 0,
-      "Groceries": 0,
+      "Groceries": 18,
       "Transport": 0,
       "Shopping": 0,
       "Utilities": 0,
@@ -118,12 +155,14 @@
       "Investment": 0,
       "Rent": 0,
       "Salary/Income": 0,
-      "Transfer": 18
+      "Transfer": 0,
+      "Other": 0,
+      "EMI": 0
     },
     "Transport": {
       "Food & Dining": 0,
       "Groceries": 0,
-      "Transport": 0,
+      "Transport": 21,
       "Shopping": 0,
       "Utilities": 0,
       "Entertainment": 0,
@@ -131,33 +170,39 @@
       "Investment": 0,
       "Rent": 0,
       "Salary/Income": 0,
-      "Transfer": 21
+      "Transfer": 0,
+      "Other": 0,
+      "EMI": 0
     },
     "Shopping": {
       "Food & Dining": 0,
       "Groceries": 0,
       "Transport": 0,
-      "Shopping": 11,
+      "Shopping": 23,
       "Utilities": 0,
       "Entertainment": 0,
       "Healthcare": 0,
       "Investment": 0,
       "Rent": 0,
       "Salary/Income": 0,
-      "Transfer": 12
+      "Transfer": 0,
+      "Other": 0,
+      "EMI": 0
     },
     "Utilities": {
       "Food & Dining": 0,
       "Groceries": 0,
       "Transport": 0,
       "Shopping": 0,
-      "Utilities": 0,
+      "Utilities": 16,
       "Entertainment": 0,
       "Healthcare": 0,
       "Investment": 0,
       "Rent": 0,
       "Salary/Income": 0,
-      "Transfer": 16
+      "Transfer": 0,
+      "Other": 0,
+      "EMI": 0
     },
     "Entertainment": {
       "Food & Dining": 0,
@@ -165,12 +210,14 @@
       "Transport": 0,
       "Shopping": 0,
       "Utilities": 0,
-      "Entertainment": 16,
+      "Entertainment": 23,
       "Healthcare": 0,
       "Investment": 0,
       "Rent": 0,
       "Salary/Income": 0,
-      "Transfer": 7
+      "Transfer": 0,
+      "Other": 0,
+      "EMI": 0
     },
     "Healthcare": {
       "Food & Dining": 0,
@@ -179,11 +226,13 @@
       "Shopping": 0,
       "Utilities": 0,
       "Entertainment": 0,
-      "Healthcare": 0,
+      "Healthcare": 15,
       "Investment": 0,
       "Rent": 0,
       "Salary/Income": 0,
-      "Transfer": 15
+      "Transfer": 0,
+      "Other": 0,
+      "EMI": 0
     },
     "Investment": {
       "Food & Dining": 0,
@@ -193,10 +242,12 @@
       "Utilities": 0,
       "Entertainment": 0,
       "Healthcare": 0,
-      "Investment": 9,
+      "Investment": 22,
       "Rent": 0,
       "Salary/Income": 0,
-      "Transfer": 13
+      "Transfer": 0,
+      "Other": 0,
+      "EMI": 0
     },
     "Rent": {
       "Food & Dining": 0,
@@ -209,7 +260,9 @@
       "Investment": 0,
       "Rent": 9,
       "Salary/Income": 0,
-      "Transfer": 0
+      "Transfer": 0,
+      "Other": 0,
+      "EMI": 0
     },
     "Salary/Income": {
       "Food & Dining": 0,
@@ -221,8 +274,10 @@
       "Healthcare": 0,
       "Investment": 0,
       "Rent": 0,
-      "Salary/Income": 3,
-      "Transfer": 8
+      "Salary/Income": 11,
+      "Transfer": 0,
+      "Other": 0,
+      "EMI": 0
     },
     "Transfer": {
       "Food & Dining": 0,
@@ -235,992 +290,72 @@
       "Investment": 0,
       "Rent": 0,
       "Salary/Income": 0,
-      "Transfer": 16
+      "Transfer": 16,
+      "Other": 0,
+      "EMI": 0
+    },
+    "Other": {
+      "Food & Dining": 0,
+      "Groceries": 0,
+      "Transport": 0,
+      "Shopping": 0,
+      "Utilities": 0,
+      "Entertainment": 0,
+      "Healthcare": 0,
+      "Investment": 0,
+      "Rent": 0,
+      "Salary/Income": 0,
+      "Transfer": 0,
+      "Other": 0,
+      "EMI": 0
+    },
+    "EMI": {
+      "Food & Dining": 0,
+      "Groceries": 0,
+      "Transport": 0,
+      "Shopping": 0,
+      "Utilities": 0,
+      "Entertainment": 0,
+      "Healthcare": 0,
+      "Investment": 0,
+      "Rent": 0,
+      "Salary/Income": 0,
+      "Transfer": 0,
+      "Other": 0,
+      "EMI": 0
     }
   },
   "failures": [
     {
-      "transaction_id": "CF0003",
-      "raw_description": "RELIANCE FRESH",
-      "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0004",
-      "raw_description": "UBER TRIP BLR",
-      "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0005",
-      "raw_description": "AJIO FASHION",
-      "correct_category": "Shopping",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0006",
-      "raw_description": "MORE SUPERMARKET",
-      "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0007",
-      "raw_description": "MORE SUPERMARKET",
-      "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0008",
-      "raw_description": "PRACTO CONSULTATION",
-      "correct_category": "Healthcare",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0010",
-      "raw_description": "FREELANCE PAYMENT RECEIVED",
-      "correct_category": "Salary/Income",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0011",
-      "raw_description": "BIGBASKET GROCERY",
-      "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0012",
-      "raw_description": "AJIO FASHION",
-      "correct_category": "Shopping",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0013",
-      "raw_description": "ZEPTO GROCERY",
-      "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0015",
-      "raw_description": "APOLLO PHARMACY",
-      "correct_category": "Healthcare",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0016",
-      "raw_description": "UBER TRIP BLR",
-      "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0017",
-      "raw_description": "LIC PREMIUM",
-      "correct_category": "Investment",
-      "predicted_category_raw": "EMI",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0019",
-      "raw_description": "METRO CARD RECHARGE",
-      "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0020",
-      "raw_description": "UBER TRIP BLR",
-      "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0025",
-      "raw_description": "NPS CONTRIBUTION",
-      "correct_category": "Investment",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0028",
-      "raw_description": "APOLLO PHARMACY",
-      "correct_category": "Healthcare",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0030",
-      "raw_description": "AJIO FASHION",
-      "correct_category": "Shopping",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0031",
-      "raw_description": "CCD COFFEE DAY",
+      "transaction_id": "CF0009",
+      "raw_description": "DOMINOS PIZZA",
       "correct_category": "Food & Dining",
       "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
+      "predicted_category": "Other",
       "correct": false
     },
     {
-      "transaction_id": "CF0032",
-      "raw_description": "FREELANCE PAYMENT RECEIVED",
-      "correct_category": "Salary/Income",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0033",
-      "raw_description": "BESCOM ELECTRICITY",
-      "correct_category": "Utilities",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0036",
-      "raw_description": "BIGBASKET GROCERY",
-      "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0037",
-      "raw_description": "STARBUCKS COFFEE",
+      "transaction_id": "CF0029",
+      "raw_description": "DOMINOS PIZZA",
       "correct_category": "Food & Dining",
       "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
+      "predicted_category": "Other",
       "correct": false
     },
     {
-      "transaction_id": "CF0040",
-      "raw_description": "WATER BOARD BILL",
-      "correct_category": "Utilities",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0041",
-      "raw_description": "WATER BOARD BILL",
-      "correct_category": "Utilities",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0046",
-      "raw_description": "MCDONALDS",
+      "transaction_id": "CF0045",
+      "raw_description": "DOMINOS PIZZA",
       "correct_category": "Food & Dining",
       "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
+      "predicted_category": "Other",
       "correct": false
     },
     {
-      "transaction_id": "CF0047",
-      "raw_description": "AJIO FASHION",
-      "correct_category": "Shopping",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0048",
-      "raw_description": "BIGBASKET GROCERY",
-      "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0049",
-      "raw_description": "ZEPTO GROCERY",
-      "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0050",
-      "raw_description": "ZEPTO GROCERY",
-      "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0051",
-      "raw_description": "LIC PREMIUM",
-      "correct_category": "Investment",
-      "predicted_category_raw": "EMI",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0052",
-      "raw_description": "CCD COFFEE DAY",
+      "transaction_id": "CF0100",
+      "raw_description": "DOMINOS PIZZA",
       "correct_category": "Food & Dining",
       "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0055",
-      "raw_description": "NPS CONTRIBUTION",
-      "correct_category": "Investment",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0056",
-      "raw_description": "ZEPTO GROCERY",
-      "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0057",
-      "raw_description": "BESCOM ELECTRICITY",
-      "correct_category": "Utilities",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0058",
-      "raw_description": "OLA CABS",
-      "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0059",
-      "raw_description": "LIC PREMIUM",
-      "correct_category": "Investment",
-      "predicted_category_raw": "EMI",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0060",
-      "raw_description": "MEDPLUS PHARMACY",
-      "correct_category": "Healthcare",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0062",
-      "raw_description": "BIGBASKET GROCERY",
-      "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0064",
-      "raw_description": "APOLLO PHARMACY",
-      "correct_category": "Healthcare",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0065",
-      "raw_description": "JIO FIBER BILL",
-      "correct_category": "Utilities",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0066",
-      "raw_description": "CCD COFFEE DAY",
-      "correct_category": "Food & Dining",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0067",
-      "raw_description": "FREELANCE PAYMENT RECEIVED",
-      "correct_category": "Salary/Income",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0071",
-      "raw_description": "CCD COFFEE DAY",
-      "correct_category": "Food & Dining",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0072",
-      "raw_description": "DMART RETAIL",
-      "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0073",
-      "raw_description": "GAS AGENCY PAYMENT",
-      "correct_category": "Utilities",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0074",
-      "raw_description": "FREELANCE PAYMENT RECEIVED",
-      "correct_category": "Salary/Income",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0076",
-      "raw_description": "UBER TRIP BLR",
-      "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0077",
-      "raw_description": "WATER BOARD BILL",
-      "correct_category": "Utilities",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0078",
-      "raw_description": "SPOTIFY PREMIUM",
-      "correct_category": "Entertainment",
-      "predicted_category_raw": "EMI",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0079",
-      "raw_description": "SPOTIFY PREMIUM",
-      "correct_category": "Entertainment",
-      "predicted_category_raw": "EMI",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0080",
-      "raw_description": "METRO CARD RECHARGE",
-      "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0083",
-      "raw_description": "FREELANCE PAYMENT RECEIVED",
-      "correct_category": "Salary/Income",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0084",
-      "raw_description": "MEDPLUS PHARMACY",
-      "correct_category": "Healthcare",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0085",
-      "raw_description": "PPF DEPOSIT",
-      "correct_category": "Investment",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0086",
-      "raw_description": "STARBUCKS COFFEE",
-      "correct_category": "Food & Dining",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0087",
-      "raw_description": "PRACTO CONSULTATION",
-      "correct_category": "Healthcare",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0088",
-      "raw_description": "MEDPLUS PHARMACY",
-      "correct_category": "Healthcare",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0090",
-      "raw_description": "INDIAN OIL FUEL",
-      "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0091",
-      "raw_description": "CCD COFFEE DAY",
-      "correct_category": "Food & Dining",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0093",
-      "raw_description": "DMART RETAIL",
-      "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0094",
-      "raw_description": "SPOTIFY PREMIUM",
-      "correct_category": "Entertainment",
-      "predicted_category_raw": "EMI",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0095",
-      "raw_description": "ZEPTO GROCERY",
-      "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0096",
-      "raw_description": "OLA CABS",
-      "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0099",
-      "raw_description": "NPS CONTRIBUTION",
-      "correct_category": "Investment",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0101",
-      "raw_description": "LIC PREMIUM",
-      "correct_category": "Investment",
-      "predicted_category_raw": "EMI",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0102",
-      "raw_description": "AJIO FASHION",
-      "correct_category": "Shopping",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0103",
-      "raw_description": "PRACTO CONSULTATION",
-      "correct_category": "Healthcare",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0107",
-      "raw_description": "MORE SUPERMARKET",
-      "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0108",
-      "raw_description": "PPF DEPOSIT",
-      "correct_category": "Investment",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0109",
-      "raw_description": "BIGBASKET GROCERY",
-      "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0112",
-      "raw_description": "AIRTEL POSTPAID",
-      "correct_category": "Utilities",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0114",
-      "raw_description": "APOLLO PHARMACY",
-      "correct_category": "Healthcare",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0119",
-      "raw_description": "BESCOM ELECTRICITY",
-      "correct_category": "Utilities",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0120",
-      "raw_description": "STARBUCKS COFFEE",
-      "correct_category": "Food & Dining",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0123",
-      "raw_description": "DECATHLON SPORTS",
-      "correct_category": "Shopping",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0124",
-      "raw_description": "APOLLO PHARMACY",
-      "correct_category": "Healthcare",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0126",
-      "raw_description": "RELIANCE FRESH",
-      "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0127",
-      "raw_description": "SPOTIFY PREMIUM",
-      "correct_category": "Entertainment",
-      "predicted_category_raw": "EMI",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0128",
-      "raw_description": "AJIO FASHION",
-      "correct_category": "Shopping",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0130",
-      "raw_description": "CCD COFFEE DAY",
-      "correct_category": "Food & Dining",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0131",
-      "raw_description": "IRCTC RAILWAY",
-      "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0133",
-      "raw_description": "PRACTO CONSULTATION",
-      "correct_category": "Healthcare",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0134",
-      "raw_description": "STARBUCKS COFFEE",
-      "correct_category": "Food & Dining",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0135",
-      "raw_description": "ZEPTO GROCERY",
-      "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0137",
-      "raw_description": "PRACTO CONSULTATION",
-      "correct_category": "Healthcare",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0139",
-      "raw_description": "OLA CABS",
-      "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0140",
-      "raw_description": "INDIAN OIL FUEL",
-      "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0141",
-      "raw_description": "STARBUCKS COFFEE",
-      "correct_category": "Food & Dining",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0143",
-      "raw_description": "BOOKMYSHOW TICKET",
-      "correct_category": "Entertainment",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0146",
-      "raw_description": "APOLLO PHARMACY",
-      "correct_category": "Healthcare",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0147",
-      "raw_description": "UBER TRIP BLR",
-      "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0149",
-      "raw_description": "AIRTEL POSTPAID",
-      "correct_category": "Utilities",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0152",
-      "raw_description": "WATER BOARD BILL",
-      "correct_category": "Utilities",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0154",
-      "raw_description": "IRCTC RAILWAY",
-      "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0156",
-      "raw_description": "IRCTC RAILWAY",
-      "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0161",
-      "raw_description": "NPS CONTRIBUTION",
-      "correct_category": "Investment",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0162",
-      "raw_description": "DECATHLON SPORTS",
-      "correct_category": "Shopping",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0164",
-      "raw_description": "WATER BOARD BILL",
-      "correct_category": "Utilities",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0165",
-      "raw_description": "BOOKMYSHOW TICKET",
-      "correct_category": "Entertainment",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0166",
-      "raw_description": "BOOKMYSHOW TICKET",
-      "correct_category": "Entertainment",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0167",
-      "raw_description": "PRACTO CONSULTATION",
-      "correct_category": "Healthcare",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0168",
-      "raw_description": "GAS AGENCY PAYMENT",
-      "correct_category": "Utilities",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0170",
-      "raw_description": "FREELANCE PAYMENT RECEIVED",
-      "correct_category": "Salary/Income",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0171",
-      "raw_description": "JIO FIBER BILL",
-      "correct_category": "Utilities",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0172",
-      "raw_description": "NPS CONTRIBUTION",
-      "correct_category": "Investment",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0173",
-      "raw_description": "DECATHLON SPORTS",
-      "correct_category": "Shopping",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0178",
-      "raw_description": "OLA CABS",
-      "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0179",
-      "raw_description": "INDIAN OIL FUEL",
-      "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0180",
-      "raw_description": "NPS CONTRIBUTION",
-      "correct_category": "Investment",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0181",
-      "raw_description": "AJIO FASHION",
-      "correct_category": "Shopping",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0185",
-      "raw_description": "MCDONALDS",
-      "correct_category": "Food & Dining",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0187",
-      "raw_description": "BESCOM ELECTRICITY",
-      "correct_category": "Utilities",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0188",
-      "raw_description": "METRO CARD RECHARGE",
-      "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0190",
-      "raw_description": "FREELANCE PAYMENT RECEIVED",
-      "correct_category": "Salary/Income",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0191",
-      "raw_description": "DECATHLON SPORTS",
-      "correct_category": "Shopping",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0192",
-      "raw_description": "FREELANCE PAYMENT RECEIVED",
-      "correct_category": "Salary/Income",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0193",
-      "raw_description": "UBER TRIP BLR",
-      "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0196",
-      "raw_description": "LIC PREMIUM",
-      "correct_category": "Investment",
-      "predicted_category_raw": "EMI",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0197",
-      "raw_description": "UBER TRIP BLR",
-      "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0198",
-      "raw_description": "BESCOM ELECTRICITY",
-      "correct_category": "Utilities",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0199",
-      "raw_description": "METRO CARD RECHARGE",
-      "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0200",
-      "raw_description": "DECATHLON SPORTS",
-      "correct_category": "Shopping",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
+      "predicted_category": "Other",
       "correct": false
     }
   ],
@@ -1245,89 +380,89 @@
       "transaction_id": "CF0003",
       "raw_description": "RELIANCE FRESH",
       "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Groceries",
+      "predicted_category": "Groceries",
+      "correct": true
     },
     {
       "transaction_id": "CF0004",
       "raw_description": "UBER TRIP BLR",
       "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Transport",
+      "predicted_category": "Transport",
+      "correct": true
     },
     {
       "transaction_id": "CF0005",
       "raw_description": "AJIO FASHION",
       "correct_category": "Shopping",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Shopping",
+      "predicted_category": "Shopping",
+      "correct": true
     },
     {
       "transaction_id": "CF0006",
       "raw_description": "MORE SUPERMARKET",
       "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Groceries",
+      "predicted_category": "Groceries",
+      "correct": true
     },
     {
       "transaction_id": "CF0007",
       "raw_description": "MORE SUPERMARKET",
       "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Groceries",
+      "predicted_category": "Groceries",
+      "correct": true
     },
     {
       "transaction_id": "CF0008",
       "raw_description": "PRACTO CONSULTATION",
       "correct_category": "Healthcare",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Healthcare",
+      "predicted_category": "Healthcare",
+      "correct": true
     },
     {
       "transaction_id": "CF0009",
       "raw_description": "DOMINOS PIZZA",
       "correct_category": "Food & Dining",
-      "predicted_category_raw": "Food",
-      "predicted_category": "Food & Dining",
-      "correct": true
+      "predicted_category_raw": "Other",
+      "predicted_category": "Other",
+      "correct": false
     },
     {
       "transaction_id": "CF0010",
       "raw_description": "FREELANCE PAYMENT RECEIVED",
       "correct_category": "Salary/Income",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Salary",
+      "predicted_category": "Salary/Income",
+      "correct": true
     },
     {
       "transaction_id": "CF0011",
       "raw_description": "BIGBASKET GROCERY",
       "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Groceries",
+      "predicted_category": "Groceries",
+      "correct": true
     },
     {
       "transaction_id": "CF0012",
       "raw_description": "AJIO FASHION",
       "correct_category": "Shopping",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Shopping",
+      "predicted_category": "Shopping",
+      "correct": true
     },
     {
       "transaction_id": "CF0013",
       "raw_description": "ZEPTO GROCERY",
       "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Groceries",
+      "predicted_category": "Groceries",
+      "correct": true
     },
     {
       "transaction_id": "CF0014",
@@ -1341,25 +476,25 @@
       "transaction_id": "CF0015",
       "raw_description": "APOLLO PHARMACY",
       "correct_category": "Healthcare",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Healthcare",
+      "predicted_category": "Healthcare",
+      "correct": true
     },
     {
       "transaction_id": "CF0016",
       "raw_description": "UBER TRIP BLR",
       "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Transport",
+      "predicted_category": "Transport",
+      "correct": true
     },
     {
       "transaction_id": "CF0017",
       "raw_description": "LIC PREMIUM",
       "correct_category": "Investment",
-      "predicted_category_raw": "EMI",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Investment",
+      "predicted_category": "Investment",
+      "correct": true
     },
     {
       "transaction_id": "CF0018",
@@ -1373,23 +508,23 @@
       "transaction_id": "CF0019",
       "raw_description": "METRO CARD RECHARGE",
       "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Transport",
+      "predicted_category": "Transport",
+      "correct": true
     },
     {
       "transaction_id": "CF0020",
       "raw_description": "UBER TRIP BLR",
       "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Transport",
+      "predicted_category": "Transport",
+      "correct": true
     },
     {
       "transaction_id": "CF0021",
       "raw_description": "UPI TRANSFER TO FRIEND",
       "correct_category": "Transfer",
-      "predicted_category_raw": "Other",
+      "predicted_category_raw": "Transfer",
       "predicted_category": "Transfer",
       "correct": true
     },
@@ -1421,9 +556,9 @@
       "transaction_id": "CF0025",
       "raw_description": "NPS CONTRIBUTION",
       "correct_category": "Investment",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Investment",
+      "predicted_category": "Investment",
+      "correct": true
     },
     {
       "transaction_id": "CF0026",
@@ -1445,49 +580,49 @@
       "transaction_id": "CF0028",
       "raw_description": "APOLLO PHARMACY",
       "correct_category": "Healthcare",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Healthcare",
+      "predicted_category": "Healthcare",
+      "correct": true
     },
     {
       "transaction_id": "CF0029",
       "raw_description": "DOMINOS PIZZA",
+      "correct_category": "Food & Dining",
+      "predicted_category_raw": "Other",
+      "predicted_category": "Other",
+      "correct": false
+    },
+    {
+      "transaction_id": "CF0030",
+      "raw_description": "AJIO FASHION",
+      "correct_category": "Shopping",
+      "predicted_category_raw": "Shopping",
+      "predicted_category": "Shopping",
+      "correct": true
+    },
+    {
+      "transaction_id": "CF0031",
+      "raw_description": "CCD COFFEE DAY",
       "correct_category": "Food & Dining",
       "predicted_category_raw": "Food",
       "predicted_category": "Food & Dining",
       "correct": true
     },
     {
-      "transaction_id": "CF0030",
-      "raw_description": "AJIO FASHION",
-      "correct_category": "Shopping",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
-      "transaction_id": "CF0031",
-      "raw_description": "CCD COFFEE DAY",
-      "correct_category": "Food & Dining",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
-    },
-    {
       "transaction_id": "CF0032",
       "raw_description": "FREELANCE PAYMENT RECEIVED",
       "correct_category": "Salary/Income",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Salary",
+      "predicted_category": "Salary/Income",
+      "correct": true
     },
     {
       "transaction_id": "CF0033",
       "raw_description": "BESCOM ELECTRICITY",
       "correct_category": "Utilities",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Utilities",
+      "predicted_category": "Utilities",
+      "correct": true
     },
     {
       "transaction_id": "CF0034",
@@ -1501,7 +636,7 @@
       "transaction_id": "CF0035",
       "raw_description": "UPI TRANSFER TO FRIEND",
       "correct_category": "Transfer",
-      "predicted_category_raw": "Other",
+      "predicted_category_raw": "Transfer",
       "predicted_category": "Transfer",
       "correct": true
     },
@@ -1509,17 +644,17 @@
       "transaction_id": "CF0036",
       "raw_description": "BIGBASKET GROCERY",
       "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Groceries",
+      "predicted_category": "Groceries",
+      "correct": true
     },
     {
       "transaction_id": "CF0037",
       "raw_description": "STARBUCKS COFFEE",
       "correct_category": "Food & Dining",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Food",
+      "predicted_category": "Food & Dining",
+      "correct": true
     },
     {
       "transaction_id": "CF0038",
@@ -1541,17 +676,17 @@
       "transaction_id": "CF0040",
       "raw_description": "WATER BOARD BILL",
       "correct_category": "Utilities",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Utilities",
+      "predicted_category": "Utilities",
+      "correct": true
     },
     {
       "transaction_id": "CF0041",
       "raw_description": "WATER BOARD BILL",
       "correct_category": "Utilities",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Utilities",
+      "predicted_category": "Utilities",
+      "correct": true
     },
     {
       "transaction_id": "CF0042",
@@ -1573,7 +708,7 @@
       "transaction_id": "CF0044",
       "raw_description": "NEFT TRANSFER OUT",
       "correct_category": "Transfer",
-      "predicted_category_raw": "Other",
+      "predicted_category_raw": "Transfer",
       "predicted_category": "Transfer",
       "correct": true
     },
@@ -1581,65 +716,65 @@
       "transaction_id": "CF0045",
       "raw_description": "DOMINOS PIZZA",
       "correct_category": "Food & Dining",
-      "predicted_category_raw": "Food",
-      "predicted_category": "Food & Dining",
-      "correct": true
+      "predicted_category_raw": "Other",
+      "predicted_category": "Other",
+      "correct": false
     },
     {
       "transaction_id": "CF0046",
       "raw_description": "MCDONALDS",
       "correct_category": "Food & Dining",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Food",
+      "predicted_category": "Food & Dining",
+      "correct": true
     },
     {
       "transaction_id": "CF0047",
       "raw_description": "AJIO FASHION",
       "correct_category": "Shopping",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Shopping",
+      "predicted_category": "Shopping",
+      "correct": true
     },
     {
       "transaction_id": "CF0048",
       "raw_description": "BIGBASKET GROCERY",
       "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Groceries",
+      "predicted_category": "Groceries",
+      "correct": true
     },
     {
       "transaction_id": "CF0049",
       "raw_description": "ZEPTO GROCERY",
       "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Groceries",
+      "predicted_category": "Groceries",
+      "correct": true
     },
     {
       "transaction_id": "CF0050",
       "raw_description": "ZEPTO GROCERY",
       "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Groceries",
+      "predicted_category": "Groceries",
+      "correct": true
     },
     {
       "transaction_id": "CF0051",
       "raw_description": "LIC PREMIUM",
       "correct_category": "Investment",
-      "predicted_category_raw": "EMI",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Investment",
+      "predicted_category": "Investment",
+      "correct": true
     },
     {
       "transaction_id": "CF0052",
       "raw_description": "CCD COFFEE DAY",
       "correct_category": "Food & Dining",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Food",
+      "predicted_category": "Food & Dining",
+      "correct": true
     },
     {
       "transaction_id": "CF0053",
@@ -1653,7 +788,7 @@
       "transaction_id": "CF0054",
       "raw_description": "IMPS TRANSFER",
       "correct_category": "Transfer",
-      "predicted_category_raw": "Other",
+      "predicted_category_raw": "Transfer",
       "predicted_category": "Transfer",
       "correct": true
     },
@@ -1661,49 +796,49 @@
       "transaction_id": "CF0055",
       "raw_description": "NPS CONTRIBUTION",
       "correct_category": "Investment",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Investment",
+      "predicted_category": "Investment",
+      "correct": true
     },
     {
       "transaction_id": "CF0056",
       "raw_description": "ZEPTO GROCERY",
       "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Groceries",
+      "predicted_category": "Groceries",
+      "correct": true
     },
     {
       "transaction_id": "CF0057",
       "raw_description": "BESCOM ELECTRICITY",
       "correct_category": "Utilities",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Utilities",
+      "predicted_category": "Utilities",
+      "correct": true
     },
     {
       "transaction_id": "CF0058",
       "raw_description": "OLA CABS",
       "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Transport",
+      "predicted_category": "Transport",
+      "correct": true
     },
     {
       "transaction_id": "CF0059",
       "raw_description": "LIC PREMIUM",
       "correct_category": "Investment",
-      "predicted_category_raw": "EMI",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Investment",
+      "predicted_category": "Investment",
+      "correct": true
     },
     {
       "transaction_id": "CF0060",
       "raw_description": "MEDPLUS PHARMACY",
       "correct_category": "Healthcare",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Healthcare",
+      "predicted_category": "Healthcare",
+      "correct": true
     },
     {
       "transaction_id": "CF0061",
@@ -1717,9 +852,9 @@
       "transaction_id": "CF0062",
       "raw_description": "BIGBASKET GROCERY",
       "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Groceries",
+      "predicted_category": "Groceries",
+      "correct": true
     },
     {
       "transaction_id": "CF0063",
@@ -1733,33 +868,33 @@
       "transaction_id": "CF0064",
       "raw_description": "APOLLO PHARMACY",
       "correct_category": "Healthcare",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Healthcare",
+      "predicted_category": "Healthcare",
+      "correct": true
     },
     {
       "transaction_id": "CF0065",
       "raw_description": "JIO FIBER BILL",
       "correct_category": "Utilities",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Utilities",
+      "predicted_category": "Utilities",
+      "correct": true
     },
     {
       "transaction_id": "CF0066",
       "raw_description": "CCD COFFEE DAY",
       "correct_category": "Food & Dining",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Food",
+      "predicted_category": "Food & Dining",
+      "correct": true
     },
     {
       "transaction_id": "CF0067",
       "raw_description": "FREELANCE PAYMENT RECEIVED",
       "correct_category": "Salary/Income",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Salary",
+      "predicted_category": "Salary/Income",
+      "correct": true
     },
     {
       "transaction_id": "CF0068",
@@ -1789,33 +924,33 @@
       "transaction_id": "CF0071",
       "raw_description": "CCD COFFEE DAY",
       "correct_category": "Food & Dining",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Food",
+      "predicted_category": "Food & Dining",
+      "correct": true
     },
     {
       "transaction_id": "CF0072",
       "raw_description": "DMART RETAIL",
       "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Groceries",
+      "predicted_category": "Groceries",
+      "correct": true
     },
     {
       "transaction_id": "CF0073",
       "raw_description": "GAS AGENCY PAYMENT",
       "correct_category": "Utilities",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Utilities",
+      "predicted_category": "Utilities",
+      "correct": true
     },
     {
       "transaction_id": "CF0074",
       "raw_description": "FREELANCE PAYMENT RECEIVED",
       "correct_category": "Salary/Income",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Salary",
+      "predicted_category": "Salary/Income",
+      "correct": true
     },
     {
       "transaction_id": "CF0075",
@@ -1829,41 +964,41 @@
       "transaction_id": "CF0076",
       "raw_description": "UBER TRIP BLR",
       "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Transport",
+      "predicted_category": "Transport",
+      "correct": true
     },
     {
       "transaction_id": "CF0077",
       "raw_description": "WATER BOARD BILL",
       "correct_category": "Utilities",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Utilities",
+      "predicted_category": "Utilities",
+      "correct": true
     },
     {
       "transaction_id": "CF0078",
       "raw_description": "SPOTIFY PREMIUM",
       "correct_category": "Entertainment",
-      "predicted_category_raw": "EMI",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Entertainment",
+      "predicted_category": "Entertainment",
+      "correct": true
     },
     {
       "transaction_id": "CF0079",
       "raw_description": "SPOTIFY PREMIUM",
       "correct_category": "Entertainment",
-      "predicted_category_raw": "EMI",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Entertainment",
+      "predicted_category": "Entertainment",
+      "correct": true
     },
     {
       "transaction_id": "CF0080",
       "raw_description": "METRO CARD RECHARGE",
       "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Transport",
+      "predicted_category": "Transport",
+      "correct": true
     },
     {
       "transaction_id": "CF0081",
@@ -1877,7 +1012,7 @@
       "transaction_id": "CF0082",
       "raw_description": "UPI TRANSFER TO FRIEND",
       "correct_category": "Transfer",
-      "predicted_category_raw": "Other",
+      "predicted_category_raw": "Transfer",
       "predicted_category": "Transfer",
       "correct": true
     },
@@ -1885,49 +1020,49 @@
       "transaction_id": "CF0083",
       "raw_description": "FREELANCE PAYMENT RECEIVED",
       "correct_category": "Salary/Income",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Salary",
+      "predicted_category": "Salary/Income",
+      "correct": true
     },
     {
       "transaction_id": "CF0084",
       "raw_description": "MEDPLUS PHARMACY",
       "correct_category": "Healthcare",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Healthcare",
+      "predicted_category": "Healthcare",
+      "correct": true
     },
     {
       "transaction_id": "CF0085",
       "raw_description": "PPF DEPOSIT",
       "correct_category": "Investment",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Investment",
+      "predicted_category": "Investment",
+      "correct": true
     },
     {
       "transaction_id": "CF0086",
       "raw_description": "STARBUCKS COFFEE",
       "correct_category": "Food & Dining",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Food",
+      "predicted_category": "Food & Dining",
+      "correct": true
     },
     {
       "transaction_id": "CF0087",
       "raw_description": "PRACTO CONSULTATION",
       "correct_category": "Healthcare",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Healthcare",
+      "predicted_category": "Healthcare",
+      "correct": true
     },
     {
       "transaction_id": "CF0088",
       "raw_description": "MEDPLUS PHARMACY",
       "correct_category": "Healthcare",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Healthcare",
+      "predicted_category": "Healthcare",
+      "correct": true
     },
     {
       "transaction_id": "CF0089",
@@ -1941,23 +1076,23 @@
       "transaction_id": "CF0090",
       "raw_description": "INDIAN OIL FUEL",
       "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Transport",
+      "predicted_category": "Transport",
+      "correct": true
     },
     {
       "transaction_id": "CF0091",
       "raw_description": "CCD COFFEE DAY",
       "correct_category": "Food & Dining",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Food",
+      "predicted_category": "Food & Dining",
+      "correct": true
     },
     {
       "transaction_id": "CF0092",
       "raw_description": "IMPS TRANSFER",
       "correct_category": "Transfer",
-      "predicted_category_raw": "Other",
+      "predicted_category_raw": "Transfer",
       "predicted_category": "Transfer",
       "correct": true
     },
@@ -1965,33 +1100,33 @@
       "transaction_id": "CF0093",
       "raw_description": "DMART RETAIL",
       "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Groceries",
+      "predicted_category": "Groceries",
+      "correct": true
     },
     {
       "transaction_id": "CF0094",
       "raw_description": "SPOTIFY PREMIUM",
       "correct_category": "Entertainment",
-      "predicted_category_raw": "EMI",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Entertainment",
+      "predicted_category": "Entertainment",
+      "correct": true
     },
     {
       "transaction_id": "CF0095",
       "raw_description": "ZEPTO GROCERY",
       "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Groceries",
+      "predicted_category": "Groceries",
+      "correct": true
     },
     {
       "transaction_id": "CF0096",
       "raw_description": "OLA CABS",
       "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Transport",
+      "predicted_category": "Transport",
+      "correct": true
     },
     {
       "transaction_id": "CF0097",
@@ -2005,7 +1140,7 @@
       "transaction_id": "CF0098",
       "raw_description": "NEFT TRANSFER OUT",
       "correct_category": "Transfer",
-      "predicted_category_raw": "Other",
+      "predicted_category_raw": "Transfer",
       "predicted_category": "Transfer",
       "correct": true
     },
@@ -2013,41 +1148,41 @@
       "transaction_id": "CF0099",
       "raw_description": "NPS CONTRIBUTION",
       "correct_category": "Investment",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Investment",
+      "predicted_category": "Investment",
+      "correct": true
     },
     {
       "transaction_id": "CF0100",
       "raw_description": "DOMINOS PIZZA",
       "correct_category": "Food & Dining",
-      "predicted_category_raw": "Food",
-      "predicted_category": "Food & Dining",
-      "correct": true
+      "predicted_category_raw": "Other",
+      "predicted_category": "Other",
+      "correct": false
     },
     {
       "transaction_id": "CF0101",
       "raw_description": "LIC PREMIUM",
       "correct_category": "Investment",
-      "predicted_category_raw": "EMI",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Investment",
+      "predicted_category": "Investment",
+      "correct": true
     },
     {
       "transaction_id": "CF0102",
       "raw_description": "AJIO FASHION",
       "correct_category": "Shopping",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Shopping",
+      "predicted_category": "Shopping",
+      "correct": true
     },
     {
       "transaction_id": "CF0103",
       "raw_description": "PRACTO CONSULTATION",
       "correct_category": "Healthcare",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Healthcare",
+      "predicted_category": "Healthcare",
+      "correct": true
     },
     {
       "transaction_id": "CF0104",
@@ -2077,25 +1212,25 @@
       "transaction_id": "CF0107",
       "raw_description": "MORE SUPERMARKET",
       "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Groceries",
+      "predicted_category": "Groceries",
+      "correct": true
     },
     {
       "transaction_id": "CF0108",
       "raw_description": "PPF DEPOSIT",
       "correct_category": "Investment",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Investment",
+      "predicted_category": "Investment",
+      "correct": true
     },
     {
       "transaction_id": "CF0109",
       "raw_description": "BIGBASKET GROCERY",
       "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Groceries",
+      "predicted_category": "Groceries",
+      "correct": true
     },
     {
       "transaction_id": "CF0110",
@@ -2117,9 +1252,9 @@
       "transaction_id": "CF0112",
       "raw_description": "AIRTEL POSTPAID",
       "correct_category": "Utilities",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Utilities",
+      "predicted_category": "Utilities",
+      "correct": true
     },
     {
       "transaction_id": "CF0113",
@@ -2133,9 +1268,9 @@
       "transaction_id": "CF0114",
       "raw_description": "APOLLO PHARMACY",
       "correct_category": "Healthcare",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Healthcare",
+      "predicted_category": "Healthcare",
+      "correct": true
     },
     {
       "transaction_id": "CF0115",
@@ -2165,7 +1300,7 @@
       "transaction_id": "CF0118",
       "raw_description": "UPI TRANSFER TO FRIEND",
       "correct_category": "Transfer",
-      "predicted_category_raw": "Other",
+      "predicted_category_raw": "Transfer",
       "predicted_category": "Transfer",
       "correct": true
     },
@@ -2173,17 +1308,17 @@
       "transaction_id": "CF0119",
       "raw_description": "BESCOM ELECTRICITY",
       "correct_category": "Utilities",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Utilities",
+      "predicted_category": "Utilities",
+      "correct": true
     },
     {
       "transaction_id": "CF0120",
       "raw_description": "STARBUCKS COFFEE",
       "correct_category": "Food & Dining",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Food",
+      "predicted_category": "Food & Dining",
+      "correct": true
     },
     {
       "transaction_id": "CF0121",
@@ -2205,23 +1340,23 @@
       "transaction_id": "CF0123",
       "raw_description": "DECATHLON SPORTS",
       "correct_category": "Shopping",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Shopping",
+      "predicted_category": "Shopping",
+      "correct": true
     },
     {
       "transaction_id": "CF0124",
       "raw_description": "APOLLO PHARMACY",
       "correct_category": "Healthcare",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Healthcare",
+      "predicted_category": "Healthcare",
+      "correct": true
     },
     {
       "transaction_id": "CF0125",
       "raw_description": "NEFT TRANSFER OUT",
       "correct_category": "Transfer",
-      "predicted_category_raw": "Other",
+      "predicted_category_raw": "Transfer",
       "predicted_category": "Transfer",
       "correct": true
     },
@@ -2229,25 +1364,25 @@
       "transaction_id": "CF0126",
       "raw_description": "RELIANCE FRESH",
       "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Groceries",
+      "predicted_category": "Groceries",
+      "correct": true
     },
     {
       "transaction_id": "CF0127",
       "raw_description": "SPOTIFY PREMIUM",
       "correct_category": "Entertainment",
-      "predicted_category_raw": "EMI",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Entertainment",
+      "predicted_category": "Entertainment",
+      "correct": true
     },
     {
       "transaction_id": "CF0128",
       "raw_description": "AJIO FASHION",
       "correct_category": "Shopping",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Shopping",
+      "predicted_category": "Shopping",
+      "correct": true
     },
     {
       "transaction_id": "CF0129",
@@ -2261,17 +1396,17 @@
       "transaction_id": "CF0130",
       "raw_description": "CCD COFFEE DAY",
       "correct_category": "Food & Dining",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Food",
+      "predicted_category": "Food & Dining",
+      "correct": true
     },
     {
       "transaction_id": "CF0131",
       "raw_description": "IRCTC RAILWAY",
       "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Transport",
+      "predicted_category": "Transport",
+      "correct": true
     },
     {
       "transaction_id": "CF0132",
@@ -2285,31 +1420,31 @@
       "transaction_id": "CF0133",
       "raw_description": "PRACTO CONSULTATION",
       "correct_category": "Healthcare",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Healthcare",
+      "predicted_category": "Healthcare",
+      "correct": true
     },
     {
       "transaction_id": "CF0134",
       "raw_description": "STARBUCKS COFFEE",
       "correct_category": "Food & Dining",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Food",
+      "predicted_category": "Food & Dining",
+      "correct": true
     },
     {
       "transaction_id": "CF0135",
       "raw_description": "ZEPTO GROCERY",
       "correct_category": "Groceries",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Groceries",
+      "predicted_category": "Groceries",
+      "correct": true
     },
     {
       "transaction_id": "CF0136",
       "raw_description": "IMPS TRANSFER",
       "correct_category": "Transfer",
-      "predicted_category_raw": "Other",
+      "predicted_category_raw": "Transfer",
       "predicted_category": "Transfer",
       "correct": true
     },
@@ -2317,9 +1452,9 @@
       "transaction_id": "CF0137",
       "raw_description": "PRACTO CONSULTATION",
       "correct_category": "Healthcare",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Healthcare",
+      "predicted_category": "Healthcare",
+      "correct": true
     },
     {
       "transaction_id": "CF0138",
@@ -2333,31 +1468,31 @@
       "transaction_id": "CF0139",
       "raw_description": "OLA CABS",
       "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Transport",
+      "predicted_category": "Transport",
+      "correct": true
     },
     {
       "transaction_id": "CF0140",
       "raw_description": "INDIAN OIL FUEL",
       "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Transport",
+      "predicted_category": "Transport",
+      "correct": true
     },
     {
       "transaction_id": "CF0141",
       "raw_description": "STARBUCKS COFFEE",
       "correct_category": "Food & Dining",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Food",
+      "predicted_category": "Food & Dining",
+      "correct": true
     },
     {
       "transaction_id": "CF0142",
       "raw_description": "IMPS TRANSFER",
       "correct_category": "Transfer",
-      "predicted_category_raw": "Other",
+      "predicted_category_raw": "Transfer",
       "predicted_category": "Transfer",
       "correct": true
     },
@@ -2365,9 +1500,9 @@
       "transaction_id": "CF0143",
       "raw_description": "BOOKMYSHOW TICKET",
       "correct_category": "Entertainment",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Entertainment",
+      "predicted_category": "Entertainment",
+      "correct": true
     },
     {
       "transaction_id": "CF0144",
@@ -2381,7 +1516,7 @@
       "transaction_id": "CF0145",
       "raw_description": "NEFT TRANSFER OUT",
       "correct_category": "Transfer",
-      "predicted_category_raw": "Other",
+      "predicted_category_raw": "Transfer",
       "predicted_category": "Transfer",
       "correct": true
     },
@@ -2389,17 +1524,17 @@
       "transaction_id": "CF0146",
       "raw_description": "APOLLO PHARMACY",
       "correct_category": "Healthcare",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Healthcare",
+      "predicted_category": "Healthcare",
+      "correct": true
     },
     {
       "transaction_id": "CF0147",
       "raw_description": "UBER TRIP BLR",
       "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Transport",
+      "predicted_category": "Transport",
+      "correct": true
     },
     {
       "transaction_id": "CF0148",
@@ -2413,9 +1548,9 @@
       "transaction_id": "CF0149",
       "raw_description": "AIRTEL POSTPAID",
       "correct_category": "Utilities",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Utilities",
+      "predicted_category": "Utilities",
+      "correct": true
     },
     {
       "transaction_id": "CF0150",
@@ -2429,7 +1564,7 @@
       "transaction_id": "CF0151",
       "raw_description": "UPI TRANSFER TO FRIEND",
       "correct_category": "Transfer",
-      "predicted_category_raw": "Other",
+      "predicted_category_raw": "Transfer",
       "predicted_category": "Transfer",
       "correct": true
     },
@@ -2437,9 +1572,9 @@
       "transaction_id": "CF0152",
       "raw_description": "WATER BOARD BILL",
       "correct_category": "Utilities",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Utilities",
+      "predicted_category": "Utilities",
+      "correct": true
     },
     {
       "transaction_id": "CF0153",
@@ -2453,9 +1588,9 @@
       "transaction_id": "CF0154",
       "raw_description": "IRCTC RAILWAY",
       "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Transport",
+      "predicted_category": "Transport",
+      "correct": true
     },
     {
       "transaction_id": "CF0155",
@@ -2469,9 +1604,9 @@
       "transaction_id": "CF0156",
       "raw_description": "IRCTC RAILWAY",
       "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Transport",
+      "predicted_category": "Transport",
+      "correct": true
     },
     {
       "transaction_id": "CF0157",
@@ -2485,7 +1620,7 @@
       "transaction_id": "CF0158",
       "raw_description": "NEFT TRANSFER OUT",
       "correct_category": "Transfer",
-      "predicted_category_raw": "Other",
+      "predicted_category_raw": "Transfer",
       "predicted_category": "Transfer",
       "correct": true
     },
@@ -2509,23 +1644,23 @@
       "transaction_id": "CF0161",
       "raw_description": "NPS CONTRIBUTION",
       "correct_category": "Investment",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Investment",
+      "predicted_category": "Investment",
+      "correct": true
     },
     {
       "transaction_id": "CF0162",
       "raw_description": "DECATHLON SPORTS",
       "correct_category": "Shopping",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Shopping",
+      "predicted_category": "Shopping",
+      "correct": true
     },
     {
       "transaction_id": "CF0163",
       "raw_description": "IMPS TRANSFER",
       "correct_category": "Transfer",
-      "predicted_category_raw": "Other",
+      "predicted_category_raw": "Transfer",
       "predicted_category": "Transfer",
       "correct": true
     },
@@ -2533,41 +1668,41 @@
       "transaction_id": "CF0164",
       "raw_description": "WATER BOARD BILL",
       "correct_category": "Utilities",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Utilities",
+      "predicted_category": "Utilities",
+      "correct": true
     },
     {
       "transaction_id": "CF0165",
       "raw_description": "BOOKMYSHOW TICKET",
       "correct_category": "Entertainment",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Entertainment",
+      "predicted_category": "Entertainment",
+      "correct": true
     },
     {
       "transaction_id": "CF0166",
       "raw_description": "BOOKMYSHOW TICKET",
       "correct_category": "Entertainment",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Entertainment",
+      "predicted_category": "Entertainment",
+      "correct": true
     },
     {
       "transaction_id": "CF0167",
       "raw_description": "PRACTO CONSULTATION",
       "correct_category": "Healthcare",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Healthcare",
+      "predicted_category": "Healthcare",
+      "correct": true
     },
     {
       "transaction_id": "CF0168",
       "raw_description": "GAS AGENCY PAYMENT",
       "correct_category": "Utilities",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Utilities",
+      "predicted_category": "Utilities",
+      "correct": true
     },
     {
       "transaction_id": "CF0169",
@@ -2581,33 +1716,33 @@
       "transaction_id": "CF0170",
       "raw_description": "FREELANCE PAYMENT RECEIVED",
       "correct_category": "Salary/Income",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Salary",
+      "predicted_category": "Salary/Income",
+      "correct": true
     },
     {
       "transaction_id": "CF0171",
       "raw_description": "JIO FIBER BILL",
       "correct_category": "Utilities",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Utilities",
+      "predicted_category": "Utilities",
+      "correct": true
     },
     {
       "transaction_id": "CF0172",
       "raw_description": "NPS CONTRIBUTION",
       "correct_category": "Investment",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Investment",
+      "predicted_category": "Investment",
+      "correct": true
     },
     {
       "transaction_id": "CF0173",
       "raw_description": "DECATHLON SPORTS",
       "correct_category": "Shopping",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Shopping",
+      "predicted_category": "Shopping",
+      "correct": true
     },
     {
       "transaction_id": "CF0174",
@@ -2637,7 +1772,7 @@
       "transaction_id": "CF0177",
       "raw_description": "IMPS TRANSFER",
       "correct_category": "Transfer",
-      "predicted_category_raw": "Other",
+      "predicted_category_raw": "Transfer",
       "predicted_category": "Transfer",
       "correct": true
     },
@@ -2645,33 +1780,33 @@
       "transaction_id": "CF0178",
       "raw_description": "OLA CABS",
       "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Transport",
+      "predicted_category": "Transport",
+      "correct": true
     },
     {
       "transaction_id": "CF0179",
       "raw_description": "INDIAN OIL FUEL",
       "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Transport",
+      "predicted_category": "Transport",
+      "correct": true
     },
     {
       "transaction_id": "CF0180",
       "raw_description": "NPS CONTRIBUTION",
       "correct_category": "Investment",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Investment",
+      "predicted_category": "Investment",
+      "correct": true
     },
     {
       "transaction_id": "CF0181",
       "raw_description": "AJIO FASHION",
       "correct_category": "Shopping",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Shopping",
+      "predicted_category": "Shopping",
+      "correct": true
     },
     {
       "transaction_id": "CF0182",
@@ -2701,9 +1836,9 @@
       "transaction_id": "CF0185",
       "raw_description": "MCDONALDS",
       "correct_category": "Food & Dining",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Food",
+      "predicted_category": "Food & Dining",
+      "correct": true
     },
     {
       "transaction_id": "CF0186",
@@ -2717,17 +1852,17 @@
       "transaction_id": "CF0187",
       "raw_description": "BESCOM ELECTRICITY",
       "correct_category": "Utilities",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Utilities",
+      "predicted_category": "Utilities",
+      "correct": true
     },
     {
       "transaction_id": "CF0188",
       "raw_description": "METRO CARD RECHARGE",
       "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Transport",
+      "predicted_category": "Transport",
+      "correct": true
     },
     {
       "transaction_id": "CF0189",
@@ -2741,33 +1876,33 @@
       "transaction_id": "CF0190",
       "raw_description": "FREELANCE PAYMENT RECEIVED",
       "correct_category": "Salary/Income",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Salary",
+      "predicted_category": "Salary/Income",
+      "correct": true
     },
     {
       "transaction_id": "CF0191",
       "raw_description": "DECATHLON SPORTS",
       "correct_category": "Shopping",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Shopping",
+      "predicted_category": "Shopping",
+      "correct": true
     },
     {
       "transaction_id": "CF0192",
       "raw_description": "FREELANCE PAYMENT RECEIVED",
       "correct_category": "Salary/Income",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Salary",
+      "predicted_category": "Salary/Income",
+      "correct": true
     },
     {
       "transaction_id": "CF0193",
       "raw_description": "UBER TRIP BLR",
       "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Transport",
+      "predicted_category": "Transport",
+      "correct": true
     },
     {
       "transaction_id": "CF0194",
@@ -2789,41 +1924,41 @@
       "transaction_id": "CF0196",
       "raw_description": "LIC PREMIUM",
       "correct_category": "Investment",
-      "predicted_category_raw": "EMI",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Investment",
+      "predicted_category": "Investment",
+      "correct": true
     },
     {
       "transaction_id": "CF0197",
       "raw_description": "UBER TRIP BLR",
       "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Transport",
+      "predicted_category": "Transport",
+      "correct": true
     },
     {
       "transaction_id": "CF0198",
       "raw_description": "BESCOM ELECTRICITY",
       "correct_category": "Utilities",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Utilities",
+      "predicted_category": "Utilities",
+      "correct": true
     },
     {
       "transaction_id": "CF0199",
       "raw_description": "METRO CARD RECHARGE",
       "correct_category": "Transport",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Transport",
+      "predicted_category": "Transport",
+      "correct": true
     },
     {
       "transaction_id": "CF0200",
       "raw_description": "DECATHLON SPORTS",
       "correct_category": "Shopping",
-      "predicted_category_raw": "Other",
-      "predicted_category": "Transfer",
-      "correct": false
+      "predicted_category_raw": "Shopping",
+      "predicted_category": "Shopping",
+      "correct": true
     }
   ]
 }

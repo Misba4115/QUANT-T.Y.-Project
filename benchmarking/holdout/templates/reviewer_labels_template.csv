@@ -1,0 +1,2 @@
+record_id,account_id,tx_date,occurred_at,description,amount,tx_type,expected_category,is_anomaly,anomaly_type,label_confidence,reviewer_id,reviewer_independent,adjudication_status,consent_confirmed,data_origin
+EXAMPLE_REMOVE_ME,acct_example,2026-01-15,2026-01-15T10:30:00+05:30,REDACTED MERCHANT,100.00,debit,Other,false,,high,reviewer_1,true,adjudicated,true,real_deidentified

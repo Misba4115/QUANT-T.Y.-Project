@@ -31,13 +31,18 @@ from __future__ import annotations
 
 import json
 import sys
+from datetime import date
 from pathlib import Path
 from typing import Any
+from provenance import provenance
 
 # -- Adjust path so we can import from backend --------------------------------
 REPO_ROOT = Path(__file__).resolve().parents[1]
 BACKEND = REPO_ROOT / "backend"
 sys.path.insert(0, str(BACKEND))
+from services.tax_analytics import (  # noqa: E402
+    SECTION_80C_LIMIT, _rule, calculate_80c_scenario, calculate_equity_gain_scenario,
+)
 
 # -- File paths ---------------------------------------------------------------
 TEST_SET_PATH = Path(__file__).parent / "tax_engine_test_set.json"
@@ -49,10 +54,12 @@ RESULTS_PATH = RESULTS_DIR / "tax_engine_results.json"
 #    Update them to match the production rates in services/tax_analytics.py
 #    and re-generate expected_output values if they differ.
 
-LTCG_EXEMPTION = 125_000.0  # Rs 1,25,000
-LTCG_RATE = 0.125           # 12.5%
-STCG_RATE = 0.20            # 20%
-SECTION_80C_CAP = 150_000.0 # Rs 1,50,000
+BENCHMARK_SALE_DATE = date(2025, 4, 1)
+ACTIVE_RULE = _rule(BENCHMARK_SALE_DATE)
+LTCG_EXEMPTION = ACTIVE_RULE["ltcg_exemption"]
+LTCG_RATE = ACTIVE_RULE["ltcg_rate"]
+STCG_RATE = ACTIVE_RULE["stcg_rate"]
+SECTION_80C_CAP = SECTION_80C_LIMIT
 
 # Equity MF: LTCG if holding_period_days > 365 (strict greater-than)
 EQUITY_LTCG_THRESHOLD_DAYS = 365
@@ -68,65 +75,26 @@ def compute_capital_gains_tax(inputs: dict[str, Any]) -> dict[str, Any]:
     Supports asset_type in:
       equity_mf, equity_mf_elss, direct_equity
     """
-    holding_days: int = inputs["holding_period_days"]
-    capital_gain: float = float(inputs["capital_gain"])
-    asset_type: str = inputs["asset_type"]
-    ltcg_used_ytd: float = float(inputs.get("ltcg_exemption_used_ytd", 0))
-
-    # Determine gain type
-    if holding_days > EQUITY_LTCG_THRESHOLD_DAYS:
-        gain_type = "LTCG"
-    else:
-        gain_type = "STCG"
-
-    # Handle loss / zero gain
-    if capital_gain <= 0:
-        return {
-            "gain_type": gain_type,
-            "taxable_gain": 0,
-            "tax_amount": 0,
-            "exemption_applied": 0,
-        }
-
-    if gain_type == "STCG":
-        tax = round(capital_gain * STCG_RATE, 2)
-        return {
-            "gain_type": "STCG",
-            "taxable_gain": capital_gain,
-            "tax_amount": tax,
-            "exemption_applied": 0,
-        }
-
-    # LTCG path
-    remaining_exemption = max(0.0, LTCG_EXEMPTION - ltcg_used_ytd)
-    exemption_applied = min(remaining_exemption, capital_gain)
-    taxable_gain = max(0.0, capital_gain - exemption_applied)
-    tax = round(taxable_gain * LTCG_RATE, 2)
-
-    return {
-        "gain_type": "LTCG",
-        "taxable_gain": taxable_gain,
-        "tax_amount": tax,
-        "exemption_applied": exemption_applied,
-    }
+    if inputs["asset_type"] not in {"equity_mf", "equity_mf_elss", "direct_equity"}:
+        raise ValueError("Scenario is outside the benchmark's eligible equity scope")
+    return calculate_equity_gain_scenario(
+        holding_period_days=int(inputs["holding_period_days"]),
+        capital_gain=float(inputs["capital_gain"]),
+        exemption_used=float(inputs.get("ltcg_exemption_used_ytd", 0)),
+        sale_date=BENCHMARK_SALE_DATE,
+    )
 
 
 def compute_section_80c(inputs: dict[str, Any]) -> dict[str, Any]:
     """
     Compute eligible_deduction_from_this_investment and total_80c_used_after.
     """
-    new_investment: float = float(inputs["new_80c_investment"])
-    used_ytd: float = float(inputs["section_80c_used_ytd"])
-    cap: float = float(inputs.get("section_80c_cap", SECTION_80C_CAP))
-
-    headroom = max(0.0, cap - used_ytd)
-    eligible = min(new_investment, headroom)
-    total_after = min(used_ytd + new_investment, cap)
-
-    return {
-        "eligible_deduction_from_this_investment": eligible,
-        "total_80c_used_after": total_after,
-    }
+    if float(inputs.get("section_80c_cap", SECTION_80C_CAP)) != SECTION_80C_CAP:
+        raise ValueError("Scenario cap differs from the production Section 80C limit")
+    return calculate_80c_scenario(
+        new_investment=float(inputs["new_80c_investment"]),
+        used_ytd=float(inputs["section_80c_used_ytd"]),
+    )
 
 
 # -- Field comparison ---------------------------------------------------------
@@ -224,6 +192,7 @@ def main() -> None:
     RESULTS_DIR.mkdir(exist_ok=True)
     output = {
         "component": "tax_engine",
+        "provenance": provenance(TEST_SET_PATH, "illustrative formula scenarios, not end-to-end tax return validation"),
         "total": total,
         "exact_matches": exact_matches,
         "exact_match_rate": exact_match_rate,

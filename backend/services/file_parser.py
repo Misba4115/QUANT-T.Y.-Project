@@ -293,7 +293,7 @@ def _accepted_columns(target: str) -> set[str]:
         "etf_holdings": set(ETFCreate.model_fields) | {"current_price"},
         "crypto_holdings": set(CryptoCreate.model_fields) | {"current_price"},
         "bank_transactions": {
-            "account_id", "account", "tx_date", "description", "amount", "tx_type",
+            "account_id", "account", "tx_date", "occurred_at", "description", "amount", "tx_type",
             "type", "category", "debit", "credit",
         },
         "mixed_asset_transactions": {

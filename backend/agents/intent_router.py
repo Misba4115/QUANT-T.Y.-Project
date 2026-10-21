@@ -36,6 +36,9 @@ EXECUTION_RE = re.compile(
     re.I,
 )
 GUARANTEE_RE = re.compile(r"\b(?:guaranteed?|risk[- ]free) (?:return|profit|gain)s?\b", re.I)
+UNDERSPECIFIED_RE = re.compile(
+    r"\b(?:is (?:that|this|it)|what about|something about|situation with)\b", re.I
+)
 
 
 class StructuredIntentRouter:
@@ -62,7 +65,9 @@ class StructuredIntentRouter:
         ]
         unsupported = bool(EXECUTION_RE.search(text) or GUARANTEE_RE.search(text))
         action = bool(ACTION_RE.search(text))
-        clarification = len(text.split()) < 3 and not specialists
+        clarification = not specialists and (
+            len(text.split()) < 3 or bool(UNDERSPECIFIED_RE.search(text))
+        )
         educational = bool(re.match(r"^(?:explain|what is|what does|teach me|define)\b", text, re.I)) and not re.search(r"\b(?:my|mine|I|me)\b", text)
 
         if unsupported:

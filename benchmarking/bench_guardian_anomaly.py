@@ -1,8 +1,8 @@
 """
 Benchmark: Guardian Anomaly Detection
 ======================================
-Runs Guardian's detector logic (the standalone rule-based + IsolationForest
-core extracted from agents/guardian.py) on every transaction in
+Runs the same rule-based + IsolationForest detector imported by the production
+Guardian agent on every transaction in
 guardian_anomaly_test_set.json, then computes:
   - Precision, Recall, F1
   - ROC-AUC
@@ -28,79 +28,35 @@ it would run in production for a user whose 510 transactions were fed in.
 from __future__ import annotations
 
 import json
+import sys
 from collections import defaultdict
-from datetime import datetime
 from pathlib import Path
+from sklearn.metrics import roc_auc_score
+from provenance import provenance
 
-import numpy as np
+BACKEND = Path(__file__).resolve().parents[1] / "backend"
+sys.path.insert(0, str(BACKEND))
+from services.guardian_detector import detect_anomalies  # noqa: E402
 
 # -- File paths ---------------------------------------------------------------
 TEST_SET_PATH = Path(__file__).parent / "guardian_anomaly_test_set.json"
 RESULTS_DIR = Path(__file__).parent / "results"
 RESULTS_PATH = RESULTS_DIR / "guardian_anomaly_results.json"
 
-# -- Detection logic (mirrors agents/guardian.py, DB-free) --------------------
-
-MODEL_VERSION = "guardian-isolation-forest-v1"
-RULE_VERSION = "guardian-large-amount-rule-v1"
-
-
-def _build_features(transactions: list[dict]) -> np.ndarray:
-    features = []
-    for tx in transactions:
-        amount = float(tx.get("amount") or 0)
-        date_str = str(tx.get("date") or "1970-01-01")
-        weekday = datetime.fromisoformat(date_str[:10]).weekday()
-        # table_index is always 0 for bank_transactions in this test set
-        features.append([np.log1p(amount), weekday, 0])
-    return np.asarray(features, dtype=float)
-
-
 def run_detector(transactions: list[dict]) -> tuple[list[bool], list[float], str]:
-    """Return (predicted_flags, anomaly_scores, mode_used)."""
-    values = np.array([float(tx.get("amount") or 0) for tx in transactions], dtype=float)
-
-    if len(transactions) >= 20 and np.unique(values).size > 1:
-        from sklearn.ensemble import IsolationForest
-        features = _build_features(transactions)
-        model = IsolationForest(n_estimators=200, contamination="auto", random_state=42)
-        predictions = model.fit_predict(features)
-        scores = model.decision_function(features)
-        flags = [bool(p == -1) for p in predictions]
-        return flags, scores.tolist(), "isolation_forest"
-    else:
-        median = float(np.median(values))
-        threshold = max(median * 3, 10_000)
-        flags = [v > threshold for v in values]
-        scores = [-1.0 if f else 0.0 for f in flags]
-        return flags, scores, "rule_based_insufficient_sample"
+    """Call the same detector as Guardian, without database persistence."""
+    records = [("bank_transactions", tx, float(tx.get("amount") or 0)) for tx in transactions]
+    flags, scores, _reasons, mode, _version = detect_anomalies(records)
+    return flags.tolist(), scores.tolist(), mode
 
 
 # -- Metrics ------------------------------------------------------------------
 
 def compute_roc_auc(y_true: list[int], scores: list[float]) -> float:
     """Compute ROC-AUC using ranking of scores (lower = more anomalous)."""
-    # IsolationForest: lower decision_function score = more anomalous
-    # Negate so higher score = more anomalous for standard AUC calculation
-    neg_scores = [-s for s in scores]
-    pairs = sorted(zip(neg_scores, y_true), reverse=True)
-    n_pos = sum(y_true)
-    n_neg = len(y_true) - n_pos
-    if n_pos == 0 or n_neg == 0:
+    if not any(y_true) or all(y_true):
         return 0.5
-    tp_cum = fp_cum = 0
-    auc = 0.0
-    prev_fp = 0
-    prev_tp = 0
-    for _, label in pairs:
-        if label == 1:
-            tp_cum += 1
-        else:
-            fp_cum += 1
-            auc += (tp_cum + prev_tp) / 2 * (fp_cum - prev_fp) / (n_pos * n_neg)
-            prev_fp = fp_cum
-            prev_tp = tp_cum
-    return round(auc, 4)
+    return round(float(roc_auc_score(y_true, [-score for score in scores])), 4)
 
 
 def main() -> None:
@@ -196,6 +152,8 @@ def main() -> None:
     output = {
         "component": "guardian_anomaly",
         "detection_mode": mode,
+        "benchmark_scope": "synthetic development set; detector fitted on this corpus; not independent validation",
+        "provenance": provenance(TEST_SET_PATH, "exposed synthetic development set"),
         "total": total,
         "labeled_anomalies": labeled_anomalies,
         "metrics": {

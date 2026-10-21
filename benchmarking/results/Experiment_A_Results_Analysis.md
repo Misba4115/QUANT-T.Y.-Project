@@ -1,5 +1,11 @@
 # Experiment A — GC-SEC Ablation: Results & Analysis
 
+> Historical September 2026 analysis. Its table and implementation notes are
+> superseded by the revised controlled fixture in
+> `gc_sec_ablation_v2_summary.json` (61/62 final actions correct). The v2
+> fixture was revised after inspecting v1 failures and is not an independent
+> holdout. Use `FUNCTIONAL_BENCHMARK_SUMMARY.md` for the current result.
+
 > **Run date:** 2026-09-28 | **Backend mode:** LIVE (real GroundingChecker + ConsensusArbiter)
 > **Test set:** 62 controlled scenarios | **Frozen:** yes, do not modify after first run
 

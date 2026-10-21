@@ -134,6 +134,8 @@ create table if not exists public.bank_transactions (
   user_id uuid not null references public.users(user_id) on delete cascade,
   account_id uuid references public.banking_accounts(account_id) on delete set null,
   tx_date date not null,
+  occurred_at timestamptz,
+  occurred_local_hour smallint check (occurred_local_hour between 0 and 23),
   description text not null,
   amount numeric(20,2) not null check (amount > 0),
   tx_type text not null check (tx_type in ('debit','credit')),

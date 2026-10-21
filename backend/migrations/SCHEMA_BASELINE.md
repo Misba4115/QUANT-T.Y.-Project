@@ -25,6 +25,8 @@ Canonical primary keys:
 
 The service-role key is backend-only. Every application query still filters by `user_id`; service-role bypass is not treated as authorization. Tables have RLS enabled defensively, with no public policies in these migrations.
 
+After either initial migration path, apply `007_guardian_transaction_time.sql` before accepting bank transactions carrying `occurred_at`. It adds optional source clock-time fields; date-only historical rows remain unchanged.
+
 There are two mutually exclusive migration paths:
 
 - A new/empty project applies `001_canonical_core.sql`, then `002_recovery_services.sql`, `004_service_role_grants.sql`, `005_future_scope.sql`, and finally `006_portfolio_analytics.sql`.

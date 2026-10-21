@@ -96,3 +96,43 @@ def test_equal_grounded_agent_disagreement_remains_unresolved():
 
     assert result.status == "unresolved"
     assert result.winning_claim_id is None
+
+
+def test_ratio_calculation_trace_is_recomputed():
+    sharpe = claim(claim_type="calculation", subject="sharpe ratio", value=Decimal("1.42"))
+    trace = evidence(
+        evidence_type="calculation", value=Decimal("1.42"),
+        metadata={"calculation": {"operation": "ratio", "inputs": ["0.142", "0.1"]}},
+    )
+    result = GroundingChecker().validate([sharpe], [trace])[0]
+    assert result.outcome == "verified"
+
+
+def test_stale_evidence_remains_visible_when_value_also_conflicts():
+    result = GroundingChecker().validate(
+        [claim(value=Decimal("120"))], [evidence(value=Decimal("100"), freshness="stale")]
+    )[0]
+    assert result.outcome == "contradictory"
+    assert {"evidence_value_mismatch", "stale_evidence"} <= set(result.reason_codes)
+
+
+def test_fresh_grounded_source_outweighs_stale_higher_rank_source():
+    claims = [
+        claim("private", evidence_ids=["private-e"]),
+        claim("market", evidence_ids=["market-e"]),
+    ]
+    refs = [
+        evidence("private-e", evidence_type="private_record", freshness="stale"),
+        evidence("market-e", evidence_type="market_observation", freshness="fresh"),
+    ]
+    grounding = [
+        GroundingResult(claim_id="private", outcome="stale"),
+        GroundingResult(claim_id="market", outcome="verified"),
+    ]
+    conflict = AgentConflict(
+        conflict_id="freshness", claim_ids=["private", "market"],
+        conflict_type="provider_disagreement", subject="value",
+    )
+    result = ConsensusArbiter().arbitrate(conflict, claims, refs, grounding)
+    assert result.status == "resolved"
+    assert result.winning_claim_id == "market"

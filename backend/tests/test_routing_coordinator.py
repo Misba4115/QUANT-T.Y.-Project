@@ -31,6 +31,14 @@ def test_semantic_router_falls_back_when_model_contract_is_invalid():
     assert decision.required_specialists == ["portfolio"]
 
 
+def test_underspecified_followup_requests_clarification():
+    router = StructuredIntentRouter()
+    assert router.route("Is that normal?").primary_intent == "clarification"
+    assert router.route("What about last month?").primary_intent == "clarification"
+    assert router.route("What is the situation with my account?").primary_intent == "clarification"
+    assert router.route("Explain current tax guidance").primary_intent == "informational_education"
+
+
 def test_coordinator_bounds_deduplicates_and_rejects_recursive_requests(fake_db):
     calls = []
 

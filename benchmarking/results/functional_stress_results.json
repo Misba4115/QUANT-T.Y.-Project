@@ -1,0 +1,227 @@
+{
+  "benchmark_design": "deterministic controlled multi-account functional benchmark",
+  "cashflow_categorization": {
+    "accuracy": 1.0,
+    "accuracy_95ci": [
+      0.9964,
+      1.0
+    ],
+    "correct": 1060,
+    "macro_f1_supported_classes": 1.0,
+    "per_class": {
+      "EMI": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 61,
+        "tp": 61
+      },
+      "Entertainment": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 95,
+        "tp": 95
+      },
+      "Food & Dining": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 105,
+        "tp": 105
+      },
+      "Groceries": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 81,
+        "tp": 81
+      },
+      "Healthcare": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 118,
+        "tp": 118
+      },
+      "Investment": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 99,
+        "tp": 99
+      },
+      "Other": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 30,
+        "tp": 30
+      },
+      "Rent": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 55,
+        "tp": 55
+      },
+      "Salary/Income": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 61,
+        "tp": 61
+      },
+      "Shopping": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 96,
+        "tp": 96
+      },
+      "Transfer": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 75,
+        "tp": 75
+      },
+      "Transport": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 87,
+        "tp": 87
+      },
+      "Utilities": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 97,
+        "tp": 97
+      }
+    },
+    "total": 1060,
+    "weighted_f1": 1.0
+  },
+  "component": "controlled_functional_stress",
+  "configuration": {
+    "account_count": 10,
+    "normal_transactions_per_account": 100,
+    "start_date": "2025-01-01",
+    "total_transactions": 1060
+  },
+  "generated_at": "2026-10-08T02:31:36.611092+00:00",
+  "guardian": {
+    "account_count": 10,
+    "accounts_by_detector_mode": {
+      "rules_with_isolation_score": 10
+    },
+    "confusion_counts": {
+      "fn": 4,
+      "fp": 0,
+      "tn": 1010,
+      "tp": 46
+    },
+    "f1": 0.9583,
+    "false_alerts_per_1000_normal_transactions": 0.0,
+    "false_positive_rate": 0.0,
+    "false_positive_rate_95ci": [
+      0.0,
+      0.0038
+    ],
+    "model_versions": {
+      "guardian-hybrid-v3": 10
+    },
+    "per_anomaly_type": {
+      "amount_spike": {
+        "detected": 8,
+        "recall": 0.8,
+        "recall_95ci": [
+          0.4902,
+          0.9433
+        ],
+        "support": 10
+      },
+      "duplicate_transaction": {
+        "detected": 10,
+        "recall": 1.0,
+        "recall_95ci": [
+          0.7225,
+          1.0
+        ],
+        "support": 10
+      },
+      "large_round_transfer": {
+        "detected": 8,
+        "recall": 0.8,
+        "recall_95ci": [
+          0.4902,
+          0.9433
+        ],
+        "support": 10
+      },
+      "odd_hour": {
+        "detected": 10,
+        "recall": 1.0,
+        "recall_95ci": [
+          0.7225,
+          1.0
+        ],
+        "support": 10
+      },
+      "unusual_category_first_seen": {
+        "detected": 10,
+        "recall": 1.0,
+        "recall_95ci": [
+          0.7225,
+          1.0
+        ],
+        "support": 10
+      }
+    },
+    "precision": 1.0,
+    "precision_95ci": [
+      0.9229,
+      1.0
+    ],
+    "recall": 0.92,
+    "recall_95ci": [
+      0.8116,
+      0.9685
+    ],
+    "total": 1060
+  },
+  "provenance": {
+    "dataset_sha256": "f4caed308c91251535705f03fe2de0b439d7ff672c9c37b2abdd7f6020444db3",
+    "seed": 20261008,
+    "source_commit": "e112c22a78df7a8f35b6f72f37b84b95ee7b5bcb",
+    "working_tree_dirty": true
+  }
+}

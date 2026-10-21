@@ -52,6 +52,7 @@ class AgentClaim(AgentContract):
     subject: str
     statement: str
     value: Decimal | str | None = None
+    relative_tolerance: Decimal = Field(default=Decimal("0"), ge=0, le=Decimal("0.05"))
     unit: str | None = None
     evidence_ids: list[str] = Field(default_factory=list)
     confidence: float | None = Field(default=None, ge=0, le=1)

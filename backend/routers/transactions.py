@@ -35,7 +35,10 @@ def create_bank_transaction(
     user_id = current_user["user_id"]
     if body.account_id and not repo.get_for_user("banking_accounts", body.account_id, user_id):
         raise HTTPException(status_code=422, detail="account_id does not belong to the authenticated user")
-    created = repo.create_for_user("bank_transactions", user_id, body.model_dump(mode="json"))
+    payload = body.model_dump(mode="json", exclude_none=True)
+    if body.occurred_at is not None:
+        payload["occurred_local_hour"] = body.occurred_at.hour
+    created = repo.create_for_user("bank_transactions", user_id, payload)
     from services.guardian_stream import GuardianStreamService
 
     GuardianStreamService(db).ingest(
@@ -43,7 +46,8 @@ def create_bank_transaction(
         event_id=f"bank-transaction:{created['bank_tx_id']}",
         asset_type="bank",
         event_type="transaction_created",
-        occurred_at=datetime.fromisoformat(str(created["tx_date"])).replace(tzinfo=timezone.utc),
+        occurred_at=(datetime.fromisoformat(str(created["occurred_at"]).replace("Z", "+00:00"))
+                     if created.get("occurred_at") else datetime.fromisoformat(str(created["tx_date"])).replace(tzinfo=timezone.utc)),
         payload={"amount": created["amount"], "tx_type": created["tx_type"], "category": created.get("category")},
     )
     return created

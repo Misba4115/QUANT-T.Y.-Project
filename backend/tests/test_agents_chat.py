@@ -119,7 +119,7 @@ def test_guardian_persists_rule_evidence_to_originating_table(fake_db):
     assert result["anomaly_count"] == 1
     flagged = next(row for row in fake_db.tables["bank_transactions"] if row["is_anomaly"])
     assert flagged["amount"] == 50000
-    assert flagged["anomaly_model_version"] == "guardian-large-amount-rule-v1"
+    assert flagged["anomaly_model_version"] == "guardian-large-amount-rule-v3"
     assert result["alerts"][0]["reason"]
 
 

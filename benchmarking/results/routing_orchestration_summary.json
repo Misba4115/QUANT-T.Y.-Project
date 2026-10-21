@@ -1,14 +1,20 @@
 {
-  "generated_at": "2026-09-28T07:48:42.550675+00:00",
+  "generated_at": "2026-10-07T22:38:17.122024+00:00",
   "backend_mode": "live",
+  "provenance": {
+    "dataset_sha256": "b09ffd905ea5d99a79fdffba4d8e2d313f0135126ac6cac967689f2bd8af77c7",
+    "source_commit": "e112c22a78df7a8f35b6f72f37b84b95ee7b5bcb",
+    "working_tree_dirty": true,
+    "evaluation_scope": "exposed routing-only development cases; task_success is a selection proxy"
+  },
   "overall": {
     "total_queries": 67,
-    "routing_accuracy": 0.9104,
-    "intent_accuracy": 0.9104,
+    "routing_accuracy": 0.9851,
+    "intent_accuracy": 0.9851,
     "specialist_accuracy": 0.9851,
-    "task_success_rate": 0.9104,
+    "task_success_rate": 0.9851,
     "constraint_adherence_rate": 1.0,
-    "mean_latency_ms": 0.077,
+    "mean_latency_ms": 0.039,
     "mean_agent_transitions": 0.881,
     "strata": [
       {
@@ -20,7 +26,7 @@
         "specialist_accuracy": 0.9714,
         "task_success_rate": 0.9714,
         "constraint_adherence": 1.0,
-        "mean_latency_ms": 0.127,
+        "mean_latency_ms": 0.058,
         "mean_agent_transitions": 0.829,
         "per_family_accuracy": {
           "education": 1.0,
@@ -41,7 +47,7 @@
         "specialist_accuracy": 1.0,
         "task_success_rate": 1.0,
         "constraint_adherence": 1.0,
-        "mean_latency_ms": 0.028,
+        "mean_latency_ms": 0.021,
         "mean_agent_transitions": 2,
         "per_family_accuracy": {
           "cross_domain": 1.0
@@ -51,16 +57,16 @@
         "stratum": "ambiguous",
         "stratum_label": "Ambiguous (needs interpretation / clarification)",
         "total_queries": 12,
-        "routing_accuracy": 0.5833,
-        "intent_accuracy": 0.5833,
+        "routing_accuracy": 1.0,
+        "intent_accuracy": 1.0,
         "specialist_accuracy": 1.0,
-        "task_success_rate": 0.5833,
+        "task_success_rate": 1.0,
         "constraint_adherence": 1.0,
-        "mean_latency_ms": 0.02,
+        "mean_latency_ms": 0.013,
         "mean_agent_transitions": 0,
         "per_family_accuracy": {
           "clarification": 1.0,
-          "clarification_extra": 0.2857
+          "clarification_extra": 1.0
         }
       },
       {
@@ -72,7 +78,7 @@
         "specialist_accuracy": 1.0,
         "task_success_rate": 1.0,
         "constraint_adherence": 1.0,
-        "mean_latency_ms": 0.024,
+        "mean_latency_ms": 0.021,
         "mean_agent_transitions": 1.333,
         "per_family_accuracy": {
           "recommendation": 1.0,

@@ -11,6 +11,7 @@ You can also pass --skip flags to skip specific benchmarks:
     python benchmarking/run_all_benchmarks.py --skip rag_retrieval --skip rag_chatbot
 
 Available skip targets:
+    functional_stress
     cashflow_categorization
     guardian_anomaly
     portfolio_analytics
@@ -19,6 +20,7 @@ Available skip targets:
     rag_chatbot
 
 NOTES:
+  - bench_functional_stress.py       : Requires scikit-learn.
   - bench_cashflow_categorization.py : No external deps.  Should always run.
   - bench_guardian_anomaly.py        : Requires scikit-learn.
   - bench_portfolio_analytics.py     : Requires PyPortfolioOpt.
@@ -40,6 +42,18 @@ BENCH_DIR = Path(__file__).parent
 RESULTS_DIR = BENCH_DIR / "results"
 
 BENCHMARKS = [
+    {
+        "id": "functional_stress",
+        "script": "bench_functional_stress.py",
+        "results_file": "functional_stress_results.json",
+        "key_metrics": [
+            "cashflow_categorization.accuracy",
+            "cashflow_categorization.macro_f1_supported_classes",
+            "guardian.precision",
+            "guardian.recall",
+            "guardian.f1",
+        ],
+    },
     {
         "id": "cashflow_categorization",
         "script": "bench_cashflow_categorization.py",

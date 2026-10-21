@@ -1,6 +1,27 @@
 # Benchmark Test Sets — Handoff Notes
 
-These files are synthetic, hand-checked test sets for benchmarking each component. Give this whole folder to your coding agent along with the instruction: "for each file, write a script that runs our actual component on the inputs, compares to the expected/correct output, and reports the listed metrics."
+The consolidated paper-ready results are in
+[`results/FUNCTIONAL_BENCHMARK_SUMMARY.md`](results/FUNCTIONAL_BENCHMARK_SUMMARY.md),
+and the reproducible multi-account run is provided by
+`bench_functional_stress.py`.
+
+The revised GC-SEC development fixture is generated without changing the
+frozen v1 input or results:
+
+```powershell
+python benchmarking/build_gc_sec_test_set_v2.py
+python benchmarking/bench_gc_sec_ablation.py --dataset benchmarking/gc_sec_test_set_v2.json --output-prefix gc_sec_ablation_v2
+```
+
+Its 62-case result and provenance are in
+`results/gc_sec_ablation_v2_summary.json`. This fixture was revised after v1
+failures were inspected and is not an independent holdout.
+
+These files are synthetic development sets, not independent validation. The
+current audited results, remaining limitations, and holdout protocol are in
+[`VALIDATION_STATUS.md`](VALIDATION_STATUS.md). Benchmark outputs must not be
+presented as real-world accuracy without the separate evaluation described
+there.
 
 ## Files and what to do with each
 

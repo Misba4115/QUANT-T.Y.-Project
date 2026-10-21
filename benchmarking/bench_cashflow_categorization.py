@@ -27,6 +27,7 @@ import json
 import sys
 from collections import defaultdict
 from pathlib import Path
+from provenance import provenance
 
 # -- Adjust path so we can import from backend --------------------------------
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -50,8 +51,6 @@ CATEGORY_ALIASES: dict[str, str] = {
     # legacy -> canonical (test-set label)
     "Food": "Food & Dining",
     "Salary": "Salary/Income",
-    "Other": "Transfer",
-    "EMI": "Transfer",
 }
 
 
@@ -117,7 +116,7 @@ def main() -> None:
         test_set = json.load(f)
 
     transactions = test_set["transactions"]
-    all_categories: list[str] = test_set["categories"]
+    all_categories: list[str] = [*test_set["categories"], "Other", "EMI"]
 
     print(
         f"\nLoaded {len(transactions)} transactions, "
@@ -221,19 +220,25 @@ def main() -> None:
             counts["fp"],
             counts["fn"],
         )
+        support = counts["tp"] + counts["fn"]
+        predicted_count = counts["tp"] + counts["fp"]
+        shown_p = p if predicted_count else None
+        shown_r = r if support else None
+        shown_f1 = f1 if support else None
 
         per_category_metrics[cat] = {
-            "precision": p,
-            "recall": r,
-            "f1": f1,
+            "precision": shown_p,
+            "recall": shown_r,
+            "f1": shown_f1,
+            "support": support,
             **counts,
         }
 
         print(
             f"{cat:<22} "
-            f"{p:>6.4f} "
-            f"{r:>6.4f} "
-            f"{f1:>6.4f}  "
+            f"{(f'{shown_p:.4f}' if shown_p is not None else 'N/A'):>6} "
+            f"{(f'{shown_r:.4f}' if shown_r is not None else 'N/A'):>6} "
+            f"{(f'{shown_f1:.4f}' if shown_f1 is not None else 'N/A'):>6}  "
             f"{counts['tp']:>4} "
             f"{counts['fp']:>4} "
             f"{counts['fn']:>4}"
@@ -286,6 +291,7 @@ def main() -> None:
 
     output = {
         "component": "cashflow_categorization",
+        "provenance": provenance(TEST_SET_PATH, "exposed synthetic development set; not independent validation"),
         "total": total,
         "correct": correct,
         "overall_accuracy": accuracy,

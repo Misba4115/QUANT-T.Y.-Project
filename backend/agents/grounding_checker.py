@@ -46,7 +46,10 @@ class GroundingChecker:
 
         claim_value = _decimal(claim.value)
         evidence_values = [_decimal(item.value) for item in refs if item.value is not None]
-        if claim_value is not None and evidence_values and all(value != claim_value for value in evidence_values):
+        if claim_value is not None and evidence_values and all(
+            value is None or abs(value - claim_value) > abs(value) * claim.relative_tolerance
+            for value in evidence_values
+        ):
             reasons.append("evidence_value_mismatch")
         if claim.unit and any(item.unit and item.unit != claim.unit for item in refs):
             reasons.append("unit_mismatch")
@@ -67,10 +70,13 @@ class GroundingChecker:
             reasons.append("authoritative_source_inactive_or_undated")
         if any(item.evidence_type == "public_source" and claim.claim_id not in item.metadata.get("supported_claim_ids", []) for item in refs):
             reasons.append("public_source_does_not_support_claim")
+        stale = any(item.freshness == "stale" for item in refs)
         if reasons:
+            if stale:
+                reasons.append("stale_evidence")
             outcome = "contradictory" if any(code.endswith("mismatch") for code in reasons) else "unsupported"
             return self._result(claim, outcome, reasons)
-        if any(item.freshness == "stale" for item in refs):
+        if stale:
             return self._result(claim, "stale", ["stale_evidence"])
         if self.semantic_evaluator is not None and not self.semantic_evaluator(claim, refs):
             return self._result(claim, "verified_with_limitations", ["semantic_support_uncertain"])
@@ -95,6 +101,8 @@ class GroundingChecker:
             computed = Decimal("1")
             for value in inputs:
                 computed *= value
+        elif operation == "ratio" and len(inputs) == 2 and inputs[1] != 0:
+            computed = inputs[0] / inputs[1]
         else:
             return False
         return computed == _decimal(claim.value)

@@ -1,5 +1,11 @@
 {
   "component": "tax_engine",
+  "provenance": {
+    "dataset_sha256": "dfc4ce14c7c3e7f0a42eeb166044a7fdca2704f93f0ca51c71aa83061949bd92",
+    "source_commit": "e112c22a78df7a8f35b6f72f37b84b95ee7b5bcb",
+    "working_tree_dirty": true,
+    "evaluation_scope": "illustrative formula scenarios, not end-to-end tax return validation"
+  },
   "total": 18,
   "exact_matches": 18,
   "exact_match_rate": 1.0,
@@ -104,7 +110,7 @@
         "gain_type": "STCG",
         "taxable_gain": 150000.0,
         "tax_amount": 30000.0,
-        "exemption_applied": 0
+        "exemption_applied": 0.0
       },
       "matched": true,
       "mismatches": [],
@@ -129,7 +135,7 @@
         "gain_type": "STCG",
         "taxable_gain": 30000.0,
         "tax_amount": 6000.0,
-        "exemption_applied": 0
+        "exemption_applied": 0.0
       },
       "matched": true,
       "mismatches": [],
@@ -229,7 +235,7 @@
         "gain_type": "STCG",
         "taxable_gain": 12000.0,
         "tax_amount": 2400.0,
-        "exemption_applied": 0
+        "exemption_applied": 0.0
       },
       "matched": true,
       "mismatches": [],
@@ -277,9 +283,9 @@
       },
       "predicted_output": {
         "gain_type": "LTCG",
-        "taxable_gain": 0,
-        "tax_amount": 0,
-        "exemption_applied": 0
+        "taxable_gain": 0.0,
+        "tax_amount": 0.0,
+        "exemption_applied": 0.0
       },
       "matched": true,
       "mismatches": [],
@@ -303,9 +309,9 @@
       },
       "predicted_output": {
         "gain_type": "LTCG",
-        "taxable_gain": 0,
-        "tax_amount": 0,
-        "exemption_applied": 0
+        "taxable_gain": 0.0,
+        "tax_amount": 0.0,
+        "exemption_applied": 0.0
       },
       "matched": true,
       "mismatches": [],
@@ -329,9 +335,9 @@
       },
       "predicted_output": {
         "gain_type": "STCG",
-        "taxable_gain": 0,
-        "tax_amount": 0,
-        "exemption_applied": 0
+        "taxable_gain": 0.0,
+        "tax_amount": 0.0,
+        "exemption_applied": 0.0
       },
       "matched": true,
       "mismatches": [],

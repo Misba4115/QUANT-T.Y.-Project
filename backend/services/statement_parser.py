@@ -1,28 +1,41 @@
 """Deterministic bank-statement normalization and categorization."""
 from __future__ import annotations
 
+import re
 from datetime import datetime
 from typing import Any
 
 from services.csv_parser import parse_csv_rows
 
+# Keep transaction-channel words (UPI, NEFT, IMPS) out of merchant rules: a
+# channel alone says nothing about whether a payment is a transfer or a purchase.
 CATEGORY_KEYWORDS = {
-    "Salary": ["salary", "payroll", "neft cr"],
-    "Food": ["zomato", "swiggy", "restaurant", "cafe", "domino"],
-    "Rent": ["rent", "landlord"],
-    "EMI": ["emi", "loan", "installment"],
-    "Shopping": ["amazon", "flipkart", "myntra", "nykaa"],
-    "Entertainment": ["netflix", "spotify", "pvr", "hotstar"],
-    "Investment": ["mutual fund", "zerodha", "groww", "sip"],
+    "Transfer": ("transfer", "self transfer", "funds moved", "own account", "neft to own account"),
+    "Salary": ("salary", "salary credit", "pay credit", "payroll", "freelance payment", "wages"),
+    "Rent": ("rent", "landlord", "nobroker rent", "house lease"),
+    "Investment": ("mutual fund", "zerodha", "groww", "kuvera", "coin monthly", "sip", "nps", "ppf", "elss", "lic premium"),
+    "EMI": ("emi", "loan installment", "loan repayment"),
+    "Groceries": ("grocery", "groceries", "supermarket", "hypermarket", "bigbasket", "zepto", "dmart", "reliance fresh", "more supermarket", "natures basket", "spar"),
+    "Transport": ("uber", "ola cabs", "rapido", "railway", "irctc", "metro card", "fastag", "fuel", "petrol", "diesel"),
+    "Utilities": ("electricity", "bescom", "water board", "gas agency", "mahanagar gas", "indraprastha gas", "postpaid", "recharge", "fiber bill", "broadband"),
+    "Healthcare": ("hospital", "pharmacy", "medical", "medplus", "apollo", "practo", "consultation", "netmeds", "fortis", "1mg"),
+    "Food": ("zomato", "swiggy", "restaurant", "cafe", "coffee", "domino", "dominos", "mcdonalds", "ccd", "subway", "pizza hut", "starbucks"),
+    "Shopping": ("amazon", "flipkart", "myntra", "nykaa", "ajio", "decathlon", "meesho", "tata cliq", "pantaloons", "croma"),
+    "Entertainment": ("netflix", "spotify", "pvr", "hotstar", "bookmyshow", "prime video", "inox", "live events", "ticketing"),
+}
+
+_CATEGORY_PATTERNS = {
+    category: [re.compile(r"(?<!\w)" + re.escape(term) + r"(?!\w)") for term in terms]
+    for category, terms in CATEGORY_KEYWORDS.items()
 }
 
 DATE_FORMATS = ("%Y-%m-%d", "%d/%m/%Y", "%d-%m-%Y", "%d %b %Y", "%d-%b-%Y", "%m/%d/%Y")
 
 
 def categorise(description: str) -> str:
-    lowered = description.lower()
-    for category, keywords in CATEGORY_KEYWORDS.items():
-        if any(keyword in lowered for keyword in keywords):
+    lowered = re.sub(r"[^a-z0-9]+", " ", description.casefold()).strip()
+    for category, patterns in _CATEGORY_PATTERNS.items():
+        if any(pattern.search(lowered) for pattern in patterns):
             return category
     return "Other"
 
@@ -69,7 +82,18 @@ def normalize_transaction_row(row: dict[str, Any]) -> dict[str, Any]:
     else:
         raise ValueError("Transaction amount must be non-zero")
 
-    return {
+    occurred_at = str(row.get("occurred_at") or "").strip()
+    occurred_local_hour = None
+    if occurred_at:
+        try:
+            parsed_time = datetime.fromisoformat(occurred_at.replace("Z", "+00:00"))
+        except ValueError as exc:
+            raise ValueError("Invalid occurred_at timestamp; use ISO 8601") from exc
+        if parsed_time.utcoffset() is None:
+            raise ValueError("occurred_at must include a timezone offset")
+        occurred_local_hour = parsed_time.hour
+
+    normalized = {
         "account_id": row.get("account_id") or row.get("account") or None,
         "tx_date": parse_date(row.get("tx_date")),
         "description": description,
@@ -77,6 +101,10 @@ def normalize_transaction_row(row: dict[str, Any]) -> dict[str, Any]:
         "tx_type": tx_type,
         "category": row.get("category") or categorise(description),
     }
+    if occurred_at:
+        normalized["occurred_at"] = occurred_at
+        normalized["occurred_local_hour"] = occurred_local_hour
+    return normalized
 
 
 def parse_bank_statement(file_bytes: bytes) -> list[dict[str, Any]]:

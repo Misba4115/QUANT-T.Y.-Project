@@ -35,7 +35,8 @@ class ConsensusArbiter:
             rank = max((EVIDENCE_RANK.get(item.evidence_type, 0) for item in refs), default=0)
             newest = max((item.observed_at.timestamp() for item in refs if item.observed_at), default=0)
             stale_penalty = any(item.freshness == "stale" for item in refs)
-            scored.append(((rank, not stale_penalty, newest), claim))
+            # A stale source must not outrank a fresh source solely by type.
+            scored.append(((not stale_penalty, rank, newest), claim))
         scored.sort(key=lambda item: item[0], reverse=True)
         if len(scored) > 1 and scored[0][0] == scored[1][0]:
             return self._blocked(conflict, "material_conflict_unresolved", "Grounded sources disagree materially; user clarification or newer evidence is required.")

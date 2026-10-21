@@ -1,54 +1,61 @@
 {
   "component": "guardian_anomaly",
-  "detection_mode": "isolation_forest",
+  "detection_mode": "hybrid",
+  "benchmark_scope": "synthetic development set; detector fitted on this corpus; not independent validation",
+  "provenance": {
+    "dataset_sha256": "469b19b976efc9f7aa673011311dee46b7ea4769ac4ab86bf2ecd644dd287d3c",
+    "source_commit": "e112c22a78df7a8f35b6f72f37b84b95ee7b5bcb",
+    "working_tree_dirty": true,
+    "evaluation_scope": "exposed synthetic development set"
+  },
   "total": 510,
   "labeled_anomalies": 60,
   "metrics": {
-    "precision": 0.1624,
-    "recall": 0.5333,
-    "f1_score": 0.249,
-    "roc_auc": 0.6532,
-    "false_positive_rate": 0.3667,
-    "tp": 32,
-    "fp": 165,
-    "fn": 28,
-    "tn": 285
+    "precision": 0.9565,
+    "recall": 0.7333,
+    "f1_score": 0.8302,
+    "roc_auc": 0.9927,
+    "false_positive_rate": 0.0044,
+    "tp": 44,
+    "fp": 2,
+    "fn": 16,
+    "tn": 448
   },
   "per_anomaly_type": {
     "amount_spike": {
-      "tp": 10,
-      "fp": 0,
-      "fn": 0,
-      "tn": 0,
-      "recall": 1.0
-    },
-    "duplicate_transaction": {
-      "tp": 0,
-      "fp": 0,
-      "fn": 20,
-      "tn": 0,
-      "recall": 0.0
-    },
-    "large_round_transfer": {
-      "tp": 10,
-      "fp": 0,
-      "fn": 0,
-      "tn": 0,
-      "recall": 1.0
-    },
-    "odd_hour": {
       "tp": 2,
       "fp": 0,
       "fn": 8,
       "tn": 0,
       "recall": 0.2
     },
-    "unusual_category_first_seen": {
+    "duplicate_transaction": {
+      "tp": 20,
+      "fp": 0,
+      "fn": 0,
+      "tn": 0,
+      "recall": 1.0
+    },
+    "large_round_transfer": {
+      "tp": 7,
+      "fp": 0,
+      "fn": 3,
+      "tn": 0,
+      "recall": 0.7
+    },
+    "odd_hour": {
       "tp": 10,
       "fp": 0,
       "fn": 0,
       "tn": 0,
       "recall": 1.0
+    },
+    "unusual_category_first_seen": {
+      "tp": 5,
+      "fp": 0,
+      "fn": 5,
+      "tn": 0,
+      "recall": 0.5
     }
   },
   "all_results": [
@@ -59,9 +66,9 @@
       "date": "2026-05-18 16:01",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.024732,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.122694,
+      "correct": true
     },
     {
       "transaction_id": "TXN0425",
@@ -71,7 +78,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.067531,
+      "anomaly_score": 0.189998,
       "correct": true
     },
     {
@@ -82,7 +89,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.045884,
+      "anomaly_score": 0.153812,
       "correct": true
     },
     {
@@ -92,9 +99,9 @@
       "date": "2026-03-02 11:51",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.017092,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.133503,
+      "correct": true
     },
     {
       "transaction_id": "TXN0407",
@@ -103,9 +110,9 @@
       "date": "2026-07-02 11:50",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.008393,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.092858,
+      "correct": true
     },
     {
       "transaction_id": "TXN0351",
@@ -115,7 +122,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.003334,
+      "anomaly_score": 0.148349,
       "correct": true
     },
     {
@@ -125,9 +132,9 @@
       "date": "2026-07-01 20:28",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.09564,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.032189,
+      "correct": true
     },
     {
       "transaction_id": "TXN0103",
@@ -137,7 +144,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.019918,
+      "anomaly_score": 0.128591,
       "correct": true
     },
     {
@@ -148,7 +155,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.064009,
+      "anomaly_score": 0.18214,
       "correct": true
     },
     {
@@ -159,7 +166,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.058268,
+      "anomaly_score": 0.171835,
       "correct": true
     },
     {
@@ -170,7 +177,7 @@
       "anomaly_type": "large_round_transfer",
       "true_is_anomaly": true,
       "predicted_is_anomaly": true,
-      "anomaly_score": -0.14911,
+      "anomaly_score": -0.02259,
       "correct": true
     },
     {
@@ -180,9 +187,9 @@
       "date": "2026-04-06 20:48",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.054472,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.091875,
+      "correct": true
     },
     {
       "transaction_id": "TXN0453",
@@ -191,9 +198,9 @@
       "date": "2026-03-09 13:46",
       "anomaly_type": "amount_spike",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.106399,
-      "correct": true
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.042903,
+      "correct": false
     },
     {
       "transaction_id": "TXN0121",
@@ -203,7 +210,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.036347,
+      "anomaly_score": 0.164743,
       "correct": true
     },
     {
@@ -213,9 +220,9 @@
       "date": "2026-03-08 16:17",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.037389,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.131127,
+      "correct": true
     },
     {
       "transaction_id": "TXN0064",
@@ -225,7 +232,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.029027,
+      "anomaly_score": 0.161875,
       "correct": true
     },
     {
@@ -236,7 +243,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.039666,
+      "anomaly_score": 0.154935,
       "correct": true
     },
     {
@@ -246,9 +253,9 @@
       "date": "2026-04-19 08:24",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.031944,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.14057,
+      "correct": true
     },
     {
       "transaction_id": "TXN0084",
@@ -258,7 +265,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.002662,
+      "anomaly_score": 0.14781,
       "correct": true
     },
     {
@@ -269,7 +276,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.064677,
+      "anomaly_score": 0.187761,
       "correct": true
     },
     {
@@ -280,7 +287,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.007137,
+      "anomaly_score": 0.155522,
       "correct": true
     },
     {
@@ -290,9 +297,9 @@
       "date": "2026-02-04 22:29",
       "anomaly_type": "unusual_category_first_seen",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.126142,
-      "correct": true
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.001458,
+      "correct": false
     },
     {
       "transaction_id": "TXN0434",
@@ -302,7 +309,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.045121,
+      "anomaly_score": 0.156542,
       "correct": true
     },
     {
@@ -313,7 +320,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.024279,
+      "anomaly_score": 0.155749,
       "correct": true
     },
     {
@@ -324,7 +331,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.062034,
+      "anomaly_score": 0.171926,
       "correct": true
     },
     {
@@ -335,7 +342,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.004911,
+      "anomaly_score": 0.137023,
       "correct": true
     },
     {
@@ -345,9 +352,9 @@
       "date": "2026-06-16 16:50",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.002436,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.134495,
+      "correct": true
     },
     {
       "transaction_id": "TXN0259",
@@ -357,7 +364,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.014648,
+      "anomaly_score": 0.151448,
       "correct": true
     },
     {
@@ -367,9 +374,9 @@
       "date": "2026-06-04 16:53",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.064298,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.053794,
+      "correct": true
     },
     {
       "transaction_id": "TXN0132",
@@ -379,7 +386,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.039601,
+      "anomaly_score": 0.14716,
       "correct": true
     },
     {
@@ -390,7 +397,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.013826,
+      "anomaly_score": 0.150073,
       "correct": true
     },
     {
@@ -400,9 +407,9 @@
       "date": "2026-04-09 16:11",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.014995,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.091218,
+      "correct": true
     },
     {
       "transaction_id": "TXN0076",
@@ -411,9 +418,9 @@
       "date": "2026-03-29 12:43",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.046324,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.118813,
+      "correct": true
     },
     {
       "transaction_id": "TXN0034",
@@ -423,7 +430,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.062374,
+      "anomaly_score": 0.182875,
       "correct": true
     },
     {
@@ -433,9 +440,9 @@
       "date": "2026-01-04 23:26",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.095016,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.06199,
+      "correct": true
     },
     {
       "transaction_id": "TXN0354",
@@ -445,7 +452,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.030104,
+      "anomaly_score": 0.152181,
       "correct": true
     },
     {
@@ -456,7 +463,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.017543,
+      "anomaly_score": 0.125375,
       "correct": true
     },
     {
@@ -467,7 +474,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.067306,
+      "anomaly_score": 0.190098,
       "correct": true
     },
     {
@@ -478,7 +485,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.001699,
+      "anomaly_score": 0.140134,
       "correct": true
     },
     {
@@ -488,9 +495,9 @@
       "date": "2026-06-01 10:10",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.004458,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.1424,
+      "correct": true
     },
     {
       "transaction_id": "TXN0146",
@@ -499,9 +506,9 @@
       "date": "2026-06-26 13:06",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.007882,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.091008,
+      "correct": true
     },
     {
       "transaction_id": "TXN0485",
@@ -510,9 +517,9 @@
       "date": "2026-01-02 03:00",
       "anomaly_type": "odd_hour",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": false,
-      "anomaly_score": 0.002462,
-      "correct": false
+      "predicted_is_anomaly": true,
+      "anomaly_score": -1.0,
+      "correct": true
     },
     {
       "transaction_id": "TXN0099",
@@ -522,7 +529,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.000953,
+      "anomaly_score": 0.143686,
       "correct": true
     },
     {
@@ -533,7 +540,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.041932,
+      "anomaly_score": 0.14656,
       "correct": true
     },
     {
@@ -543,9 +550,9 @@
       "date": "2026-05-26 12:11",
       "anomaly_type": "unusual_category_first_seen",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.144054,
-      "correct": true
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.004346,
+      "correct": false
     },
     {
       "transaction_id": "TXN0053",
@@ -554,9 +561,9 @@
       "date": "2026-03-05 08:28",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.008912,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.103474,
+      "correct": true
     },
     {
       "transaction_id": "TXN0427",
@@ -566,7 +573,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.047266,
+      "anomaly_score": 0.172477,
       "correct": true
     },
     {
@@ -577,7 +584,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.029135,
+      "anomaly_score": 0.145259,
       "correct": true
     },
     {
@@ -587,9 +594,9 @@
       "date": "2026-06-27 21:18",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.003374,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.119555,
+      "correct": true
     },
     {
       "transaction_id": "TXN0420",
@@ -598,9 +605,9 @@
       "date": "2026-06-07 23:05",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.042518,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.124933,
+      "correct": true
     },
     {
       "transaction_id": "TXN0314",
@@ -609,9 +616,9 @@
       "date": "2026-06-26 17:05",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.044807,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.050409,
+      "correct": true
     },
     {
       "transaction_id": "TXN0467",
@@ -620,9 +627,9 @@
       "date": "2026-03-18 15:45",
       "anomaly_type": "duplicate_transaction",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": false,
-      "anomaly_score": 0.057043,
-      "correct": false
+      "predicted_is_anomaly": true,
+      "anomaly_score": -1.0,
+      "correct": true
     },
     {
       "transaction_id": "TXN0323",
@@ -632,7 +639,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.031845,
+      "anomaly_score": 0.157421,
       "correct": true
     },
     {
@@ -642,9 +649,9 @@
       "date": "2026-05-04 17:35",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.017267,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.133823,
+      "correct": true
     },
     {
       "transaction_id": "TXN0475",
@@ -653,9 +660,9 @@
       "date": "2026-07-17 10:18",
       "anomaly_type": "duplicate_transaction",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": false,
-      "anomaly_score": 0.052291,
-      "correct": false
+      "predicted_is_anomaly": true,
+      "anomaly_score": -1.0,
+      "correct": true
     },
     {
       "transaction_id": "TXN0181",
@@ -664,9 +671,9 @@
       "date": "2026-02-23 12:16",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.054285,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.09231,
+      "correct": true
     },
     {
       "transaction_id": "TXN0067",
@@ -675,9 +682,9 @@
       "date": "2026-06-21 15:29",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.016623,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.13916,
+      "correct": true
     },
     {
       "transaction_id": "TXN0006",
@@ -687,7 +694,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.027563,
+      "anomaly_score": 0.16158,
       "correct": true
     },
     {
@@ -698,7 +705,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.064108,
+      "anomaly_score": 0.188138,
       "correct": true
     },
     {
@@ -708,9 +715,9 @@
       "date": "2026-07-11 21:13",
       "anomaly_type": "duplicate_transaction",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": false,
-      "anomaly_score": 0.011774,
-      "correct": false
+      "predicted_is_anomaly": true,
+      "anomaly_score": -1.0,
+      "correct": true
     },
     {
       "transaction_id": "TXN0148",
@@ -720,7 +727,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.013923,
+      "anomaly_score": 0.155293,
       "correct": true
     },
     {
@@ -731,7 +738,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.024733,
+      "anomaly_score": 0.134473,
       "correct": true
     },
     {
@@ -741,9 +748,9 @@
       "date": "2026-03-20 17:57",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.091659,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.027512,
+      "correct": true
     },
     {
       "transaction_id": "TXN0057",
@@ -753,7 +760,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.015392,
+      "anomaly_score": 0.124332,
       "correct": true
     },
     {
@@ -764,7 +771,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.051759,
+      "anomaly_score": 0.169148,
       "correct": true
     },
     {
@@ -775,7 +782,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.044123,
+      "anomaly_score": 0.160427,
       "correct": true
     },
     {
@@ -786,7 +793,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.056515,
+      "anomaly_score": 0.168832,
       "correct": true
     },
     {
@@ -797,7 +804,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.003888,
+      "anomaly_score": 0.117801,
       "correct": true
     },
     {
@@ -807,9 +814,9 @@
       "date": "2026-07-12 14:21",
       "anomaly_type": "unusual_category_first_seen",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.170208,
-      "correct": true
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.002918,
+      "correct": false
     },
     {
       "transaction_id": "TXN0320",
@@ -819,7 +826,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.033978,
+      "anomaly_score": 0.151717,
       "correct": true
     },
     {
@@ -830,7 +837,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.042391,
+      "anomaly_score": 0.159099,
       "correct": true
     },
     {
@@ -841,7 +848,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.028821,
+      "anomaly_score": 0.152318,
       "correct": true
     },
     {
@@ -852,7 +859,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.026926,
+      "anomaly_score": 0.150529,
       "correct": true
     },
     {
@@ -862,9 +869,9 @@
       "date": "2026-05-03 11:51",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.067736,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.102697,
+      "correct": true
     },
     {
       "transaction_id": "TXN0224",
@@ -873,9 +880,9 @@
       "date": "2026-06-16 08:54",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.084232,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.072554,
+      "correct": true
     },
     {
       "transaction_id": "TXN0413",
@@ -884,9 +891,9 @@
       "date": "2026-03-23 08:28",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.044241,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.092636,
+      "correct": true
     },
     {
       "transaction_id": "TXN0100",
@@ -895,9 +902,9 @@
       "date": "2026-06-20 16:39",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.110193,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.0172,
+      "correct": true
     },
     {
       "transaction_id": "TXN0409",
@@ -906,9 +913,9 @@
       "date": "2026-05-07 06:23",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.024556,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.092664,
+      "correct": true
     },
     {
       "transaction_id": "TXN0308",
@@ -917,9 +924,9 @@
       "date": "2026-04-08 23:45",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.021901,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.101975,
+      "correct": true
     },
     {
       "transaction_id": "TXN0108",
@@ -929,7 +936,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.023768,
+      "anomaly_score": 0.146576,
       "correct": true
     },
     {
@@ -939,9 +946,9 @@
       "date": "2026-05-03 22:24",
       "anomaly_type": "amount_spike",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.163263,
-      "correct": true
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.008323,
+      "correct": false
     },
     {
       "transaction_id": "TXN0268",
@@ -951,7 +958,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.030412,
+      "anomaly_score": 0.154436,
       "correct": true
     },
     {
@@ -962,7 +969,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.018592,
+      "anomaly_score": 0.122595,
       "correct": true
     },
     {
@@ -973,7 +980,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": true,
-      "anomaly_score": -0.190649,
+      "anomaly_score": -0.016312,
       "correct": false
     },
     {
@@ -984,7 +991,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.010401,
+      "anomaly_score": 0.119383,
       "correct": true
     },
     {
@@ -995,7 +1002,7 @@
       "anomaly_type": "unusual_category_first_seen",
       "true_is_anomaly": true,
       "predicted_is_anomaly": true,
-      "anomaly_score": -0.131306,
+      "anomaly_score": -0.001166,
       "correct": true
     },
     {
@@ -1006,7 +1013,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.063448,
+      "anomaly_score": 0.184978,
       "correct": true
     },
     {
@@ -1016,9 +1023,9 @@
       "date": "2026-06-21 09:11",
       "anomaly_type": "unusual_category_first_seen",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.161187,
-      "correct": true
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.010289,
+      "correct": false
     },
     {
       "transaction_id": "TXN0205",
@@ -1027,9 +1034,9 @@
       "date": "2026-06-28 21:07",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.022755,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.135886,
+      "correct": true
     },
     {
       "transaction_id": "TXN0163",
@@ -1039,7 +1046,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.053044,
+      "anomaly_score": 0.168331,
       "correct": true
     },
     {
@@ -1050,7 +1057,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.014893,
+      "anomaly_score": 0.134377,
       "correct": true
     },
     {
@@ -1061,7 +1068,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.017902,
+      "anomaly_score": 0.121942,
       "correct": true
     },
     {
@@ -1072,7 +1079,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.044534,
+      "anomaly_score": 0.169567,
       "correct": true
     },
     {
@@ -1083,7 +1090,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.051606,
+      "anomaly_score": 0.157718,
       "correct": true
     },
     {
@@ -1094,7 +1101,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.02926,
+      "anomaly_score": 0.158819,
       "correct": true
     },
     {
@@ -1105,7 +1112,7 @@
       "anomaly_type": "large_round_transfer",
       "true_is_anomaly": true,
       "predicted_is_anomaly": true,
-      "anomaly_score": -0.23283,
+      "anomaly_score": -0.068134,
       "correct": true
     },
     {
@@ -1116,7 +1123,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.013513,
+      "anomaly_score": 0.148371,
       "correct": true
     },
     {
@@ -1126,9 +1133,9 @@
       "date": "2026-01-12 06:21",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.021012,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.129871,
+      "correct": true
     },
     {
       "transaction_id": "TXN0151",
@@ -1138,7 +1145,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.017994,
+      "anomaly_score": 0.145744,
       "correct": true
     },
     {
@@ -1148,9 +1155,9 @@
       "date": "2026-04-07 08:35",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.023228,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.121147,
+      "correct": true
     },
     {
       "transaction_id": "TXN0332",
@@ -1160,7 +1167,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.054703,
+      "anomaly_score": 0.161391,
       "correct": true
     },
     {
@@ -1170,9 +1177,9 @@
       "date": "2026-06-08 23:20",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.012157,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.142417,
+      "correct": true
     },
     {
       "transaction_id": "TXN0223",
@@ -1182,7 +1189,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": true,
-      "anomaly_score": -0.150334,
+      "anomaly_score": -0.009009,
       "correct": false
     },
     {
@@ -1193,7 +1200,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.061469,
+      "anomaly_score": 0.18119,
       "correct": true
     },
     {
@@ -1204,7 +1211,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.024447,
+      "anomaly_score": 0.132777,
       "correct": true
     },
     {
@@ -1215,7 +1222,7 @@
       "anomaly_type": "large_round_transfer",
       "true_is_anomaly": true,
       "predicted_is_anomaly": true,
-      "anomaly_score": -0.128365,
+      "anomaly_score": -0.006506,
       "correct": true
     },
     {
@@ -1225,9 +1232,9 @@
       "date": "2026-03-07 17:09",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.0092,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.114466,
+      "correct": true
     },
     {
       "transaction_id": "TXN0143",
@@ -1236,9 +1243,9 @@
       "date": "2026-07-11 09:49",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.063673,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.055899,
+      "correct": true
     },
     {
       "transaction_id": "TXN0464",
@@ -1247,9 +1254,9 @@
       "date": "2026-07-17 14:39",
       "anomaly_type": "duplicate_transaction",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": false,
-      "anomaly_score": 0.035817,
-      "correct": false
+      "predicted_is_anomaly": true,
+      "anomaly_score": -1.0,
+      "correct": true
     },
     {
       "transaction_id": "TXN0089",
@@ -1259,7 +1266,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.061625,
+      "anomaly_score": 0.184249,
       "correct": true
     },
     {
@@ -1270,7 +1277,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.048733,
+      "anomaly_score": 0.172097,
       "correct": true
     },
     {
@@ -1281,7 +1288,7 @@
       "anomaly_type": "odd_hour",
       "true_is_anomaly": true,
       "predicted_is_anomaly": true,
-      "anomaly_score": -0.012353,
+      "anomaly_score": -1.0,
       "correct": true
     },
     {
@@ -1292,7 +1299,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.009347,
+      "anomaly_score": 0.130781,
       "correct": true
     },
     {
@@ -1303,7 +1310,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.055115,
+      "anomaly_score": 0.181849,
       "correct": true
     },
     {
@@ -1314,7 +1321,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.023222,
+      "anomaly_score": 0.157262,
       "correct": true
     },
     {
@@ -1325,7 +1332,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.015735,
+      "anomaly_score": 0.123496,
       "correct": true
     },
     {
@@ -1336,7 +1343,7 @@
       "anomaly_type": "unusual_category_first_seen",
       "true_is_anomaly": true,
       "predicted_is_anomaly": true,
-      "anomaly_score": -0.118318,
+      "anomaly_score": -0.000453,
       "correct": true
     },
     {
@@ -1347,7 +1354,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.031016,
+      "anomaly_score": 0.163328,
       "correct": true
     },
     {
@@ -1358,7 +1365,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.066988,
+      "anomaly_score": 0.186893,
       "correct": true
     },
     {
@@ -1369,7 +1376,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.060774,
+      "anomaly_score": 0.17363,
       "correct": true
     },
     {
@@ -1380,7 +1387,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.02605,
+      "anomaly_score": 0.152528,
       "correct": true
     },
     {
@@ -1391,7 +1398,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.017574,
+      "anomaly_score": 0.124998,
       "correct": true
     },
     {
@@ -1402,7 +1409,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.020896,
+      "anomaly_score": 0.154001,
       "correct": true
     },
     {
@@ -1412,9 +1419,9 @@
       "date": "2026-03-05 14:35",
       "anomaly_type": "duplicate_transaction",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": false,
-      "anomaly_score": 0.034342,
-      "correct": false
+      "predicted_is_anomaly": true,
+      "anomaly_score": -1.0,
+      "correct": true
     },
     {
       "transaction_id": "TXN0073",
@@ -1423,9 +1430,9 @@
       "date": "2026-07-29 23:19",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.006752,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.115304,
+      "correct": true
     },
     {
       "transaction_id": "TXN0327",
@@ -1434,9 +1441,9 @@
       "date": "2026-03-15 08:41",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.037536,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.127121,
+      "correct": true
     },
     {
       "transaction_id": "TXN0483",
@@ -1445,9 +1452,9 @@
       "date": "2026-01-13 03:00",
       "anomaly_type": "odd_hour",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": false,
-      "anomaly_score": 0.026958,
-      "correct": false
+      "predicted_is_anomaly": true,
+      "anomaly_score": -1.0,
+      "correct": true
     },
     {
       "transaction_id": "TXN0197",
@@ -1457,7 +1464,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.012164,
+      "anomaly_score": 0.150115,
       "correct": true
     },
     {
@@ -1468,7 +1475,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.044665,
+      "anomaly_score": 0.154858,
       "correct": true
     },
     {
@@ -1479,7 +1486,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.022016,
+      "anomaly_score": 0.155031,
       "correct": true
     },
     {
@@ -1490,7 +1497,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.034664,
+      "anomaly_score": 0.168027,
       "correct": true
     },
     {
@@ -1500,9 +1507,9 @@
       "date": "2026-02-08 14:52",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.019326,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.144792,
+      "correct": true
     },
     {
       "transaction_id": "TXN0081",
@@ -1512,7 +1519,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.048485,
+      "anomaly_score": 0.171868,
       "correct": true
     },
     {
@@ -1523,7 +1530,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.004691,
+      "anomaly_score": 0.147636,
       "correct": true
     },
     {
@@ -1534,7 +1541,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.005018,
+      "anomaly_score": 0.137102,
       "correct": true
     },
     {
@@ -1545,7 +1552,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.05212,
+      "anomaly_score": 0.182807,
       "correct": true
     },
     {
@@ -1556,7 +1563,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.004743,
+      "anomaly_score": 0.137931,
       "correct": true
     },
     {
@@ -1566,9 +1573,9 @@
       "date": "2026-07-26 18:19",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.02912,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.130949,
+      "correct": true
     },
     {
       "transaction_id": "TXN0456",
@@ -1578,7 +1585,7 @@
       "anomaly_type": "amount_spike",
       "true_is_anomaly": true,
       "predicted_is_anomaly": true,
-      "anomaly_score": -0.153387,
+      "anomaly_score": -0.001154,
       "correct": true
     },
     {
@@ -1589,7 +1596,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.031458,
+      "anomaly_score": 0.146339,
       "correct": true
     },
     {
@@ -1599,9 +1606,9 @@
       "date": "2026-07-12 13:10",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.029635,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.132868,
+      "correct": true
     },
     {
       "transaction_id": "TXN0059",
@@ -1611,7 +1618,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.019638,
+      "anomaly_score": 0.151204,
       "correct": true
     },
     {
@@ -1621,9 +1628,9 @@
       "date": "2026-06-08 17:36",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.043175,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.103099,
+      "correct": true
     },
     {
       "transaction_id": "TXN0450",
@@ -1632,9 +1639,9 @@
       "date": "2026-05-11 23:31",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.007856,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.136796,
+      "correct": true
     },
     {
       "transaction_id": "TXN0180",
@@ -1644,7 +1651,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.025211,
+      "anomaly_score": 0.128079,
       "correct": true
     },
     {
@@ -1654,9 +1661,9 @@
       "date": "2026-04-08 13:31",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.067838,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.056071,
+      "correct": true
     },
     {
       "transaction_id": "TXN0510",
@@ -1665,9 +1672,9 @@
       "date": "2026-05-27 23:09",
       "anomaly_type": "large_round_transfer",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.120098,
-      "correct": true
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.006228,
+      "correct": false
     },
     {
       "transaction_id": "TXN0304",
@@ -1677,7 +1684,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.036734,
+      "anomaly_score": 0.160608,
       "correct": true
     },
     {
@@ -1688,7 +1695,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.062141,
+      "anomaly_score": 0.181965,
       "correct": true
     },
     {
@@ -1699,7 +1706,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.053676,
+      "anomaly_score": 0.173406,
       "correct": true
     },
     {
@@ -1709,9 +1716,9 @@
       "date": "2026-03-02 15:07",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.041495,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.10937,
+      "correct": true
     },
     {
       "transaction_id": "TXN0433",
@@ -1720,9 +1727,9 @@
       "date": "2026-06-07 19:15",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.062501,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.105684,
+      "correct": true
     },
     {
       "transaction_id": "TXN0015",
@@ -1732,7 +1739,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.028902,
+      "anomaly_score": 0.163401,
       "correct": true
     },
     {
@@ -1743,7 +1750,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.044996,
+      "anomaly_score": 0.157028,
       "correct": true
     },
     {
@@ -1753,9 +1760,9 @@
       "date": "2026-01-04 10:26",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.027144,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.138714,
+      "correct": true
     },
     {
       "transaction_id": "TXN0431",
@@ -1765,7 +1772,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.034438,
+      "anomaly_score": 0.165549,
       "correct": true
     },
     {
@@ -1775,9 +1782,9 @@
       "date": "2026-05-20 18:57",
       "anomaly_type": "duplicate_transaction",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": false,
-      "anomaly_score": 0.027515,
-      "correct": false
+      "predicted_is_anomaly": true,
+      "anomaly_score": -1.0,
+      "correct": true
     },
     {
       "transaction_id": "TXN0167",
@@ -1787,7 +1794,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.029754,
+      "anomaly_score": 0.130683,
       "correct": true
     },
     {
@@ -1798,7 +1805,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.015507,
+      "anomaly_score": 0.155272,
       "correct": true
     },
     {
@@ -1809,7 +1816,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.035958,
+      "anomaly_score": 0.168037,
       "correct": true
     },
     {
@@ -1820,7 +1827,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.054651,
+      "anomaly_score": 0.174405,
       "correct": true
     },
     {
@@ -1830,9 +1837,9 @@
       "date": "2026-01-05 17:19",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.035138,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.106432,
+      "correct": true
     },
     {
       "transaction_id": "TXN0408",
@@ -1841,9 +1848,9 @@
       "date": "2026-02-01 12:50",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.024374,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.135284,
+      "correct": true
     },
     {
       "transaction_id": "TXN0063",
@@ -1853,7 +1860,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.01489,
+      "anomaly_score": 0.155069,
       "correct": true
     },
     {
@@ -1863,9 +1870,9 @@
       "date": "2026-04-17 15:50",
       "anomaly_type": "amount_spike",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.116307,
-      "correct": true
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.006747,
+      "correct": false
     },
     {
       "transaction_id": "TXN0376",
@@ -1875,7 +1882,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.022322,
+      "anomaly_score": 0.157292,
       "correct": true
     },
     {
@@ -1886,7 +1893,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.022222,
+      "anomaly_score": 0.131789,
       "correct": true
     },
     {
@@ -1897,7 +1904,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.034814,
+      "anomaly_score": 0.152984,
       "correct": true
     },
     {
@@ -1907,9 +1914,9 @@
       "date": "2026-03-22 19:36",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.06063,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.109181,
+      "correct": true
     },
     {
       "transaction_id": "TXN0102",
@@ -1919,7 +1926,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.021671,
+      "anomaly_score": 0.145034,
       "correct": true
     },
     {
@@ -1930,7 +1937,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.009881,
+      "anomaly_score": 0.132885,
       "correct": true
     },
     {
@@ -1940,9 +1947,9 @@
       "date": "2026-04-28 23:21",
       "anomaly_type": "duplicate_transaction",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": false,
-      "anomaly_score": 0.030562,
-      "correct": false
+      "predicted_is_anomaly": true,
+      "anomaly_score": -1.0,
+      "correct": true
     },
     {
       "transaction_id": "TXN0065",
@@ -1952,7 +1959,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.001351,
+      "anomaly_score": 0.114127,
       "correct": true
     },
     {
@@ -1963,7 +1970,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.058273,
+      "anomaly_score": 0.176317,
       "correct": true
     },
     {
@@ -1973,9 +1980,9 @@
       "date": "2026-04-05 22:17",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.016234,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.139063,
+      "correct": true
     },
     {
       "transaction_id": "TXN0050",
@@ -1984,9 +1991,9 @@
       "date": "2026-06-15 09:03",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.004358,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.143793,
+      "correct": true
     },
     {
       "transaction_id": "TXN0062",
@@ -1996,7 +2003,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.061831,
+      "anomaly_score": 0.182703,
       "correct": true
     },
     {
@@ -2006,9 +2013,9 @@
       "date": "2026-01-10 03:00",
       "anomaly_type": "odd_hour",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": false,
-      "anomaly_score": 0.007363,
-      "correct": false
+      "predicted_is_anomaly": true,
+      "anomaly_score": -1.0,
+      "correct": true
     },
     {
       "transaction_id": "TXN0448",
@@ -2017,9 +2024,9 @@
       "date": "2026-02-05 16:59",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.07342,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.040156,
+      "correct": true
     },
     {
       "transaction_id": "TXN0352",
@@ -2029,7 +2036,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.05745,
+      "anomaly_score": 0.17792,
       "correct": true
     },
     {
@@ -2040,7 +2047,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.014764,
+      "anomaly_score": 0.134545,
       "correct": true
     },
     {
@@ -2051,7 +2058,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.025684,
+      "anomaly_score": 0.156844,
       "correct": true
     },
     {
@@ -2062,7 +2069,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.029644,
+      "anomaly_score": 0.153421,
       "correct": true
     },
     {
@@ -2073,7 +2080,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.050682,
+      "anomaly_score": 0.169748,
       "correct": true
     },
     {
@@ -2084,7 +2091,7 @@
       "anomaly_type": "large_round_transfer",
       "true_is_anomaly": true,
       "predicted_is_anomaly": true,
-      "anomaly_score": -0.222303,
+      "anomaly_score": -0.040879,
       "correct": true
     },
     {
@@ -2095,7 +2102,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.040387,
+      "anomaly_score": 0.156311,
       "correct": true
     },
     {
@@ -2106,7 +2113,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.047634,
+      "anomaly_score": 0.173504,
       "correct": true
     },
     {
@@ -2117,7 +2124,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.03124,
+      "anomaly_score": 0.162275,
       "correct": true
     },
     {
@@ -2127,9 +2134,9 @@
       "date": "2026-03-25 11:51",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.024382,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.102049,
+      "correct": true
     },
     {
       "transaction_id": "TXN0071",
@@ -2138,9 +2145,9 @@
       "date": "2026-04-05 15:10",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.031791,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.126992,
+      "correct": true
     },
     {
       "transaction_id": "TXN0466",
@@ -2149,9 +2156,9 @@
       "date": "2026-03-05 14:35",
       "anomaly_type": "duplicate_transaction",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": false,
-      "anomaly_score": 0.034342,
-      "correct": false
+      "predicted_is_anomaly": true,
+      "anomaly_score": -1.0,
+      "correct": true
     },
     {
       "transaction_id": "TXN0136",
@@ -2161,7 +2168,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.058938,
+      "anomaly_score": 0.16859,
       "correct": true
     },
     {
@@ -2171,9 +2178,9 @@
       "date": "2026-06-01 07:22",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.04232,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.108244,
+      "correct": true
     },
     {
       "transaction_id": "TXN0004",
@@ -2183,7 +2190,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.046874,
+      "anomaly_score": 0.172713,
       "correct": true
     },
     {
@@ -2194,7 +2201,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.028232,
+      "anomaly_score": 0.154608,
       "correct": true
     },
     {
@@ -2205,7 +2212,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.061646,
+      "anomaly_score": 0.172439,
       "correct": true
     },
     {
@@ -2215,9 +2222,9 @@
       "date": "2026-01-21 21:01",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.006041,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.117764,
+      "correct": true
     },
     {
       "transaction_id": "TXN0221",
@@ -2226,9 +2233,9 @@
       "date": "2026-01-26 20:06",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.008584,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.13789,
+      "correct": true
     },
     {
       "transaction_id": "TXN0005",
@@ -2237,9 +2244,9 @@
       "date": "2026-04-25 14:51",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.009564,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.109199,
+      "correct": true
     },
     {
       "transaction_id": "TXN0294",
@@ -2248,9 +2255,9 @@
       "date": "2026-08-01 14:01",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.096676,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.033348,
+      "correct": true
     },
     {
       "transaction_id": "TXN0261",
@@ -2260,7 +2267,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.063077,
+      "anomaly_score": 0.189648,
       "correct": true
     },
     {
@@ -2271,7 +2278,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.032826,
+      "anomaly_score": 0.164983,
       "correct": true
     },
     {
@@ -2281,9 +2288,9 @@
       "date": "2026-01-27 22:13",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.014515,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.12822,
+      "correct": true
     },
     {
       "transaction_id": "TXN0306",
@@ -2293,7 +2300,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.015429,
+      "anomaly_score": 0.146716,
       "correct": true
     },
     {
@@ -2303,9 +2310,9 @@
       "date": "2026-04-12 15:47",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.014716,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.149715,
+      "correct": true
     },
     {
       "transaction_id": "TXN0159",
@@ -2315,7 +2322,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.042308,
+      "anomaly_score": 0.149193,
       "correct": true
     },
     {
@@ -2326,7 +2333,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.049034,
+      "anomaly_score": 0.172336,
       "correct": true
     },
     {
@@ -2337,7 +2344,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.036023,
+      "anomaly_score": 0.168374,
       "correct": true
     },
     {
@@ -2347,9 +2354,9 @@
       "date": "2026-05-24 16:48",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.049832,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.118362,
+      "correct": true
     },
     {
       "transaction_id": "TXN0130",
@@ -2358,9 +2365,9 @@
       "date": "2026-05-05 13:17",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.096855,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.062034,
+      "correct": true
     },
     {
       "transaction_id": "TXN0056",
@@ -2370,7 +2377,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.006122,
+      "anomaly_score": 0.136904,
       "correct": true
     },
     {
@@ -2381,7 +2388,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.025142,
+      "anomaly_score": 0.148123,
       "correct": true
     },
     {
@@ -2392,7 +2399,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.050981,
+      "anomaly_score": 0.163034,
       "correct": true
     },
     {
@@ -2403,7 +2410,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.008694,
+      "anomaly_score": 0.114941,
       "correct": true
     },
     {
@@ -2413,9 +2420,9 @@
       "date": "2026-07-19 17:23",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.160768,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.003019,
+      "correct": true
     },
     {
       "transaction_id": "TXN0505",
@@ -2425,7 +2432,7 @@
       "anomaly_type": "large_round_transfer",
       "true_is_anomaly": true,
       "predicted_is_anomaly": true,
-      "anomaly_score": -0.217327,
+      "anomaly_score": -0.049888,
       "correct": true
     },
     {
@@ -2435,9 +2442,9 @@
       "date": "2026-02-26 18:44",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.009899,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.099099,
+      "correct": true
     },
     {
       "transaction_id": "TXN0451",
@@ -2446,9 +2453,9 @@
       "date": "2026-07-28 06:23",
       "anomaly_type": "amount_spike",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.1215,
-      "correct": true
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.03817,
+      "correct": false
     },
     {
       "transaction_id": "TXN0240",
@@ -2457,9 +2464,9 @@
       "date": "2026-05-25 07:58",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.028623,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.111663,
+      "correct": true
     },
     {
       "transaction_id": "TXN0400",
@@ -2469,7 +2476,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.058166,
+      "anomaly_score": 0.171134,
       "correct": true
     },
     {
@@ -2479,9 +2486,9 @@
       "date": "2026-07-03 16:46",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.015759,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.084575,
+      "correct": true
     },
     {
       "transaction_id": "TXN0353",
@@ -2491,7 +2498,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.000606,
+      "anomaly_score": 0.133773,
       "correct": true
     },
     {
@@ -2501,9 +2508,9 @@
       "date": "2026-03-01 09:24",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.069275,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.101864,
+      "correct": true
     },
     {
       "transaction_id": "TXN0172",
@@ -2512,9 +2519,9 @@
       "date": "2026-07-12 21:06",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.039574,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.125434,
+      "correct": true
     },
     {
       "transaction_id": "TXN0504",
@@ -2524,7 +2531,7 @@
       "anomaly_type": "large_round_transfer",
       "true_is_anomaly": true,
       "predicted_is_anomaly": true,
-      "anomaly_score": -0.139601,
+      "anomaly_score": -0.026424,
       "correct": true
     },
     {
@@ -2535,7 +2542,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.024082,
+      "anomaly_score": 0.154028,
       "correct": true
     },
     {
@@ -2545,9 +2552,9 @@
       "date": "2026-05-06 16:30",
       "anomaly_type": "duplicate_transaction",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": false,
-      "anomaly_score": 0.063252,
-      "correct": false
+      "predicted_is_anomaly": true,
+      "anomaly_score": -1.0,
+      "correct": true
     },
     {
       "transaction_id": "TXN0405",
@@ -2556,9 +2563,9 @@
       "date": "2026-07-27 16:42",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.066731,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.084264,
+      "correct": true
     },
     {
       "transaction_id": "TXN0366",
@@ -2567,9 +2574,9 @@
       "date": "2026-07-06 22:27",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.027871,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.113825,
+      "correct": true
     },
     {
       "transaction_id": "TXN0135",
@@ -2579,7 +2586,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.026174,
+      "anomaly_score": 0.159612,
       "correct": true
     },
     {
@@ -2590,7 +2597,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.040264,
+      "anomaly_score": 0.156311,
       "correct": true
     },
     {
@@ -2601,7 +2608,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.054536,
+      "anomaly_score": 0.172974,
       "correct": true
     },
     {
@@ -2612,7 +2619,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.026939,
+      "anomaly_score": 0.156335,
       "correct": true
     },
     {
@@ -2622,9 +2629,9 @@
       "date": "2026-06-30 09:28",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.00078,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.135371,
+      "correct": true
     },
     {
       "transaction_id": "TXN0235",
@@ -2634,7 +2641,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.001713,
+      "anomaly_score": 0.13801,
       "correct": true
     },
     {
@@ -2644,9 +2651,9 @@
       "date": "2026-07-19 11:04",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.019637,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.145568,
+      "correct": true
     },
     {
       "transaction_id": "TXN0247",
@@ -2656,7 +2663,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.005226,
+      "anomaly_score": 0.13456,
       "correct": true
     },
     {
@@ -2667,7 +2674,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.012083,
+      "anomaly_score": 0.118297,
       "correct": true
     },
     {
@@ -2677,9 +2684,9 @@
       "date": "2026-06-16 23:46",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.006795,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.133596,
+      "correct": true
     },
     {
       "transaction_id": "TXN0463",
@@ -2688,9 +2695,9 @@
       "date": "2026-07-17 14:39",
       "anomaly_type": "duplicate_transaction",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": false,
-      "anomaly_score": 0.035817,
-      "correct": false
+      "predicted_is_anomaly": true,
+      "anomaly_score": -1.0,
+      "correct": true
     },
     {
       "transaction_id": "TXN0245",
@@ -2700,7 +2707,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.043991,
+      "anomaly_score": 0.149531,
       "correct": true
     },
     {
@@ -2711,7 +2718,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.057097,
+      "anomaly_score": 0.170019,
       "correct": true
     },
     {
@@ -2722,7 +2729,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.048427,
+      "anomaly_score": 0.172469,
       "correct": true
     },
     {
@@ -2732,9 +2739,9 @@
       "date": "2026-02-12 15:38",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.088692,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.024138,
+      "correct": true
     },
     {
       "transaction_id": "TXN0044",
@@ -2743,9 +2750,9 @@
       "date": "2026-07-01 07:14",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.022858,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.101254,
+      "correct": true
     },
     {
       "transaction_id": "TXN0260",
@@ -2754,9 +2761,9 @@
       "date": "2026-06-07 19:17",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.055808,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.110536,
+      "correct": true
     },
     {
       "transaction_id": "TXN0252",
@@ -2766,7 +2773,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.059623,
+      "anomaly_score": 0.173743,
       "correct": true
     },
     {
@@ -2776,9 +2783,9 @@
       "date": "2026-07-02 08:22",
       "anomaly_type": "duplicate_transaction",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": false,
-      "anomaly_score": 0.033386,
-      "correct": false
+      "predicted_is_anomaly": true,
+      "anomaly_score": -1.0,
+      "correct": true
     },
     {
       "transaction_id": "TXN0488",
@@ -2787,9 +2794,9 @@
       "date": "2026-02-14 03:00",
       "anomaly_type": "odd_hour",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": false,
-      "anomaly_score": 0.007876,
-      "correct": false
+      "predicted_is_anomaly": true,
+      "anomaly_score": -1.0,
+      "correct": true
     },
     {
       "transaction_id": "TXN0186",
@@ -2799,7 +2806,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.04952,
+      "anomaly_score": 0.164031,
       "correct": true
     },
     {
@@ -2810,7 +2817,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.005786,
+      "anomaly_score": 0.13826,
       "correct": true
     },
     {
@@ -2821,7 +2828,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.008283,
+      "anomaly_score": 0.142163,
       "correct": true
     },
     {
@@ -2832,7 +2839,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.019995,
+      "anomaly_score": 0.128103,
       "correct": true
     },
     {
@@ -2843,7 +2850,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.018475,
+      "anomaly_score": 0.144777,
       "correct": true
     },
     {
@@ -2854,7 +2861,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.049638,
+      "anomaly_score": 0.166483,
       "correct": true
     },
     {
@@ -2865,7 +2872,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.042058,
+      "anomaly_score": 0.150721,
       "correct": true
     },
     {
@@ -2876,7 +2883,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.033699,
+      "anomaly_score": 0.144996,
       "correct": true
     },
     {
@@ -2887,7 +2894,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.048665,
+      "anomaly_score": 0.16541,
       "correct": true
     },
     {
@@ -2898,7 +2905,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.05343,
+      "anomaly_score": 0.169242,
       "correct": true
     },
     {
@@ -2909,7 +2916,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.006178,
+      "anomaly_score": 0.128366,
       "correct": true
     },
     {
@@ -2919,9 +2926,9 @@
       "date": "2026-02-19 15:14",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.018858,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.086241,
+      "correct": true
     },
     {
       "transaction_id": "TXN0101",
@@ -2930,9 +2937,9 @@
       "date": "2026-02-01 15:32",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.016636,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.137421,
+      "correct": true
     },
     {
       "transaction_id": "TXN0079",
@@ -2941,9 +2948,9 @@
       "date": "2026-03-09 11:47",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.028077,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.115992,
+      "correct": true
     },
     {
       "transaction_id": "TXN0152",
@@ -2953,7 +2960,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.061473,
+      "anomaly_score": 0.181268,
       "correct": true
     },
     {
@@ -2963,9 +2970,9 @@
       "date": "2026-02-13 22:40",
       "anomaly_type": "amount_spike",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.0491,
-      "correct": true
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.043476,
+      "correct": false
     },
     {
       "transaction_id": "TXN0282",
@@ -2975,7 +2982,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.030455,
+      "anomaly_score": 0.152205,
       "correct": true
     },
     {
@@ -2986,7 +2993,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.026828,
+      "anomaly_score": 0.155992,
       "correct": true
     },
     {
@@ -2996,9 +3003,9 @@
       "date": "2026-02-09 14:18",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.040536,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.109668,
+      "correct": true
     },
     {
       "transaction_id": "TXN0365",
@@ -3008,7 +3015,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.003277,
+      "anomaly_score": 0.148867,
       "correct": true
     },
     {
@@ -3018,9 +3025,9 @@
       "date": "2026-07-23 14:18",
       "anomaly_type": "duplicate_transaction",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": false,
-      "anomaly_score": 0.047226,
-      "correct": false
+      "predicted_is_anomaly": true,
+      "anomaly_score": -1.0,
+      "correct": true
     },
     {
       "transaction_id": "TXN0443",
@@ -3029,9 +3036,9 @@
       "date": "2026-03-13 09:08",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.015908,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.084996,
+      "correct": true
     },
     {
       "transaction_id": "TXN0161",
@@ -3041,7 +3048,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.048389,
+      "anomaly_score": 0.164948,
       "correct": true
     },
     {
@@ -3052,7 +3059,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.02139,
+      "anomaly_score": 0.13486,
       "correct": true
     },
     {
@@ -3062,9 +3069,9 @@
       "date": "2026-05-24 23:01",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.007664,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.140874,
+      "correct": true
     },
     {
       "transaction_id": "TXN0346",
@@ -3074,7 +3081,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.014354,
+      "anomaly_score": 0.148371,
       "correct": true
     },
     {
@@ -3084,9 +3091,9 @@
       "date": "2026-03-15 13:38",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.134923,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.04939,
+      "correct": true
     },
     {
       "transaction_id": "TXN0051",
@@ -3096,7 +3103,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.047731,
+      "anomaly_score": 0.169372,
       "correct": true
     },
     {
@@ -3106,9 +3113,9 @@
       "date": "2026-05-10 18:29",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.008392,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.138293,
+      "correct": true
     },
     {
       "transaction_id": "TXN0255",
@@ -3117,9 +3124,9 @@
       "date": "2026-01-30 10:02",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.008865,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.094399,
+      "correct": true
     },
     {
       "transaction_id": "TXN0491",
@@ -3129,7 +3136,7 @@
       "anomaly_type": "unusual_category_first_seen",
       "true_is_anomaly": true,
       "predicted_is_anomaly": true,
-      "anomaly_score": -0.174986,
+      "anomaly_score": -0.005839,
       "correct": true
     },
     {
@@ -3139,9 +3146,9 @@
       "date": "2026-03-01 14:50",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.011405,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.147773,
+      "correct": true
     },
     {
       "transaction_id": "TXN0134",
@@ -3150,9 +3157,9 @@
       "date": "2026-04-29 11:03",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.037581,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.086722,
+      "correct": true
     },
     {
       "transaction_id": "TXN0482",
@@ -3161,9 +3168,9 @@
       "date": "2026-02-05 03:00",
       "anomaly_type": "odd_hour",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": false,
-      "anomaly_score": 0.058856,
-      "correct": false
+      "predicted_is_anomaly": true,
+      "anomaly_score": -1.0,
+      "correct": true
     },
     {
       "transaction_id": "TXN0184",
@@ -3172,9 +3179,9 @@
       "date": "2026-06-30 15:44",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.002073,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.125903,
+      "correct": true
     },
     {
       "transaction_id": "TXN0274",
@@ -3184,7 +3191,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.00395,
+      "anomaly_score": 0.153282,
       "correct": true
     },
     {
@@ -3194,9 +3201,9 @@
       "date": "2026-03-17 06:53",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.027231,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.118829,
+      "correct": true
     },
     {
       "transaction_id": "TXN0418",
@@ -3206,7 +3213,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.054947,
+      "anomaly_score": 0.172802,
       "correct": true
     },
     {
@@ -3217,7 +3224,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.006666,
+      "anomaly_score": 0.143364,
       "correct": true
     },
     {
@@ -3227,9 +3234,9 @@
       "date": "2026-07-31 03:00",
       "anomaly_type": "odd_hour",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": false,
-      "anomaly_score": 0.044257,
-      "correct": false
+      "predicted_is_anomaly": true,
+      "anomaly_score": -1.0,
+      "correct": true
     },
     {
       "transaction_id": "TXN0283",
@@ -3238,9 +3245,9 @@
       "date": "2026-07-06 09:20",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.002721,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.152521,
+      "correct": true
     },
     {
       "transaction_id": "TXN0123",
@@ -3250,7 +3257,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.051196,
+      "anomaly_score": 0.169378,
       "correct": true
     },
     {
@@ -3261,7 +3268,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.02151,
+      "anomaly_score": 0.131851,
       "correct": true
     },
     {
@@ -3272,7 +3279,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.013943,
+      "anomaly_score": 0.149708,
       "correct": true
     },
     {
@@ -3282,9 +3289,9 @@
       "date": "2026-01-18 21:28",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.009501,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.1521,
+      "correct": true
     },
     {
       "transaction_id": "TXN0468",
@@ -3293,9 +3300,9 @@
       "date": "2026-03-18 15:45",
       "anomaly_type": "duplicate_transaction",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": false,
-      "anomaly_score": 0.057043,
-      "correct": false
+      "predicted_is_anomaly": true,
+      "anomaly_score": -1.0,
+      "correct": true
     },
     {
       "transaction_id": "TXN0437",
@@ -3304,9 +3311,9 @@
       "date": "2026-02-25 17:03",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.00277,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.119519,
+      "correct": true
     },
     {
       "transaction_id": "TXN0404",
@@ -3315,9 +3322,9 @@
       "date": "2026-04-26 11:57",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.018991,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.14695,
+      "correct": true
     },
     {
       "transaction_id": "TXN0109",
@@ -3326,9 +3333,9 @@
       "date": "2026-07-29 13:43",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.001372,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.122713,
+      "correct": true
     },
     {
       "transaction_id": "TXN0008",
@@ -3338,7 +3345,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.051151,
+      "anomaly_score": 0.163831,
       "correct": true
     },
     {
@@ -3349,7 +3356,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.067306,
+      "anomaly_score": 0.190098,
       "correct": true
     },
     {
@@ -3360,7 +3367,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.06722,
+      "anomaly_score": 0.186177,
       "correct": true
     },
     {
@@ -3371,7 +3378,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.026746,
+      "anomaly_score": 0.156335,
       "correct": true
     },
     {
@@ -3382,7 +3389,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.028549,
+      "anomaly_score": 0.151843,
       "correct": true
     },
     {
@@ -3392,9 +3399,9 @@
       "date": "2026-01-10 12:18",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.008151,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.104933,
+      "correct": true
     },
     {
       "transaction_id": "TXN0486",
@@ -3404,7 +3411,7 @@
       "anomaly_type": "odd_hour",
       "true_is_anomaly": true,
       "predicted_is_anomaly": true,
-      "anomaly_score": -0.024557,
+      "anomaly_score": -1.0,
       "correct": true
     },
     {
@@ -3415,7 +3422,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.059093,
+      "anomaly_score": 0.181017,
       "correct": true
     },
     {
@@ -3425,9 +3432,9 @@
       "date": "2026-01-17 15:25",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.093188,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.036832,
+      "correct": true
     },
     {
       "transaction_id": "TXN0472",
@@ -3436,9 +3443,9 @@
       "date": "2026-07-23 14:18",
       "anomaly_type": "duplicate_transaction",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": false,
-      "anomaly_score": 0.047226,
-      "correct": false
+      "predicted_is_anomaly": true,
+      "anomaly_score": -1.0,
+      "correct": true
     },
     {
       "transaction_id": "TXN0021",
@@ -3447,9 +3454,9 @@
       "date": "2026-06-14 20:09",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.016798,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.13916,
+      "correct": true
     },
     {
       "transaction_id": "TXN0309",
@@ -3458,9 +3465,9 @@
       "date": "2026-06-21 17:04",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.03091,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.126206,
+      "correct": true
     },
     {
       "transaction_id": "TXN0310",
@@ -3469,9 +3476,9 @@
       "date": "2026-01-11 19:01",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.019326,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.144454,
+      "correct": true
     },
     {
       "transaction_id": "TXN0447",
@@ -3481,7 +3488,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.055388,
+      "anomaly_score": 0.168542,
       "correct": true
     },
     {
@@ -3492,7 +3499,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.015193,
+      "anomaly_score": 0.149722,
       "correct": true
     },
     {
@@ -3503,7 +3510,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.042013,
+      "anomaly_score": 0.14491,
       "correct": true
     },
     {
@@ -3513,9 +3520,9 @@
       "date": "2026-01-12 19:00",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.008861,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.134758,
+      "correct": true
     },
     {
       "transaction_id": "TXN0275",
@@ -3525,7 +3532,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.008789,
+      "anomaly_score": 0.116806,
       "correct": true
     },
     {
@@ -3536,7 +3543,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.039706,
+      "anomaly_score": 0.152948,
       "correct": true
     },
     {
@@ -3547,7 +3554,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.018584,
+      "anomaly_score": 0.145418,
       "correct": true
     },
     {
@@ -3557,9 +3564,9 @@
       "date": "2026-05-25 11:10",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.007962,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.13629,
+      "correct": true
     },
     {
       "transaction_id": "TXN0041",
@@ -3568,9 +3575,9 @@
       "date": "2026-06-21 17:28",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.017022,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.137694,
+      "correct": true
     },
     {
       "transaction_id": "TXN0170",
@@ -3579,9 +3586,9 @@
       "date": "2026-01-04 23:08",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.01229,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.148383,
+      "correct": true
     },
     {
       "transaction_id": "TXN0105",
@@ -3591,7 +3598,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.060877,
+      "anomaly_score": 0.172579,
       "correct": true
     },
     {
@@ -3601,9 +3608,9 @@
       "date": "2026-07-02 08:22",
       "anomaly_type": "duplicate_transaction",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": false,
-      "anomaly_score": 0.033386,
-      "correct": false
+      "predicted_is_anomaly": true,
+      "anomaly_score": -1.0,
+      "correct": true
     },
     {
       "transaction_id": "TXN0125",
@@ -3612,9 +3619,9 @@
       "date": "2026-05-19 20:26",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.022772,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.09911,
+      "correct": true
     },
     {
       "transaction_id": "TXN0199",
@@ -3624,7 +3631,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.03771,
+      "anomaly_score": 0.148253,
       "correct": true
     },
     {
@@ -3635,7 +3642,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.044936,
+      "anomaly_score": 0.158782,
       "correct": true
     },
     {
@@ -3646,7 +3653,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.005786,
+      "anomaly_score": 0.13826,
       "correct": true
     },
     {
@@ -3656,9 +3663,9 @@
       "date": "2026-04-06 13:24",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.021341,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.120453,
+      "correct": true
     },
     {
       "transaction_id": "TXN0410",
@@ -3668,7 +3675,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.049511,
+      "anomaly_score": 0.162846,
       "correct": true
     },
     {
@@ -3679,7 +3686,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.033163,
+      "anomaly_score": 0.144443,
       "correct": true
     },
     {
@@ -3690,7 +3697,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.058661,
+      "anomaly_score": 0.171741,
       "correct": true
     },
     {
@@ -3700,9 +3707,9 @@
       "date": "2026-07-16 03:00",
       "anomaly_type": "odd_hour",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": false,
-      "anomaly_score": 0.025431,
-      "correct": false
+      "predicted_is_anomaly": true,
+      "anomaly_score": -1.0,
+      "correct": true
     },
     {
       "transaction_id": "TXN0424",
@@ -3712,7 +3719,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.002707,
+      "anomaly_score": 0.141964,
       "correct": true
     },
     {
@@ -3722,9 +3729,9 @@
       "date": "2026-04-14 22:59",
       "anomaly_type": "large_round_transfer",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.142218,
-      "correct": true
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.001453,
+      "correct": false
     },
     {
       "transaction_id": "TXN0342",
@@ -3734,7 +3741,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.02374,
+      "anomaly_score": 0.145938,
       "correct": true
     },
     {
@@ -3744,9 +3751,9 @@
       "date": "2026-02-01 20:08",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.00768,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.151177,
+      "correct": true
     },
     {
       "transaction_id": "TXN0401",
@@ -3756,7 +3763,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.017463,
+      "anomaly_score": 0.124496,
       "correct": true
     },
     {
@@ -3767,7 +3774,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.045832,
+      "anomaly_score": 0.16086,
       "correct": true
     },
     {
@@ -3778,7 +3785,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.003623,
+      "anomaly_score": 0.136367,
       "correct": true
     },
     {
@@ -3788,9 +3795,9 @@
       "date": "2026-03-08 11:37",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.05609,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.110772,
+      "correct": true
     },
     {
       "transaction_id": "TXN0445",
@@ -3800,7 +3807,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.051759,
+      "anomaly_score": 0.169148,
       "correct": true
     },
     {
@@ -3810,9 +3817,9 @@
       "date": "2026-03-15 21:44",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.132068,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.02589,
+      "correct": true
     },
     {
       "transaction_id": "TXN0077",
@@ -3822,7 +3829,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.051759,
+      "anomaly_score": 0.168043,
       "correct": true
     },
     {
@@ -3832,9 +3839,9 @@
       "date": "2026-05-13 12:35",
       "anomaly_type": "amount_spike",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.054645,
-      "correct": true
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.067552,
+      "correct": false
     },
     {
       "transaction_id": "TXN0214",
@@ -3844,7 +3851,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.040184,
+      "anomaly_score": 0.157345,
       "correct": true
     },
     {
@@ -3855,7 +3862,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.050963,
+      "anomaly_score": 0.168268,
       "correct": true
     },
     {
@@ -3865,9 +3872,9 @@
       "date": "2026-01-07 10:00",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.053052,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.07656,
+      "correct": true
     },
     {
       "transaction_id": "TXN0449",
@@ -3876,9 +3883,9 @@
       "date": "2026-04-11 15:37",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.018093,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.114465,
+      "correct": true
     },
     {
       "transaction_id": "TXN0344",
@@ -3887,9 +3894,9 @@
       "date": "2026-03-29 21:12",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.007302,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.151491,
+      "correct": true
     },
     {
       "transaction_id": "TXN0330",
@@ -3899,7 +3906,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.032037,
+      "anomaly_score": 0.156725,
       "correct": true
     },
     {
@@ -3909,9 +3916,9 @@
       "date": "2026-05-06 16:30",
       "anomaly_type": "duplicate_transaction",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": false,
-      "anomaly_score": 0.063252,
-      "correct": false
+      "predicted_is_anomaly": true,
+      "anomaly_score": -1.0,
+      "correct": true
     },
     {
       "transaction_id": "TXN0391",
@@ -3920,9 +3927,9 @@
       "date": "2026-04-24 17:28",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.072893,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.037467,
+      "correct": true
     },
     {
       "transaction_id": "TXN0254",
@@ -3932,7 +3939,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.009991,
+      "anomaly_score": 0.142635,
       "correct": true
     },
     {
@@ -3943,7 +3950,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.024458,
+      "anomaly_score": 0.139906,
       "correct": true
     },
     {
@@ -3954,7 +3961,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.036615,
+      "anomaly_score": 0.161003,
       "correct": true
     },
     {
@@ -3964,9 +3971,9 @@
       "date": "2026-02-16 11:46",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.084245,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.056758,
+      "correct": true
     },
     {
       "transaction_id": "TXN0321",
@@ -3976,7 +3983,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.059863,
+      "anomaly_score": 0.183239,
       "correct": true
     },
     {
@@ -3987,7 +3994,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.040758,
+      "anomaly_score": 0.146429,
       "correct": true
     },
     {
@@ -3998,7 +4005,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.048333,
+      "anomaly_score": 0.171868,
       "correct": true
     },
     {
@@ -4008,9 +4015,9 @@
       "date": "2026-07-09 17:51",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.079255,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.03581,
+      "correct": true
     },
     {
       "transaction_id": "TXN0032",
@@ -4020,7 +4027,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.004729,
+      "anomaly_score": 0.133938,
       "correct": true
     },
     {
@@ -4030,9 +4037,9 @@
       "date": "2026-05-02 09:36",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.033303,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.090146,
+      "correct": true
     },
     {
       "transaction_id": "TXN0154",
@@ -4042,7 +4049,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.047259,
+      "anomaly_score": 0.156836,
       "correct": true
     },
     {
@@ -4052,9 +4059,9 @@
       "date": "2026-02-04 08:17",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.044242,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.080114,
+      "correct": true
     },
     {
       "transaction_id": "TXN0114",
@@ -4064,7 +4071,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.053309,
+      "anomaly_score": 0.176079,
       "correct": true
     },
     {
@@ -4074,9 +4081,9 @@
       "date": "2026-06-24 08:33",
       "anomaly_type": "large_round_transfer",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.120098,
-      "correct": true
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.006228,
+      "correct": false
     },
     {
       "transaction_id": "TXN0406",
@@ -4086,7 +4093,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.061506,
+      "anomaly_score": 0.170345,
       "correct": true
     },
     {
@@ -4096,9 +4103,9 @@
       "date": "2026-02-04 14:07",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.00102,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.12355,
+      "correct": true
     },
     {
       "transaction_id": "TXN0155",
@@ -4108,7 +4115,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.059369,
+      "anomaly_score": 0.181888,
       "correct": true
     },
     {
@@ -4118,9 +4125,9 @@
       "date": "2026-03-02 14:21",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.004417,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.151629,
+      "correct": true
     },
     {
       "transaction_id": "TXN0165",
@@ -4130,7 +4137,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.057083,
+      "anomaly_score": 0.172336,
       "correct": true
     },
     {
@@ -4141,7 +4148,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.010966,
+      "anomaly_score": 0.13813,
       "correct": true
     },
     {
@@ -4151,9 +4158,9 @@
       "date": "2026-04-18 10:26",
       "anomaly_type": "amount_spike",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.044093,
-      "correct": true
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.072868,
+      "correct": false
     },
     {
       "transaction_id": "TXN0296",
@@ -4162,9 +4169,9 @@
       "date": "2026-02-16 10:36",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.01365,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.141555,
+      "correct": true
     },
     {
       "transaction_id": "TXN0164",
@@ -4173,9 +4180,9 @@
       "date": "2026-04-19 23:21",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.023118,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.13497,
+      "correct": true
     },
     {
       "transaction_id": "TXN0295",
@@ -4185,7 +4192,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.00152,
+      "anomaly_score": 0.123524,
       "correct": true
     },
     {
@@ -4196,7 +4203,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.051214,
+      "anomaly_score": 0.165926,
       "correct": true
     },
     {
@@ -4207,7 +4214,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.010578,
+      "anomaly_score": 0.138847,
       "correct": true
     },
     {
@@ -4217,9 +4224,9 @@
       "date": "2026-06-15 16:00",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.02173,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.121618,
+      "correct": true
     },
     {
       "transaction_id": "TXN0258",
@@ -4229,7 +4236,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.048402,
+      "anomaly_score": 0.16498,
       "correct": true
     },
     {
@@ -4239,9 +4246,9 @@
       "date": "2026-06-30 15:39",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.003322,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.134668,
+      "correct": true
     },
     {
       "transaction_id": "TXN0494",
@@ -4251,7 +4258,7 @@
       "anomaly_type": "unusual_category_first_seen",
       "true_is_anomaly": true,
       "predicted_is_anomaly": true,
-      "anomaly_score": -0.136743,
+      "anomaly_score": -0.010973,
       "correct": true
     },
     {
@@ -4261,9 +4268,9 @@
       "date": "2026-05-20 18:57",
       "anomaly_type": "duplicate_transaction",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": false,
-      "anomaly_score": 0.027515,
-      "correct": false
+      "predicted_is_anomaly": true,
+      "anomaly_score": -1.0,
+      "correct": true
     },
     {
       "transaction_id": "TXN0441",
@@ -4273,7 +4280,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.02517,
+      "anomaly_score": 0.153389,
       "correct": true
     },
     {
@@ -4284,7 +4291,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.010516,
+      "anomaly_score": 0.136052,
       "correct": true
     },
     {
@@ -4294,9 +4301,9 @@
       "date": "2026-05-17 18:20",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.006977,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.139802,
+      "correct": true
     },
     {
       "transaction_id": "TXN0206",
@@ -4306,7 +4313,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.051605,
+      "anomaly_score": 0.168323,
       "correct": true
     },
     {
@@ -4316,9 +4323,9 @@
       "date": "2026-04-20 18:23",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.011237,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.146612,
+      "correct": true
     },
     {
       "transaction_id": "TXN0380",
@@ -4327,9 +4334,9 @@
       "date": "2026-07-18 20:02",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.114427,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.012733,
+      "correct": true
     },
     {
       "transaction_id": "TXN0126",
@@ -4339,7 +4346,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.016168,
+      "anomaly_score": 0.139612,
       "correct": true
     },
     {
@@ -4350,7 +4357,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.039902,
+      "anomaly_score": 0.15056,
       "correct": true
     },
     {
@@ -4361,7 +4368,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.049511,
+      "anomaly_score": 0.162981,
       "correct": true
     },
     {
@@ -4372,7 +4379,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.003277,
+      "anomaly_score": 0.114679,
       "correct": true
     },
     {
@@ -4382,9 +4389,9 @@
       "date": "2026-01-31 06:31",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.007983,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.108271,
+      "correct": true
     },
     {
       "transaction_id": "TXN0496",
@@ -4393,9 +4400,9 @@
       "date": "2026-04-14 19:32",
       "anomaly_type": "unusual_category_first_seen",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.14126,
-      "correct": true
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.005574,
+      "correct": false
     },
     {
       "transaction_id": "TXN0018",
@@ -4405,7 +4412,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.014362,
+      "anomaly_score": 0.134318,
       "correct": true
     },
     {
@@ -4415,9 +4422,9 @@
       "date": "2026-04-12 07:00",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.010027,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.148149,
+      "correct": true
     },
     {
       "transaction_id": "TXN0052",
@@ -4427,7 +4434,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.030443,
+      "anomaly_score": 0.153387,
       "correct": true
     },
     {
@@ -4437,9 +4444,9 @@
       "date": "2026-04-03 15:15",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.019342,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.078174,
+      "correct": true
     },
     {
       "transaction_id": "TXN0503",
@@ -4449,7 +4456,7 @@
       "anomaly_type": "large_round_transfer",
       "true_is_anomaly": true,
       "predicted_is_anomaly": true,
-      "anomaly_score": -0.147411,
+      "anomaly_score": -0.014401,
       "correct": true
     },
     {
@@ -4459,9 +4466,9 @@
       "date": "2026-02-09 12:04",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.014198,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.139442,
+      "correct": true
     },
     {
       "transaction_id": "TXN0009",
@@ -4470,9 +4477,9 @@
       "date": "2026-07-06 20:34",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.02103,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.13859,
+      "correct": true
     },
     {
       "transaction_id": "TXN0455",
@@ -4482,7 +4489,7 @@
       "anomaly_type": "amount_spike",
       "true_is_anomaly": true,
       "predicted_is_anomaly": true,
-      "anomaly_score": -0.199494,
+      "anomaly_score": -0.044504,
       "correct": true
     },
     {
@@ -4493,7 +4500,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.067254,
+      "anomaly_score": 0.188876,
       "correct": true
     },
     {
@@ -4503,9 +4510,9 @@
       "date": "2026-05-04 17:21",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.053519,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.086321,
+      "correct": true
     },
     {
       "transaction_id": "TXN0442",
@@ -4514,9 +4521,9 @@
       "date": "2026-01-19 18:32",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.006358,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.142452,
+      "correct": true
     },
     {
       "transaction_id": "TXN0498",
@@ -4526,7 +4533,7 @@
       "anomaly_type": "unusual_category_first_seen",
       "true_is_anomaly": true,
       "predicted_is_anomaly": true,
-      "anomaly_score": -0.127859,
+      "anomaly_score": -0.01237,
       "correct": true
     },
     {
@@ -4536,9 +4543,9 @@
       "date": "2026-06-28 23:42",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.008271,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.140176,
+      "correct": true
     },
     {
       "transaction_id": "TXN0392",
@@ -4548,7 +4555,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.063988,
+      "anomaly_score": 0.188429,
       "correct": true
     },
     {
@@ -4558,9 +4565,9 @@
       "date": "2026-06-21 08:33",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.116462,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.03407,
+      "correct": true
     },
     {
       "transaction_id": "TXN0097",
@@ -4569,9 +4576,9 @@
       "date": "2026-05-11 09:24",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.012157,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.142247,
+      "correct": true
     },
     {
       "transaction_id": "TXN0142",
@@ -4581,7 +4588,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.025928,
+      "anomaly_score": 0.151421,
       "correct": true
     },
     {
@@ -4591,9 +4598,9 @@
       "date": "2026-04-20 23:00",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.035533,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.124099,
+      "correct": true
     },
     {
       "transaction_id": "TXN0178",
@@ -4602,9 +4609,9 @@
       "date": "2026-04-17 13:49",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.002544,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.106344,
+      "correct": true
     },
     {
       "transaction_id": "TXN0236",
@@ -4614,7 +4621,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.04513,
+      "anomaly_score": 0.164656,
       "correct": true
     },
     {
@@ -4625,7 +4632,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.028835,
+      "anomaly_score": 0.164561,
       "correct": true
     },
     {
@@ -4636,7 +4643,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.007671,
+      "anomaly_score": 0.142296,
       "correct": true
     },
     {
@@ -4647,7 +4654,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.045276,
+      "anomaly_score": 0.163478,
       "correct": true
     },
     {
@@ -4658,7 +4665,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.051479,
+      "anomaly_score": 0.180539,
       "correct": true
     },
     {
@@ -4669,7 +4676,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.026401,
+      "anomaly_score": 0.148482,
       "correct": true
     },
     {
@@ -4680,7 +4687,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.011894,
+      "anomaly_score": 0.14812,
       "correct": true
     },
     {
@@ -4690,9 +4697,9 @@
       "date": "2026-05-08 23:01",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.021983,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.077956,
+      "correct": true
     },
     {
       "transaction_id": "TXN0484",
@@ -4701,9 +4708,9 @@
       "date": "2026-04-16 03:00",
       "anomaly_type": "odd_hour",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": false,
-      "anomaly_score": 0.041989,
-      "correct": false
+      "predicted_is_anomaly": true,
+      "anomaly_score": -1.0,
+      "correct": true
     },
     {
       "transaction_id": "TXN0238",
@@ -4713,7 +4720,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.063852,
+      "anomaly_score": 0.185651,
       "correct": true
     },
     {
@@ -4724,7 +4731,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.049619,
+      "anomaly_score": 0.167096,
       "correct": true
     },
     {
@@ -4734,9 +4741,9 @@
       "date": "2026-07-11 21:13",
       "anomaly_type": "duplicate_transaction",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": false,
-      "anomaly_score": 0.011774,
-      "correct": false
+      "predicted_is_anomaly": true,
+      "anomaly_score": -1.0,
+      "correct": true
     },
     {
       "transaction_id": "TXN0388",
@@ -4746,7 +4753,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.044936,
+      "anomaly_score": 0.158782,
       "correct": true
     },
     {
@@ -4756,9 +4763,9 @@
       "date": "2026-07-17 10:18",
       "anomaly_type": "duplicate_transaction",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": false,
-      "anomaly_score": 0.052291,
-      "correct": false
+      "predicted_is_anomaly": true,
+      "anomaly_score": -1.0,
+      "correct": true
     },
     {
       "transaction_id": "TXN0428",
@@ -4767,9 +4774,9 @@
       "date": "2026-02-22 16:38",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.066969,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.098084,
+      "correct": true
     },
     {
       "transaction_id": "TXN0115",
@@ -4778,9 +4785,9 @@
       "date": "2026-07-25 22:29",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.039902,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.077481,
+      "correct": true
     },
     {
       "transaction_id": "TXN0373",
@@ -4790,7 +4797,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.032376,
+      "anomaly_score": 0.139515,
       "correct": true
     },
     {
@@ -4801,7 +4808,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.037199,
+      "anomaly_score": 0.154417,
       "correct": true
     },
     {
@@ -4811,9 +4818,9 @@
       "date": "2026-02-02 19:33",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.107843,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.027224,
+      "correct": true
     },
     {
       "transaction_id": "TXN0202",
@@ -4823,7 +4830,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.045616,
+      "anomaly_score": 0.1746,
       "correct": true
     },
     {
@@ -4834,7 +4841,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.058942,
+      "anomaly_score": 0.181177,
       "correct": true
     },
     {
@@ -4844,9 +4851,9 @@
       "date": "2026-04-13 16:17",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.002653,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.142393,
+      "correct": true
     },
     {
       "transaction_id": "TXN0061",
@@ -4856,7 +4863,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.02462,
+      "anomaly_score": 0.142678,
       "correct": true
     },
     {
@@ -4867,7 +4874,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.032638,
+      "anomaly_score": 0.141268,
       "correct": true
     },
     {
@@ -4878,7 +4885,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.007415,
+      "anomaly_score": 0.132818,
       "correct": true
     },
     {
@@ -4888,9 +4895,9 @@
       "date": "2026-01-26 08:34",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.151548,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.001226,
+      "correct": true
     },
     {
       "transaction_id": "TXN0277",
@@ -4900,7 +4907,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.063435,
+      "anomaly_score": 0.18814,
       "correct": true
     },
     {
@@ -4911,7 +4918,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.041055,
+      "anomaly_score": 0.14682,
       "correct": true
     },
     {
@@ -4921,9 +4928,9 @@
       "date": "2026-07-11 20:14",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.003146,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.127305,
+      "correct": true
     },
     {
       "transaction_id": "TXN0042",
@@ -4933,7 +4940,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.042956,
+      "anomaly_score": 0.154847,
       "correct": true
     },
     {
@@ -4943,9 +4950,9 @@
       "date": "2026-06-22 06:48",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.014752,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.140603,
+      "correct": true
     },
     {
       "transaction_id": "TXN0194",
@@ -4955,7 +4962,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.053489,
+      "anomaly_score": 0.171583,
       "correct": true
     },
     {
@@ -4965,9 +4972,9 @@
       "date": "2026-01-10 10:45",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.015692,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.109511,
+      "correct": true
     },
     {
       "transaction_id": "TXN0230",
@@ -4976,9 +4983,9 @@
       "date": "2026-04-06 19:09",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.030348,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.112375,
+      "correct": true
     },
     {
       "transaction_id": "TXN0196",
@@ -4988,7 +4995,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.048658,
+      "anomaly_score": 0.161984,
       "correct": true
     },
     {
@@ -4999,7 +5006,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.043748,
+      "anomaly_score": 0.155785,
       "correct": true
     },
     {
@@ -5010,7 +5017,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.036433,
+      "anomaly_score": 0.159813,
       "correct": true
     },
     {
@@ -5020,9 +5027,9 @@
       "date": "2026-04-26 09:51",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.006844,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.151491,
+      "correct": true
     },
     {
       "transaction_id": "TXN0374",
@@ -5032,7 +5039,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.044469,
+      "anomaly_score": 0.153883,
       "correct": true
     },
     {
@@ -5043,7 +5050,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.052037,
+      "anomaly_score": 0.182378,
       "correct": true
     },
     {
@@ -5053,9 +5060,9 @@
       "date": "2026-06-13 18:23",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.033085,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.091745,
+      "correct": true
     },
     {
       "transaction_id": "TXN0070",
@@ -5065,7 +5072,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.033567,
+      "anomaly_score": 0.163375,
       "correct": true
     },
     {
@@ -5076,7 +5083,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.028902,
+      "anomaly_score": 0.163401,
       "correct": true
     },
     {
@@ -5086,9 +5093,9 @@
       "date": "2026-03-13 17:41",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.001356,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.105239,
+      "correct": true
     },
     {
       "transaction_id": "TXN0210",
@@ -5098,7 +5105,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.004225,
+      "anomaly_score": 0.145055,
       "correct": true
     },
     {
@@ -5109,7 +5116,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.009395,
+      "anomaly_score": 0.137609,
       "correct": true
     },
     {
@@ -5120,7 +5127,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.025913,
+      "anomaly_score": 0.152451,
       "correct": true
     },
     {
@@ -5131,7 +5138,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.063736,
+      "anomaly_score": 0.185479,
       "correct": true
     },
     {
@@ -5142,7 +5149,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.00384,
+      "anomaly_score": 0.135123,
       "correct": true
     },
     {
@@ -5152,9 +5159,9 @@
       "date": "2026-07-18 21:55",
       "anomaly_type": "amount_spike",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.044412,
-      "correct": true
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.075181,
+      "correct": false
     },
     {
       "transaction_id": "TXN0031",
@@ -5164,7 +5171,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.028083,
+      "anomaly_score": 0.144734,
       "correct": true
     },
     {
@@ -5174,9 +5181,9 @@
       "date": "2026-03-12 23:45",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.091821,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.020853,
+      "correct": true
     },
     {
       "transaction_id": "TXN0033",
@@ -5186,7 +5193,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.031348,
+      "anomaly_score": 0.145779,
       "correct": true
     },
     {
@@ -5197,7 +5204,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.033427,
+      "anomaly_score": 0.159131,
       "correct": true
     },
     {
@@ -5208,7 +5215,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.045845,
+      "anomaly_score": 0.156872,
       "correct": true
     },
     {
@@ -5218,9 +5225,9 @@
       "date": "2026-06-28 13:36",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.006609,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.139164,
+      "correct": true
     },
     {
       "transaction_id": "TXN0024",
@@ -5230,7 +5237,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.051618,
+      "anomaly_score": 0.161514,
       "correct": true
     },
     {
@@ -5240,9 +5247,9 @@
       "date": "2026-05-02 23:10",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.080543,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.044624,
+      "correct": true
     },
     {
       "transaction_id": "TXN0297",
@@ -5251,9 +5258,9 @@
       "date": "2026-07-09 06:05",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.024519,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.091097,
+      "correct": true
     },
     {
       "transaction_id": "TXN0112",
@@ -5263,7 +5270,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.042561,
+      "anomaly_score": 0.15079,
       "correct": true
     },
     {
@@ -5274,7 +5281,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.025404,
+      "anomaly_score": 0.147096,
       "correct": true
     },
     {
@@ -5285,7 +5292,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.024977,
+      "anomaly_score": 0.157804,
       "correct": true
     },
     {
@@ -5296,7 +5303,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.029006,
+      "anomaly_score": 0.153496,
       "correct": true
     },
     {
@@ -5307,7 +5314,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.017574,
+      "anomaly_score": 0.124998,
       "correct": true
     },
     {
@@ -5318,7 +5325,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.046757,
+      "anomaly_score": 0.161372,
       "correct": true
     },
     {
@@ -5328,9 +5335,9 @@
       "date": "2026-01-12 13:49",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.005645,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.141805,
+      "correct": true
     },
     {
       "transaction_id": "TXN0371",
@@ -5339,9 +5346,9 @@
       "date": "2026-04-01 13:36",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.131729,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.008569,
+      "correct": true
     },
     {
       "transaction_id": "TXN0158",
@@ -5350,9 +5357,9 @@
       "date": "2026-03-12 23:00",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.064259,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.055708,
+      "correct": true
     },
     {
       "transaction_id": "TXN0414",
@@ -5361,9 +5368,9 @@
       "date": "2026-03-30 10:56",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.040541,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.113323,
+      "correct": true
     },
     {
       "transaction_id": "TXN0345",
@@ -5373,7 +5380,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.000337,
+      "anomaly_score": 0.153209,
       "correct": true
     },
     {
@@ -5384,7 +5391,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.059641,
+      "anomaly_score": 0.171314,
       "correct": true
     },
     {
@@ -5394,9 +5401,9 @@
       "date": "2026-05-31 23:35",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.056834,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.114545,
+      "correct": true
     },
     {
       "transaction_id": "TXN0030",
@@ -5405,9 +5412,9 @@
       "date": "2026-04-27 06:46",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.012244,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.142998,
+      "correct": true
     },
     {
       "transaction_id": "TXN0289",
@@ -5417,7 +5424,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.028537,
+      "anomaly_score": 0.149966,
       "correct": true
     },
     {
@@ -5428,7 +5435,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.008634,
+      "anomaly_score": 0.132898,
       "correct": true
     },
     {
@@ -5438,9 +5445,9 @@
       "date": "2026-07-21 22:17",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.050188,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.073001,
+      "correct": true
     },
     {
       "transaction_id": "TXN0263",
@@ -5450,7 +5457,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.042391,
+      "anomaly_score": 0.158935,
       "correct": true
     },
     {
@@ -5461,7 +5468,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.00403,
+      "anomaly_score": 0.15356,
       "correct": true
     },
     {
@@ -5472,7 +5479,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.062378,
+      "anomaly_score": 0.184626,
       "correct": true
     },
     {
@@ -5483,7 +5490,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.063268,
+      "anomaly_score": 0.17078,
       "correct": true
     },
     {
@@ -5494,7 +5501,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.007304,
+      "anomaly_score": 0.145066,
       "correct": true
     },
     {
@@ -5505,7 +5512,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.042843,
+      "anomaly_score": 0.160427,
       "correct": true
     },
     {
@@ -5516,7 +5523,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.007271,
+      "anomaly_score": 0.157851,
       "correct": true
     },
     {
@@ -5526,9 +5533,9 @@
       "date": "2026-04-28 23:21",
       "anomaly_type": "duplicate_transaction",
       "true_is_anomaly": true,
-      "predicted_is_anomaly": false,
-      "anomaly_score": 0.030562,
-      "correct": false
+      "predicted_is_anomaly": true,
+      "anomaly_score": -1.0,
+      "correct": true
     },
     {
       "transaction_id": "TXN0047",
@@ -5538,7 +5545,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.057432,
+      "anomaly_score": 0.17792,
       "correct": true
     },
     {
@@ -5549,7 +5556,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.012502,
+      "anomaly_score": 0.155496,
       "correct": true
     },
     {
@@ -5560,7 +5567,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.006408,
+      "anomaly_score": 0.124099,
       "correct": true
     },
     {
@@ -5571,7 +5578,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.029197,
+      "anomaly_score": 0.151603,
       "correct": true
     },
     {
@@ -5582,7 +5589,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.033132,
+      "anomaly_score": 0.143727,
       "correct": true
     },
     {
@@ -5593,7 +5600,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.02738,
+      "anomaly_score": 0.149128,
       "correct": true
     },
     {
@@ -5604,7 +5611,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.050963,
+      "anomaly_score": 0.168268,
       "correct": true
     },
     {
@@ -5614,9 +5621,9 @@
       "date": "2026-07-11 08:27",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.023294,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.102987,
+      "correct": true
     },
     {
       "transaction_id": "TXN0267",
@@ -5626,7 +5633,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.026977,
+      "anomaly_score": 0.163775,
       "correct": true
     },
     {
@@ -5637,7 +5644,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.006756,
+      "anomaly_score": 0.140795,
       "correct": true
     },
     {
@@ -5648,7 +5655,7 @@
       "anomaly_type": null,
       "true_is_anomaly": false,
       "predicted_is_anomaly": false,
-      "anomaly_score": 0.038296,
+      "anomaly_score": 0.147958,
       "correct": true
     },
     {
@@ -5658,9 +5665,9 @@
       "date": "2026-05-24 19:39",
       "anomaly_type": null,
       "true_is_anomaly": false,
-      "predicted_is_anomaly": true,
-      "anomaly_score": -0.009404,
-      "correct": false
+      "predicted_is_anomaly": false,
+      "anomaly_score": 0.138692,
+      "correct": true
     }
   ]
 }
